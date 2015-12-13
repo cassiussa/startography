@@ -31,6 +31,13 @@ should be represented with when in any given scale State.
   * 100 JLY = 1,000 units || 9,460,730,472,580.8km = 1 unit || 9,460,730,472.5808km = 0.001 units
 
 # Layers
+## General Information
+The layers to be assigned are equavalent to the scale States available.  For each different scale available,
+there is one layer.  Each layer has its own camera, with distance clamping between its minimum and maximum
+visibility ranges.
+Positional data should be attained using the globalized values multiplied or divided by the local scale value.
+This way we ensure that accuracy of object positions are maintained with less drift due to small floating
+point errors.
 ## Naming Convention
 ### Layer Names
 I'm working with the idea that there are two ways in which I should be identifying the layers.  The first is to
