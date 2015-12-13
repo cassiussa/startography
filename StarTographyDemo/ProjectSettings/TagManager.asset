@@ -18,8 +18,8 @@ TagManager:
   Builtin Layer 7: 
   User Layer 8: Menu Items
   User Layer 9: Environment
-  User Layer 10: 
-  User Layer 11: 
+  User Layer 10: Camera1
+  User Layer 11: Camera2
   User Layer 12: 
   User Layer 13: 
   User Layer 14: 
@@ -60,4 +60,8 @@ TagManager:
   - name: UI
     userID: 4
     uniqueID: 771169021
+    locked: 0
+  - name: New Layer 5
+    userID: 5
+    uniqueID: 689054707
     locked: 0
