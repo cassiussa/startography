@@ -8,26 +8,35 @@ Charts and workflows are made and used at http://www.draw.io
 ## Layer Scale Data
 
 1. 1M Km
-+ 1,000,000 km = 1,000 units
 
-+ 1,000 km = 1 unit
-+ 1 km = 0.001 units
++ 1,000,000 km = 1,000 units
+1,000 km = 1 unit
+1 km = 0.001 units
+
 2. 1 AU
-..* 1 AU = 1,000 units
-..* 149,597.8707 km = 1 unit
-..* 149.5978707 km = 0.001 units
+
++ 1 AU = 1,000 units
+149,597.8707 km = 1 unit
+149.5978707 km = 0.001 units
+
 3. 1 LH
-..* 1 LH = 1,000 units
-..* 1,079,252.8488 km = 1 unit
-..* 1,079.2528488 km = 0.001 units
+
++1 LH = 1,000 units
+1,079,252.8488 km = 1 unit
+1,079.2528488 km = 0.001 units
+
 4. 1 LD
-..* 1 LD = 1,000 units
-..* 25,902,068.371 km = 1 unit
-..* 5,902.068371 km = 0.001 units
+
++1 LD = 1,000 units
+25,902,068.371 km = 1 unit
+5,902.068371 km = 0.001 units
+
 5. 1 JLY
-..* 1 JLY = 1,000 units
-..* 9,460,730,472.6 km = 1 unit
-..* 9,460,730.4726 km = 0.001 units
+
++1 JLY = 1,000 units
+9,460,730,472.6 km = 1 unit
+9,460,730.4726 km = 0.001 units
+
 6. 10 JYL
 ..* 10 JLY = 1,000 units
 ..* 94,607,304,725.808km = 1 unit
