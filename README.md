@@ -46,4 +46,23 @@ should be represented with when in any given scale State.
   * 9,460,730,472,580.8km = 1 unit
   * 9,460,730,472.5808km = 0.001 units
 
+# Layers
+## Naming Convention
+### Layer Names
+I'm working with the idea that there are two ways in which I should be identifying the layers.  The first is to
+have layer names that quickly identify the local scale that it represents.  For example, in the case of the "1
+JLY" layer, we could name it "Julian Light Year".
+The second option would be to keep it simple for programming, by naming the layers numerically.  "1 JLY" in
+this case would simply be named "Layer 5" as it is the 5th layer scale.
+### Object Names
+Object names don't necessarily need to represent the layer in which they are currently bound.  It is likely that
+we will add items at a certain scale into a parent container object.  As distances increase or descrease and
+scale States change, the objects would then shift into the next layer up or down respectively.
+## Visibility and (De)Activation
+Only layers equal or greater (distant) to the layer that is currently the active State should be shown.  The 
+visibility frustrum on the camera should be clamped between maximum distance represented by the layer just below,
+and the minimum distance represented by the layer above.
+## Switching States
+When switching States, the objects within the current state/layer are likely to migrate into the layer either
+above or below, depending on the direction required.
 
