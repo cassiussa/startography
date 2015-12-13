@@ -38,6 +38,8 @@ visibility ranges.
 Positional data should be attained using the globalized values multiplied or divided by the local scale value.
 This way we ensure that accuracy of object positions are maintained with less drift due to small floating
 point errors.
+Small layers (as in they display more of space) go to the background and the layers/cameras that capture
+less space go to the foreground.
 ## Naming Convention
 ### Layer Names
 I'm working with the idea that there are two ways in which I should be identifying the layers.  The first is to
