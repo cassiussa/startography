@@ -3,9 +3,15 @@ Charts and workflows are made and used at http://www.draw.io
 
 # Dealing with Scale
 ## Common_Scale.xml
-	The Common_Scale.xml file represents the States of the environment scale.  Essentially it is the layers that exist within any given frame, with the State being represented by the lowest layer number.  Visually, only current scale layer and higher layers (meaning farther distance) are active at any one time.  So a state is responsible for activating any child layers.
+	The Common_Scale.xml file represents the States of the environment scale.  Essentially it is the layers
+that exist within any given frame, with the State being represented by the lowest layer number.  Visually, only
+current scale layer and higher layers (meaning farther distance) are active at any one time.  So a state is
+responsible for activating any child layers.
 
 ## Layer Scale Data
+These data represent the unit scale equivalency of real world values, such as kilometres, astronomical units,
+Julian light hours, days, and years, and equates them to the number of applicable virtual scale units they
+should be represented with when in any given scale State.
 
 1. 1M Km
   * 1,000,000 km = 1,000 units
