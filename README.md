@@ -57,3 +57,7 @@ and the minimum distance represented by the layer above.
 When switching States, the objects within the current state/layer are likely to migrate into the layer either
 above or below, depending on the direction required.
 
+# Other
+Perhaps allow the user to swtich between deterministic physics over to live one-body system/2 body
+solver.  Are perturbations accounted for with deterministic physics?
+
