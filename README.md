@@ -40,6 +40,15 @@ This way we ensure that accuracy of object positions are maintained with less dr
 point errors.
 Small layers (as in they display more of space) go to the background and the layers/cameras that capture
 less space go to the foreground.
+Determine the size of the viewing area with the following math:
+(10,000 / ScaleOfNextSmallest) * scale
+#### Example 1:
+10M KM scale is 0.1
+(10,000 / 1) * 0.1 = 1,000.  This is the near clipping point for the 10M KM camera
+#### Example 2:
+50M KM scale is 0.02
+(10,000 / 0.1) * 0.02 = 2,000.  This is the near clipping point for the 50M KM camera
+
 ## Naming Convention
 ### Layer Names
 I'm working with the idea that there are two ways in which I should be identifying the layers.  The first is to
