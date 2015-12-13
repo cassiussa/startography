@@ -8,11 +8,9 @@ Charts and workflows are made and used at http://www.draw.io
 ## Layer Scale Data
 
 1. 1M Km
-
 + 1,000,000 km = 1,000 units
 + 1,000 km = 1 unit
 + 1 km = 0.001 units
-
 2. 1 AU
 
 + 1 AU = 1,000 units
