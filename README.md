@@ -72,17 +72,34 @@ camera clipping planes are 2,000 near and 10,000 far.
   * Camera Clip Far: 10,000
 
 ##### 1 LD
-  * Scale: 
-  * Distance: 
-  * Camera Clip Near: 
+  * Scale: 0.00003860695546 x 0.00003860695546 x 0.00003860695546
+  * Distance: 25,902,068,371 km 
+  * Camera Clip Near: 416.66666663518846
   * Camera Clip Far: 10,000
 
 ##### 1 JLY
-  * Scale: 
-  * Distance: 
-  * Camera Clip Near: 
+  * Scale: 0.00000010570008 x 0.00000010570008 x 0.00000010570008
+  * Distance: 9,460,730,472,600 km
+  * Camera Clip Near: 27.37850699196263
   * Camera Clip Far: 10,000
 
+##### 10 JLY
+  * Scale: 0.000000010570008 x 0.000000010570008 x 0.000000010570008
+  * Distance: 94,607,304,726,000 km
+  * Camera Clip Near: 1,000
+  * Camera Clip Far: 10,000
+
+##### 100 JLY
+  * Scale: 0.0000000010570008 x 0.0000000010570008 x 0.0000000010570008
+  * Distance: 946,073,047,260,000 km
+  * Camera Clip Near: 1,000
+  * Camera Clip Far: 10,000
+
+##### 1,000 JLY
+  * Scale: 0.00000000010570008 x 0.00000000010570008 x 0.00000000010570008
+  * Distance: 9,460,730,472,600,000 km
+  * Camera Clip Near: 1,000
+  * Camera Clip Far: 10,000
 ## Naming Convention
 ### Layer Names
 I'm working with the idea that there are two ways in which I should be identifying the layers.  The first is to
