@@ -54,12 +54,13 @@ camera clipping planes are 2,000 near and 10,000 far.
 
 #### Real:
 ##### 1M KM
+###### 1M KM
   * Scale: 1x1x1
   * Distance: 1,000,000 km
   * Camera Clip Near: 0.01
   * Camera Clip Far: 10,000
 
-##### 1 AU
+###### 1 AU
   * Scale: 0.00668458712227 x 0.00668458712227 x 0.00668458712227
   * Distance: 149,597,870.7 km
   * Camera Clip Near: 66.8458712227
