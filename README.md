@@ -61,68 +61,82 @@ clipping planes are 1,000 near by 10,000 far
 (10,000 / 0.1) * 0.02 = 2,000.  This is the near clipping point for the 50M KM camera.  Therefore, the
 camera clipping planes are 2,000 near and 10,000 far.
 
-#### Real:
+#### 1M KM
 ##### 1M KM
-###### 1M KM
   * Scale: 1x1x1
   * Distance: 1,000,000 km
   * Camera Clip Near: 0.01
   * Camera Clip Far: 10,000
 
-###### 1 AU
+##### 1 AU
   * Scale: 0.00668458712227 x 0.00668458712227 x 0.00668458712227
   * Distance: 149,597,870.7 km
   * Camera Clip Near: 66.8458712227
   * Camera Clip Far: 10,000
 
-###### 1 LH
+  * Revised Scale: 1 x 1 x 1
+  * Revised Position: localScale * 0.00668458712227
+  * Revised Position: localPosition * 0.00668458712227
+
+##### 1 LH
   * Scale: 0.00092656693111 x 0.00092656693111 x 0.00092656693111
   * Distance: 1,079,252,848.8 km
   * Camera Clip Near: 1386.12439955057353
   * Camera Clip Far: 10,000
 
-###### 1 LD
+  * Revised Scale: 1 x 1 x 1
+  * Revised Position: localScale * 0.00092656693111
+  * Revised Position: localPosition * 0.00092656693111
+
+##### 1 LD
   * Scale: 0.00003860695546 x 0.00003860695546 x 0.00003860695546
   * Distance: 25,902,068,371 km 
   * Camera Clip Near: 416.66666663518846
   * Camera Clip Far: 10,000
 
-###### 1 JLY
+  * Revised Scale: 1 x 1 x 1
+  * Revised Position: localScale * 0.00003860695546
+  * Revised Position: localPosition * 0.00003860695546
+
+##### 1 JLY
   * Scale: 0.00000010570008 x 0.00000010570008 x 0.00000010570008
   * Distance: 9,460,730,472,600 km
   * Camera Clip Near: 27.37850699196263
   * Camera Clip Far: 10,000
 
-###### 10 JLY
+  * Revised Scale: 1 x 1 x 1
+  * Revised Position: localScale * 0.00000010570008
+  * Revised Position: localPosition * 0.00000010570008
+
+##### 10 JLY
   * Scale: 0.000000010570008 x 0.000000010570008 x 0.000000010570008
   * Distance: 94,607,304,726,000 km
   * Camera Clip Near: 1,000
   * Camera Clip Far: 10,000
 
-###### 100 JLY
+  * Revised Scale: 1 x 1 x 1
+  * Revised Position: localScale * 0.000000010570008
+  * Revised Position: localPosition * 0.000000010570008
+
+##### 100 JLY
   * Scale: 0.0000000010570008 x 0.0000000010570008 x 0.0000000010570008
   * Distance: 946,073,047,260,000 km
   * Camera Clip Near: 1,000
   * Camera Clip Far: 10,000
 
-###### 1,000 JLY
+  * Revised Scale: 1 x 1 x 1
+  * Revised Position: localScale * 0.0000000010570008
+  * Revised Position: localPosition * 0.0000000010570008
+
+##### 1,000 JLY
   * Scale: 0.00000000010570008 x 0.00000000010570008 x 0.00000000010570008
   * Distance: 9,460,730,472,600,000 km
   * Camera Clip Near: 1,000
   * Camera Clip Far: 10,000
 
-##### 1 AU
-###### 1M KM
-  * Scale: 149.59787069996521 x 149.59787069996521 x 149.59787069996521
-  * Distance: 1,000,000 km
-  * Camera Clip Near: 0.01
-  * Camera Clip Far: 10,000
-
-###### 1 AU
-  * Scale: 1 x 1 x 1
-  * Distance: 149,597,870.7 km
-  * Camera Clip Near: 66.8458712227
-  * Camera Clip Far: 10,000
+  * Revised Scale: 1 x 1 x 1
+  * Revised Position: localScale * 0.00000000010570008
+  * Revised Position: localPosition * 0.00000000010570008
 
 ## Naming Convention
 
