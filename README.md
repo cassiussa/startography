@@ -61,7 +61,7 @@ clipping planes are 1,000 near by 10,000 far
 (10,000 / 0.1) * 0.02 = 2,000.  This is the near clipping point for the 50M KM camera.  Therefore, the
 camera clipping planes are 2,000 near and 10,000 far.
 
-#### 1M KM
+#### Real
 ##### 1M KM
   * Scale: 1x1x1
   * Distance: 1,000,000 km
@@ -73,7 +73,6 @@ camera clipping planes are 2,000 near and 10,000 far.
   * Distance: 149,597,870.7 km
   * Camera Clip Near: 66.8458712227
   * Camera Clip Far: 10,000
-
   * Revised Scale: 1 x 1 x 1
   * Revised Position: localScale * 0.00668458712227
   * Revised Position: localPosition * 0.00668458712227
@@ -83,7 +82,6 @@ camera clipping planes are 2,000 near and 10,000 far.
   * Distance: 1,079,252,848.8 km
   * Camera Clip Near: 1386.12439955057353
   * Camera Clip Far: 10,000
-
   * Revised Scale: 1 x 1 x 1
   * Revised Position: localScale * 0.00092656693111
   * Revised Position: localPosition * 0.00092656693111
@@ -93,7 +91,6 @@ camera clipping planes are 2,000 near and 10,000 far.
   * Distance: 25,902,068,371 km 
   * Camera Clip Near: 416.66666663518846
   * Camera Clip Far: 10,000
-
   * Revised Scale: 1 x 1 x 1
   * Revised Position: localScale * 0.00003860695546
   * Revised Position: localPosition * 0.00003860695546
@@ -103,7 +100,6 @@ camera clipping planes are 2,000 near and 10,000 far.
   * Distance: 9,460,730,472,600 km
   * Camera Clip Near: 27.37850699196263
   * Camera Clip Far: 10,000
-
   * Revised Scale: 1 x 1 x 1
   * Revised Position: localScale * 0.00000010570008
   * Revised Position: localPosition * 0.00000010570008
@@ -113,7 +109,6 @@ camera clipping planes are 2,000 near and 10,000 far.
   * Distance: 94,607,304,726,000 km
   * Camera Clip Near: 1,000
   * Camera Clip Far: 10,000
-
   * Revised Scale: 1 x 1 x 1
   * Revised Position: localScale * 0.000000010570008
   * Revised Position: localPosition * 0.000000010570008
@@ -123,7 +118,6 @@ camera clipping planes are 2,000 near and 10,000 far.
   * Distance: 946,073,047,260,000 km
   * Camera Clip Near: 1,000
   * Camera Clip Far: 10,000
-
   * Revised Scale: 1 x 1 x 1
   * Revised Position: localScale * 0.0000000010570008
   * Revised Position: localPosition * 0.0000000010570008
@@ -133,7 +127,6 @@ camera clipping planes are 2,000 near and 10,000 far.
   * Distance: 9,460,730,472,600,000 km
   * Camera Clip Near: 1,000
   * Camera Clip Far: 10,000
-
   * Revised Scale: 1 x 1 x 1
   * Revised Position: localScale * 0.00000000010570008
   * Revised Position: localPosition * 0.00000000010570008
