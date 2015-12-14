@@ -43,11 +43,45 @@ less space go to the foreground.
 Determine the size of the viewing area with the following math:
 (10,000 / ScaleOfNextSmallest) * scale
 #### Example 1:
-10M KM scale is 0.1
-(10,000 / 1) * 0.1 = 1,000.  This is the near clipping point for the 10M KM camera
+We're comparing with the "1M KM" scale which has a scale of 1x1x1.  Camera clip is 0.01 near, 10,000 far.
+10M KM scale is 0.1 (1,000,000/10,000,000)
+(10,000 / 1) * 0.1 = 1,000.  This is the near clipping point for the 10M KM camera.  Therefore, the camera
+clipping planes are 1,000 near by 10,000 far
 #### Example 2:
-50M KM scale is 0.02
-(10,000 / 0.1) * 0.02 = 2,000.  This is the near clipping point for the 50M KM camera
+50M KM scale is 0.02 (1,000,000/50,000,000)
+(10,000 / 0.1) * 0.02 = 2,000.  This is the near clipping point for the 50M KM camera.  Therefore, the
+camera clipping planes are 2,000 near and 10,000 far.
+
+#### Real:
+##### 1M KM
+Scale: 1x1x1
+Distance: 1,000,000 km
+Camera Clip Near: 0.01
+Camera Clip Far: 10,000
+
+##### 1 AU
+Scale: 0.00668458712227 x 0.00668458712227 x 0.00668458712227
+Distance: 149,597,870.7 km
+Camera Clip Near: 66.8458712227
+Camera Clip Far: 10,000
+
+##### 1 LH
+Scale: 0.00092656693111 x 0.00092656693111 x 0.00092656693111
+Distance: 1,079,252,848.8 km
+Camera Clip Near: 1386.12439955057353
+Camera Clip Far: 10,000
+
+##### 1 LD
+Scale: 
+Distance: 
+Camera Clip Near: 
+Camera Clip Far: 10,000
+
+##### 1 JLY
+Scale: 
+Distance: 
+Camera Clip Near: 
+Camera Clip Far: 10,000
 
 ## Naming Convention
 ### Layer Names
