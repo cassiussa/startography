@@ -42,11 +42,14 @@ Small layers (as in they display more of space) go to the background and the lay
 less space go to the foreground.
 Determine the size of the viewing area with the following math:
 (10,000 / ScaleOfNextSmallest) * scale
+
 #### Example 1:
 We're comparing with the "1M KM" scale which has a scale of 1x1x1.  Camera clip is 0.01 near, 10,000 far.
+
 10M KM scale is 0.1 (1,000,000/10,000,000)
 (10,000 / 1) * 0.1 = 1,000.  This is the near clipping point for the 10M KM camera.  Therefore, the camera
 clipping planes are 1,000 near by 10,000 far
+
 #### Example 2:
 50M KM scale is 0.02 (1,000,000/50,000,000)
 (10,000 / 0.1) * 0.02 = 2,000.  This is the near clipping point for the 50M KM camera.  Therefore, the
