@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class StarData : MonoBehaviour {
+public class StarData : StarDataFunctions {
 
 	public float solarMass;
 	public float solarRadii;
@@ -11,13 +11,16 @@ public class StarData : MonoBehaviour {
 	public string declination;
 	public string rightAscention;
 
-	// Use this for initialization
-	void Start () {
-	
+	public double meters;
+
+	// Functions are called from StarDataFunctions.cs
+	void Start() {
+		double lightYears = parsecToLightYear (parsecDistance);	// Parsecs to Lightyears
+		Debug.Log (lightYears + " Light Years");
+		dmsToDeg (declination);						// degrees, (arc)minutes, (arc)seconds
+		hmsToDeg (rightAscention);					// Hours, Minutes, Seconds
+		double mkm = JLYtoMKM (lightYears);
+		Debug.Log (mkm + "M km");
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+
 }
