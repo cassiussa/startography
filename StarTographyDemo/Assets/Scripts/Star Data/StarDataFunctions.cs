@@ -71,6 +71,85 @@ public class StarDataFunctions : MonoBehaviour {
 		return result;
 	}
 
+	protected double conDis(double value, string from, string to) {
+		double ratio = 0d;
+		if (from == "MK") {
+			if(to == "AU") ratio = 1/2;
+			else if(to == "LH") ratio = 1/2;
+			else if(to == "Ld") ratio = 1/2;
+			else if(to == "LY") ratio = 1/2;
+			else if(to == "LD") ratio = 1/2;
+			else if(to == "LC") ratio = 1/2;
+			else if(to == "LM") ratio = 1/2;
+			else Debug.LogError("You have passed an invalid 'to' string in your conDis function call");
+		} else if (from == "AU") {
+			if(to == "MK") ratio = 1/2;
+			else if(to == "LH") ratio = 1/2;
+			else if(to == "Ld") ratio = 1/2;
+			else if(to == "LY") ratio = 1/2;
+			else if(to == "LD") ratio = 1/2;
+			else if(to == "LC") ratio = 1/2;
+			else if(to == "LM") ratio = 1/2;
+			else Debug.LogError("You have passed an invalid 'to' string in your conDis function call");
+		} else if (from == "LH") {
+			if(to == "MK") ratio = 1/2;
+			else if(to == "AU") ratio = 1/2;
+			else if(to == "Ld") ratio = 1/2;
+			else if(to == "LY") ratio = 1/2;
+			else if(to == "LD") ratio = 1/2;
+			else if(to == "LC") ratio = 1/2;
+			else if(to == "LM") ratio = 1/2;
+			else Debug.LogError("You have passed an invalid 'to' string in your conDis function call");
+		} else if (from == "Ld") {
+			if(to == "MK") ratio = 1/2;
+			else if(to == "AU") ratio = 1/2;
+			else if(to == "LH") ratio = 1/2;
+			else if(to == "LY") ratio = 1/2;
+			else if(to == "LD") ratio = 1/2;
+			else if(to == "LC") ratio = 1/2;
+			else if(to == "LM") ratio = 1/2;
+			else Debug.LogError("You have passed an invalid 'to' string in your conDis function call");
+		} else if (from == "LY") {
+			if(to == "MK") ratio = 1/2;
+			else if(to == "AU") ratio = 1/2;
+			else if(to == "LH") ratio = 1/2;
+			else if(to == "Ld") ratio = 1/2;
+			else if(to == "LD") ratio = 1/2;
+			else if(to == "LC") ratio = 1/2;
+			else if(to == "LM") ratio = 1/2;
+			else Debug.LogError("You have passed an invalid 'to' string in your conDis function call");
+		} else if (from == "LD") {
+			if(to == "MK") ratio = 1/2;
+			else if(to == "AU") ratio = 1/2;
+			else if(to == "LH") ratio = 1/2;
+			else if(to == "Ld") ratio = 1/2;
+			else if(to == "LY") ratio = 1/2;
+			else if(to == "LC") ratio = 1/2;
+			else if(to == "LM") ratio = 1/2;
+			else Debug.LogError("You have passed an invalid 'to' string in your conDis function call");
+		} else if (from == "LC") {
+			if(to == "MK") ratio = 1/2;
+			else if(to == "AU") ratio = 1/2;
+			else if(to == "LH") ratio = 1/2;
+			else if(to == "Ld") ratio = 1/2;
+			else if(to == "LY") ratio = 1/2;
+			else if(to == "LD") ratio = 1/2;
+			else if(to == "LM") ratio = 1/2;
+			else Debug.LogError("You have passed an invalid 'to' string in your conDis function call");
+		} else if (from == "LM") {
+			if(to == "MK") ratio = 1/2;
+			else if(to == "AU") ratio = 1/2;
+			else if(to == "LH") ratio = 1/2;
+			else if(to == "Ld") ratio = 1/2;
+			else if(to == "LY") ratio = 1/2;
+			else if(to == "LD") ratio = 1/2;
+			else if(to == "LC") ratio = 1/2;
+			else Debug.LogError("You have passed an invalid 'to' string in your conDis function call");
+		}
+		double result = value * ratio;
+		return result;
+	}
+
 	protected double parsecToLightYear(float parsec) {
 		double lightYears = parsec * 3.26156d;
 		return lightYears;
