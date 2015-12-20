@@ -15,17 +15,21 @@ public class StarData : StarDataFunctions {
 
 	// Functions are called from StarDataFunctions.cs
 	void Start() {
-		double conversion = conDis (parsecDistance, "PA", "LD");		// Parsecs to Lightyears
-		Debug.Log ("There are "+ parsecDistance + " Parsecs in "+conversion+" Light Decades");
+		//double conversion = conDis (parsecDistance, "PA", "LY");		// Parsecs to Lightyears
 		double dec = dmsToDeg (declination);							// degrees, (arc)minutes, (arc)seconds
-		Debug.Log (dec + " degrees declination");
-		double ra = hmsToDeg (rightAscention);						// Hours, Minutes, Seconds
-		Debug.Log(ra+" degrees Right Ascension");
-		double mkm = conDis (parsecDistance, "LY", "MK");							// Julian Light Years to Millions of Kilometers
-		Debug.Log (mkm + " x 1,000,000 km per Julian Light Year");
-
+		double ra = hmsToDeg (rightAscention);							// Hours, Minutes, Seconds
+		double mkm = conDist (parsecDistance, "AU", "MK");				// Convert Distance [distance, from (string), to (string)]
+		double conCamClip = ConCamClip (1d, "AU", "MK");
+		Debug.Log (conCamClip);
 		double angularDist = getAngDis (hmsToDeg (rightAscention), dmsToDeg (declination), 15d, 100d);			// ra1 (right ascension), dec1 (declination), ra2, dec2
-		Debug.Log (angularDist + " angular distance");
+
+		// We can create a Vector made up of doubles.
+		Vector3d coords = new Vector3d(conDist(1d, "MK", "AU"), conDist(0.5d, "MK", "AU"), conDist(2d, "MK", "AU"));
+		//Debug.Log("Coords = ("+coords.x+", "+coords.y+", "+coords.z+")");
+
+		// We can convert a Vector3d to Vector3
+		Vector3 newVector = V3dToV3 (new Vector3d (10424212411224d, 1.234124212344421d, 20d));
+		//Debug.Log (newVector);
 	}
 
 }

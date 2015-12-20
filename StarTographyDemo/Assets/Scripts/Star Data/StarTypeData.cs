@@ -41,7 +41,7 @@ public class StarTypeData : MonoBehaviour {
 					Debug.Log("Initialize");
 					break;
 				case StarClass.NotSet:
-					Debug.LogError ("The Star Type has not bee set", gameObject);
+					Debug.LogError ("The Star Type has not been set", gameObject);
 					break;
 				case StarClass.WhiteDwarf:
 					break;
