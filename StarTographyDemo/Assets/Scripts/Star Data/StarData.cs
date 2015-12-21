@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class StarData : StarDataFunctions {
+public class StarData : DataFunctions {
 
 	public float solarMass;
 	public float solarRadii;

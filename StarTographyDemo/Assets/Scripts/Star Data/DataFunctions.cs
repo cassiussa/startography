@@ -9,7 +9,7 @@ using System.Collections;
  * and other things
  */
 
-public class StarDataFunctions : MonoBehaviour {
+public class DataFunctions : MonoBehaviour {
 	double PI = 3.14159265358979323846d;
 
 	// Predefine these as it may cache or keep them in memory instead of assigning on each function call
@@ -24,9 +24,9 @@ public class StarDataFunctions : MonoBehaviour {
 	[HideInInspector]
 	public double LY = 9460730472600d;			// Light Years (Julian)
 	[HideInInspector]
-	public double PA = 30856740080213.256d;	// Parsecs
+	public double PA = 30856740080213.256d;		// Parsecs
 	[HideInInspector]
-	public double LD = 94607304725808d;		// Light Decades (Julian)
+	public double LD = 94607304725808d;			// Light Decades (Julian)
 	[HideInInspector]
 	public double LC = 946073047258080d;		// Light Centuries (Julian)
 	[HideInInspector]
