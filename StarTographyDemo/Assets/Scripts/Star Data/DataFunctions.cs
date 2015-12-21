@@ -9,28 +9,7 @@ using System.Collections;
  * and other things
  */
 
-public class DataFunctions : MonoBehaviour {
-	double PI = 3.14159265358979323846d;
-
-	// Predefine these as it may cache or keep them in memory instead of assigning on each function call
-	[HideInInspector]
-	public double MK = 1000000d;				// Million Kilometers
-	[HideInInspector]
-	public double AU = 149597870.7d;			// Astronomical Units
-	[HideInInspector]
-	public double LH = 1079252848.8d;			// Light Hours
-	[HideInInspector]
-	public double Ld = 25902068371d;			// Light Days
-	[HideInInspector]
-	public double LY = 9460730472600d;			// Light Years (Julian)
-	[HideInInspector]
-	public double PA = 30856740080213.256d;		// Parsecs
-	[HideInInspector]
-	public double LD = 94607304725808d;			// Light Decades (Julian)
-	[HideInInspector]
-	public double LC = 946073047258080d;		// Light Centuries (Julian)
-	[HideInInspector]
-	public double LM = 9460730472580800d;		// Light Millenia (Julian)
+public class DataFunctions : Constants {
 
 	protected double dmsToDeg(string declination) {
 		/*
@@ -209,6 +188,11 @@ public class DataFunctions : MonoBehaviour {
 		return result;
 	}
 
+	protected Vector3 ScaledToScale(Vector3d vector) {
+		Vector3 result = new Vector3( (float)vector.x, (float)vector.y, (float)vector.z );
+		return result;
+	}
+
 	public class Vector3d {
 		/*
 		 * Create a new Type.  Vector3 double.
@@ -224,18 +208,19 @@ public class DataFunctions : MonoBehaviour {
 		 * Coordinates : x,y,z - all doubles
 		 * Stores a Vector that contains doubles instead of floats for higher accuracy
 		*/
-
+		
 		public double x;
 		public double y;
 		public double z;
-
+		
 		public Vector3d(double xc, double yc, double zc) {
 			x = xc;
 			y = yc;
 			z = zc;
 		}
-
+		
 		// Constructor
 		public Vector3d() { x = 0; y = 0; z = 0; }
 	}
+
 }

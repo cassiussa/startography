@@ -3168,6 +3168,7 @@ GameObject:
   - 23: {fileID: 978705448}
   - 114: {fileID: 978705447}
   - 114: {fileID: 978705446}
+  - 114: {fileID: 978705451}
   m_Layer: 12
   m_Name: O5 Type Star
   m_TagString: Untagged
@@ -3186,6 +3187,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff6f2f772538e48298d31ba3a19a86c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MK: 1e+06
+  AU: 149597870.69999999
+  LH: 1079252848.8
+  Ld: 25902068371
+  LY: 9460730472600
+  PA: 30856740080213.258
+  LD: 94607304725808
+  LC: 946073047258080
+  LM: 9460730472580800
   solarMass: 2.70000005
   solarRadii: 19
   effectiveTemperature: 4742
@@ -3247,6 +3257,28 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 10
+--- !u!114 &978705451
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 978705445}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c60940f22cc6a40e8a66c8ab7460f205, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MK: 1e+06
+  AU: 149597870.69999999
+  LH: 1079252848.8
+  Ld: 25902068371
+  LY: 9460730472600
+  PA: 30856740080213.258
+  LD: 94607304725808
+  LC: 946073047258080
+  LM: 9460730472580800
+  state: 0
+  starDataScript: {fileID: 978705446}
 --- !u!1 &979512062
 GameObject:
   m_ObjectHideFlags: 0
@@ -5151,6 +5183,56 @@ Transform:
   - {fileID: 1343980337}
   m_Father: {fileID: 0}
   m_RootOrder: 9
+--- !u!1 &1574169023
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1574169025}
+  - 114: {fileID: 1574169024}
+  m_Layer: 0
+  m_Name: far
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!114 &1574169024
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1574169023}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c60940f22cc6a40e8a66c8ab7460f205, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MK: 1e+06
+  AU: 149597870.69999999
+  LH: 1079252848.8
+  Ld: 25902068371
+  LY: 9460730472600
+  PA: 30856740080213.258
+  LD: 94607304725808
+  LC: 946073047258080
+  LM: 9460730472580800
+  state: 0
+  starDataScript: {fileID: 0}
+--- !u!4 &1574169025
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1574169023}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 11
 --- !u!1 &1575473409
 GameObject:
   m_ObjectHideFlags: 0

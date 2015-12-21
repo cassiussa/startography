@@ -11,7 +11,7 @@ public class StarData : DataFunctions {
 	public string declination;
 	public string rightAscention;
 
-	public double meters;
+	//public double meters;
 
 	// Functions are called from StarDataFunctions.cs
 	void Start() {

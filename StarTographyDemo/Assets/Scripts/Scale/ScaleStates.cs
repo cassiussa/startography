@@ -15,8 +15,10 @@ public class ScaleStates : DataFunctions {
 	 * something else, like a planet or star, we'll change the scale and position
 	 * to the appropriate location and size.
 	 */
-	Vector3d position;
+	//Vector3d position;
 	Vector3d curDubPos = new Vector3d(0d,0d,0d);	// This should be updated in Awake, based on input data
+	Vector3d curScale = new Vector3d (1d, 1d, 1d);	// The scale of the object, based on input data
+	public StarData starDataScript;
 
 	Dictionary<string, State> scales = new Dictionary<string, State>();	// Allows us to convert string as variable names
 	string[] inputs;		// Array of strings of distance types
@@ -57,7 +59,9 @@ public class ScaleStates : DataFunctions {
 		 * wherever possible.
 		 */
 
-		position = new Vector3d (0d, 0d, 0d);
+		//position = new Vector3d (0d, 0d, 0d);
+		if (!starDataScript)
+			Debug.LogError ("There is no StarData script assigned.", gameObject);
 	}
 	
 	// NOTE: Async version of Start.
@@ -122,7 +126,10 @@ public class ScaleStates : DataFunctions {
 
 		curDubPos = new Vector3d(curDubPos.x+100000, curDubPos.y, curDubPos.z);
 		Vector3 newPosition = V3dToV3 (curDubPos);
+		curScale = new Vector3d (curScale.x, curScale.y, curScale.z);
+		Vector3 scale = ScaledToScale (curScale);
 		transform.position = newPosition;
+		//transform.scale = scale;
 	}
 
 	public void SetState(State newState) {
