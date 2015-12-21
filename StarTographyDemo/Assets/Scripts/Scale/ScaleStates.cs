@@ -9,13 +9,19 @@ public class ScaleStates : DataFunctions {
 	public State state = State.Initialize;
 	State _prevState;
 	State _cacheState;
-	
+
+	/* Check to see what type of item this script is attached to.  For example,
+	 * if it's a camera, we'll update the clipping upon state change.  If it's
+	 * something else, like a planet or star, we'll change the scale and position
+	 * to the appropriate location and size.
+	 */
+	Vector3d position;
+	Vector3d curDubPos = new Vector3d(0d,0d,0d);	// This should be updated in Awake, based on input data
 
 	Dictionary<string, State> scales = new Dictionary<string, State>();	// Allows us to convert string as variable names
 	string[] inputs;		// Array of strings of distance types
 	double[] measurements;	// Array of the measurements of the distance types
-
-	Dictionary<double, double> scaleBoundaries = new Dictionary<double, double>();	// Contains the upper and lower boundary for each scale
+	State thisScale;
 
 	#region Basic Getters/Setters
 	public State CurrentState {
@@ -46,10 +52,12 @@ public class ScaleStates : DataFunctions {
 		inputs = new string[] { "MK", "AU", "LH", "Ld", "LY", "PA", "LD", "LC", "LM" };
 		measurements = new double[] { MK, AU, LH, Ld, LY, PA, LD, LC, LM };
 
-		scaleBoundaries.Add (MK,0);
-		scaleBoundaries.Add (1, LH/AU);
-		Debug.Log ("bounds = "+scaleBoundaries [1]);
+		/* Assign the types values to the below variables.  Doing it this
+		 * way will help us to save on resources, so we can use booleans
+		 * wherever possible.
+		 */
 
+		position = new Vector3d (0d, 0d, 0d);
 	}
 	
 	// NOTE: Async version of Start.
@@ -96,9 +104,8 @@ public class ScaleStates : DataFunctions {
 	}
 
 
-	void Update() {
-		State thisScale = State.DetermineState;
 
+	void Update() {
 		/* Count down instead of up because the vast majority of objects will 
 		 * be closer to LightMillenium, LightCentury and LightDecade
 		 * than they will be to millions of MillionKilometers
@@ -112,6 +119,10 @@ public class ScaleStates : DataFunctions {
 			}
 		}
 		SetState(thisScale);	// Assign the scale that was determined by distance from origin Vector3(0,0,0)
+
+		curDubPos = new Vector3d(curDubPos.x+100000, curDubPos.y, curDubPos.z);
+		Vector3 newPosition = V3dToV3 (curDubPos);
+		transform.position = newPosition;
 	}
 
 	public void SetState(State newState) {
@@ -122,8 +133,6 @@ public class ScaleStates : DataFunctions {
 
 
 	void DetermineState() {
-		State thisScale = State.DetermineState;
-
 		/* Count down instead of up because the vast majority of objects will 
 		 * be closer to LightMillenium, LightCentury and LightDecade
 		 * than they will be to millions of MillionKilometers
@@ -137,8 +146,6 @@ public class ScaleStates : DataFunctions {
 				break;	// Break the loop as soon as we've found the scale
 			}
 		}
-
-		Debug.LogError(transform.position.x + "KM = "+ conDist (transform.position.x, "MK", inputs [i]) + " " +inputs[i] );
 		SetState(thisScale);
 	}
 	
@@ -148,7 +155,6 @@ public class ScaleStates : DataFunctions {
 	}
 	
 	void AstronomicalUnit() {
-		
 		_cacheState = state;
 	}
 	
