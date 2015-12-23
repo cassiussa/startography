@@ -4,7 +4,7 @@ using System.Reflection;
 using System.Collections.Generic;
 
 public class ScaleStates : DataFunctions {
-	public enum State { Initialize, DetermineState, MillionKilometers, AstronomicalUnit, LightHour, LightDay, LightYear, Parsec, LightDecade, LightCentury, LightMillenium }
+	public enum State { Initialize, MillionKilometers, AstronomicalUnit, LightHour, LightDay, LightYear, Parsec, LightDecade, LightCentury, LightMillenium }
 
 	public State state = State.Initialize;
 	State _prevState;
@@ -38,7 +38,7 @@ public class ScaleStates : DataFunctions {
 	
 	void Awake() {
 		// Do any general system initialization stuff here.
-		SetState(State.DetermineState);
+		//SetState(State.DetermineState);
 
 		// A list of strings we can perform conditionals on and then assign a state
 		scales.Add ("MK", State.MillionKilometers);
@@ -70,9 +70,6 @@ public class ScaleStates : DataFunctions {
 			if (_cacheState != state) {
 				switch (state) {
 				case State.Initialize:
-					break;
-				case State.DetermineState:
-					DetermineState ();
 					break;
 				case State.MillionKilometers:
 					MillionKilometers ();
@@ -115,20 +112,23 @@ public class ScaleStates : DataFunctions {
 		 * than they will be to millions of MillionKilometers
 		*/
 		for (int i=measurements.Length-1; i >= 0; i--) {
-			if (transform.position.x > System.Math.Abs(measurements[i]) || 
-			    transform.position.y > measurements[i] || 
-			    transform.position.z > measurements[i]) {
+			if (System.Math.Abs(transform.position.x) > System.Math.Abs(measurements[i]) || 
+			    System.Math.Abs(transform.position.y) > System.Math.Abs(measurements[i]) || 
+			    System.Math.Abs(transform.position.z) > System.Math.Abs(measurements[i])) {
 				thisScale = scales[inputs[i]];
 				break;	// Break the loop as soon as we've found the scale
 			}
 		}
-		SetState(thisScale);	// Assign the scale that was determined by distance from origin Vector3(0,0,0)
 
-		curDubPos = new Vector3d(curDubPos.x+100000, curDubPos.y, curDubPos.z);
-		Vector3 newPosition = V3dToV3 (curDubPos);
+		if (state != thisScale) {	// Only perform the state transition if we're not already in the same state
+			SetState (thisScale);	// Assign the scale that was determined by distance from origin Vector3(0,0,0)
+			Debug.LogError ("Changing to state: " + thisScale + " and current state is: " + state);
+		}
+		//curDubPos = new Vector3d(curDubPos.x+100000, curDubPos.y, curDubPos.z);
+		//Vector3 newPosition = V3dToV3 (curDubPos);
 		curScale = new Vector3d (curScale.x, curScale.y, curScale.z);
 		Vector3 scale = ScaledToScale (curScale);
-		transform.position = newPosition;
+		//transform.position = newPosition;
 		//transform.scale = scale;
 	}
 
@@ -136,26 +136,8 @@ public class ScaleStates : DataFunctions {
 		_prevState = state;
 		state = newState;
 	}
-
-
-
-	void DetermineState() {
-		/* Count down instead of up because the vast majority of objects will 
-		 * be closer to LightMillenium, LightCentury and LightDecade
-		 * than they will be to millions of MillionKilometers
-		*/
-		int i = measurements.Length - 1;
-		for (i=measurements.Length-1; i >= 0; i--) {
-			if (transform.position.x > System.Math.Abs(measurements[i]) || 
-								transform.position.y > measurements[i] || 
-								transform.position.z > measurements[i]) {
-				thisScale = scales[inputs[i]];
-				break;	// Break the loop as soon as we've found the scale
-			}
-		}
-		SetState(thisScale);
-	}
 	
+
 	void MillionKilometers() {
 		
 		_cacheState = state;

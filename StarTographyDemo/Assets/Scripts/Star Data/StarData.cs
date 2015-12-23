@@ -30,6 +30,10 @@ public class StarData : DataFunctions {
 		// We can convert a Vector3d to Vector3
 		Vector3 newVector = V3dToV3 (new Vector3d (10424212411224d, 1.234124212344421d, 20d));
 		//Debug.Log (newVector);
+
+		transform.localScale = new Vector3((float)solarRadii * ((float)radiusConstantSolar * 2)/100,
+		                                   (float)solarRadii * ((float)radiusConstantSolar * 2)/100,
+		                                   (float)solarRadii * ((float)radiusConstantSolar * 2)/100);
 	}
 
 }
