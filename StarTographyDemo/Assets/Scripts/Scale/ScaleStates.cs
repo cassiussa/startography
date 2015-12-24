@@ -23,7 +23,7 @@ public class ScaleStates : DataFunctions {
 	Dictionary<string, State> scales = new Dictionary<string, State>();	// Allows us to convert string as variable names
 	string[] inputs;		// Array of strings of distance types
 	double[] measurements;	// Array of the measurements of the distance types
-	State thisScale;
+	public State thisScale;
 
 	#region Basic Getters/Setters
 	public State CurrentState {

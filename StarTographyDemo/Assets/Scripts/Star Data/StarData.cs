@@ -11,6 +11,8 @@ public class StarData : DataFunctions {
 	public string declination;
 	public string rightAscention;
 
+	public ScaleStates.State state;
+	ScaleStates.State _cacheState;
 	ScaleStates scaleStatesScript;
 
 	//public double meters;
@@ -37,17 +39,47 @@ public class StarData : DataFunctions {
 		Vector3 newVector = V3dToV3 (new Vector3d (10424212411224d, 1.234124212344421d, 20d));
 		//Debug.Log (newVector);
 
+
+
+	}
+
+	void Update() {
 		// Need to still figure out that the scale is being calculated correctly.  /100 is likely not correct
 		// Earth r=6,371 km
 		// Sun r=695,508 km
-
+		
 		// This needs to determine what state we're in so that it can do the correct calculation
 		// The /100 right now represents the total distance in the 1Mkm scale divided by the 10,000 units
 		// So 1,000,000/10,000 = 100 for Million Kilometers
 		// 149597870.7 / 10000 = 14959.78707 for Astronomical Units
-		transform.localScale = new Vector3((float)solarRadii * ((float)radiusConstantSolar * 2)/100,
-		                                   (float)solarRadii * ((float)radiusConstantSolar * 2)/100,
-		                                   (float)solarRadii * ((float)radiusConstantSolar * 2)/100);
+		if (scaleStatesScript.state != _cacheState) {
+			double fraction = 1d;
+			if (scaleStatesScript.state == ScaleStates.State.MillionKilometers)
+				fraction = MK / 10000d;
+			else if (scaleStatesScript.state == ScaleStates.State.AstronomicalUnit)
+				fraction = AU / 10000d;
+			else if (scaleStatesScript.state == ScaleStates.State.LightHour)
+				fraction = LH / 10000d;
+			else if (scaleStatesScript.state == ScaleStates.State.LightDay)
+				fraction = Ld / 10000d;
+			else if (scaleStatesScript.state == ScaleStates.State.LightYear)
+				fraction = LY / 10000d;
+			else if (scaleStatesScript.state == ScaleStates.State.Parsec)
+				fraction = PA / 10000d;
+			else if (scaleStatesScript.state == ScaleStates.State.LightDecade)
+				fraction = LD / 10000d;
+			else if (scaleStatesScript.state == ScaleStates.State.LightCentury)
+				fraction = LC / 10000d;
+			else if (scaleStatesScript.state == ScaleStates.State.LightMillenium)
+				fraction = LM / 10000d;
+		
+			Debug.Log("fraction = "+fraction);
+			transform.localScale = new Vector3 ((float)solarRadii * ((float)radiusConstantSolar * 2) / (float)fraction,
+		                                   (float)solarRadii * ((float)radiusConstantSolar * 2) / (float)fraction,
+		                                   (float)solarRadii * ((float)radiusConstantSolar * 2) / (float)fraction);
+
+			_cacheState = scaleStatesScript.state;
+		}
 	}
 
 }
