@@ -72,8 +72,7 @@ public class StarData : DataFunctions {
 				fraction = LC / 10000d;
 			else if (scaleStatesScript.state == ScaleStates.State.LightMillenium)
 				fraction = LM / 10000d;
-		
-			Debug.Log("fraction = "+fraction);
+			else Debug.LogError("State has changed but couldn't determine to which one, so scale couldn't be adjusted",gameObject);
 			transform.localScale = new Vector3 ((float)solarRadii * ((float)radiusConstantSolar * 2) / (float)fraction,
 		                                   (float)solarRadii * ((float)radiusConstantSolar * 2) / (float)fraction,
 		                                   (float)solarRadii * ((float)radiusConstantSolar * 2) / (float)fraction);
