@@ -120,12 +120,11 @@ public class ScaleStates : DataFunctions {
 			}
 		}
 
-		if (state != thisScale) {	// Only perform the state transition if we're not already in the same state
+		if (state != thisScale)		// Only perform the state transition if we're not already in the same state
 			SetState (thisScale);	// Assign the scale that was determined by distance from origin Vector3(0,0,0)
-			Debug.LogError ("Changing to state: " + thisScale + " and current state is: " + state);
-		}
-		//curDubPos = new Vector3d(curDubPos.x+100000, curDubPos.y, curDubPos.z);
-		//Vector3 newPosition = V3dToV3 (curDubPos);
+
+		curDubPos = new Vector3d(curDubPos.x+100000, curDubPos.y, curDubPos.z);
+		Vector3 newPosition = V3dToV3 (curDubPos);
 		curScale = new Vector3d (curScale.x, curScale.y, curScale.z);
 		Vector3 scale = ScaledToScale (curScale);
 		//transform.position = newPosition;
@@ -139,7 +138,6 @@ public class ScaleStates : DataFunctions {
 	
 
 	void MillionKilometers() {
-		
 		_cacheState = state;
 	}
 	
@@ -148,37 +146,30 @@ public class ScaleStates : DataFunctions {
 	}
 	
 	void LightHour() {
-		
 		_cacheState = state;
 	}
 	
 	void LightDay() {
-		
 		_cacheState = state;
 	}
 
 	void LightYear() {
-		
 		_cacheState = state;
 	}
 
 	void Parsec() {
-		
 		_cacheState = state;
 	}
 
 	void LightDecade() {
-		
 		_cacheState = state;
 	}
 
 	void LightCentury() {
-		
 		_cacheState = state;
 	}
 
 	void LightMillenium() {
-		
 		_cacheState = state;
 	}
 }

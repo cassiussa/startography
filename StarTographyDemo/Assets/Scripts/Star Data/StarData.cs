@@ -11,10 +11,16 @@ public class StarData : DataFunctions {
 	public string declination;
 	public string rightAscention;
 
+	ScaleStates scaleStatesScript;
+
 	//public double meters;
 
 	// Functions are called from StarDataFunctions.cs
 	void Start() {
+		scaleStatesScript = GetComponent<ScaleStates>();
+		if (!scaleStatesScript)
+			Debug.LogError ("The ScaleStates script is missing", gameObject);
+
 		//double conversion = conDis (parsecDistance, "PA", "LY");		// Parsecs to Lightyears
 		double dec = dmsToDeg (declination);							// degrees, (arc)minutes, (arc)seconds
 		double ra = hmsToDeg (rightAscention);							// Hours, Minutes, Seconds
@@ -31,6 +37,14 @@ public class StarData : DataFunctions {
 		Vector3 newVector = V3dToV3 (new Vector3d (10424212411224d, 1.234124212344421d, 20d));
 		//Debug.Log (newVector);
 
+		// Need to still figure out that the scale is being calculated correctly.  /100 is likely not correct
+		// Earth r=6,371 km
+		// Sun r=695,508 km
+
+		// This needs to determine what state we're in so that it can do the correct calculation
+		// The /100 right now represents the total distance in the 1Mkm scale divided by the 10,000 units
+		// So 1,000,000/10,000 = 100 for Million Kilometers
+		// 149597870.7 / 10000 = 14959.78707 for Astronomical Units
 		transform.localScale = new Vector3((float)solarRadii * ((float)radiusConstantSolar * 2)/100,
 		                                   (float)solarRadii * ((float)radiusConstantSolar * 2)/100,
 		                                   (float)solarRadii * ((float)radiusConstantSolar * 2)/100);
