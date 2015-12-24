@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using System;
-using System.Text.RegularExpressions;
 using System.Collections;
 
 /*
@@ -8,8 +7,7 @@ using System.Collections;
  * measurement conversions, positional data and conversion, getting angles,
  * and other things
  */
-
-public class DataFunctions : Constants {
+public class Functions : Constants {
 
 	protected double dmsToDeg(string declination) {
 		/*
@@ -26,24 +24,24 @@ public class DataFunctions : Constants {
 		 * Angle : float
 		 * The corresponding angle in degrees
 		*/
-
+		
 		string[] splitDMS = declination.Split (new string[] { "d", "m", "s" }, StringSplitOptions.None);
 		float degrees = float.Parse (splitDMS [0]);
 		float minutes = float.Parse (splitDMS [1]);
 		float seconds = float.Parse (splitDMS [2]);
 		double sign = 1.0f;	// The default sign is positive
-
+		
 		if (minutes < 0.0 || minutes >= 60.0)
 			Debug.LogError ("Minute (" + minutes + ") field is out of range (0 <= minutes < 60).  Please specify a value between 0 and 60");
 		if (seconds < 0.0 || seconds >= 60.0)
 			Debug.LogError ("Second (" + seconds + ") field is out of range (0 <= minutes < 60).  Please specify a value between 0 and 60");
 		if (degrees < 0.0)
 			sign = -1.0d;	// Sign is negative to apply negative degrees
-
+		
 		double result = degrees + sign * (minutes / 60.0d) + sign * (seconds / 3600.0d);
 		return result;
 	}
-
+	
 	protected double hmsToDeg(string rightAscension) {
 		/*
 		 * Convert hour, minute, second input into degrees
@@ -59,12 +57,12 @@ public class DataFunctions : Constants {
 		 * Angle : float
 		 * The corresponding angle in degrees
 		*/
-
+		
 		string[] splitHMS = rightAscension.Split(new string[] { "h", "m", "s" }, StringSplitOptions.None);
 		float hour = float.Parse (splitHMS [0]);
 		float minutes = float.Parse (splitHMS [1]);
 		float seconds = float.Parse (splitHMS [2]);
-
+		
 		if (hour < 0.0 || hour >= 24.0)
 			Debug.LogError ("Hour (" + hour + ") field is out of range (0 <= hour < 24).  Please specify a value between 0 and 24.");
 		if (minutes < 0.0 || minutes >= 60.0)
@@ -76,7 +74,7 @@ public class DataFunctions : Constants {
 		return result;
 	}
 	
-
+	
 	protected double conDist(double value, string from, string to) {
 		/*
 		 * Convert Distance : Convert any one type of measurement to another
@@ -111,11 +109,11 @@ public class DataFunctions : Constants {
 				break;	// We've already iterated to where we need, so break the loop
 			}
 		}
-
+		
 		double result = value * ratio;
 		return result;
 	}
-
+	
 	protected double ConCamClip(double value, string from, string to) {
 		/*
 		 * Convert Camera Clip : Convert the camera's near clip plane when
@@ -155,8 +153,8 @@ public class DataFunctions : Constants {
 		double result = value * ratio * 10000d;		// 10,000 is the maximum distance for the camera clip
 		return result;	// The near clipping plane for the camera
 	}
-
-
+	
+	
 	protected double getAngDis(double ra1, double dec1, double ra2, double dec2) {
 		/*
 		 * Calculate the angular distance between two spacial coordinates
@@ -173,26 +171,26 @@ public class DataFunctions : Constants {
 		 * Angle : float
 		 * The angular distance in degrees between first and second coordinates
 		*/
-
+		
 		double longitude = (ra1 - ra2) * PI / 180d;
 		double lattitude = (dec1 - dec2) * PI / 180d;
 		// Haversine formula
 		double dist = 2.0d*System.Math.Asin( System.Math.Sqrt( System.Math.Pow(System.Math.Sin(lattitude/2.0d), 2d) + System.Math.Cos(dec1*PI/180d)*System.Math.Cos(dec2*PI/180d)*System.Math.Pow(System.Math.Sin(longitude/2.0d),2d) ) );
-
+		
 		double result = dist/PI*180d;
 		return result;
 	}
-
+	
 	protected Vector3 V3dToV3(Vector3d vector) {
 		Vector3 result = new Vector3( (float)vector.x, (float)vector.y, (float)vector.z );
 		return result;
 	}
-
+	
 	protected Vector3 ScaledToScale(Vector3d vector) {
 		Vector3 result = new Vector3( (float)vector.x, (float)vector.y, (float)vector.z );
 		return result;
 	}
-
+	
 	public class Vector3d {
 		/*
 		 * Create a new Type.  Vector3 double.
@@ -222,5 +220,4 @@ public class DataFunctions : Constants {
 		// Constructor
 		public Vector3d() { x = 0; y = 0; z = 0; }
 	}
-
 }

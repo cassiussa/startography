@@ -20,9 +20,5 @@ public class Constants : MonoBehaviour {
 	protected double LD = 94607304725808d;			// Light Decades (Julian)
 	protected double LC = 946073047258080d;			// Light Centuries (Julian)
 	protected double LM = 9460730472580800d;		// Light Millenia (Julian)
-
-	// Use this for initialization
-	void Start () {
-
-	}
+	
 }

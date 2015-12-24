@@ -3,7 +3,7 @@ using System.Collections;
 using System.Reflection;
 using System.Collections.Generic;
 
-public class ScaleStates : DataFunctions {
+public class ScaleStates : Functions {
 	public enum State { Initialize, MillionKilometers, AstronomicalUnit, LightHour, LightDay, LightYear, Parsec, LightDecade, LightCentury, LightMillenium }
 
 	public State state = State.Initialize;

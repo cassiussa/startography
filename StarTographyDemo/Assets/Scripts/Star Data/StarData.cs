@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class StarData : DataFunctions {
+public class StarData : Functions {
 
 	public float solarMass;
 	public float solarRadii;
@@ -11,6 +11,8 @@ public class StarData : DataFunctions {
 	public string declination;
 	public string rightAscention;
 
+	/*
+	
 	public ScaleStates.State state;
 	ScaleStates.State _cacheState;
 	ScaleStates scaleStatesScript;
@@ -18,7 +20,11 @@ public class StarData : DataFunctions {
 	//public double meters;
 
 	// Functions are called from StarDataFunctions.cs
+
+	*/
 	void Start() {
+		/*
+		
 		scaleStatesScript = GetComponent<ScaleStates>();
 		if (!scaleStatesScript)
 			Debug.LogError ("The ScaleStates script is missing", gameObject);
@@ -39,7 +45,7 @@ public class StarData : DataFunctions {
 		Vector3 newVector = V3dToV3 (new Vector3d (10424212411224d, 1.234124212344421d, 20d));
 		//Debug.Log (newVector);
 
-
+		*/
 
 	}
 
@@ -52,6 +58,8 @@ public class StarData : DataFunctions {
 		// The /100 right now represents the total distance in the 1Mkm scale divided by the 10,000 units
 		// So 1,000,000/10,000 = 100 for Million Kilometers
 		// 149597870.7 / 10000 = 14959.78707 for Astronomical Units
+		/*
+
 		if (scaleStatesScript.state != _cacheState) {
 			double fraction = 1d;
 			if (scaleStatesScript.state == ScaleStates.State.MillionKilometers)
@@ -79,6 +87,8 @@ public class StarData : DataFunctions {
 
 			_cacheState = scaleStatesScript.state;
 		}
+
+		 */
 	}
 
 }
