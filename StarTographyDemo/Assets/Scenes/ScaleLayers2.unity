@@ -1483,7 +1483,6 @@ MonoBehaviour:
   parsecDistance: 110.620003
   declination: +17d47m34.3s
   rightAscention: 12h20m43.03s
-  state: 0
 --- !u!114 &464901800
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1492,11 +1491,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 464901797}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ca158203989b14dc68928ea5076d5f7c, type: 3}
+  m_Script: {fileID: 11500000, guid: 61ca0bfb02be44bbdaa9f70dc2b0c976, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  starClass: 2
-  starType: 0
+  starDataScript: {fileID: 0}
+  starTemperatureSequence: 0
+  starLuminosityClass: 0
   StarNumeric: 0
 --- !u!23 &464901801
 Renderer:
@@ -1672,8 +1672,8 @@ GameObject:
   - 4: {fileID: 527745832}
   - 33: {fileID: 527745831}
   - 23: {fileID: 527745830}
-  - 114: {fileID: 527745829}
   - 114: {fileID: 527745828}
+  - 114: {fileID: 527745829}
   - 114: {fileID: 527745827}
   m_Layer: 12
   m_Name: O5 Type Star
@@ -1714,7 +1714,6 @@ MonoBehaviour:
   parsecDistance: 110.620003
   declination: +17d47m34.3s
   rightAscention: 12h20m43.03s
-  state: 0
 --- !u!114 &527745829
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1723,11 +1722,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 527745826}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ca158203989b14dc68928ea5076d5f7c, type: 3}
+  m_Script: {fileID: 11500000, guid: 61ca0bfb02be44bbdaa9f70dc2b0c976, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  starClass: 2
-  starType: 0
+  starDataScript: {fileID: 0}
+  starTemperatureSequence: 3
+  starLuminosityClass: 3
   StarNumeric: 0
 --- !u!23 &527745830
 Renderer:
@@ -3406,7 +3406,6 @@ MonoBehaviour:
   parsecDistance: 110.620003
   declination: +17d47m34.3s
   rightAscention: 12h20m43.03s
-  state: 0
 --- !u!114 &978705447
 MonoBehaviour:
   m_ObjectHideFlags: 0

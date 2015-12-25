@@ -4,9 +4,11 @@ using System.Collections;
 /*
  * This script contains the ongoing accurate positioning data that is used
  * by the cameras and also by all other objects in space.  They should use
- * the vectors contained here as an additive to their own positions.  This 
- * way, the camera is always at the origin (0,0,0) and the universe moves
- * around it.
+ * the vectors contained here as an additive to their own positions within
+ * their individual positioning scripts.
+ * 
+ * This way, the camera is always at the origin (0,0,0) and the universe
+ * moves around it.
  */
 
 public class Positioning : Functions {
