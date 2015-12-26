@@ -7,6 +7,7 @@ public class StarData : Functions {
 	public float solarRadii;
 	public float effectiveTemperature;
 	public float opticalMagnitude;
+	// If you know a star's apparent magnitude and distance, you can find the star's luminosity
 	public float parsecDistance;
 	public string declination;
 	public string rightAscention;

@@ -36,6 +36,8 @@ public class StarType : MonoBehaviour {
 		SetStarTemperatureSequence(StarTemperatureSequence.SetTemperatureSequence);
 		SetStarLuminosityClass(StarLuminosityClass.SetLuminosityClass);
 
+		// Calculate the star's Temperature Subtype (0-9)
+		// This may all be a fundamental misunderstanding of the classification of stars
 		if (starDataScript.effectiveTemperature > 30000) {
 			SetStarTemperatureSequence (StarTemperatureSequence.O);
 			starTemperatureSubtype = CalculateTemperatureSubtype (30000, 50000, starDataScript.effectiveTemperature);
@@ -59,6 +61,23 @@ public class StarType : MonoBehaviour {
 			starTemperatureSubtype = CalculateTemperatureSubtype (0, 3500, starDataScript.effectiveTemperature);
 		}
 
+		// Calculate the star's Temperature Sequence (class)
+		// This may all be a fundamental misunderstanding of the classification of stars
+		if (starDataScript.solarRadii >= 12) {
+			SetStarTemperatureSequence (StarTemperatureSequence.O);
+		} else if(starDataScript.solarRadii >= 4) {
+			SetStarTemperatureSequence (StarTemperatureSequence.B);
+		} else if(starDataScript.solarRadii >= 1.5) {
+			SetStarTemperatureSequence (StarTemperatureSequence.A);
+		} else if(starDataScript.solarRadii >= 1.1) {
+			SetStarTemperatureSequence (StarTemperatureSequence.F);
+		} else if(starDataScript.solarRadii >= 0.85) {
+			SetStarTemperatureSequence (StarTemperatureSequence.G);
+		} else if(starDataScript.solarRadii >= 0.6) {
+			SetStarTemperatureSequence (StarTemperatureSequence.K);
+		} else if(starDataScript.solarRadii < 0.6) {
+			SetStarTemperatureSequence (StarTemperatureSequence.M);
+		}
 	}
 
 	// Calculate the value between 0-9 for the star's temperature subtype
@@ -125,3 +144,15 @@ public class StarType : MonoBehaviour {
 		_cacheStarTemperatureSequence = starTemperatureSequence;
 	}
 }
+
+/*
+ * La/Lb = (Ma/Mb)^3.5
+ * La/Lb = (1/2.5)^3.5
+ * La/Lb = 0.37037037037037^3.5
+ * La/Lb = 0.030919098686693
+ * Lb = La/0.030919098686693
+ * 32.34246929812289
+ * 
+ * 
+ * 
+ */
