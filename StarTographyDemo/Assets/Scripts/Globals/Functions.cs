@@ -103,6 +103,7 @@ public class Functions : Constants {
 					if(inputs[a] == to) {
 						// We have the "from" and "to" values, so calculate them to get the ratio
 						ratio = measurements[i]/measurements[a];
+						Debug.LogError("ration = "+ratio);
 						break;
 					}
 				}

@@ -31,7 +31,9 @@ public class ScaleStates : Functions {
 	}
 	#endregion
 	
-	
+
+	PositionProcessing positionProcessingScript;
+
 	void Awake() {
 		// A list of strings we can perform conditionals on and then assign a state
 		scales.Add ("MK", State.MillionKilometers);
@@ -47,6 +49,9 @@ public class ScaleStates : Functions {
 		inputs = new string[] { "MK", "AU", "LH", "Ld", "LY", "PA", "LD", "LC", "LM" };
 		measurements = new double[] { MK, AU, LH, Ld, LY, PA, LD, LC, LM };
 
+		positionProcessingScript = GetComponent<PositionProcessing> ();
+		if (!positionProcessingScript)
+			Debug.LogError ("The PositionProcessing script appears to be missing", gameObject);
 	}
 	
 	// NOTE: Async version of Start.
@@ -96,18 +101,20 @@ public class ScaleStates : Functions {
 		 * than they will be to millions of MillionKilometers
 		*/
 		for (int i=measurements.Length-1; i >= 0; i--) {
-			if (System.Math.Abs(transform.position.x) > System.Math.Abs(measurements[i]) || 
-			    System.Math.Abs(transform.position.y) > System.Math.Abs(measurements[i]) || 
-			    System.Math.Abs(transform.position.z) > System.Math.Abs(measurements[i])) {
+			if (System.Math.Abs(positionProcessingScript.position.x) > System.Math.Abs(measurements[i]) || 
+			    System.Math.Abs(positionProcessingScript.position.y) > System.Math.Abs(measurements[i]) || 
+			    System.Math.Abs(positionProcessingScript.position.z) > System.Math.Abs(measurements[i])) {
 				thisScale = scales[inputs[i]];
 				break;	// Break the loop as soon as we've found the scale
 			} else {
 				thisScale = State.MillionKilometers;
 			}
 		}
-		if (state != thisScale)		// Only perform the state transition if we're not already in the same state
+		if (state != thisScale)				// Only perform the state transition if we're not already in the same state
 			SetState (thisScale);			// Assign the scale that was determined by distance from origin Vector3(0,0,0)
 	}
+
+
 
 	public void SetState(State newState) {
 		_prevState = state;
@@ -116,11 +123,21 @@ public class ScaleStates : Functions {
 	
 
 	void MillionKilometers() {
-		_cacheState = state;
+		float x = (float)(positionProcessingScript.position.x * (10000d / 1000000d));
+		float y = (float)(positionProcessingScript.position.y * (10000d / 1000000d));
+		float z = (float)(positionProcessingScript.position.z * (10000d / 1000000d));
+		Debug.Log ("original x = " + positionProcessingScript.position.x + ", recalculated = " + x);
+		transform.position = new Vector3 (x, y, z);
+		//_cacheState = state;
 	}
 	
 	void AstronomicalUnit() {
-		_cacheState = state;
+		float x = (float)(positionProcessingScript.position.x * (10000d / 149597870.7d));
+		float y = (float)(positionProcessingScript.position.y * (10000d / 149597870.7d));
+		float z = (float)(positionProcessingScript.position.z * (10000d / 149597870.7d));
+		Debug.Log ("original x = " + positionProcessingScript.position.x + ", recalculated = " + x);
+		transform.position = new Vector3 (x, y, z);
+		//_cacheState = state;
 	}
 	
 	void LightHour() {
