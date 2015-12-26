@@ -201,6 +201,7 @@
 'Assets/Scripts/Globals/Positioning.cs'
 'Assets/Scripts/Globals/SimulationSpeed.cs'
 'Assets/Scripts/ObjectLabel.cs'
+'Assets/Scripts/PositionProcessing.cs'
 'Assets/Scripts/ReverseNormals.cs'
 'Assets/Scripts/Scale/ScaleStates.cs'
 'Assets/Scripts/ScaleLargeCollider.cs'

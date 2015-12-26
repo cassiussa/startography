@@ -100,22 +100,22 @@ public class StarType : MonoBehaviour {
 					Debug.Log ("The Star Type has not been set", gameObject);
 					break;
 				case StarTemperatureSequence.O:
-					Debug.Log("O");
+					//Debug.Log("O");
 					break;
 				case StarTemperatureSequence.B:
-					Debug.Log("B");
+					//Debug.Log("B");
 					B ();
 					break;
 				case StarTemperatureSequence.A:
-					Debug.Log("A");
+					//Debug.Log("A");
 					A ();
 					break;
 				case StarTemperatureSequence.F:
-					Debug.Log("F");
+					//Debug.Log("F");
 					F ();
 					break;
 				case StarTemperatureSequence.G:
-					Debug.Log("G");
+					//Debug.Log("G");
 					G ();
 					break;
 				}

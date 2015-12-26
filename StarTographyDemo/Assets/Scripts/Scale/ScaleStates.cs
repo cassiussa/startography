@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Reflection;
 using System.Collections.Generic;
@@ -15,10 +15,6 @@ public class ScaleStates : Functions {
 	 * something else, like a planet or star, we'll change the scale and position
 	 * to the appropriate location and size.
 	 */
-	//Vector3d position;
-	Vector3d curDubPos = new Vector3d(0d,0d,0d);	// This should be updated in Awake, based on input data
-	Vector3d curScale = new Vector3d (1d, 1d, 1d);	// The scale of the object, based on input data
-	public StarData starDataScript;
 
 	Dictionary<string, State> scales = new Dictionary<string, State>();	// Allows us to convert string as variable names
 	string[] inputs;		// Array of strings of distance types
@@ -37,9 +33,6 @@ public class ScaleStates : Functions {
 	
 	
 	void Awake() {
-		// Do any general system initialization stuff here.
-		//SetState(State.DetermineState);
-
 		// A list of strings we can perform conditionals on and then assign a state
 		scales.Add ("MK", State.MillionKilometers);
 		scales.Add ("AU", State.AstronomicalUnit);
@@ -54,14 +47,6 @@ public class ScaleStates : Functions {
 		inputs = new string[] { "MK", "AU", "LH", "Ld", "LY", "PA", "LD", "LC", "LM" };
 		measurements = new double[] { MK, AU, LH, Ld, LY, PA, LD, LC, LM };
 
-		/* Assign the types values to the below variables.  Doing it this
-		 * way will help us to save on resources, so we can use booleans
-		 * wherever possible.
-		 */
-
-		//position = new Vector3d (0d, 0d, 0d);
-		if (!starDataScript)
-			Debug.LogError ("There is no StarData script assigned.", gameObject);
 	}
 	
 	// NOTE: Async version of Start.
@@ -104,8 +89,7 @@ public class ScaleStates : Functions {
 		}
 	}
 
-
-
+	
 	void Update() {
 		/* Count down instead of up because the vast majority of objects will 
 		 * be closer to LightMillenium, LightCentury and LightDecade
@@ -117,18 +101,12 @@ public class ScaleStates : Functions {
 			    System.Math.Abs(transform.position.z) > System.Math.Abs(measurements[i])) {
 				thisScale = scales[inputs[i]];
 				break;	// Break the loop as soon as we've found the scale
+			} else {
+				thisScale = State.MillionKilometers;
 			}
 		}
-
 		if (state != thisScale)		// Only perform the state transition if we're not already in the same state
-			SetState (thisScale);	// Assign the scale that was determined by distance from origin Vector3(0,0,0)
-
-		curDubPos = new Vector3d(curDubPos.x+100000, curDubPos.y, curDubPos.z);
-		Vector3 newPosition = V3dToV3 (curDubPos);
-		curScale = new Vector3d (curScale.x, curScale.y, curScale.z);
-		Vector3 scale = ScaledToScale (curScale);
-		//transform.position = newPosition;
-		//transform.scale = scale;
+			SetState (thisScale);			// Assign the scale that was determined by distance from origin Vector3(0,0,0)
 	}
 
 	public void SetState(State newState) {

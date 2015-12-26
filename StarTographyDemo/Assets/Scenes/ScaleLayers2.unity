@@ -1450,7 +1450,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &464901798
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1463,7 +1463,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   state: 0
-  starDataScript: {fileID: 464901799}
   thisScale: 0
 --- !u!114 &464901799
 MonoBehaviour:
@@ -1496,8 +1495,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   starDataScript: {fileID: 0}
   starTemperatureSequence: 0
+  starTemperatureSubtype: 0
   starLuminosityClass: 0
-  StarNumeric: 0
 --- !u!23 &464901801
 Renderer:
   m_ObjectHideFlags: 0
@@ -1681,7 +1680,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &527745827
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1694,7 +1693,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   state: 0
-  starDataScript: {fileID: 527745828}
   thisScale: 0
 --- !u!114 &527745828
 MonoBehaviour:
@@ -1727,8 +1725,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   starDataScript: {fileID: 0}
   starTemperatureSequence: 3
+  starTemperatureSubtype: 0
   starLuminosityClass: 3
-  StarNumeric: 0
 --- !u!23 &527745830
 Renderer:
   m_ObjectHideFlags: 0
@@ -3387,7 +3385,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &978705446
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3471,7 +3469,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   state: 0
-  starDataScript: {fileID: 978705446}
   thisScale: 0
 --- !u!1 &979512062
 GameObject:
@@ -4636,6 +4633,47 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1252032771}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1253729959
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1253729961}
+  - 114: {fileID: 1253729960}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1253729960
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1253729959}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c60940f22cc6a40e8a66c8ab7460f205, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  state: 0
+  thisScale: 0
+--- !u!4 &1253729961
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1253729959}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: .000122070312, y: -.0390625, z: -.000183110125}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 14
 --- !u!1 &1255091396
 GameObject:
   m_ObjectHideFlags: 0
@@ -5405,7 +5443,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   state: 0
-  starDataScript: {fileID: 0}
   thisScale: 0
 --- !u!4 &1574169025
 Transform:
