@@ -92,9 +92,9 @@ public class Functions : Constants {
 		*/
 		double ratio = 0d;
 		// Set up an array of all the possible measurement type shortforms
-		string[] inputs = new string[] {"MK", "AU", "LH", "Ld", "LY", "PA", "LD", "LC", "LM" };
+		string[] inputs = new string[] {"SM,", "MK", "AU", "LH", "Ld", "LY", "PA", "LD", "LC", "LM" };
 		// Set up an array of all the possible measurement variables
-		double[] measurements = new double[] {MK, AU, LH, Ld, LY, PA, LD, LC, LM };
+		double[] measurements = new double[] {SM, MK, AU, LH, Ld, LY, PA, LD, LC, LM };
 		// Iterate through each of the types of measurements looking for the one stored in the "from" variable
 		for (int i=0; i<measurements.Length; i++) {
 			if(inputs[i] == from) {
@@ -133,9 +133,9 @@ public class Functions : Constants {
 		*/
 		double ratio = 0d;
 		// Set up an array of all the possible measurement type shortforms
-		string[] inputs = new string[] {"MK", "AU", "LH", "Ld", "LY", "PA", "LD", "LC", "LM" };
+		string[] inputs = new string[] {"SM", "MK", "AU", "LH", "Ld", "LY", "PA", "LD", "LC", "LM" };
 		// Set up an array of all the possible measurement variables
-		double[] measurements = new double[] {MK, AU, LH, Ld, LY, PA, LD, LC, LM };
+		double[] measurements = new double[] {SM, MK, AU, LH, Ld, LY, PA, LD, LC, LM };
 		// Iterate through each of the types of measurements looking for the one stored in the "from" variable
 		for (int i=0; i<measurements.Length; i++) {
 			if(inputs[i] == from) {

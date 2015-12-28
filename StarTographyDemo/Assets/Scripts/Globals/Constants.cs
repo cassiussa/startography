@@ -11,6 +11,7 @@ public class Constants : MonoBehaviour {
 	protected double massConstantEarth = 5972190000000000000000000d;		// In Kilograms
 
 	// Predefine these as it may cache or keep them in memory instead of assigning on each function call
+	protected double SM = 1000d;					// SubMillion (the base size)
 	protected double MK = 1000000d;					// Million Kilometers
 	protected double AU = 149597870.7d;				// Astronomical Units
 	protected double LH = 1079252848.8d;			// Light Hours
@@ -20,5 +21,5 @@ public class Constants : MonoBehaviour {
 	protected double LD = 94607304725808d;			// Light Decades (Julian)
 	protected double LC = 946073047258080d;			// Light Centuries (Julian)
 	protected double LM = 9460730472580800d;		// Light Millenia (Julian)
-	
+	protected double LDM = 94607304725808000d;		// Light DecaMillenia (Julian) [decamillenia is not a real name]
 }

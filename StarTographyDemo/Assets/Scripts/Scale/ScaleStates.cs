@@ -4,7 +4,7 @@ using System.Reflection;
 using System.Collections.Generic;
 
 public class ScaleStates : Functions {
-	public enum State { Initialize, MillionKilometers, AstronomicalUnit, LightHour, LightDay, LightYear, Parsec, LightDecade, LightCentury, LightMillenium }
+	public enum State { Initialize, SubMillion, MillionKilometers, AstronomicalUnit, LightHour, LightDay, LightYear, Parsec, LightDecade, LightCentury, LightMillenium }
 
 	public State state = State.Initialize;
 	State _prevState;
@@ -36,6 +36,7 @@ public class ScaleStates : Functions {
 
 	void Awake() {
 		// A list of strings we can perform conditionals on and then assign a state
+		scales.Add ("SM", State.SubMillion);
 		scales.Add ("MK", State.MillionKilometers);
 		scales.Add ("AU", State.AstronomicalUnit);
 		scales.Add ("LH", State.LightHour);
@@ -46,8 +47,8 @@ public class ScaleStates : Functions {
 		scales.Add ("LC", State.LightCentury);
 		scales.Add ("LM", State.LightMillenium);
 
-		inputs = new string[] { "MK", "AU", "LH", "Ld", "LY", "PA", "LD", "LC", "LM" };
-		measurements = new double[] { MK, AU, LH, Ld, LY, PA, LD, LC, LM };
+		inputs = new string[] { "SM", "MK", "AU", "LH", "Ld", "LY", "PA", "LD", "LC", "LM" };
+		measurements = new double[] { SM, MK, AU, LH, Ld, LY, PA, LD, LC, LM };
 
 		positionProcessingScript = GetComponent<PositionProcessing> ();
 		if (!positionProcessingScript)
@@ -60,6 +61,9 @@ public class ScaleStates : Functions {
 			if (_cacheState != state) {
 				switch (state) {
 				case State.Initialize:
+					break;
+				case State.SubMillion:
+					SubMillion ();
 					break;
 				case State.MillionKilometers:
 					MillionKilometers ();
@@ -122,49 +126,103 @@ public class ScaleStates : Functions {
 	}
 	
 
+	void SubMillion() {
+		gameObject.layer = 8;
+		float x = (float)(positionProcessingScript.position.x * (10000d / MK));
+		float y = (float)(positionProcessingScript.position.y * (10000d / MK));
+		float z = (float)(positionProcessingScript.position.z * (10000d / MK));
+		Debug.Log ("original x = " + positionProcessingScript.position.x + ", recalculated = " + x);
+		transform.position = new Vector3 (x, y, z);
+		//_cacheState = state;
+	}
+
 	void MillionKilometers() {
-		float x = (float)(positionProcessingScript.position.x * (10000d / 1000000d));
-		float y = (float)(positionProcessingScript.position.y * (10000d / 1000000d));
-		float z = (float)(positionProcessingScript.position.z * (10000d / 1000000d));
+		gameObject.layer = 8;
+		float x = (float)(positionProcessingScript.position.x * (10000d / AU));
+		float y = (float)(positionProcessingScript.position.y * (10000d / AU));
+		float z = (float)(positionProcessingScript.position.z * (10000d / AU));
 		Debug.Log ("original x = " + positionProcessingScript.position.x + ", recalculated = " + x);
 		transform.position = new Vector3 (x, y, z);
 		//_cacheState = state;
 	}
 	
 	void AstronomicalUnit() {
-		float x = (float)(positionProcessingScript.position.x * (10000d / 149597870.7d));
-		float y = (float)(positionProcessingScript.position.y * (10000d / 149597870.7d));
-		float z = (float)(positionProcessingScript.position.z * (10000d / 149597870.7d));
+		gameObject.layer = 9;
+		float x = (float)(positionProcessingScript.position.x * (10000d / LH));
+		float y = (float)(positionProcessingScript.position.y * (10000d / LH));
+		float z = (float)(positionProcessingScript.position.z * (10000d / LH));
 		Debug.Log ("original x = " + positionProcessingScript.position.x + ", recalculated = " + x);
 		transform.position = new Vector3 (x, y, z);
 		//_cacheState = state;
 	}
 	
 	void LightHour() {
-		_cacheState = state;
+		gameObject.layer = 10;
+		float x = (float)(positionProcessingScript.position.x * (10000d / Ld));
+		float y = (float)(positionProcessingScript.position.y * (10000d / Ld));
+		float z = (float)(positionProcessingScript.position.z * (10000d / Ld));
+		Debug.Log ("original x = " + positionProcessingScript.position.x + ", recalculated = " + x);
+		transform.position = new Vector3 (x, y, z);
+		//_cacheState = state;
 	}
 	
 	void LightDay() {
-		_cacheState = state;
+		gameObject.layer = 11;
+		float x = (float)(positionProcessingScript.position.x * (10000d / LY));
+		float y = (float)(positionProcessingScript.position.y * (10000d / LY));
+		float z = (float)(positionProcessingScript.position.z * (10000d / LY));
+		Debug.Log ("original x = " + positionProcessingScript.position.x + ", recalculated = " + x);
+		transform.position = new Vector3 (x, y, z);
+		//_cacheState = state;
 	}
 
 	void LightYear() {
-		_cacheState = state;
+		gameObject.layer = 12;
+		float x = (float)(positionProcessingScript.position.x * (10000d / PA));
+		float y = (float)(positionProcessingScript.position.y * (10000d / PA));
+		float z = (float)(positionProcessingScript.position.z * (10000d / PA));
+		Debug.Log ("original x = " + positionProcessingScript.position.x + ", recalculated = " + x);
+		transform.position = new Vector3 (x, y, z);
+		//_cacheState = state;
 	}
 
 	void Parsec() {
-		_cacheState = state;
+		gameObject.layer = 13;
+		float x = (float)(positionProcessingScript.position.x * (10000d / LD));
+		float y = (float)(positionProcessingScript.position.y * (10000d / LD));
+		float z = (float)(positionProcessingScript.position.z * (10000d / LD));
+		Debug.Log ("original x = " + positionProcessingScript.position.x + ", recalculated = " + x);
+		transform.position = new Vector3 (x, y, z);
+		//_cacheState = state;
 	}
 
 	void LightDecade() {
-		_cacheState = state;
+		gameObject.layer = 14;
+		float x = (float)(positionProcessingScript.position.x * (10000d / LC));
+		float y = (float)(positionProcessingScript.position.y * (10000d / LC));
+		float z = (float)(positionProcessingScript.position.z * (10000d / LC));
+		Debug.Log ("original x = " + positionProcessingScript.position.x + ", recalculated = " + x);
+		transform.position = new Vector3 (x, y, z);
+		//_cacheState = state;
 	}
 
 	void LightCentury() {
-		_cacheState = state;
+		gameObject.layer = 15;
+		float x = (float)(positionProcessingScript.position.x * (10000d / LM));
+		float y = (float)(positionProcessingScript.position.y * (10000d / LM));
+		float z = (float)(positionProcessingScript.position.z * (10000d / LM));
+		Debug.Log ("original x = " + positionProcessingScript.position.x + ", recalculated = " + x);
+		transform.position = new Vector3 (x, y, z);
+		//_cacheState = state;
 	}
 
 	void LightMillenium() {
-		_cacheState = state;
+		gameObject.layer = 16;
+		float x = (float)(positionProcessingScript.position.x * (10000d / LDM));
+		float y = (float)(positionProcessingScript.position.y * (10000d / LDM));
+		float z = (float)(positionProcessingScript.position.z * (10000d / LDM));
+		Debug.Log ("original x = " + positionProcessingScript.position.x + ", recalculated = " + x);
+		transform.position = new Vector3 (x, y, z);
+		//_cacheState = state;
 	}
 }
