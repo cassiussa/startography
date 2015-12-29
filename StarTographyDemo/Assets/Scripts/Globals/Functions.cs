@@ -151,7 +151,7 @@ public class Functions : Constants {
 			}
 		}
 		
-		double result = value * ratio * 10000d;		// 10,000 is the maximum distance for the camera clip
+		double result = value * ratio * maxUnits;		// 10,000 is the maximum distance for the camera clip
 		return result;	// The near clipping plane for the camera
 	}
 	
@@ -220,5 +220,16 @@ public class Functions : Constants {
 		
 		// Constructor
 		public Vector3d() { x = 0; y = 0; z = 0; }
+	}
+
+	double positionRatio = 0;
+	// This function will calculate the ratio of the calculated position to where it would exist within the 10k unit limit for the specific scale state
+	protected void CalculatePosition(double value, Vector3d position) {
+		positionRatio = maxUnits / value;
+		float _x = (float)(position.x * positionRatio);
+		float _y = (float)(position.y * positionRatio);
+		float _z = (float)(position.z * positionRatio);
+		Debug.Log ("original _x = " + _z + ", recalculated = " + _z);
+		transform.position = new Vector3 (_x, _y, _z);
 	}
 }

@@ -10,6 +10,8 @@ public class Constants : MonoBehaviour {
 	protected double massConstantJupiter = 1898130000000000000000000000d;	// In kilograms
 	protected double massConstantEarth = 5972190000000000000000000d;		// In Kilograms
 
+	protected double maxUnits = 10000d;				// The maximum number of distance, in units, that something can go
+
 	// Predefine these as it may cache or keep them in memory instead of assigning on each function call
 	protected double SM = 1000d;					// SubMillion (the base size)
 	protected double MK = 1000000d;					// Million Kilometers

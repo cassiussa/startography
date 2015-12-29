@@ -21,6 +21,10 @@ public class ScaleStates : Functions {
 	double[] measurements;	// Array of the measurements of the distance types
 	public State thisScale;
 
+
+	Vector3 originalLocalScale;
+	double localScaleRatio = 0;
+
 	#region Basic Getters/Setters
 	public State CurrentState {
 		get { return state; }
@@ -53,6 +57,9 @@ public class ScaleStates : Functions {
 		positionProcessingScript = GetComponent<PositionProcessing> ();
 		if (!positionProcessingScript)
 			Debug.LogError ("The PositionProcessing script appears to be missing", gameObject);
+
+		originalLocalScale = new Vector3 (transform.localScale.x, transform.localScale.y, transform.localScale.z);
+		Debug.LogError ("originalLocalScale = " + originalLocalScale);
 	}
 	
 	// NOTE: Async version of Start.
@@ -128,101 +135,97 @@ public class ScaleStates : Functions {
 
 	void SubMillion() {
 		gameObject.layer = 8;
-		float x = (float)(positionProcessingScript.position.x * (10000d / MK));
-		float y = (float)(positionProcessingScript.position.y * (10000d / MK));
-		float z = (float)(positionProcessingScript.position.z * (10000d / MK));
-		Debug.Log ("original x = " + positionProcessingScript.position.x + ", recalculated = " + x);
-		transform.position = new Vector3 (x, y, z);
+		CalculatePosition (MK, positionProcessingScript.position);
+		CalculateLocalScale(MK);
 		//_cacheState = state;
 	}
 
 	void MillionKilometers() {
-		gameObject.layer = 8;
-		float x = (float)(positionProcessingScript.position.x * (10000d / AU));
-		float y = (float)(positionProcessingScript.position.y * (10000d / AU));
-		float z = (float)(positionProcessingScript.position.z * (10000d / AU));
-		Debug.Log ("original x = " + positionProcessingScript.position.x + ", recalculated = " + x);
-		transform.position = new Vector3 (x, y, z);
+		gameObject.layer = 9;
+		CalculatePosition (AU, positionProcessingScript.position);
+		CalculateLocalScale(AU);
 		//_cacheState = state;
 	}
 	
 	void AstronomicalUnit() {
-		gameObject.layer = 9;
-		float x = (float)(positionProcessingScript.position.x * (10000d / LH));
-		float y = (float)(positionProcessingScript.position.y * (10000d / LH));
-		float z = (float)(positionProcessingScript.position.z * (10000d / LH));
-		Debug.Log ("original x = " + positionProcessingScript.position.x + ", recalculated = " + x);
-		transform.position = new Vector3 (x, y, z);
+		gameObject.layer = 10;
+		CalculatePosition (LH, positionProcessingScript.position);
+		CalculateLocalScale(LH);
 		//_cacheState = state;
 	}
 	
 	void LightHour() {
-		gameObject.layer = 10;
-		float x = (float)(positionProcessingScript.position.x * (10000d / Ld));
-		float y = (float)(positionProcessingScript.position.y * (10000d / Ld));
-		float z = (float)(positionProcessingScript.position.z * (10000d / Ld));
-		Debug.Log ("original x = " + positionProcessingScript.position.x + ", recalculated = " + x);
-		transform.position = new Vector3 (x, y, z);
+		gameObject.layer = 11;
+		CalculatePosition (Ld, positionProcessingScript.position);
+		CalculateLocalScale(Ld);
 		//_cacheState = state;
 	}
 	
 	void LightDay() {
-		gameObject.layer = 11;
-		float x = (float)(positionProcessingScript.position.x * (10000d / LY));
-		float y = (float)(positionProcessingScript.position.y * (10000d / LY));
-		float z = (float)(positionProcessingScript.position.z * (10000d / LY));
-		Debug.Log ("original x = " + positionProcessingScript.position.x + ", recalculated = " + x);
-		transform.position = new Vector3 (x, y, z);
+		gameObject.layer = 12;
+		CalculatePosition (LY, positionProcessingScript.position);
+		CalculateLocalScale(LY);
 		//_cacheState = state;
 	}
 
 	void LightYear() {
-		gameObject.layer = 12;
-		float x = (float)(positionProcessingScript.position.x * (10000d / PA));
-		float y = (float)(positionProcessingScript.position.y * (10000d / PA));
-		float z = (float)(positionProcessingScript.position.z * (10000d / PA));
-		Debug.Log ("original x = " + positionProcessingScript.position.x + ", recalculated = " + x);
-		transform.position = new Vector3 (x, y, z);
+		gameObject.layer = 13;
+		CalculatePosition (PA, positionProcessingScript.position);
+		CalculateLocalScale(PA);
 		//_cacheState = state;
 	}
 
 	void Parsec() {
-		gameObject.layer = 13;
-		float x = (float)(positionProcessingScript.position.x * (10000d / LD));
-		float y = (float)(positionProcessingScript.position.y * (10000d / LD));
-		float z = (float)(positionProcessingScript.position.z * (10000d / LD));
-		Debug.Log ("original x = " + positionProcessingScript.position.x + ", recalculated = " + x);
-		transform.position = new Vector3 (x, y, z);
+		gameObject.layer = 14;
+		CalculatePosition (LD, positionProcessingScript.position);
+		CalculateLocalScale(LD);
 		//_cacheState = state;
 	}
 
 	void LightDecade() {
-		gameObject.layer = 14;
-		float x = (float)(positionProcessingScript.position.x * (10000d / LC));
-		float y = (float)(positionProcessingScript.position.y * (10000d / LC));
-		float z = (float)(positionProcessingScript.position.z * (10000d / LC));
-		Debug.Log ("original x = " + positionProcessingScript.position.x + ", recalculated = " + x);
-		transform.position = new Vector3 (x, y, z);
+		gameObject.layer = 15;
+		CalculatePosition (LC, positionProcessingScript.position);
+		CalculateLocalScale(LC);
 		//_cacheState = state;
 	}
 
 	void LightCentury() {
-		gameObject.layer = 15;
-		float x = (float)(positionProcessingScript.position.x * (10000d / LM));
-		float y = (float)(positionProcessingScript.position.y * (10000d / LM));
-		float z = (float)(positionProcessingScript.position.z * (10000d / LM));
-		Debug.Log ("original x = " + positionProcessingScript.position.x + ", recalculated = " + x);
-		transform.position = new Vector3 (x, y, z);
+		gameObject.layer = 16;
+		CalculatePosition (LM, positionProcessingScript.position);
+		CalculateLocalScale(LM);
 		//_cacheState = state;
 	}
 
 	void LightMillenium() {
-		gameObject.layer = 16;
-		float x = (float)(positionProcessingScript.position.x * (10000d / LDM));
-		float y = (float)(positionProcessingScript.position.y * (10000d / LDM));
-		float z = (float)(positionProcessingScript.position.z * (10000d / LDM));
-		Debug.Log ("original x = " + positionProcessingScript.position.x + ", recalculated = " + x);
-		transform.position = new Vector3 (x, y, z);
+		gameObject.layer = 17;
+		CalculatePosition (LDM, positionProcessingScript.position);
+		CalculateLocalScale(LDM);
 		//_cacheState = state;
+	}
+
+
+
+	/*
+	 * Here we take the original scale of the object and modify it so that
+	 * perspectively, it will look the appropriate size in any given scale
+	 * state layer.  In other words if the object goes beyond the bounds of
+	 * any one layer (ex 1MK) and into the next (ex 1AU), then the object
+	 * will readjust its position to be closer to the camera (to ensure we
+	 * never go beyond the 10,000 unit limit) and the object will be resized
+	 * (shrunk in this case) to account for the perspective difference, making
+	 * it appear that nothing has happened.
+	 * 
+	 * Still needs to be fixed as conditional is true until the scale is first
+	 * changed.
+	 */
+	private void CalculateLocalScale(double value) {
+		if (_prevState != state) {
+			Debug.Log("originalLocalScale = "+originalLocalScale+", value = "+value);
+			localScaleRatio = (MK / value);// / maxUnits;
+			Debug.Log("localScaleRatio = "+localScaleRatio);
+			gameObject.transform.localScale = new Vector3 ((float)(originalLocalScale.x*localScaleRatio),
+			                                               (float)(originalLocalScale.y*localScaleRatio),
+			                                               (float)(originalLocalScale.z*localScaleRatio));
+		}
 	}
 }
