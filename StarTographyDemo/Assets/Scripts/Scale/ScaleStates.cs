@@ -65,7 +65,7 @@ public class ScaleStates : Functions {
 	// NOTE: Async version of Start.
 	IEnumerator Start() {
 		while (true) {
-			if (_cacheState != state) {
+			//if (_cacheState != state) {
 				switch (state) {
 				case State.Initialize:
 					break;
@@ -100,7 +100,7 @@ public class ScaleStates : Functions {
 					LightMillenium ();
 					break;
 				}
-			}
+			//}
 			yield return null;
 		}
 	}
@@ -112,13 +112,12 @@ public class ScaleStates : Functions {
 		 * than they will be to millions of MillionKilometers
 		*/
 		for (int i=measurements.Length-1; i >= 0; i--) {
-			if (System.Math.Abs(positionProcessingScript.position.x) > System.Math.Abs(measurements[i]) || 
-			    System.Math.Abs(positionProcessingScript.position.y) > System.Math.Abs(measurements[i]) || 
-			    System.Math.Abs(positionProcessingScript.position.z) > System.Math.Abs(measurements[i])) {
+			double thisMeasurement = System.Math.Abs(measurements[i]);	// Cache the value instead of calculating it for each comparison
+			if (System.Math.Abs(positionProcessingScript.position.x) >= thisMeasurement || 
+			    System.Math.Abs(positionProcessingScript.position.y) >= thisMeasurement || 
+			    System.Math.Abs(positionProcessingScript.position.z) >= thisMeasurement) {
 				thisScale = scales[inputs[i]];
-				break;	// Break the loop as soon as we've found the scale
-			} else {
-				thisScale = State.MillionKilometers;
+				break;	// Break the loop as soon as we've found the scale.  Continue with Update() function 
 			}
 		}
 		if (state != thisScale)				// Only perform the state transition if we're not already in the same state
@@ -137,70 +136,100 @@ public class ScaleStates : Functions {
 		gameObject.layer = 8;
 		CalculatePosition (MK, positionProcessingScript.position);
 		CalculateLocalScale(MK);
-		//_cacheState = state;
+
+		inputs = new string[] { "SM", "MK" };
+		measurements = new double[] { SM, MK };
+		_cacheState = state;
 	}
 
 	void MillionKilometers() {
 		gameObject.layer = 9;
 		CalculatePosition (AU, positionProcessingScript.position);
 		CalculateLocalScale(AU);
-		//_cacheState = state;
+
+		inputs = new string[] { "SM", "MK", "AU" };
+		measurements = new double[] { SM, MK, AU };
+		_cacheState = state;
 	}
 	
 	void AstronomicalUnit() {
 		gameObject.layer = 10;
 		CalculatePosition (LH, positionProcessingScript.position);
 		CalculateLocalScale(LH);
-		//_cacheState = state;
+
+		inputs = new string[] {  "MK", "AU", "LH" };
+		measurements = new double[] { MK, AU, LH};
+		_cacheState = state;
 	}
 	
 	void LightHour() {
 		gameObject.layer = 11;
 		CalculatePosition (Ld, positionProcessingScript.position);
 		CalculateLocalScale(Ld);
-		//_cacheState = state;
+
+		inputs = new string[] { "AU", "LH", "Ld" };
+		measurements = new double[] { AU, LH, Ld };
+		_cacheState = state;
 	}
 	
 	void LightDay() {
 		gameObject.layer = 12;
 		CalculatePosition (LY, positionProcessingScript.position);
 		CalculateLocalScale(LY);
-		//_cacheState = state;
+
+		inputs = new string[] { "LH", "Ld", "LY"};
+		measurements = new double[] { LH, Ld, LY };
+		_cacheState = state;
 	}
 
 	void LightYear() {
 		gameObject.layer = 13;
 		CalculatePosition (PA, positionProcessingScript.position);
 		CalculateLocalScale(PA);
-		//_cacheState = state;
+
+		inputs = new string[] { "Ld", "LY", "PA" };
+		measurements = new double[] { Ld, LY, PA };
+		_cacheState = state;
 	}
 
 	void Parsec() {
 		gameObject.layer = 14;
 		CalculatePosition (LD, positionProcessingScript.position);
 		CalculateLocalScale(LD);
-		//_cacheState = state;
+
+		inputs = new string[] { "LY", "PA", "LD" };
+		measurements = new double[] { LY, PA, LD };
+		_cacheState = state;
 	}
 
 	void LightDecade() {
 		gameObject.layer = 15;
 		CalculatePosition (LC, positionProcessingScript.position);
 		CalculateLocalScale(LC);
-		//_cacheState = state;
+
+		inputs = new string[] { "PA", "LD", "LC" };
+		measurements = new double[] { PA, LD, LC };
+		_cacheState = state;
 	}
 
 	void LightCentury() {
 		gameObject.layer = 16;
 		CalculatePosition (LM, positionProcessingScript.position);
 		CalculateLocalScale(LM);
-		//_cacheState = state;
+
+		inputs = new string[] { "LD", "LC", "LM" };
+		measurements = new double[] { LD, LC, LM };
+		_cacheState = state;
 	}
 
 	void LightMillenium() {
 		gameObject.layer = 17;
 		CalculatePosition (LDM, positionProcessingScript.position);
 		CalculateLocalScale(LDM);
-		//_cacheState = state;
+
+		inputs = new string[] { "LC", "LM" };
+		measurements = new double[] { LC, LM };
+		_cacheState = state;
 	}
 
 
@@ -214,12 +243,9 @@ public class ScaleStates : Functions {
 	 * never go beyond the 10,000 unit limit) and the object will be resized
 	 * (shrunk in this case) to account for the perspective difference, making
 	 * it appear that nothing has happened.
-	 * 
-	 * Still needs to be fixed as conditional is true until the scale is first
-	 * changed.
 	 */
 	private void CalculateLocalScale(double value) {
-		if (_prevState != state) {
+		if (_cacheState != state) {
 			Debug.Log("originalLocalScale = "+originalLocalScale+", value = "+value);
 			localScaleRatio = (MK / value);// / maxUnits;
 			Debug.Log("localScaleRatio = "+localScaleRatio);
