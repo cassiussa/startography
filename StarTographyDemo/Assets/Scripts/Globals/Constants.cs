@@ -13,7 +13,7 @@ public class Constants : MonoBehaviour {
 	protected double maxUnits = 10000d;				// The maximum number of distance, in units, that something can go
 
 	// Predefine these as it may cache or keep them in memory instead of assigning on each function call
-	protected double SM = 1d;					// SubMillion (the base size)
+	protected double SM = 0.00000000000000001d;		// SubMillion (the base size)
 	protected double MK = 1000000d;					// Million Kilometers
 	protected double AU = 149597870.7d;				// Astronomical Units
 	protected double LH = 1079252848.8d;			// Light Hours

@@ -57,7 +57,6 @@ public class Functions : Constants {
 		 * Angle : float
 		 * The corresponding angle in degrees
 		*/
-		
 		string[] splitHMS = rightAscension.Split(new string[] { "h", "m", "s" }, StringSplitOptions.None);
 		float hour = float.Parse (splitHMS [0]);
 		float minutes = float.Parse (splitHMS [1]);
@@ -90,27 +89,21 @@ public class Functions : Constants {
 		 * distance : double
 		 * The corresponding distance in the new measurement type
 		*/
-		double ratio = 0d;
-		// Set up an array of all the possible measurement type shortforms
-		string[] inputs = new string[] {"SM,", "MK", "AU", "LH", "Ld", "LY", "PA", "LD", "LC", "LM" };
-		// Set up an array of all the possible measurement variables
-		double[] measurements = new double[] {SM, MK, AU, LH, Ld, LY, PA, LD, LC, LM };
-		// Iterate through each of the types of measurements looking for the one stored in the "from" variable
+		double ratio = 0d;																				// Set up an array of all the possible measurement type shortforms
+		string[] inputs = new string[] {"SM,", "MK", "AU", "LH", "Ld", "LY", "PA", "LD", "LC", "LM" };	// Set up an array of all the possible measurement variables
+		double[] measurements = new double[] {SM, MK, AU, LH, Ld, LY, PA, LD, LC, LM };					// Iterate through each of the types of measurements looking for the one stored in the "from" variable
 		for (int i=0; i<measurements.Length; i++) {
-			if(inputs[i] == from) {
-				// Iterate through each type of measurement again, now looking for the one stored in the "to" variable
+			if(inputs[i] == from) {																		// Iterate through each type of measurement again, now looking for the one stored in the "to" variable
 				for (int a=0;a<inputs.Length;a++) {
-					if(inputs[a] == to) {
-						// We have the "from" and "to" values, so calculate them to get the ratio
+					if(inputs[a] == to) {																// We have the "from" and "to" values, so calculate them to get the ratio
 						ratio = measurements[i]/measurements[a];
 						Debug.LogError("ration = "+ratio);
 						break;
 					}
 				}
-				break;	// We've already iterated to where we need, so break the loop
+				break;																					// We've already iterated to where we need, so break the loop
 			}
 		}
-		
 		double result = value * ratio;
 		return result;
 	}
@@ -132,27 +125,21 @@ public class Functions : Constants {
 		 * The corresponding distance in the new measurement type
 		*/
 		double ratio = 0d;
-		// Set up an array of all the possible measurement type shortforms
-		string[] inputs = new string[] {"SM", "MK", "AU", "LH", "Ld", "LY", "PA", "LD", "LC", "LM" };
-		// Set up an array of all the possible measurement variables
-		double[] measurements = new double[] {SM, MK, AU, LH, Ld, LY, PA, LD, LC, LM };
-		// Iterate through each of the types of measurements looking for the one stored in the "from" variable
-		for (int i=0; i<measurements.Length; i++) {
-			if(inputs[i] == from) {
-				// Iterate through each type of measurement again, now looking for the one stored in the "to" variable
+		string[] inputs = new string[] {"SM", "MK", "AU", "LH", "Ld", "LY", "PA", "LD", "LC", "LM" };	// Set up an array of all the possible measurement type shortforms
+		double[] measurements = new double[] {SM, MK, AU, LH, Ld, LY, PA, LD, LC, LM };					// Set up an array of all the possible measurement variables
+		for (int i=0; i<measurements.Length; i++) {														// Iterate through each of the types of measurements looking for the one stored in the "from" variable
+			if(inputs[i] == from) {																		// Iterate through each type of measurement again, now looking for the one stored in the "to" variable
 				for (int a=0;a<inputs.Length;a++) {
-					if(inputs[a] == to) {
-						// We have the "from" and "to" values, so calculate them to get the ratio
+					if(inputs[a] == to) {																// We have the "from" and "to" values, so calculate them to get the ratio
 						ratio = measurements[a]/measurements[i];
 						break;
 					}
 				}
-				break;	// We've already iterated to where we need, so break the loop
+				break;																					// We've already iterated to where we need, so break the loop
 			}
 		}
-		
-		double result = value * ratio * maxUnits;		// 10,000 is the maximum distance for the camera clip
-		return result;	// The near clipping plane for the camera
+		double result = value * ratio * maxUnits;														// 10,000 is the maximum distance for the camera clip
+		return result;																					// The near clipping plane for the camera
 	}
 	
 	
@@ -172,7 +159,6 @@ public class Functions : Constants {
 		 * Angle : float
 		 * The angular distance in degrees between first and second coordinates
 		*/
-		
 		double longitude = (ra1 - ra2) * PI / 180d;
 		double lattitude = (dec1 - dec2) * PI / 180d;
 		// Haversine formula
@@ -207,7 +193,6 @@ public class Functions : Constants {
 		 * Coordinates : x,y,z - all doubles
 		 * Stores a Vector that contains doubles instead of floats for higher accuracy
 		*/
-		
 		public double x;
 		public double y;
 		public double z;
@@ -222,9 +207,22 @@ public class Functions : Constants {
 		public Vector3d() { x = 0; y = 0; z = 0; }
 	}
 
+
+
 	double positionRatio = 0;
-	// This function will calculate the ratio of the *real* (calculated) position to where it would exist within the 10k unit limit for the specific scale state
 	protected void CalculatePosition(double value, Vector3d position) {
+		/*
+		 * Calculate the ratio of real position to fit within 10k unit limit
+		 * 
+		 * Parameters
+		 * ----------
+		 * value : The distance value of the scale State (ex: 100000 for MK) - supplied by the ScaleStates.cs script
+		 * position : A Vector3d value of the real position of the object
+		 * 
+		 * Actions
+		 * -------
+		 * Assigns the position to the gameObject that the calling ScaleStates.cs script is attached to
+		*/
 		positionRatio = maxUnits / value;
 		float _x = (float)(position.x * positionRatio);
 		float _y = (float)(position.y * positionRatio);
