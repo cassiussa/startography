@@ -139,7 +139,6 @@ public class ScaleStates : Functions {
 
 		inputs = new string[] { "SM", "MK" };
 		measurements = new double[] { SM, MK };
-		_cacheState = state;
 	}
 
 	void MillionKilometers() {
@@ -149,7 +148,6 @@ public class ScaleStates : Functions {
 
 		inputs = new string[] { "SM", "MK", "AU" };
 		measurements = new double[] { SM, MK, AU };
-		_cacheState = state;
 	}
 	
 	void AstronomicalUnit() {
@@ -159,7 +157,6 @@ public class ScaleStates : Functions {
 
 		inputs = new string[] {  "MK", "AU", "LH" };
 		measurements = new double[] { MK, AU, LH};
-		_cacheState = state;
 	}
 	
 	void LightHour() {
@@ -169,7 +166,6 @@ public class ScaleStates : Functions {
 
 		inputs = new string[] { "AU", "LH", "Ld" };
 		measurements = new double[] { AU, LH, Ld };
-		_cacheState = state;
 	}
 	
 	void LightDay() {
@@ -179,7 +175,6 @@ public class ScaleStates : Functions {
 
 		inputs = new string[] { "LH", "Ld", "LY"};
 		measurements = new double[] { LH, Ld, LY };
-		_cacheState = state;
 	}
 
 	void LightYear() {
@@ -189,7 +184,6 @@ public class ScaleStates : Functions {
 
 		inputs = new string[] { "Ld", "LY", "PA" };
 		measurements = new double[] { Ld, LY, PA };
-		_cacheState = state;
 	}
 
 	void Parsec() {
@@ -199,7 +193,6 @@ public class ScaleStates : Functions {
 
 		inputs = new string[] { "LY", "PA", "LD" };
 		measurements = new double[] { LY, PA, LD };
-		_cacheState = state;
 	}
 
 	void LightDecade() {
@@ -209,7 +202,6 @@ public class ScaleStates : Functions {
 
 		inputs = new string[] { "PA", "LD", "LC" };
 		measurements = new double[] { PA, LD, LC };
-		_cacheState = state;
 	}
 
 	void LightCentury() {
@@ -219,7 +211,6 @@ public class ScaleStates : Functions {
 
 		inputs = new string[] { "LD", "LC", "LM" };
 		measurements = new double[] { LD, LC, LM };
-		_cacheState = state;
 	}
 
 	void LightMillenium() {
@@ -229,7 +220,6 @@ public class ScaleStates : Functions {
 
 		inputs = new string[] { "LC", "LM" };
 		measurements = new double[] { LC, LM };
-		_cacheState = state;
 	}
 
 
@@ -246,9 +236,8 @@ public class ScaleStates : Functions {
 	 */
 	private void CalculateLocalScale(double value) {
 		if (_cacheState != state) {
-			Debug.Log("originalLocalScale = "+originalLocalScale+", value = "+value);
+			_cacheState = state;
 			localScaleRatio = (MK / value);// / maxUnits;
-			Debug.Log("localScaleRatio = "+localScaleRatio);
 			gameObject.transform.localScale = new Vector3 ((float)(originalLocalScale.x*localScaleRatio),
 			                                               (float)(originalLocalScale.y*localScaleRatio),
 			                                               (float)(originalLocalScale.z*localScaleRatio));
