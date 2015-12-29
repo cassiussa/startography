@@ -223,13 +223,12 @@ public class Functions : Constants {
 	}
 
 	double positionRatio = 0;
-	// This function will calculate the ratio of the calculated position to where it would exist within the 10k unit limit for the specific scale state
+	// This function will calculate the ratio of the *real* (calculated) position to where it would exist within the 10k unit limit for the specific scale state
 	protected void CalculatePosition(double value, Vector3d position) {
 		positionRatio = maxUnits / value;
 		float _x = (float)(position.x * positionRatio);
 		float _y = (float)(position.y * positionRatio);
 		float _z = (float)(position.z * positionRatio);
-		Debug.Log ("original _x = " + _z + ", recalculated = " + _z);
 		transform.position = new Vector3 (_x, _y, _z);
 	}
 }

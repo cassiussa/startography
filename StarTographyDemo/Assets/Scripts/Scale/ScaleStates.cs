@@ -21,6 +21,7 @@ public class ScaleStates : Functions {
 	double[] measurements;	// Array of the measurements of the distance types
 	public State thisScale;
 
+	GameObject scaleStatesParent;
 
 	Vector3 originalLocalScale;
 	double localScaleRatio = 0;
@@ -59,7 +60,11 @@ public class ScaleStates : Functions {
 			Debug.LogError ("The PositionProcessing script appears to be missing", gameObject);
 
 		originalLocalScale = new Vector3 (transform.localScale.x, transform.localScale.y, transform.localScale.z);
-		Debug.LogError ("originalLocalScale = " + originalLocalScale);
+
+		if (!scaleStatesParent)
+			scaleStatesParent = GameObject.Find ("/ScaleStates");
+		if (!scaleStatesParent)
+			Debug.LogError ("The ScaleStates gameObject does not appear to be in the scene.  You need to add it to this scene.", gameObject);
 	}
 	
 	// NOTE: Async version of Start.
@@ -229,7 +234,7 @@ public class ScaleStates : Functions {
 	 * perspectively, it will look the appropriate size in any given scale
 	 * state layer.  In other words if the object goes beyond the bounds of
 	 * any one layer (ex 1MK) and into the next (ex 1AU), then the object
-	 * will readjust its position to be closer to the camera (to ensure we
+	 * will readjust its position to be closer to the camera (to ensure we	
 	 * never go beyond the 10,000 unit limit) and the object will be resized
 	 * (shrunk in this case) to account for the perspective difference, making
 	 * it appear that nothing has happened.
