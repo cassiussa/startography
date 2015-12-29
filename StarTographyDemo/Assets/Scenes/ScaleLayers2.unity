@@ -83,7 +83,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 23024967}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: LD
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -543,7 +543,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   state: 0
   thisScale: 0
-  light: {fileID: 0}
 --- !u!23 &82396084
 Renderer:
   m_ObjectHideFlags: 0
@@ -734,7 +733,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 147275884}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: LH
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1408,7 +1407,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 313430411}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: LY
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1795,7 +1794,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   state: 0
   thisScale: 0
-  light: {fileID: 0}
 --- !u!23 &438405544
 Renderer:
   m_ObjectHideFlags: 0
@@ -1939,7 +1937,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   state: 0
   thisScale: 0
-  light: {fileID: 0}
 --- !u!114 &464901799
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2246,7 +2243,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   state: 0
   thisScale: 0
-  light: {fileID: 0}
 --- !u!114 &527745828
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2775,7 +2771,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 657057483}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: LC
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2922,7 +2918,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   state: 0
   thisScale: 0
-  light: {fileID: 0}
 --- !u!23 &682874604
 Renderer:
   m_ObjectHideFlags: 0
@@ -4271,7 +4266,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   state: 0
   thisScale: 0
-  light: {fileID: 0}
 --- !u!1 &987994474
 GameObject:
   m_ObjectHideFlags: 0
@@ -4280,7 +4274,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 987994475}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SM
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4709,7 +4703,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1043989478}
-  m_Layer: 0
+  m_Layer: 17
   m_Name: LM
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5583,7 +5577,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1231224034}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: AU
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5701,7 +5695,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   state: 0
   thisScale: 0
-  light: {fileID: 0}
 --- !u!23 &1245814443
 Renderer:
   m_ObjectHideFlags: 0
@@ -6162,7 +6155,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   state: 0
   thisScale: 0
-  light: {fileID: 0}
 --- !u!23 &1303949538
 Renderer:
   m_ObjectHideFlags: 0
@@ -6215,7 +6207,7 @@ Light:
   m_Type: 2
   m_Color: {r: 1, g: .937110722, b: .82071799, a: 1}
   m_Intensity: 6.30000019
-  m_Range: 25902067700
+  m_Range: 25902069800
   m_SpotAngle: 30
   m_CookieSize: 10
   m_Shadows:
@@ -6282,7 +6274,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   state: 0
   thisScale: 0
-  light: {fileID: 0}
 --- !u!23 &1312816698
 Renderer:
   m_ObjectHideFlags: 0
@@ -6613,7 +6604,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   state: 0
   thisScale: 0
-  light: {fileID: 0}
 --- !u!23 &1391295696
 Renderer:
   m_ObjectHideFlags: 0
@@ -6865,7 +6855,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1554476414}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: MK
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6945,7 +6935,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   state: 0
   thisScale: 0
-  light: {fileID: 0}
 --- !u!4 &1574169025
 Transform:
   m_ObjectHideFlags: 0
@@ -7866,7 +7855,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1750962201}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Ld
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8634,7 +8623,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 1877738607}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: PA
   m_TagString: Untagged
   m_Icon: {fileID: 0}
