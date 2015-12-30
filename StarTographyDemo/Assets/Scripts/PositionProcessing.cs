@@ -3,17 +3,25 @@ using System.Collections;
 
 public class PositionProcessing : Positioning {
 
-	public double coordX;
-	public double coordY;
-	public double coordZ;
-
+	ObjectData objectDataScript;								// The script that we get initial telemetry from
+	StarData starDataScript;
 	public Vector3d position;// = new Vector3d(0d,0d,0d);
 
 	float random;
-	void Awake() {
-		position = new Vector3d(coordX,coordY,coordZ);
+	void Start() {
+		objectDataScript = GetComponent<ObjectData> ();
+		starDataScript = GetComponent<StarData> ();
+		if (objectDataScript)
+			position = new Vector3d (objectDataScript.coordX, objectDataScript.coordY, objectDataScript.coordZ);
+		else if (starDataScript) {
+			Debug.Log ("My god! It's full of stars!");
+			position = new Vector3d (0d, 0d, 0d);
+		} else {
+			Debug.Log ("It's not an object or a star?");
+			position = new Vector3d (0d, 0d, 0d);
+		}
 		Debug.Log ("Position = "+transform.position);
-		Debug.Log ("Vector3d = (" + position.x + "," + position.y + "," + position.z + ")");
+		//Debug.Log ("Vector3d = (" + position.x + "," + position.y + "," + position.z + ")");
 		random = Random.Range (-20.0F, 20.0F);
 	}
 

@@ -40,7 +40,7 @@ public class ScaleStates : Functions {
 	Dictionary<string, Transform> scaleStateParent = new Dictionary<string, Transform>();
 
 	// For knowing what localScale to set for a gameObject in any given State
-	Vector3 originalLocalScale;
+	public Vector3d originalLocalScale;
 	double localScaleRatio = 0;
 
 	int layerMask;
@@ -87,8 +87,15 @@ public class ScaleStates : Functions {
 		if (!positionProcessingScript)
 			Debug.LogError ("The PositionProcessing script appears to be missing", gameObject);
 
+
+		/*
+		 * Note that this is commented out because we still need to deal with how stars and other non-objects handle this
+		 * during the simulation initialization.
+		 */
 		// Get the original localScale of the gameObject to use for reference later when rescaling based on State
-		originalLocalScale = new Vector3 (transform.localScale.x, transform.localScale.y, transform.localScale.z);
+		//if(originalLocalScale.x == 0d)
+			//originalLocalScale = new Vector3d (transform.localScale.x, transform.localScale.y, transform.localScale.z);
+
 
 		if (!scaleStatesParents)
 			scaleStatesParents = GameObject.Find ("/ScaleStates");
