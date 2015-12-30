@@ -3,11 +3,15 @@ using System.Collections;
 
 public class PositionProcessing : Positioning {
 
+	public double coordX;
+	public double coordY;
+	public double coordZ;
+
 	public Vector3d position;// = new Vector3d(0d,0d,0d);
 
 	float random;
 	void Awake() {
-		position = new Vector3d(transform.position.x,transform.position.y,transform.position.z);
+		position = new Vector3d(coordX,coordY,coordZ);
 		Debug.Log ("Position = "+transform.position);
 		Debug.Log ("Vector3d = (" + position.x + "," + position.y + "," + position.z + ")");
 		random = Random.Range (-20.0F, 20.0F);

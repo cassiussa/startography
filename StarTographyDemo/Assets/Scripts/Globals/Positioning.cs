@@ -16,10 +16,12 @@ public class Positioning : Functions {
 	// This is the ongoing real coordinate for the camera origin.  While
 	// the camera will always remain at 0,0,0, this value will represent
 	// where position 0,0,0 is corresponds from in space.
-	public Vector3d coordinates;
+
+	Vector3d camCoords;
 
 	void Start () {
-		coordinates = new Vector3d (149597870.7d, 0d, 0d);
+		//coordinates = new Vector3d (coordX, coordY, coordZ);
+		//coordinates = new Vector3d (149597870.7d, 0d, 0d);
 	}
 	
 	// Update is called once per frame
