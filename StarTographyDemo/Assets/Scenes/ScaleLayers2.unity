@@ -598,9 +598,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   coordX: 0
   coordY: 0
-  coordZ: -5000
+  coordZ: 0
   xRadius: 6371
   yRadius: 6371
+  x: 10
+  y: 10
+  z: 10
 --- !u!1 &87615222
 GameObject:
   m_ObjectHideFlags: 0
@@ -952,7 +955,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &234891023
 Transform:
   m_ObjectHideFlags: 0
@@ -1867,8 +1870,11 @@ MonoBehaviour:
   coordX: -10000
   coordY: 0
   coordZ: 100000
-  xRadius: 0
-  yRadius: 0
+  xRadius: 69911
+  yRadius: 69911
+  x: 10
+  y: 10
+  z: 10
 --- !u!1 &446715914
 GameObject:
   m_ObjectHideFlags: 0
@@ -2663,7 +2669,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!108 &633519847
 Light:
   m_ObjectHideFlags: 0
@@ -3007,9 +3013,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   coordX: 2000
   coordY: 0
-  coordZ: 1.4e+08
-  xRadius: 0
-  yRadius: 0
+  coordZ: -18000
+  xRadius: 3389.5
+  yRadius: 3389.5
+  x: 10
+  y: 10
+  z: 10
 --- !u!1 &688796090
 GameObject:
   m_ObjectHideFlags: 0
@@ -3337,7 +3346,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 400000, guid: df42500788d1c2f4d96e5db4ff3c2c5d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1e+06
+      value: 3498
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: df42500788d1c2f4d96e5db4ff3c2c5d, type: 3}
       propertyPath: m_LocalPosition.y
@@ -3345,7 +3354,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: df42500788d1c2f4d96e5db4ff3c2c5d, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 2e+06
+      value: 574
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: df42500788d1c2f4d96e5db4ff3c2c5d, type: 3}
       propertyPath: m_LocalRotation.x
@@ -3389,7 +3398,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: df42500788d1c2f4d96e5db4ff3c2c5d, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: df42500788d1c2f4d96e5db4ff3c2c5d, type: 3}
       propertyPath: m_Name
@@ -5802,8 +5811,11 @@ MonoBehaviour:
   coordX: 0
   coordY: 0
   coordZ: 280000
-  xRadius: 0
-  yRadius: 0
+  xRadius: 4000
+  yRadius: 5000
+  x: 10
+  y: 10
+  z: 10
 --- !u!1 &1248450961
 GameObject:
   m_ObjectHideFlags: 0
@@ -6192,13 +6204,14 @@ GameObject:
   - 114: {fileID: 1303949537}
   - 114: {fileID: 1303949536}
   - 108: {fileID: 1303949541}
+  - 114: {fileID: 1303949542}
   m_Layer: 8
   m_Name: Sun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1303949536
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6259,7 +6272,7 @@ Transform:
   m_PrefabInternal: {fileID: 765589351}
   m_GameObject: {fileID: 1303949535}
   m_LocalRotation: {x: -.707106888, y: 0, z: -0, w: .707106769}
-  m_LocalPosition: {x: 1e+06, y: 0, z: 2e+06}
+  m_LocalPosition: {x: 3498, y: 0, z: 574}
   m_LocalScale: {x: 13910.1602, y: 13910.1602, z: 13910.1602}
   m_Children: []
   m_Father: {fileID: 0}
@@ -6299,6 +6312,25 @@ Light:
   m_ShadowAngle: 0
   m_IndirectIntensity: 1
   m_AreaSize: {x: 1, y: 1}
+--- !u!114 &1303949542
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1303949535}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c7a4498cd9e848a486fc890cbfad0d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  coordX: 149590000
+  coordY: 0
+  coordZ: 60000000
+  xRadius: 695508
+  yRadius: 695508
+  x: 10
+  y: 10
+  z: 10
 --- !u!1 &1312816695
 GameObject:
   m_ObjectHideFlags: 0
@@ -6867,7 +6899,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1534204562
 Transform:
   m_ObjectHideFlags: 0
@@ -7142,7 +7174,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1600783565
 Transform:
   m_ObjectHideFlags: 0
@@ -8064,7 +8096,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1780818392
 Transform:
   m_ObjectHideFlags: 0
@@ -9199,7 +9231,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!108 &2012741931
 Light:
   m_ObjectHideFlags: 0

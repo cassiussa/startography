@@ -96,7 +96,6 @@ public class ScaleStates : Functions {
 		//if(originalLocalScale.x == 0d)
 			//originalLocalScale = new Vector3d (transform.localScale.x, transform.localScale.y, transform.localScale.z);
 
-
 		if (!scaleStatesParents)
 			scaleStatesParents = GameObject.Find ("/ScaleStates");
 		if (!scaleStatesParents)
@@ -123,9 +122,9 @@ public class ScaleStates : Functions {
 				lightGameObject.transform.parent = scaleStateParent[inputs[i]];					// Set this gameObject's parent to the appropriate scale's gameObject container
 				double thisMeasurement = measurements[i];										// Cache the measurement for this iteration to save processing
 				lightGameObject.transform.position = new Vector3(								// Set the initial position of the new light gameObjects
-					(float)((System.Math.Abs(transform.position.x)/thisMeasurement)*maxUnits),
-					(float)((System.Math.Abs(transform.position.y)/thisMeasurement)*maxUnits),
-					(float)((System.Math.Abs(transform.position.z)/thisMeasurement)*maxUnits));					
+				    (float)((System.Math.Abs(positionProcessingScript.position.x)/thisMeasurement)*maxUnits),
+				    (float)((System.Math.Abs(positionProcessingScript.position.y)/thisMeasurement)*maxUnits),
+				    (float)((System.Math.Abs(positionProcessingScript.position.z)/thisMeasurement)*maxUnits));					
 				lightGameObject.layer = i+layerMask;											// Set the layer.  Note that 8 is the lowest layer we've made
 				lights.Add (inputs[i],lightGameObject.AddComponent<Light>());					// Add the Light component to the gameObjects
 				float calculatedRange = (float)((light.range/measurements[i]) * maxUnits);		// Range of the light depending on State
