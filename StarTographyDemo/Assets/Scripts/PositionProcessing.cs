@@ -14,7 +14,7 @@ public class PositionProcessing : Positioning {
 	}
 
 	// Update is called once per frame
-	void Update () {
+	void LateUpdate () {
 		position = new Vector3d (position.x, position.y, position.z+10d);
 		//transform.position = V3dToV3 (position);	// Convert from Vector3d double to native Vector3 float and move the gameObject into position
 		//transform.Rotate(Vector3.up * Time.deltaTime*random, Space.World);

@@ -224,9 +224,9 @@ public class Functions : Constants {
 		 * Assigns the position to the gameObject that the calling ScaleStates.cs script is attached to
 		*/
 		positionRatio = maxUnits / value;
-		float _x = (float)(position.x * positionRatio);
-		float _y = (float)(position.y * positionRatio);
-		float _z = (float)(position.z * positionRatio);
+		float _x = (float)((position.x / value) * maxUnits);
+		float _y = (float)((position.y / value) * maxUnits);
+		float _z = (float)((position.z / value) * maxUnits);
 		transform.position = new Vector3 (_x, _y, _z);
 	}
 }
