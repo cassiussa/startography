@@ -66,7 +66,6 @@ public class ScaleStates : Functions {
 	#endregion
 	
 	void Awake() {
-		Debug.Log ("originalLocalScale = (" + originalLocalScale.x+","+originalLocalScale.y+","+originalLocalScale.z+") on "+gameObject.name);
 		// A list of strings we can perform conditionals on and then assign a state
 		scales.Add ("SM", State.SubMillion);
 		scales.Add ("MK", State.MillionKilometers);
@@ -92,10 +91,6 @@ public class ScaleStates : Functions {
 		 * Note that this is commented out because we still need to deal with how stars and other non-objects handle this
 		 * during the simulation initialization.
 		 */
-		// Get the original localScale of the gameObject to use for reference later when rescaling based on State
-		//if(originalLocalScale.x == 0d)
-			//originalLocalScale = new Vector3d (transform.localScale.x, transform.localScale.y, transform.localScale.z);
-
 		if (!scaleStatesParents)
 			scaleStatesParents = GameObject.Find ("/ScaleStates");
 		if (!scaleStatesParents)
@@ -193,6 +188,8 @@ public class ScaleStates : Functions {
 		 * how I want.  Issue is that it bumps up to the state above the one we really want.
 		*/
 		// Iterates through an array and then uses the string within scales[string] dictionary key to attain dictionary value (State) 
+
+		// This needs to be changed to Distance to origin, not just that x y or z are smaller.  A^2 + B^2 = C^2
 		for (int i=0;i<inputsRevised.Length; i++) {
 			double thisMeasurement = System.Math.Abs(measurements[i]);						// Cache the value instead of calculating it for each comparison
 			if (thisMeasurement > System.Math.Abs(positionProcessingScript.position.x) && 
