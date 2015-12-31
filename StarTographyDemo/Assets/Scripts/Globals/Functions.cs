@@ -209,7 +209,7 @@ public class Functions : Constants {
 
 
 
-	double positionRatio = 0;
+	//double positionRatio = 0;
 	protected void CalculatePosition(double value, Vector3d position) {
 		/*
 		 * Calculate the ratio of real position to fit within 10k unit limit
@@ -223,7 +223,7 @@ public class Functions : Constants {
 		 * -------
 		 * Assigns the position to the gameObject that the calling ScaleStates.cs script is attached to
 		*/
-		positionRatio = maxUnits / value;
+		//positionRatio = maxUnits / value;
 		float _x = (float)((position.x / value) * maxUnits);
 		float _y = (float)((position.y / value) * maxUnits);
 		float _z = (float)((position.z / value) * maxUnits);

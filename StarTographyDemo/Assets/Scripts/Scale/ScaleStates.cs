@@ -64,9 +64,9 @@ public class ScaleStates : Functions {
 		get { return _prevState; }
 	}
 	#endregion
-
-
+	
 	void Awake() {
+		Debug.Log ("originalLocalScale = (" + originalLocalScale.x+","+originalLocalScale.y+","+originalLocalScale.z+") on "+gameObject.name);
 		// A list of strings we can perform conditionals on and then assign a state
 		scales.Add ("SM", State.SubMillion);
 		scales.Add ("MK", State.MillionKilometers);
@@ -121,10 +121,11 @@ public class ScaleStates : Functions {
 				GameObject lightGameObject = lightGameObjects[inputs[i]];						// Create a variable for this GameObject for faster processing
 				lightGameObject.transform.parent = scaleStateParent[inputs[i]];					// Set this gameObject's parent to the appropriate scale's gameObject container
 				double thisMeasurement = measurements[i];										// Cache the measurement for this iteration to save processing
-				lightGameObject.transform.position = new Vector3(								// Set the initial position of the new light gameObjects
-				    (float)((System.Math.Abs(positionProcessingScript.position.x)/thisMeasurement)*maxUnits),
-				    (float)((System.Math.Abs(positionProcessingScript.position.y)/thisMeasurement)*maxUnits),
-				    (float)((System.Math.Abs(positionProcessingScript.position.z)/thisMeasurement)*maxUnits));					
+				Vector3d thisPosition = new Vector3d(											// Set the initial position of the new light gameObjects
+					((System.Math.Abs(positionProcessingScript.position.x)/thisMeasurement)*maxUnits),
+					((System.Math.Abs(positionProcessingScript.position.y)/thisMeasurement)*maxUnits),
+					((System.Math.Abs(positionProcessingScript.position.z)/thisMeasurement)*maxUnits));
+				lightGameObject.transform.position = V3dToV3(thisPosition);
 				lightGameObject.layer = i+layerMask;											// Set the layer.  Note that 8 is the lowest layer we've made
 				lights.Add (inputs[i],lightGameObject.AddComponent<Light>());					// Add the Light component to the gameObjects
 				float calculatedRange = (float)((light.range/measurements[i]) * maxUnits);		// Range of the light depending on State
@@ -182,6 +183,7 @@ public class ScaleStates : Functions {
 
 	
 	void Update() {
+
 		/* 
 		 * Count down instead of up because the vast majority of objects will 
 		 * be closer to LightMillenium, LightCentury and LightDecade
@@ -202,6 +204,7 @@ public class ScaleStates : Functions {
 		}
 		if (state != thisScale)																// Only perform the state transition if we're not already in the same state
 			SetState (thisScale);															// Assign the scale that was determined by distance from origin Vector3(0,0,0)
+
 	}
 
 
@@ -217,12 +220,13 @@ public class ScaleStates : Functions {
 		gameObject.layer = layerMask;														// Set the layer that this scale State resides in
 
 		CalculatePosition (SM, positionProcessingScript.position);							// Calculate the relative position based on real position and scale of this State
-		CalculateLocalScale(SM);															// Calculate the gameObject scale based on original scale and the scale of this State
+		if (_cacheState != state) {															// Without this we get crazy bugs.  Don't know why.  It needs to be here for code efficiency anyways!
+			CalculateLocalScale(SM);														// Calculate the gameObject scale based on original scale and the scale of this State
+			inputsRevised = new string[] { "SM", "MK" };									// Specify only the scale States immediately surrounding this state so we can keep loop to minimum as there
+			measurements = new double[] { SM, MK };											// is no point looping through every possible state since - we can only jump up or down one state at a time
 
-		inputsRevised = new string[] { "SM", "MK" };										// Specify only the scale States immediately surrounding this state so we can keep loop to minimum as there
-		measurements = new double[] { SM, MK };												// is no point looping through every possible state since - we can only jump up or down one state at a time
-
-		gameObject.transform.parent = scaleStateParent["SM"];								// Set this gameObject's parent to the appropriate scale's gameObject container
+			gameObject.transform.parent = scaleStateParent ["SM"];							// Set this gameObject's parent to the appropriate scale's gameObject container
+		}
 
 		if (light) {																		// Check if this gameObject is, or contains, a light
 			light.cullingMask = 1 << layerMask;												// set the culling mask to use the Nth layer
@@ -237,10 +241,12 @@ public class ScaleStates : Functions {
 		layerMask = 9;
 		gameObject.layer = layerMask;
 		CalculatePosition (MK, positionProcessingScript.position);
-		CalculateLocalScale(MK);
-		inputsRevised = new string[] { "SM", "MK", "AU" };
-		measurements = new double[] { SM, MK, AU };
-		gameObject.transform.parent = scaleStateParent["MK"];
+		if (_cacheState != state) {
+			CalculateLocalScale(MK);
+			inputsRevised = new string[] { "SM", "MK", "AU" };
+			measurements = new double[] { SM, MK, AU };
+			gameObject.transform.parent = scaleStateParent ["MK"];
+		}
 
 		if (light) {
 			light.cullingMask = 1 << layerMask;
@@ -255,11 +261,12 @@ public class ScaleStates : Functions {
 		layerMask = 10;
 		gameObject.layer = layerMask;
 		CalculatePosition (AU, positionProcessingScript.position);
-		CalculateLocalScale(AU);
-		inputsRevised = new string[] {  "MK", "AU", "LH" };
-		measurements = new double[] { MK, AU, LH};
-		gameObject.transform.parent = scaleStateParent["AU"];
-
+		if (_cacheState != state) {
+			CalculateLocalScale(AU);
+			inputsRevised = new string[] {  "MK", "AU", "LH" };
+			measurements = new double[] { MK, AU, LH };
+			gameObject.transform.parent = scaleStateParent ["AU"];
+		}
 		if (light) {
 			light.cullingMask = 1 << layerMask;
 			float calculatedRange = (float)((lightRange/AU) * maxUnits);
@@ -273,11 +280,12 @@ public class ScaleStates : Functions {
 		layerMask = 11;
 		gameObject.layer = layerMask;
 		CalculatePosition (LH, positionProcessingScript.position);
-		CalculateLocalScale (LH);
-		inputsRevised = new string[] { "AU", "LH", "Ld" };
-		measurements = new double[] { AU, LH, Ld };
-		gameObject.transform.parent = scaleStateParent["LH"];
-
+		if (_cacheState != state) {
+			CalculateLocalScale (LH);
+			inputsRevised = new string[] { "AU", "LH", "Ld" };
+			measurements = new double[] { AU, LH, Ld };
+			gameObject.transform.parent = scaleStateParent ["LH"];
+		}
 		if (light) {
 			light.cullingMask = 1 << layerMask;
 			float calculatedRange = (float)((lightRange/LH) * maxUnits);
@@ -291,10 +299,12 @@ public class ScaleStates : Functions {
 		layerMask = 12;
 		gameObject.layer = layerMask;
 		CalculatePosition (Ld, positionProcessingScript.position);
-		CalculateLocalScale(Ld);
-		inputsRevised = new string[] { "LH", "Ld", "LY"};
-		measurements = new double[] { LH, Ld, LY };
-		gameObject.transform.parent = scaleStateParent["Ld"];
+		if (_cacheState != state) {
+			CalculateLocalScale (Ld);
+			inputsRevised = new string[] { "LH", "Ld", "LY"};
+			measurements = new double[] { LH, Ld, LY };
+			gameObject.transform.parent = scaleStateParent ["Ld"];
+		}
 
 		if (light) {
 			light.cullingMask = 1 << layerMask;
@@ -309,11 +319,12 @@ public class ScaleStates : Functions {
 		layerMask = 13;
 		gameObject.layer = layerMask;
 		CalculatePosition (LY, positionProcessingScript.position);
-		CalculateLocalScale(LY);
-		inputsRevised = new string[] { "Ld", "LY", "PA" };
-		measurements = new double[] { Ld, LY, PA };
-		gameObject.transform.parent = scaleStateParent["LY"];
-
+		if (_cacheState != state) {
+			CalculateLocalScale (LY);
+			inputsRevised = new string[] { "Ld", "LY", "PA" };
+			measurements = new double[] { Ld, LY, PA };
+			gameObject.transform.parent = scaleStateParent ["LY"];
+		}
 		if (light)
 			light.enabled = false;
 	}
@@ -322,11 +333,12 @@ public class ScaleStates : Functions {
 		layerMask = 14;
 		gameObject.layer = layerMask;
 		CalculatePosition (PA, positionProcessingScript.position);
-		CalculateLocalScale(PA);
-		inputsRevised = new string[] { "LY", "PA", "LD" };
-		measurements = new double[] { LY, PA, LD };
-		gameObject.transform.parent = scaleStateParent["PA"];
-
+		if (_cacheState != state) {
+			CalculateLocalScale (PA);
+			inputsRevised = new string[] { "LY", "PA", "LD" };
+			measurements = new double[] { LY, PA, LD };
+			gameObject.transform.parent = scaleStateParent ["PA"];
+		}
 		if (light)
 			light.enabled = false;
 	}
@@ -335,11 +347,12 @@ public class ScaleStates : Functions {
 		layerMask = 15;
 		gameObject.layer = layerMask;
 		CalculatePosition (LD, positionProcessingScript.position);
-		CalculateLocalScale(LD);
-		inputsRevised = new string[] { "PA", "LD", "LC" };
-		measurements = new double[] { PA, LD, LC };
-		gameObject.transform.parent = scaleStateParent["LD"];
-
+		if (_cacheState != state) {
+			CalculateLocalScale (LD);
+			inputsRevised = new string[] { "PA", "LD", "LC" };
+			measurements = new double[] { PA, LD, LC };
+			gameObject.transform.parent = scaleStateParent ["LD"];
+		}
 		if (light)
 			light.enabled = false;
 	}
@@ -348,11 +361,12 @@ public class ScaleStates : Functions {
 		layerMask = 16;
 		gameObject.layer = layerMask;
 		CalculatePosition (LC, positionProcessingScript.position);
-		CalculateLocalScale(LC);
-		inputsRevised = new string[] { "LD", "LC", "LM" };
-		measurements = new double[] { LD, LC, LM };
-		gameObject.transform.parent = scaleStateParent["LC"];
-
+		if (_cacheState != state) {
+			CalculateLocalScale (LC);
+			inputsRevised = new string[] { "LD", "LC", "LM" };
+			measurements = new double[] { LD, LC, LM };
+			gameObject.transform.parent = scaleStateParent ["LC"];
+		}
 		if (light)
 			light.enabled = false;
 	}
@@ -361,11 +375,12 @@ public class ScaleStates : Functions {
 		layerMask = 17;
 		gameObject.layer = layerMask;
 		CalculatePosition (LM, positionProcessingScript.position);
-		CalculateLocalScale(LM);
-		inputsRevised = new string[] { "LC", "LM" };
-		measurements = new double[] { LC, LM };
-		gameObject.transform.parent = scaleStateParent["LM"];
-
+		if (_cacheState != state) {
+			CalculateLocalScale (LM);
+			inputsRevised = new string[] { "LC", "LM" };
+			measurements = new double[] { LC, LM };
+			gameObject.transform.parent = scaleStateParent ["LM"];
+		}
 		if (light)
 			light.enabled = false;
 	}
@@ -383,13 +398,11 @@ public class ScaleStates : Functions {
 	 * it appear that nothing has happened.
 	 */
 	private void CalculateLocalScale(double value) {
-		if (_cacheState != state) {
-			_cacheState = state;
-			gameObject.transform.localScale = new Vector3 (
-				(float)((originalLocalScale.x / value) * maxUnits),
-				(float)((originalLocalScale.y / value) * maxUnits),
-				(float)((originalLocalScale.z / value) * maxUnits));
-		}
+		gameObject.transform.localScale = new Vector3 (
+			(float)((originalLocalScale.x / value) * maxUnits),
+			(float)((originalLocalScale.y / value) * maxUnits),
+			(float)((originalLocalScale.z / value) * maxUnits));
+		_cacheState = state;
 	}
 
 
