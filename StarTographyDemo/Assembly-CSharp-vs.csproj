@@ -193,6 +193,7 @@
      <Compile Include="Assets\Scripts\BodyData.cs" />
      <Compile Include="Assets\Scripts\BodyTriggers.cs" />
      <Compile Include="Assets\Scripts\Circle.cs" />
+     <Compile Include="Assets\Scripts\Controller\Movement.cs" />
      <Compile Include="Assets\Scripts\DisplayEarthDate.cs" />
      <Compile Include="Assets\Scripts\FadeMaterial.cs" />
      <Compile Include="Assets\Scripts\FiniteStateMachine.cs" />

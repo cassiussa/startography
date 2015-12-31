@@ -92,7 +92,7 @@ public class ScaleStates : Functions {
 		 * during the simulation initialization.
 		 */
 		if (!scaleStatesParents)
-			scaleStatesParents = GameObject.Find ("/ScaleStates");
+			scaleStatesParents = GameObject.Find ("/Galaxy/ScaleStates");
 		if (!scaleStatesParents)
 			Debug.LogError ("The ScaleStates gameObject does not appear to be in the scene.  You need to add it to this scene.", gameObject);
 
@@ -190,6 +190,8 @@ public class ScaleStates : Functions {
 		// Iterates through an array and then uses the string within scales[string] dictionary key to attain dictionary value (State) 
 
 		// This needs to be changed to Distance to origin, not just that x y or z are smaller.  A^2 + B^2 = C^2
+		// Or does it need to be changed?  May not if every scale State has the same 'issue'.  If that makes it ok
+		// I should leave it like this as it's faster processing than the Distance function
 		for (int i=0;i<inputsRevised.Length; i++) {
 			double thisMeasurement = System.Math.Abs(measurements[i]);						// Cache the value instead of calculating it for each comparison
 			if (thisMeasurement > System.Math.Abs(positionProcessingScript.position.x) && 
@@ -201,6 +203,7 @@ public class ScaleStates : Functions {
 		}
 		if (state != thisScale)																// Only perform the state transition if we're not already in the same state
 			SetState (thisScale);															// Assign the scale that was determined by distance from origin Vector3(0,0,0)
+
 
 	}
 
