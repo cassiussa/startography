@@ -529,7 +529,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   coordX: 0
   coordY: 0
-  coordZ: 0
+  coordZ: 304400
   xRadius: 6371
   yRadius: 6371
 --- !u!1 &87615222
@@ -1600,6 +1600,46 @@ Transform:
   - {fileID: 1262748656}
   m_Father: {fileID: 1343980337}
   m_RootOrder: 2
+--- !u!1 &648525926
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 648525927}
+  - 114: {fileID: 648525928}
+  m_Layer: 0
+  m_Name: Galaxy
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &648525927
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 648525926}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1254014101}
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+--- !u!114 &648525928
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 648525926}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e410574aae1b241ebb7ccec9cd9378ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &657057482
 GameObject:
   m_ObjectHideFlags: 0
@@ -1639,7 +1679,7 @@ GameObject:
   - 23: {fileID: 669155931}
   - 114: {fileID: 669155930}
   m_Layer: 17
-  m_Name: Universe
+  m_Name: UniverseBackground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1694,7 +1734,7 @@ Transform:
   m_LocalScale: {x: 19999, y: 19999, z: 19999}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
 --- !u!1 &674116015
 GameObject:
   m_ObjectHideFlags: 0
@@ -2588,7 +2628,7 @@ Transform:
   m_LocalScale: {x: 41.7779999, y: 41.7779999, z: 41.7779999}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
 --- !u!114 &978705451
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3006,8 +3046,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   coordX: 10000000
-  coordY: 149597000
-  coordZ: 0
+  coordY: 0
+  coordZ: 149597000
   xRadius: 695508
   yRadius: 695508
 --- !u!108 &1120951050
@@ -3641,8 +3681,8 @@ Transform:
   - {fileID: 23024967}
   - {fileID: 657057483}
   - {fileID: 1043989478}
-  m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_Father: {fileID: 648525927}
+  m_RootOrder: 0
 --- !u!1 &1262748655
 GameObject:
   m_ObjectHideFlags: 0
@@ -3988,9 +4028,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c7a4498cd9e848a486fc890cbfad0d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  coordX: -240800
+  coordX: 0
   coordY: 0
-  coordZ: 286800
+  coordZ: -80000
   xRadius: 1737.5
   yRadius: 1737.5
 --- !u!1 &1314713036
@@ -4401,7 +4441,7 @@ Transform:
   - {fileID: 1018645375}
   - {fileID: 1343980337}
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 2
 --- !u!1 &1575473409
 GameObject:
   m_ObjectHideFlags: 0
@@ -4960,7 +5000,7 @@ Transform:
   - {fileID: 1953099465}
   - {fileID: 1248450962}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
 --- !u!1 &1738132742
 GameObject:
   m_ObjectHideFlags: 0
@@ -5748,6 +5788,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 2021441171}
+  - 114: {fileID: 2021441172}
   m_Layer: 0
   m_Name: Cameras
   m_TagString: Untagged
@@ -5776,7 +5817,18 @@ Transform:
   - {fileID: 1612234743}
   - {fileID: 2079397096}
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 0
+--- !u!114 &2021441172
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2021441170}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 267064650ddc6491596a0505dc543995, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2024559131
 GameObject:
   m_ObjectHideFlags: 0

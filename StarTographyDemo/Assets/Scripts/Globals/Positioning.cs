@@ -13,19 +13,55 @@ using System.Collections;
 
 public class Positioning : Functions {
 
-	// This is the ongoing real coordinate for the camera origin.  While
-	// the camera will always remain at 0,0,0, this value will represent
-	// where position 0,0,0 is corresponds from in space.
+	/* 
+	 * This is the ongoing real coordinate for the camera origin.  While
+	 * the camera will always remain at 0,0,0, this value will represent
+	 * where position 0,0,0 corresponds from in space.  Numbers must 
+	 * be opposite values.  Ex: 10,20,55 is where the camera would be,
+	 * however it's position is 0,0,0 making adjustment -10,-20,-55
+	 */
 
-	Vector3d camCoords;
+	float xSpeed = 0f;			//Don't touch this
+	float zSpeed = 0f;			//Don't touch this
+	float MaxSpeed = 600f;		//This is the maximum speed that the object will achieve 
+	float Acceleration = 1000f;	//How fast will object reach a maximum speed 
+	float Deceleration = 750f;	//How fast will object reach a speed of 0
 
-	void Start () {
-		//coordinates = new Vector3d (coordX, coordY, coordZ);
-		//coordinates = new Vector3d (149597870.7d, 0d, 0d);
-	}
-	
-	// Update is called once per frame
+	Vector3d thisPosition = new Vector3d (0d, 0d, 0d);
+
 	void Update () {
-	
+
+		
+		if ((Input.GetKey(KeyCode.LeftArrow)) && (xSpeed < MaxSpeed)) 
+			xSpeed = xSpeed - Acceleration * Time.deltaTime;
+		else if ((Input.GetKey(KeyCode.RightArrow)) && (xSpeed > -MaxSpeed))
+			xSpeed = xSpeed + Acceleration * Time.deltaTime;
+		else if ((Input.GetKey(KeyCode.DownArrow)) && (zSpeed < MaxSpeed)) 
+			zSpeed = zSpeed - Acceleration * Time.deltaTime;
+		else if ((Input.GetKey(KeyCode.UpArrow)) && (zSpeed > -MaxSpeed))
+			zSpeed = zSpeed + Acceleration * Time.deltaTime;
+		else {
+			if (xSpeed > Deceleration) 
+				xSpeed = xSpeed - Deceleration * Time.deltaTime;
+			else if (xSpeed < -Deceleration) 
+				xSpeed = xSpeed + Deceleration * Time.deltaTime;
+			else xSpeed = 0;
+			if (zSpeed > Deceleration) 
+				zSpeed = zSpeed - Deceleration * Time.deltaTime;
+			else if (zSpeed < -Deceleration) 
+				zSpeed = zSpeed + Deceleration * Time.deltaTime;
+			else zSpeed = 0;
+		}
+		thisPosition = new Vector3d (thisPosition.x + xSpeed * Time.deltaTime,
+		                             thisPosition.y, 
+		                             thisPosition.z + zSpeed * Time.deltaTime);
+		camPosition = new Vector3d (thisPosition.x * -1, thisPosition.y * -1, thisPosition.z * -1);
+
+		//Vector3 pos = new Vector3 (transform.position.x + xSpeed * Time.deltaTime, 
+		//                           transform.position.y, 
+		//                           transform.position.z + zSpeed * Time.deltaTime);
+		//transform.position = pos;
+		//transform.position.x = transform.position.x + Speed * Time.deltaTime;
+		//Debug.Log ("camPosition = (" + camPosition.x + "," + camPosition.y + "," + camPosition.z + ")");
 	}
 }

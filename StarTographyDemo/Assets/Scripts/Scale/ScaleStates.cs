@@ -53,6 +53,7 @@ public class ScaleStates : Functions {
 
 
 	PositionProcessing positionProcessingScript;
+	Positioning positioningScript;
 
 
 	#region Basic Getters/Setters
@@ -85,7 +86,9 @@ public class ScaleStates : Functions {
 		positionProcessingScript = GetComponent<PositionProcessing> ();
 		if (!positionProcessingScript)
 			Debug.LogError ("The PositionProcessing script appears to be missing", gameObject);
-
+		positioningScript = GameObject.Find ("/Cameras").GetComponent<Positioning> ();
+		if(!positioningScript)
+			Debug.LogError ("The Positioning script appears to be missing from the 'Camera's gameObject", gameObject);
 
 		/*
 		 * Note that this is commented out because we still need to deal with how stars and other non-objects handle this
@@ -194,9 +197,9 @@ public class ScaleStates : Functions {
 		// I should leave it like this as it's faster processing than the Distance function
 		for (int i=0;i<inputsRevised.Length; i++) {
 			double thisMeasurement = System.Math.Abs(measurements[i]);						// Cache the value instead of calculating it for each comparison
-			if (thisMeasurement > System.Math.Abs(positionProcessingScript.position.x) && 
-			    thisMeasurement > System.Math.Abs(positionProcessingScript.position.y) && 
-			    thisMeasurement > System.Math.Abs(positionProcessingScript.position.z)) {
+			if (thisMeasurement > System.Math.Abs(positionProcessingScript.position.x+positioningScript.camPosition.x) && 
+			    thisMeasurement > System.Math.Abs(positionProcessingScript.position.y+positioningScript.camPosition.y) && 
+			    thisMeasurement > System.Math.Abs(positionProcessingScript.position.z+positioningScript.camPosition.z)) {
 				thisScale = scales[inputsRevised[i]];										// inputsRevised[i-1] is a string that is a key for the scales dictionary
 				break;																		// Break the loop as soon as we've found the scale.  Continue with Update() function
 			}
@@ -219,7 +222,7 @@ public class ScaleStates : Functions {
 		layerMask = 8;																		// Set the index of the layer this State uses
 		gameObject.layer = layerMask;														// Set the layer that this scale State resides in
 
-		CalculatePosition (SM, positionProcessingScript.position);							// Calculate the relative position based on real position and scale of this State
+		CalculatePosition (SM, positionProcessingScript.position, positioningScript.camPosition);							// Calculate the relative position based on real position and scale of this State
 		if (_cacheState != state) {															// Without this we get crazy bugs.  Don't know why.  It needs to be here for code efficiency anyways!
 			CalculateLocalScale(SM);														// Calculate the gameObject scale based on original scale and the scale of this State
 			inputsRevised = new string[] { "SM", "MK" };									// Specify only the scale States immediately surrounding this state so we can keep loop to minimum as there
@@ -240,7 +243,7 @@ public class ScaleStates : Functions {
 	void MillionKilometers() {
 		layerMask = 9;
 		gameObject.layer = layerMask;
-		CalculatePosition (MK, positionProcessingScript.position);
+		CalculatePosition (MK, positionProcessingScript.position, positioningScript.camPosition);
 		if (_cacheState != state) {
 			CalculateLocalScale(MK);
 			inputsRevised = new string[] { "SM", "MK", "AU" };
@@ -260,7 +263,7 @@ public class ScaleStates : Functions {
 	void AstronomicalUnit() {
 		layerMask = 10;
 		gameObject.layer = layerMask;
-		CalculatePosition (AU, positionProcessingScript.position);
+		CalculatePosition (AU, positionProcessingScript.position, positioningScript.camPosition);
 		if (_cacheState != state) {
 			CalculateLocalScale(AU);
 			inputsRevised = new string[] {  "MK", "AU", "LH" };
@@ -279,7 +282,7 @@ public class ScaleStates : Functions {
 	void LightHour() {
 		layerMask = 11;
 		gameObject.layer = layerMask;
-		CalculatePosition (LH, positionProcessingScript.position);
+		CalculatePosition (LH, positionProcessingScript.position, positioningScript.camPosition);
 		if (_cacheState != state) {
 			CalculateLocalScale (LH);
 			inputsRevised = new string[] { "AU", "LH", "Ld" };
@@ -298,7 +301,7 @@ public class ScaleStates : Functions {
 	void LightDay() {
 		layerMask = 12;
 		gameObject.layer = layerMask;
-		CalculatePosition (Ld, positionProcessingScript.position);
+		CalculatePosition (Ld, positionProcessingScript.position, positioningScript.camPosition);
 		if (_cacheState != state) {
 			CalculateLocalScale (Ld);
 			inputsRevised = new string[] { "LH", "Ld", "LY"};
@@ -318,7 +321,7 @@ public class ScaleStates : Functions {
 	void LightYear() {
 		layerMask = 13;
 		gameObject.layer = layerMask;
-		CalculatePosition (LY, positionProcessingScript.position);
+		CalculatePosition (LY, positionProcessingScript.position, positioningScript.camPosition);
 		if (_cacheState != state) {
 			CalculateLocalScale (LY);
 			inputsRevised = new string[] { "Ld", "LY", "PA" };
@@ -332,7 +335,7 @@ public class ScaleStates : Functions {
 	void Parsec() {
 		layerMask = 14;
 		gameObject.layer = layerMask;
-		CalculatePosition (PA, positionProcessingScript.position);
+		CalculatePosition (PA, positionProcessingScript.position, positioningScript.camPosition);
 		if (_cacheState != state) {
 			CalculateLocalScale (PA);
 			inputsRevised = new string[] { "LY", "PA", "LD" };
@@ -346,7 +349,7 @@ public class ScaleStates : Functions {
 	void LightDecade() {
 		layerMask = 15;
 		gameObject.layer = layerMask;
-		CalculatePosition (LD, positionProcessingScript.position);
+		CalculatePosition (LD, positionProcessingScript.position, positioningScript.camPosition);
 		if (_cacheState != state) {
 			CalculateLocalScale (LD);
 			inputsRevised = new string[] { "PA", "LD", "LC" };
@@ -360,7 +363,7 @@ public class ScaleStates : Functions {
 	void LightCentury() {
 		layerMask = 16;
 		gameObject.layer = layerMask;
-		CalculatePosition (LC, positionProcessingScript.position);
+		CalculatePosition (LC, positionProcessingScript.position, positioningScript.camPosition);
 		if (_cacheState != state) {
 			CalculateLocalScale (LC);
 			inputsRevised = new string[] { "LD", "LC", "LM" };
@@ -374,7 +377,7 @@ public class ScaleStates : Functions {
 	void LightMillenium() {
 		layerMask = 17;
 		gameObject.layer = layerMask;
-		CalculatePosition (LM, positionProcessingScript.position);
+		CalculatePosition (LM, positionProcessingScript.position, positioningScript.camPosition);
 		if (_cacheState != state) {
 			CalculateLocalScale (LM);
 			inputsRevised = new string[] { "LC", "LM" };

@@ -209,8 +209,8 @@ public class Functions : Constants {
 
 
 
-	//double positionRatio = 0;
-	protected void CalculatePosition(double value, Vector3d position) {
+
+	protected void CalculatePosition(double value, Vector3d position, Vector3d camPosition) {
 		/*
 		 * Calculate the ratio of real position to fit within 10k unit limit
 		 * 
@@ -224,9 +224,13 @@ public class Functions : Constants {
 		 * Assigns the position to the gameObject that the calling ScaleStates.cs script is attached to
 		*/
 		//positionRatio = maxUnits / value;
-		float _x = (float)((position.x / value) * maxUnits);
-		float _y = (float)((position.y / value) * maxUnits);
-		float _z = (float)((position.z / value) * maxUnits);
+		// position.x (vector3d) + camera position adjustment / the size of scale * maximum unity units (10k)
+
+		float _x = (float)(((position.x + camPosition.x) / value) * maxUnits);
+		float _y = (float)(((position.y + camPosition.y) / value) * maxUnits);
+		float _z = (float)(((position.z + camPosition.z) / value) * maxUnits);
+		//Debug.Log ("POST: _x = " + _x + ", _y = " + _y + ", _z = " + _z);
 		transform.position = new Vector3 (_x, _y, _z);
 	}
+	public Vector3d camPosition = new Vector3d(0d,0d,0d);
 }

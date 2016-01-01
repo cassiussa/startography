@@ -28,7 +28,7 @@ public class PositionProcessing : Positioning {
 
 	// Update is called once per frame
 	void Update () {
-		position.z = position.z+50d;
+		//position.z = position.z+50d;
 		//transform.position = V3dToV3 (position);	// Convert from Vector3d double to native Vector3 float and move the gameObject into position
 
 		angle = new Vector3d (angle.x, angle.y + (random*Time.deltaTime), angle.z);
