@@ -24,8 +24,8 @@ public class Positioning : Functions {
 	float xSpeed = 0f;			//Don't touch this
 	float zSpeed = 0f;			//Don't touch this
 	float MaxSpeed = 60000f;		//This is the maximum speed that the object will achieve 
-	float Acceleration = 1000f;	//How fast will object reach a maximum speed 
-	float Deceleration = 750f;	//How fast will object reach a speed of 0
+	float Acceleration = 100000000000f;	//How fast will object reach a maximum speed 
+	float Deceleration = 75000f;	//How fast will object reach a speed of 0
 
 	Vector3d thisPosition = new Vector3d (0d, 0d, 0d);
 

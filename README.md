@@ -8,6 +8,16 @@ that exist within any given frame, with the State being represented by the lowes
 current scale layer and higher layers (meaning farther distance) are active at any one time.  So a state is
 responsible for activating any child layers.
 
+## Camera Speed
+60000000000f is a good speed when we're just outside a local solar system but not quite yet into interstellar
+space proper.  It's also good if we're navigating within a solar system but haven't yet focused on any
+particular object yet.
+600000000000f is decent for interstellar space when not focused on a solar system
+600000f could be good when within 1,000,000km
+60000f decent when approaching a large planet like Jupiter.  May need to scale these speeds based on the
+size of the planet as well.
+
+
 ## Layer Scale Data
 These data represent the unit scale equivalency of real world values, such as kilometres, astronomical units,
 Julian light hours, days, and years, and equates them to the number of applicable virtual scale units they
