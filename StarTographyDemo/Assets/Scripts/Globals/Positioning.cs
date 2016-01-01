@@ -23,15 +23,23 @@ public class Positioning : Functions {
 
 	float xSpeed = 0f;			//Don't touch this
 	float zSpeed = 0f;			//Don't touch this
-	float MaxSpeed = 600f;		//This is the maximum speed that the object will achieve 
+	float MaxSpeed = 60000f;		//This is the maximum speed that the object will achieve 
 	float Acceleration = 1000f;	//How fast will object reach a maximum speed 
 	float Deceleration = 750f;	//How fast will object reach a speed of 0
 
 	Vector3d thisPosition = new Vector3d (0d, 0d, 0d);
 
 	void Update () {
+		float horizontal = Input.GetAxis ("Horizontal")*MaxSpeed*-1;
+		float vertical = Input.GetAxis ("Vertical")*MaxSpeed;
 
-		
+		thisPosition = new Vector3d (thisPosition.x + horizontal * Time.deltaTime,
+		                             thisPosition.y, 
+		                             thisPosition.z + vertical * Time.deltaTime);
+		camPosition = new Vector3d (thisPosition.x, thisPosition.y, thisPosition.z);
+
+
+		/*
 		if ((Input.GetKey(KeyCode.LeftArrow)) && (xSpeed < MaxSpeed)) 
 			xSpeed = xSpeed - Acceleration * Time.deltaTime;
 		else if ((Input.GetKey(KeyCode.RightArrow)) && (xSpeed > -MaxSpeed))
@@ -52,16 +60,11 @@ public class Positioning : Functions {
 				zSpeed = zSpeed + Deceleration * Time.deltaTime;
 			else zSpeed = 0;
 		}
-		thisPosition = new Vector3d (thisPosition.x + xSpeed * Time.deltaTime,
+		/*thisPosition = new Vector3d (thisPosition.x + xSpeed * Time.deltaTime,
 		                             thisPosition.y, 
 		                             thisPosition.z + zSpeed * Time.deltaTime);
 		camPosition = new Vector3d (thisPosition.x * -1, thisPosition.y * -1, thisPosition.z * -1);
+		*/
 
-		//Vector3 pos = new Vector3 (transform.position.x + xSpeed * Time.deltaTime, 
-		//                           transform.position.y, 
-		//                           transform.position.z + zSpeed * Time.deltaTime);
-		//transform.position = pos;
-		//transform.position.x = transform.position.x + Speed * Time.deltaTime;
-		//Debug.Log ("camPosition = (" + camPosition.x + "," + camPosition.y + "," + camPosition.z + ")");
 	}
 }
