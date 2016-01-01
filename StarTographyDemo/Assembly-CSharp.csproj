@@ -218,6 +218,7 @@
      <Compile Include="Assets\Scripts\Stars\StarType.cs" />
      <Compile Include="Assets\Scripts\Stars\StarTypeData.cs" />
      <Compile Include="Assets\Scripts\Sun.cs" />
+     <Compile Include="Assets\Scripts\Temp\collidertest.cs" />
      <Compile Include="Assets\Scripts\TrailRenderControl.cs" />
      <None Include="Assets\SampleAssets\Effects\Projectors\ProjectorGuidelines.txt" />
      <None Include="Assets\SampleAssets\Effects\GlassRefraction (Pro Only)\Shaders\GlassStainedBumpDistort.shader" />
