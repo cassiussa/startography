@@ -16,10 +16,16 @@ public class collidertest : MonoBehaviour {
 
 	void OnTriggerEnter(Collider other) {
 		string name = other.gameObject.name;
-		if (name == "Proximity Collider") {
+		if (name == "Fast") {
+			Debug.Log ("Medium");
+			cameraSpeedStates.state = CameraSpeedStates.State.Medium;
+		} else if (name == "Proximity Collider") {
+			Debug.Log ("Slow");
+			cameraSpeedStates.state = CameraSpeedStates.State.Slow;
+		} else if (name == "Slower") {
 			Debug.Log ("Slower");
 			cameraSpeedStates.state = CameraSpeedStates.State.Slower;
-		} else if (name == "Label Collider") {
+		} else if (name == "Slowest") {
 			Debug.Log ("Slowest");
 			cameraSpeedStates.state = CameraSpeedStates.State.Slowest;
 		}
@@ -28,12 +34,18 @@ public class collidertest : MonoBehaviour {
 	
 	void OnTriggerExit(Collider other) {
 		string name = other.gameObject.name;
-		if (name == "Proximity Collider") {
-			Debug.Log ("Slow");
-			cameraSpeedStates.state = CameraSpeedStates.State.Slow;
-		} else if (name == "Label Collider") {
-			Debug.Log ("Slower");
+		if (name == "Slowest") {
+			Debug.Log ("Slowest");
 			cameraSpeedStates.state = CameraSpeedStates.State.Slower;
-		};
+		} else if (name == "Slower") {
+			Debug.Log ("Slower");
+			cameraSpeedStates.state = CameraSpeedStates.State.Slow;
+		} else if (name == "Proximity Collider") {
+			Debug.Log ("Medium");
+			cameraSpeedStates.state = CameraSpeedStates.State.Medium;
+		} else if (name == "Fast") {
+			Debug.Log ("Fast");
+			cameraSpeedStates.state = CameraSpeedStates.State.Fast;
+		}
 	}
 }

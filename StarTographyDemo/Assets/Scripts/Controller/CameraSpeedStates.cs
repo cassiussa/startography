@@ -59,6 +59,12 @@ public class CameraSpeedStates : Functions {
 				case State.Slow:
 					Slow ();
 					break;
+				case State.Medium:
+					Medium ();
+					break;
+				case State.Fast:
+					Fast ();
+					break;
 				}
 			}
 			yield return null;
@@ -81,18 +87,40 @@ public class CameraSpeedStates : Functions {
 	void Slowest() {								// This State is heavily commented as each other state uses same conditions		
 		Debug.Log ("Slowest");
 		positionScript.maxSpeed = 75000f;
+		positionScript.holdTimeMin = 30f;
+		positionScript.holdTimeMax = 300f;
 		_cacheState = state;
 	}
 
 	void Slower() {
 		Debug.Log ("Slower");
 		positionScript.maxSpeed = 500000f;
+		positionScript.holdTimeMin = 300f;
+		positionScript.holdTimeMax = 3000f;
 		_cacheState = state;
 	}
 
 	void Slow() {	
 		Debug.Log ("Slow");
 		positionScript.maxSpeed = 1000000f;
+		positionScript.holdTimeMin = 3000f;
+		positionScript.holdTimeMax = 30000f;
+		_cacheState = state;
+	}
+
+	void Medium() {	
+		Debug.Log ("Medium");
+		positionScript.maxSpeed = 1000000f;
+		positionScript.holdTimeMin = 30000f;
+		positionScript.holdTimeMax = 300000f;
+		_cacheState = state;
+	}
+
+	void Fast() {	
+		Debug.Log ("Fast");
+		positionScript.maxSpeed = 1000000f;
+		positionScript.holdTimeMin = 15000f;
+		positionScript.holdTimeMax = 1500000f;
 		_cacheState = state;
 	}
 }

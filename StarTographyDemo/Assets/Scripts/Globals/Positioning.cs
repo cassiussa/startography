@@ -24,10 +24,13 @@ public class Positioning : Functions {
 	float xSpeed = 0f;							// Don't touch this
 	float zSpeed = 0f;							// Don't touch this
 	public float maxSpeed = 0f;				// This is the maximum speed that the object will achieve 
-	float acceleration = 0f	;				// How fast will object reach a maximum speed 
+	float zAcceleration = 0f	;				// How fast will object reach a maximum speed 
+	float xAcceleration = 0f	;				// How fast will object reach a maximum speed 
 	float Deceleration = 75000f;				// How fast will object reach a speed of 0
 
 	Vector3d thisPosition = new Vector3d (0d, 0d, 0d);
+	public float holdTimeMin = 300f;
+	public float holdTimeMax = 300000f;
 
 	float holdTime = 0;
 	bool timeSet = false;
@@ -35,22 +38,26 @@ public class Positioning : Functions {
 		float horizontal = Input.GetAxis ("Horizontal")*-1;
 		float vertical = Input.GetAxis ("Vertical");
 
-		camPosition = new Vector3d (camPosition.x + horizontal * Time.deltaTime,
+		camPosition = new Vector3d (camPosition.x + xAcceleration,
 		                             camPosition.y, 
-		                            camPosition.z + acceleration);
+		                            camPosition.z + zAcceleration);
 
 		if (vertical != 0) {
-			holdTime += (holdTime*Time.deltaTime)+Time.deltaTime;
-			acceleration = (holdTime*vertical);
-			if(acceleration < 0)
-				acceleration = Mathf.Clamp (acceleration, -20000000000000000f, -200f);
-			else if (acceleration > 0)
-				acceleration = Mathf.Clamp (acceleration, 200f, 20000000000000000f);
-
-			Debug.Log ("holdTime = "+holdTime+",  acceleration = "+acceleration);
+			holdTime += (holdTime * Time.deltaTime) + Time.deltaTime;
+			holdTime = Mathf.Clamp (holdTime, holdTimeMin, holdTimeMax);
+			zAcceleration = (holdTime * vertical);
 		} else {
-			holdTime = 0f;
-			acceleration = 0;
+			zAcceleration = 0;
 		}
+		if (vertical != 0) {
+			holdTime += (holdTime*Time.deltaTime)+Time.deltaTime;
+			holdTime = Mathf.Clamp (holdTime, holdTimeMin, holdTimeMax);
+			xAcceleration = (holdTime*horizontal);
+		} else {
+			xAcceleration = 0;
+		}
+
+		if(vertical == 0 && horizontal == 0)
+			holdTime = 0f;
 	}
 }

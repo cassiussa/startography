@@ -266,6 +266,7 @@ public class ScaleStates : Functions {
 		CalculatePosition (AU, positionProcessingScript.position, positioningScript.camPosition);
 		if (_cacheState != state) {
 			CalculateLocalScale(AU);
+			//transform.localScale = new Vector3 (transform.localScale.x * 4, transform.localScale.y * 4, transform.localScale.z * 4);
 			inputsRevised = new string[] {  "MK", "AU", "LH" };
 			measurements = new double[] { MK, AU, LH };
 			gameObject.transform.parent = scaleStateParent ["AU"];
@@ -277,6 +278,8 @@ public class ScaleStates : Functions {
 			light.enabled = true;
 			Lights("AU");
 		}
+
+
 	}
 	
 	void LightHour() {
@@ -285,6 +288,7 @@ public class ScaleStates : Functions {
 		CalculatePosition (LH, positionProcessingScript.position, positioningScript.camPosition);
 		if (_cacheState != state) {
 			CalculateLocalScale (LH);
+			//transform.localScale = new Vector3 (transform.localScale.x * 50, transform.localScale.y * 50, transform.localScale.z * 50);
 			inputsRevised = new string[] { "AU", "LH", "Ld" };
 			measurements = new double[] { AU, LH, Ld };
 			gameObject.transform.parent = scaleStateParent ["LH"];
@@ -296,6 +300,7 @@ public class ScaleStates : Functions {
 			light.enabled = true;
 			Lights("LH");
 		}
+
 	}
 	
 	void LightDay() {
@@ -304,6 +309,7 @@ public class ScaleStates : Functions {
 		CalculatePosition (Ld, positionProcessingScript.position, positioningScript.camPosition);
 		if (_cacheState != state) {
 			CalculateLocalScale (Ld);
+			//transform.localScale = new Vector3 (transform.localScale.x * 10, transform.localScale.y * 10, transform.localScale.z * 10);
 			inputsRevised = new string[] { "LH", "Ld", "LY"};
 			measurements = new double[] { LH, Ld, LY };
 			gameObject.transform.parent = scaleStateParent ["Ld"];
@@ -316,6 +322,7 @@ public class ScaleStates : Functions {
 			light.enabled = true;
 			Lights("Ld");
 		}
+
 	}
 
 	void LightYear() {
