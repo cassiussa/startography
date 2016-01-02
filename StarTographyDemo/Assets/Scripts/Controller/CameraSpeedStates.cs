@@ -24,6 +24,8 @@ public class CameraSpeedStates : Functions {
 	 * something else, like a planet or star, we'll change the scale and position
 	 * to the appropriate location and size.
 	 */
+
+	Positioning positionScript;
 	
 	#region Basic Getters/Setters
 	public State CurrentState {
@@ -36,13 +38,15 @@ public class CameraSpeedStates : Functions {
 	#endregion
 	
 	void Awake() {
-		
+		positionScript = GetComponent<Positioning> ();
+		if (!positionScript)
+			Debug.LogError ("There is no Positioning script attached to this gameObject.  It is required", gameObject);
 	}
 	
 	// NOTE: Async version of Start.
 	IEnumerator Start() {
 		while (true) {
-			if (_cacheState != state) {	// Commented out because we need to run state every frame
+			if (_cacheState != state) {
 				switch (state) {
 				case State.Initialize:
 					break;
@@ -52,13 +56,17 @@ public class CameraSpeedStates : Functions {
 				case State.Slower:
 					Slower ();
 					break;
+				case State.Slow:
+					Slow ();
+					break;
 				}
 			}
 			yield return null;
 		}
 	}
 	
-	
+
+
 	void Update() {
 	}
 	
@@ -70,15 +78,21 @@ public class CameraSpeedStates : Functions {
 	}
 	
 	
-	void Slowest() {																		// This State is heavily commented as each other state uses same conditions		
+	void Slowest() {								// This State is heavily commented as each other state uses same conditions		
 		Debug.Log ("Slowest");
+		positionScript.maxSpeed = 75000f;
 		_cacheState = state;
-		
 	}
 
-	void Slower() {																		// This State is heavily commented as each other state uses same conditions		
+	void Slower() {
 		Debug.Log ("Slower");
+		positionScript.maxSpeed = 500000f;
 		_cacheState = state;
-		
+	}
+
+	void Slow() {	
+		Debug.Log ("Slow");
+		positionScript.maxSpeed = 1000000f;
+		_cacheState = state;
 	}
 }

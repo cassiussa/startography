@@ -463,6 +463,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4920418b18074fc0bdba723f9501f2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxSpeed: 60000
 --- !u!114 &82396083
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2036,6 +2037,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4920418b18074fc0bdba723f9501f2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxSpeed: 60000
 --- !u!114 &659638056
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3020,6 +3022,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4920418b18074fc0bdba723f9501f2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxSpeed: 60000
 --- !u!114 &964901400
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3580,6 +3583,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4920418b18074fc0bdba723f9501f2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxSpeed: 60000
 --- !u!114 &1094652976
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3773,6 +3777,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4920418b18074fc0bdba723f9501f2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxSpeed: 60000
 --- !u!114 &1120951052
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4544,6 +4549,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4920418b18074fc0bdba723f9501f2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxSpeed: 60000
 --- !u!114 &1303949537
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4682,6 +4688,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4920418b18074fc0bdba723f9501f2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxSpeed: 60000
 --- !u!114 &1312816697
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6305,6 +6312,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4920418b18074fc0bdba723f9501f2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxSpeed: 60000
 --- !u!114 &1886891874
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6827,9 +6835,9 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 2021441171}
-  - 114: {fileID: 2021441172}
-  - 135: {fileID: 2021441173}
   - 54: {fileID: 2021441174}
+  - 135: {fileID: 2021441173}
+  - 114: {fileID: 2021441172}
   - 114: {fileID: 2021441176}
   - 114: {fileID: 2021441175}
   m_Layer: 0
@@ -6872,6 +6880,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 267064650ddc6491596a0505dc543995, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxSpeed: 100000
 --- !u!135 &2021441173
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -6879,7 +6888,7 @@ SphereCollider:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2021441170}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 1
@@ -6910,6 +6919,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0355288bb7d0441aaa406da84658853, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cameraSpeedStates: {fileID: 0}
 --- !u!114 &2021441176
 MonoBehaviour:
   m_ObjectHideFlags: 0
