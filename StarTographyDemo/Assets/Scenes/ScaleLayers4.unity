@@ -451,7 +451,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &82396082
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1730,7 +1730,7 @@ GameObject:
   - 4: {fileID: 612661554}
   - 135: {fileID: 612661555}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: Proximity Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1755,10 +1755,10 @@ SphereCollider:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 612661553}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 3
+  m_Radius: 10.7279253
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &628559390
 Prefab:
@@ -2894,7 +2894,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: df42500788d1c2f4d96e5db4ff3c2c5d, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: df42500788d1c2f4d96e5db4ff3c2c5d, type: 3}
       propertyPath: m_Name
@@ -4426,7 +4426,7 @@ GameObject:
   - 4: {fileID: 1285544895}
   - 135: {fileID: 1285544896}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: Label Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4451,10 +4451,10 @@ SphereCollider:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1285544894}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: .600000024
+  m_Radius: 1
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1294219248
 GameObject:
@@ -4670,7 +4670,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1312816696
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5926,7 +5926,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: df42500788d1c2f4d96e5db4ff3c2c5d, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: df42500788d1c2f4d96e5db4ff3c2c5d, type: 3}
       propertyPath: m_Name
@@ -6270,13 +6270,14 @@ GameObject:
   - 114: {fileID: 1886891874}
   - 114: {fileID: 1886891873}
   - 114: {fileID: 1886891872}
+  - 54: {fileID: 1886891878}
   m_Layer: 8
   m_Name: Jupiter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1886891872
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6360,6 +6361,21 @@ Transform:
   - {fileID: 1285544895}
   m_Father: {fileID: 0}
   m_RootOrder: 7
+--- !u!54 &1886891878
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1886891871}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: .0500000007
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &1911924931
 GameObject:
   m_ObjectHideFlags: 0
@@ -6813,8 +6829,9 @@ GameObject:
   - 4: {fileID: 2021441171}
   - 114: {fileID: 2021441172}
   - 135: {fileID: 2021441173}
-  - 114: {fileID: 2021441175}
   - 54: {fileID: 2021441174}
+  - 114: {fileID: 2021441176}
+  - 114: {fileID: 2021441175}
   m_Layer: 0
   m_Name: Cameras
   m_TagString: Untagged
@@ -6893,6 +6910,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0355288bb7d0441aaa406da84658853, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2021441176
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2021441170}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 305fd0855514c470c9db28f768e609c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  state: 0
 --- !u!1 &2024559131
 GameObject:
   m_ObjectHideFlags: 0
@@ -7201,7 +7230,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: df42500788d1c2f4d96e5db4ff3c2c5d, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: df42500788d1c2f4d96e5db4ff3c2c5d, type: 3}
       propertyPath: m_Name

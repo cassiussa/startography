@@ -191,6 +191,7 @@
 'Assets/Scripts/BodyData.cs'
 'Assets/Scripts/BodyTriggers.cs'
 'Assets/Scripts/Circle.cs'
+'Assets/Scripts/Controller/CameraSpeedStates.cs'
 'Assets/Scripts/Controller/Movement.cs'
 'Assets/Scripts/DisplayEarthDate.cs'
 'Assets/Scripts/FadeMaterial.cs'

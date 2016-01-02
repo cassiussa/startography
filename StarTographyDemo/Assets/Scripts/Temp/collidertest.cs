@@ -14,11 +14,11 @@ public class collidertest : MonoBehaviour {
 	}
 
 	void OnTriggerEnter(Collider other) {
-		Debug.LogError ("Collision Occurred between "+other.name+" and "+gameObject.name);
+		Debug.Log ("Collision Occurred between "+other.name+" and "+gameObject.name);
 	}
 	
 	
 	void OnTriggerExit(Collider other) {
-		Debug.LogError ("Collision Stopped between "+other.name+" and "+gameObject.name);
+		Debug.Log ("Collision Stopped between "+other.name+" and "+gameObject.name);
 	}
 }
