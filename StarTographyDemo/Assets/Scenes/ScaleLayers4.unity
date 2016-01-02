@@ -464,6 +464,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxSpeed: 60000
+  normalMoveSpeed: 10
+  fastMoveFactor: 3
 --- !u!114 &82396083
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1289,7 +1291,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: df42500788d1c2f4d96e5db4ff3c2c5d, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: df42500788d1c2f4d96e5db4ff3c2c5d, type: 3}
       propertyPath: m_Name
@@ -1736,7 +1738,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &612661554
 Transform:
   m_ObjectHideFlags: 0
@@ -2038,6 +2040,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxSpeed: 60000
+  normalMoveSpeed: 10
+  fastMoveFactor: 3
 --- !u!114 &659638056
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3023,6 +3027,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxSpeed: 60000
+  normalMoveSpeed: 10
+  fastMoveFactor: 3
 --- !u!114 &964901400
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3555,7 +3561,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1094652974
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3584,6 +3590,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxSpeed: 60000
+  normalMoveSpeed: 10
+  fastMoveFactor: 3
 --- !u!114 &1094652976
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3778,6 +3786,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxSpeed: 60000
+  normalMoveSpeed: 10
+  fastMoveFactor: 3
 --- !u!114 &1120951052
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4436,7 +4446,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1285544895
 Transform:
   m_ObjectHideFlags: 0
@@ -4550,6 +4560,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxSpeed: 60000
+  normalMoveSpeed: 10
+  fastMoveFactor: 3
 --- !u!114 &1303949537
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4689,6 +4701,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxSpeed: 60000
+  normalMoveSpeed: 10
+  fastMoveFactor: 3
 --- !u!114 &1312816697
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6313,6 +6327,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxSpeed: 60000
+  normalMoveSpeed: 10
+  fastMoveFactor: 3
 --- !u!114 &1886891874
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6880,7 +6896,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 267064650ddc6491596a0505dc543995, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 100000
+  maxSpeed: 1e+06
+  normalMoveSpeed: 10
+  fastMoveFactor: 3
 --- !u!135 &2021441173
 SphereCollider:
   m_ObjectHideFlags: 0

@@ -14,7 +14,7 @@ public class collidertest : MonoBehaviour {
 	
 	}
 
-	/*void OnTriggerEnter(Collider other) {
+	void OnTriggerEnter(Collider other) {
 		string name = other.gameObject.name;
 		if (name == "Proximity Collider") {
 			Debug.Log ("Slower");
@@ -35,5 +35,5 @@ public class collidertest : MonoBehaviour {
 			Debug.Log ("Slower");
 			cameraSpeedStates.state = CameraSpeedStates.State.Slower;
 		};
-	}*/
+	}
 }
