@@ -2,6 +2,12 @@
 using System.Collections;
 
 public class PositionProcessing : Positioning {
+	/*
+	 * This script deals with the position changes of the planets based
+	 * on their orbits.  It does not deal with the user position at all.
+	 * If you need to make changes to that, do it in the Positioning.ca
+	 * script.
+	 */
 
 	ObjectData objectDataScript;								// The script that we get initial telemetry from
 	StarData starDataScript;
@@ -28,9 +34,6 @@ public class PositionProcessing : Positioning {
 
 	// Update is called once per frame
 	void Update () {
-		//position.z = position.z+50d;
-		//transform.position = V3dToV3 (position);	// Convert from Vector3d double to native Vector3 float and move the gameObject into position
-
 		angle = new Vector3d (angle.x, angle.y + (random*Time.deltaTime), angle.z);
 		transform.eulerAngles = V3dToV3(angle);
 	}

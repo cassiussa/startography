@@ -9,6 +9,9 @@ using System.Collections;
  * 
  * This way, the camera is always at the origin (0,0,0) and the universe
  * moves around it.
+ * 
+ * If you need to make changes to position data, such as orbit changes,
+ * these should be done in the PositionProcessing.cs script instead.
  */
 
 public class Positioning : Functions {
@@ -23,13 +26,14 @@ public class Positioning : Functions {
 
 	float xSpeed = 0f;							// Don't touch this
 	float zSpeed = 0f;							// Don't touch this
-	public float maxSpeed = 0f;				// This is the maximum speed that the object will achieve 
 	float zAcceleration = 0f	;				// How fast will object reach a maximum speed 
 	float xAcceleration = 0f	;				// How fast will object reach a maximum speed 
 	float Deceleration = 75000f;				// How fast will object reach a speed of 0
 
 	Vector3d thisPosition = new Vector3d (0d, 0d, 0d);
+	[HideInInspector]
 	public float holdTimeMin = 300f;
+	[HideInInspector]
 	public float holdTimeMax = 300000f;
 
 	float holdTime = 0;
