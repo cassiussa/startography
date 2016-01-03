@@ -3,10 +3,13 @@
 --- !u!78 &1
 TagManager:
   tags:
-  - Item
-  - Dangerous
-  - Smelly
-  - Fire
+  - Slowest
+  - Slower
+  - Slow
+  - Medium
+  - Fast
+  - Faster
+  - Fastest
   - 
   Builtin Layer 0: Default
   Builtin Layer 1: TransparentFX

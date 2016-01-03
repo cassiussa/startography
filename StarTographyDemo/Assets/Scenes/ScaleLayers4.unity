@@ -441,9 +441,9 @@ GameObject:
   - 4: {fileID: 82396086}
   - 33: {fileID: 82396085}
   - 23: {fileID: 82396084}
+  - 114: {fileID: 82396087}
   - 114: {fileID: 82396083}
   - 114: {fileID: 82396082}
-  - 114: {fileID: 82396087}
   - 54: {fileID: 82396088}
   m_Layer: 8
   m_Name: Earth
@@ -463,7 +463,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4920418b18074fc0bdba723f9501f2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 60000
   holdTimeMin: 300
   holdTimeMax: 300000
 --- !u!114 &82396083
@@ -679,7 +678,7 @@ GameObject:
   - 135: {fileID: 135155608}
   m_Layer: 0
   m_Name: Label Collider
-  m_TagString: Untagged
+  m_TagString: Slowest
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -775,7 +774,7 @@ GameObject:
   - 135: {fileID: 155119874}
   m_Layer: 0
   m_Name: Fast
-  m_TagString: Untagged
+  m_TagString: Fast
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1011,7 +1010,7 @@ GameObject:
   - 135: {fileID: 293374296}
   m_Layer: 0
   m_Name: Label Collider
-  m_TagString: Untagged
+  m_TagString: Slower
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1560,7 +1559,7 @@ GameObject:
   - 135: {fileID: 453966785}
   m_Layer: 0
   m_Name: Faster
-  m_TagString: Untagged
+  m_TagString: Faster
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1817,7 +1816,7 @@ GameObject:
   - 135: {fileID: 582960051}
   m_Layer: 0
   m_Name: Slower
-  m_TagString: Untagged
+  m_TagString: Slower
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1857,7 +1856,7 @@ GameObject:
   - 135: {fileID: 612661555}
   m_Layer: 0
   m_Name: Slow
-  m_TagString: Untagged
+  m_TagString: Slow
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2165,7 +2164,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4920418b18074fc0bdba723f9501f2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 60000
   holdTimeMin: 300
   holdTimeMax: 300000
 --- !u!114 &659638056
@@ -3155,7 +3153,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4920418b18074fc0bdba723f9501f2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 60000
   holdTimeMin: 300
   holdTimeMax: 300000
 --- !u!114 &964901400
@@ -3469,7 +3466,7 @@ GameObject:
   - 135: {fileID: 1009825552}
   m_Layer: 0
   m_Name: Proximity Collider
-  m_TagString: Untagged
+  m_TagString: Slowest
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3721,7 +3718,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4920418b18074fc0bdba723f9501f2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 60000
   holdTimeMin: 300
   holdTimeMax: 300000
 --- !u!114 &1094652976
@@ -3920,7 +3916,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4920418b18074fc0bdba723f9501f2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 60000
   holdTimeMin: 300
   holdTimeMax: 300000
 --- !u!114 &1120951052
@@ -4577,7 +4572,7 @@ GameObject:
   - 135: {fileID: 1285544896}
   m_Layer: 0
   m_Name: Slowest
-  m_TagString: Untagged
+  m_TagString: Slowest
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4694,7 +4689,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4920418b18074fc0bdba723f9501f2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 60000
   holdTimeMin: 300
   holdTimeMax: 300000
 --- !u!114 &1303949537
@@ -4838,7 +4832,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4920418b18074fc0bdba723f9501f2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 60000
   holdTimeMin: 300
   holdTimeMax: 300000
 --- !u!114 &1312816697
@@ -6422,7 +6415,7 @@ GameObject:
   - 135: {fileID: 1885693560}
   m_Layer: 0
   m_Name: Proximity Collider
-  m_TagString: Untagged
+  m_TagString: Slower
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6502,7 +6495,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4920418b18074fc0bdba723f9501f2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 60000
   holdTimeMin: 300
   holdTimeMax: 300000
 --- !u!114 &1886891874
@@ -7071,7 +7063,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 267064650ddc6491596a0505dc543995, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 1e+06
   holdTimeMin: 300
   holdTimeMax: 300000
 --- !u!135 &2021441173

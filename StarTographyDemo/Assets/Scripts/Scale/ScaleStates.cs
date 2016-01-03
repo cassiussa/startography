@@ -138,7 +138,7 @@ public class ScaleStates : Functions {
 
 		proximityColliders = transform.Find ("ProximityColliders");
 		if (!proximityColliders)
-			Debug.LogError ("There doesn't appear to be a ProximityColliders gameObject", gameObject);
+			Debug.LogWarning ("There doesn't appear to be a ProximityColliders gameObject.", gameObject);
 	}
 	
 	// NOTE: Async version of Start.

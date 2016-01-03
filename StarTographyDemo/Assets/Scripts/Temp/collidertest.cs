@@ -15,20 +15,20 @@ public class collidertest : MonoBehaviour {
 	}
 
 	void OnTriggerEnter(Collider other) {
-		string name = other.gameObject.name;
-		if (name == "Faster") {
+		string tag = other.tag;
+		if (tag == "Faster") {
 			Debug.Log ("Fast");
 			cameraSpeedStates.state = CameraSpeedStates.State.Fast;
-		} else if (name == "Fast") {
+		} else if (tag == "Fast") {
 			Debug.Log ("Medium");
 			cameraSpeedStates.state = CameraSpeedStates.State.Medium;
-		} else if (name == "Slow") {
+		} else if (tag == "Slow") {
 			Debug.Log ("Slow");
 			cameraSpeedStates.state = CameraSpeedStates.State.Slow;
-		} else if (name == "Slower") {
+		} else if (tag == "Slower") {
 			Debug.Log ("Slower");
 			cameraSpeedStates.state = CameraSpeedStates.State.Slower;
-		} else if (name == "Slowest") {
+		} else if (tag == "Slowest") {
 			Debug.Log ("Slowest");
 			cameraSpeedStates.state = CameraSpeedStates.State.Slowest;
 		}
@@ -36,20 +36,20 @@ public class collidertest : MonoBehaviour {
 	
 	
 	void OnTriggerExit(Collider other) {
-		string name = other.gameObject.name;
-		if (name == "Slowest") {
+		string tag = other.tag;
+		if (tag == "Slowest") {
 			Debug.Log ("Slowest");
 			cameraSpeedStates.state = CameraSpeedStates.State.Slower;
-		} else if (name == "Slower") {
+		} else if (tag == "Slower") {
 			Debug.Log ("Slower");
 			cameraSpeedStates.state = CameraSpeedStates.State.Slow;
-		} else if (name == "Slow") {
+		} else if (tag == "Slow") {
 			Debug.Log ("Medium");
 			cameraSpeedStates.state = CameraSpeedStates.State.Medium;
-		} else if (name == "Fast") {
+		} else if (tag == "Fast") {
 			Debug.Log ("Fast");
 			cameraSpeedStates.state = CameraSpeedStates.State.Fast;
-		} else if (name == "Faster") {
+		} else if (tag == "Faster") {
 			Debug.Log ("Faster");
 			cameraSpeedStates.state = CameraSpeedStates.State.Faster;
 		}
