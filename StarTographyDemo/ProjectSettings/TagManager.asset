@@ -3,13 +3,15 @@
 --- !u!78 &1
 TagManager:
   tags:
-  - Slowest
-  - Slower
-  - Slow
-  - Medium
-  - Fast
-  - Faster
-  - Fastest
+  - SM
+  - MK
+  - AU
+  - LH
+  - Ld
+  - LY
+  - LD
+  - LC
+  - LM
   - 
   Builtin Layer 0: Default
   Builtin Layer 1: TransparentFX
@@ -19,16 +21,16 @@ TagManager:
   Builtin Layer 5: UI
   Builtin Layer 6: 
   Builtin Layer 7: 
-  User Layer 8: 1000 KM
-  User Layer 9: 1M KM
-  User Layer 10: 1 AU
-  User Layer 11: 1 LH
-  User Layer 12: 1 LD
-  User Layer 13: 1 JLY
-  User Layer 14: 1 Parsec
-  User Layer 15: 10 JLY
-  User Layer 16: 100 JLY
-  User Layer 17: 1000 JLY
+  User Layer 8: SM
+  User Layer 9: MK
+  User Layer 10: AU
+  User Layer 11: LH
+  User Layer 12: Ld
+  User Layer 13: LY
+  User Layer 14: PA
+  User Layer 15: LD
+  User Layer 16: LC
+  User Layer 17: LM
   User Layer 18: 
   User Layer 19: 
   User Layer 20: 
