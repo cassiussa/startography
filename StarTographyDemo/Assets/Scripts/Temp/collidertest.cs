@@ -16,10 +16,13 @@ public class collidertest : MonoBehaviour {
 
 	void OnTriggerEnter(Collider other) {
 		string name = other.gameObject.name;
-		if (name == "Fast") {
+		if (name == "Faster") {
+			Debug.Log ("Fast");
+			cameraSpeedStates.state = CameraSpeedStates.State.Fast;
+		} else if (name == "Fast") {
 			Debug.Log ("Medium");
 			cameraSpeedStates.state = CameraSpeedStates.State.Medium;
-		} else if (name == "Proximity Collider") {
+		} else if (name == "Slow") {
 			Debug.Log ("Slow");
 			cameraSpeedStates.state = CameraSpeedStates.State.Slow;
 		} else if (name == "Slower") {
@@ -40,12 +43,15 @@ public class collidertest : MonoBehaviour {
 		} else if (name == "Slower") {
 			Debug.Log ("Slower");
 			cameraSpeedStates.state = CameraSpeedStates.State.Slow;
-		} else if (name == "Proximity Collider") {
+		} else if (name == "Slow") {
 			Debug.Log ("Medium");
 			cameraSpeedStates.state = CameraSpeedStates.State.Medium;
 		} else if (name == "Fast") {
 			Debug.Log ("Fast");
 			cameraSpeedStates.state = CameraSpeedStates.State.Fast;
+		} else if (name == "Faster") {
+			Debug.Log ("Faster");
+			cameraSpeedStates.state = CameraSpeedStates.State.Faster;
 		}
 	}
 }

@@ -65,6 +65,9 @@ public class CameraSpeedStates : Functions {
 				case State.Fast:
 					Fast ();
 					break;
+				case State.Faster:
+					Faster ();
+					break;
 				}
 			}
 			yield return null;
@@ -121,6 +124,14 @@ public class CameraSpeedStates : Functions {
 		positionScript.maxSpeed = 1000000f;
 		positionScript.holdTimeMin = 15000f;
 		positionScript.holdTimeMax = 1500000f;
+		_cacheState = state;
+	}
+
+	void Faster() {	
+		Debug.Log ("Faster");
+		positionScript.maxSpeed = 1000000f;
+		positionScript.holdTimeMin = 1500000f;
+		positionScript.holdTimeMax = 150000000f;
 		_cacheState = state;
 	}
 }

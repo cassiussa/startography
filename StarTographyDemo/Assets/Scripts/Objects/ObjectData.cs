@@ -5,6 +5,7 @@ public class ObjectData : Functions {
 
 	ScaleStates scaleStatesScript;
 
+	public String3d coordinates;
 	public string coordX = "0";
 	public string coordY = "0";
 	public string coordZ = "0";

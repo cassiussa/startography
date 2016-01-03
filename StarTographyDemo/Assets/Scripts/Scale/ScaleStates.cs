@@ -55,6 +55,8 @@ public class ScaleStates : Functions {
 	PositionProcessing positionProcessingScript;
 	Positioning positioningScript;
 
+	Transform proximityColliders;
+
 
 	#region Basic Getters/Setters
 	public State CurrentState {
@@ -134,6 +136,9 @@ public class ScaleStates : Functions {
 			}
 		}
 
+		proximityColliders = transform.Find ("ProximityColliders");
+		if (!proximityColliders)
+			Debug.LogError ("There doesn't appear to be a ProximityColliders gameObject", gameObject);
 	}
 	
 	// NOTE: Async version of Start.
@@ -331,6 +336,7 @@ public class ScaleStates : Functions {
 		CalculatePosition (LY, positionProcessingScript.position, positioningScript.camPosition);
 		if (_cacheState != state) {
 			CalculateLocalScale (LY);
+			ColliderRescale();
 			inputsRevised = new string[] { "Ld", "LY", "PA" };
 			measurements = new double[] { Ld, LY, PA };
 			gameObject.transform.parent = scaleStateParent ["LY"];
@@ -413,6 +419,20 @@ public class ScaleStates : Functions {
 			(float)((originalLocalScale.y / value) * maxUnits),
 			(float)((originalLocalScale.z / value) * maxUnits));
 		_cacheState = state;
+	}
+
+	private void ColliderRescale() {
+		if (proximityColliders) {
+			transform.localScale = new Vector3 (
+				transform.localScale.x * 7500f, 
+				transform.localScale.y * 7500f, 
+				transform.localScale.z * 7500f);
+
+			proximityColliders.localScale = new Vector3 (
+				proximityColliders.localScale.x / 7500f, 
+				proximityColliders.localScale.y / 7500f, 
+				proximityColliders.localScale.z / 7500f);
+		}
 	}
 
 

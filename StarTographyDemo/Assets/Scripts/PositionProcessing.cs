@@ -12,14 +12,14 @@ public class PositionProcessing : Positioning {
 	void Awake() {
 		objectDataScript = GetComponent<ObjectData> ();
 		starDataScript = GetComponent<StarData> ();
-		if (objectDataScript)
-			position = new Vector3d (double.Parse (objectDataScript.coordX), double.Parse (objectDataScript.coordY), double.Parse (objectDataScript.coordZ));
-		else if (starDataScript) {
+		if (objectDataScript) {
+			position = S3dToV3d(objectDataScript.coordinates);
+		} else if (starDataScript) {
 			Debug.Log ("My god! It's full of stars!");
-			position = new Vector3d (double.Parse (objectDataScript.coordX), double.Parse (objectDataScript.coordY), double.Parse (objectDataScript.coordZ));
+			position = S3dToV3d(objectDataScript.coordinates);
 		} else {
 			Debug.Log ("It's not an object or a star?");
-			position = new Vector3d (double.Parse (objectDataScript.coordX), double.Parse (objectDataScript.coordY), double.Parse (objectDataScript.coordZ));
+			position = S3dToV3d(objectDataScript.coordinates);
 		}
 
 		angle = new Vector3d (transform.eulerAngles.x, transform.eulerAngles.y, transform.eulerAngles.z);

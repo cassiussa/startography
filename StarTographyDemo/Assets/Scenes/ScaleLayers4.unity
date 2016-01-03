@@ -533,6 +533,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c7a4498cd9e848a486fc890cbfad0d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  coordinates:
+    x: 0
+    y: 0
+    z: 304400
   coordX: 0
   coordY: 0
   coordZ: 304400
@@ -795,11 +799,11 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 155119873}
-  m_LocalRotation: {x: -2.68220873e-07, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -2.68220901e-07, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1886891877}
+  m_Father: {fileID: 1859650852}
   m_RootOrder: 3
 --- !u!1 &187716982
 GameObject:
@@ -1546,6 +1550,46 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: .0219999999
+--- !u!1 &453966783
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 453966784}
+  - 135: {fileID: 453966785}
+  m_Layer: 0
+  m_Name: Faster
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &453966784
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 453966783}
+  m_LocalRotation: {x: -2.68220901e-07, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1859650852}
+  m_RootOrder: 4
+--- !u!135 &453966785
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 453966783}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 240
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &493148970
 GameObject:
   m_ObjectHideFlags: 0
@@ -1785,12 +1829,12 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 582960049}
-  m_LocalRotation: {x: -2.68220873e-07, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -2.68220901e-07, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1886891877}
-  m_RootOrder: 2
+  m_Father: {fileID: 1859650852}
+  m_RootOrder: 1
 --- !u!135 &582960051
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -1813,7 +1857,7 @@ GameObject:
   - 4: {fileID: 612661554}
   - 135: {fileID: 612661555}
   m_Layer: 0
-  m_Name: Proximity Collider
+  m_Name: Slow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1829,8 +1873,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1886891877}
-  m_RootOrder: 0
+  m_Father: {fileID: 1859650852}
+  m_RootOrder: 2
 --- !u!135 &612661555
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -2103,6 +2147,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c7a4498cd9e848a486fc890cbfad0d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  coordinates:
+    x: 20000
+    y: 0
+    z: 149597870.7
   coordX: 20000
   coordY: 0
   coordZ: 149597870.7
@@ -3090,6 +3138,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c7a4498cd9e848a486fc890cbfad0d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  coordinates:
+    x: 20000
+    y: 0
+    z: 149597870.7
   coordX: 20000
   coordY: 0
   coordZ: 149597870.7
@@ -3653,6 +3705,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c7a4498cd9e848a486fc890cbfad0d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  coordinates:
+    x: 020000
+    y: 0
+    z: 304400
   coordX: 20000
   coordY: 0
   coordZ: 304400
@@ -3814,6 +3870,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c7a4498cd9e848a486fc890cbfad0d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  coordinates:
+    x: 0
+    y: 0
+    z: 1100000
   coordX: 0
   coordY: 0
   coordZ: 1100000
@@ -4537,8 +4597,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1886891877}
-  m_RootOrder: 1
+  m_Father: {fileID: 1859650852}
+  m_RootOrder: 0
 --- !u!135 &1285544896
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -4743,6 +4803,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c7a4498cd9e848a486fc890cbfad0d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  coordinates:
+    x: 100000000
+    y: 0
+    z: 149597870
   coordX: 100000000
   coordY: 0
   coordZ: 149597870
@@ -4850,6 +4914,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c7a4498cd9e848a486fc890cbfad0d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  coordinates:
+    x: 0
+    y: 0
+    z: -80000
   coordX: 0
   coordY: 0
   coordZ: -80000
@@ -6291,6 +6359,38 @@ MeshFilter:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1837529245}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1859650851
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1859650852}
+  m_Layer: 0
+  m_Name: ProximityColliders
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1859650852
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1859650851}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1285544895}
+  - {fileID: 582960050}
+  - {fileID: 612661554}
+  - {fileID: 155119875}
+  - {fileID: 453966784}
+  m_Father: {fileID: 1886891877}
+  m_RootOrder: 0
 --- !u!1 &1877738606
 GameObject:
   m_ObjectHideFlags: 0
@@ -6390,6 +6490,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c7a4498cd9e848a486fc890cbfad0d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  coordinates:
+    x: -90000
+    y: 0
+    z: 304400
   coordX: -90000
   coordY: 0
   coordZ: 304400
@@ -6461,10 +6565,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 100, y: 100, z: 100}
   m_Children:
-  - {fileID: 612661554}
-  - {fileID: 1285544895}
-  - {fileID: 582960050}
-  - {fileID: 155119875}
+  - {fileID: 1859650852}
   m_Father: {fileID: 0}
   m_RootOrder: 7
 --- !u!54 &1886891878

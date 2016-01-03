@@ -177,6 +177,11 @@ public class Functions : Constants {
 		Vector3 result = new Vector3( (float)vector.x, (float)vector.y, (float)vector.z );
 		return result;
 	}
+
+	protected Vector3d S3dToV3d(String3d vector) {
+		Vector3d result = new Vector3d (double.Parse(vector.x), double.Parse(vector.y), double.Parse(vector.z));
+		return result;
+	}
 	
 	public class Vector3d {
 		/*
@@ -205,6 +210,66 @@ public class Functions : Constants {
 		
 		// Constructor
 		public Vector3d() { x = 0; y = 0; z = 0; }
+	}
+
+	public class Vector3d2 {
+		/*
+		 * Create a new Type.  Vector3 double.
+		 * 
+		 * Parameters
+		 * ----------
+		 * x : x coordinate double
+		 * y : y coordinate double
+		 * z : z coordinate double
+		 * 
+		 * Returns
+		 * -------
+		 * Coordinates : x,y,z - all doubles
+		 * Stores a Vector that contains doubles instead of floats for higher accuracy
+		*/
+		public double x;
+		public double y;
+		public double z;
+		
+		public Vector3d2(Vector3d a) {
+			x = a.x;
+			y = a.y;
+			z = a.z;
+		}
+		
+		// Constructor
+		public Vector3d2() { x = 0; y = 0; z = 0; }
+	}
+
+	// Make these variables, when public, available in the inspector
+	[System.Serializable]
+	public class String3d : System.Object {
+		/*
+		 * Create a new Type.  StringVector3d string.
+		 * 
+		 * Parameters
+		 * ----------
+		 * x : x coordinate string
+		 * y : y coordinate string
+		 * z : z coordinate string
+		 * 
+		 * Returns
+		 * -------
+		 * Coordinates : x,y,z - all strings which should be converted to doubles in code
+		 * Stores a Vector that contains string instead of input field doubles, for higher accuracy
+		*/
+		public string x;
+		public string y;
+		public string z;
+		
+		public String3d(String3d a) {
+			x = a.x;
+			y = a.y;
+			z = a.z;
+		}
+		
+		// Constructor
+		public String3d() { x = "0"; y = "0"; z = "0"; }
 	}
 
 
