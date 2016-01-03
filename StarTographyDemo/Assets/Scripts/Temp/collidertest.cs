@@ -16,21 +16,24 @@ public class collidertest : MonoBehaviour {
 
 	void OnTriggerEnter(Collider other) {
 		string tag = other.tag;
-		if (tag == "Ld") {
-			Debug.Log ("Fast");
-			cameraSpeedStates.state = CameraSpeedStates.State.Fast;
+		if (tag == "LY") {
+			//Debug.Log ("Faster");
+			cameraSpeedStates.state = CameraSpeedStates.State.LY;
+		} else if (tag == "Ld") {
+			//Debug.Log ("Fast");
+			cameraSpeedStates.state = CameraSpeedStates.State.Ld;
 		} else if (tag == "LH") {
-			Debug.Log ("Medium");
-			cameraSpeedStates.state = CameraSpeedStates.State.Medium;
+			//Debug.Log ("Medium");
+			cameraSpeedStates.state = CameraSpeedStates.State.LH;
 		} else if (tag == "AU") {
-			Debug.Log ("Slow");
-			cameraSpeedStates.state = CameraSpeedStates.State.Slow;
+			//Debug.Log ("Slow");
+			cameraSpeedStates.state = CameraSpeedStates.State.AU;
 		} else if (tag == "MK") {
-			Debug.Log ("Slower");
-			cameraSpeedStates.state = CameraSpeedStates.State.Slower;
+			//Debug.Log ("Slower");
+			cameraSpeedStates.state = CameraSpeedStates.State.MK;
 		} else if (tag == "SM") {
-			Debug.Log ("Slowest");
-			cameraSpeedStates.state = CameraSpeedStates.State.Slowest;
+			//Debug.Log ("Slowest");
+			cameraSpeedStates.state = CameraSpeedStates.State.SM;
 		}
 	}
 	
@@ -38,20 +41,23 @@ public class collidertest : MonoBehaviour {
 	void OnTriggerExit(Collider other) {
 		string tag = other.tag;
 		if (tag == "SM") {
-			Debug.Log ("Slowest");
-			cameraSpeedStates.state = CameraSpeedStates.State.Slower;
+			//Debug.Log ("Slowest");
+			cameraSpeedStates.state = CameraSpeedStates.State.MK;
 		} else if (tag == "MK") {
-			Debug.Log ("Slower");
-			cameraSpeedStates.state = CameraSpeedStates.State.Slow;
+			//Debug.Log ("Slower");
+			cameraSpeedStates.state = CameraSpeedStates.State.AU;
 		} else if (tag == "AU") {
-			Debug.Log ("Medium");
-			cameraSpeedStates.state = CameraSpeedStates.State.Medium;
+			//Debug.Log ("Medium");
+			cameraSpeedStates.state = CameraSpeedStates.State.LH;
 		} else if (tag == "LH") {
-			Debug.Log ("Fast");
-			cameraSpeedStates.state = CameraSpeedStates.State.Fast;
+			//Debug.Log ("Fast");
+			cameraSpeedStates.state = CameraSpeedStates.State.Ld;
 		} else if (tag == "Ld") {
-			Debug.Log ("Faster");
-			cameraSpeedStates.state = CameraSpeedStates.State.Faster;
+			//Debug.Log ("Faster");
+			cameraSpeedStates.state = CameraSpeedStates.State.LY;
+		} else if (tag == "LY") {
+			//Debug.Log ("Fastest");
+			cameraSpeedStates.state = CameraSpeedStates.State.PA;
 		}
 	}
 }

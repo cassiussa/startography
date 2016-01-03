@@ -5,13 +5,14 @@ public class CameraSpeedStates : Functions {
 
 	public enum State { 
 		Initialize, 
-		Slowest,
-		Slower,
-		Slow,
-		Medium,
-		Fast,
-		Faster,
-		Fastest
+		SM,
+		MK,
+		AU,
+		LH,
+		Ld,
+		LY,
+		PA,
+		LC
 	}
 	
 	public State state = State.Initialize;
@@ -50,23 +51,26 @@ public class CameraSpeedStates : Functions {
 				switch (state) {
 				case State.Initialize:
 					break;
-				case State.Slowest:
-					Slowest ();
+				case State.SM:
+					SM ();
 					break;
-				case State.Slower:
-					Slower ();
+				case State.MK:
+					MK ();
 					break;
-				case State.Slow:
-					Slow ();
+				case State.AU:
+					AU ();
 					break;
-				case State.Medium:
-					Medium ();
+				case State.LH:
+					LH ();
 					break;
-				case State.Fast:
-					Fast ();
+				case State.Ld:
+					Ld ();
 					break;
-				case State.Faster:
-					Faster ();
+				case State.LY:
+					LY ();
+					break;
+				case State.PA:
+					PA ();
 					break;
 				}
 			}
@@ -87,45 +91,52 @@ public class CameraSpeedStates : Functions {
 	}
 	
 	
-	void Slowest() {								// This State is heavily commented as each other state uses same conditions		
+	void SM() {								// This State is heavily commented as each other state uses same conditions		
 		Debug.Log ("Slowest");
 		positionScript.holdTimeMin = 30f;
 		positionScript.holdTimeMax = 300f;
 		_cacheState = state;
 	}
 
-	void Slower() {
+	void MK() {
 		Debug.Log ("Slower");
 		positionScript.holdTimeMin = 300f;
 		positionScript.holdTimeMax = 3000f;
 		_cacheState = state;
 	}
 
-	void Slow() {	
+	void AU() {	
 		Debug.Log ("Slow");
 		positionScript.holdTimeMin = 3000f;
 		positionScript.holdTimeMax = 30000f;
 		_cacheState = state;
 	}
 
-	void Medium() {	
+	void LH() {	
 		Debug.Log ("Medium");
 		positionScript.holdTimeMin = 30000f;
 		positionScript.holdTimeMax = 300000f;
 		_cacheState = state;
 	}
 
-	void Fast() {	
+	void Ld() {	
 		Debug.Log ("Fast");
 		positionScript.holdTimeMin = 15000f;
 		positionScript.holdTimeMax = 1500000f;
 		_cacheState = state;
 	}
 
-	void Faster() {	
+	void LY() {	
 		Debug.Log ("Faster");
 		positionScript.holdTimeMin = 1500000f;
 		positionScript.holdTimeMax = 150000000f;
+		_cacheState = state;
+	}
+
+	void PA() {	
+		Debug.Log ("Fastest");
+		positionScript.holdTimeMin = 15000000f;
+		positionScript.holdTimeMax = 1500000000f;
 		_cacheState = state;
 	}
 }

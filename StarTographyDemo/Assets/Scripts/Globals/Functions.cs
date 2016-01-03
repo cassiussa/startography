@@ -173,8 +173,8 @@ public class Functions : Constants {
 		return result;
 	}
 	
-	protected Vector3 ScaledToScale(Vector3d vector) {
-		Vector3 result = new Vector3( (float)vector.x, (float)vector.y, (float)vector.z );
+	protected Vector3d V3ToV3d(Vector3 vector) {
+		Vector3d result = new Vector3d( vector.x, vector.y, vector.z );
 		return result;
 	}
 

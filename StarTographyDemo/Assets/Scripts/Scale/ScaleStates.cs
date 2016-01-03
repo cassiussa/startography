@@ -41,6 +41,7 @@ public class ScaleStates : Functions {
 
 	// For knowing what localScale to set for a gameObject in any given State
 	public Vector3d originalLocalScale;
+	Vector3d prevLocalScale = new Vector3d (1d, 1d, 1d);
 	double localScaleRatio = 0;
 
 	int layerMask;
@@ -55,7 +56,8 @@ public class ScaleStates : Functions {
 	PositionProcessing positionProcessingScript;
 	Positioning positioningScript;
 
-	Transform proximityColliders;
+	Transform localColliders;
+	Transform systemColliders;
 
 
 	#region Basic Getters/Setters
@@ -136,9 +138,11 @@ public class ScaleStates : Functions {
 			}
 		}
 
-		proximityColliders = transform.Find ("ProximityColliders");
-		if (!proximityColliders)
-			Debug.LogWarning ("There doesn't appear to be a ProximityColliders gameObject.", gameObject);
+		localColliders = transform.Find ("LocalColliders");
+		systemColliders = transform.Find ("SystemColliders");
+		if (localColliders)
+			if(!systemColliders)
+				Debug.LogWarning ("There doesn't appear to be a systemColliders gameObject, but there is a localColliders.  Usually when there's a localColliders there should also be a systemColliders gameObject.", gameObject);
 	}
 	
 	// NOTE: Async version of Start.
@@ -230,10 +234,12 @@ public class ScaleStates : Functions {
 		CalculatePosition (SM, positionProcessingScript.position, positioningScript.camPosition);							// Calculate the relative position based on real position and scale of this State
 		if (_cacheState != state) {															// Without this we get crazy bugs.  Don't know why.  It needs to be here for code efficiency anyways!
 			CalculateLocalScale(SM);														// Calculate the gameObject scale based on original scale and the scale of this State
+			ColliderScale();
 			inputsRevised = new string[] { "SM", "MK" };									// Specify only the scale States immediately surrounding this state so we can keep loop to minimum as there
 			measurements = new double[] { SM, MK };											// is no point looping through every possible state since - we can only jump up or down one state at a time
 
 			gameObject.transform.parent = scaleStateParent ["SM"];							// Set this gameObject's parent to the appropriate scale's gameObject container
+			_cacheState = state;
 		}
 
 		if (light) {																		// Check if this gameObject is, or contains, a light
@@ -251,9 +257,11 @@ public class ScaleStates : Functions {
 		CalculatePosition (MK, positionProcessingScript.position, positioningScript.camPosition);
 		if (_cacheState != state) {
 			CalculateLocalScale(MK);
+			ColliderScale();
 			inputsRevised = new string[] { "SM", "MK", "AU" };
 			measurements = new double[] { SM, MK, AU };
 			gameObject.transform.parent = scaleStateParent ["MK"];
+			_cacheState = state;
 		}
 
 		if (light) {
@@ -272,9 +280,11 @@ public class ScaleStates : Functions {
 		if (_cacheState != state) {
 			CalculateLocalScale(AU);
 			//transform.localScale = new Vector3 (transform.localScale.x * 4, transform.localScale.y * 4, transform.localScale.z * 4);
+			ColliderScale();
 			inputsRevised = new string[] {  "MK", "AU", "LH" };
 			measurements = new double[] { MK, AU, LH };
 			gameObject.transform.parent = scaleStateParent ["AU"];
+			_cacheState = state;
 		}
 		if (light) {
 			light.cullingMask = 1 << layerMask;
@@ -294,9 +304,11 @@ public class ScaleStates : Functions {
 		if (_cacheState != state) {
 			CalculateLocalScale (LH);
 			//transform.localScale = new Vector3 (transform.localScale.x * 50, transform.localScale.y * 50, transform.localScale.z * 50);
+			ColliderScale();
 			inputsRevised = new string[] { "AU", "LH", "Ld" };
 			measurements = new double[] { AU, LH, Ld };
 			gameObject.transform.parent = scaleStateParent ["LH"];
+			_cacheState = state;
 		}
 		if (light) {
 			light.cullingMask = 1 << layerMask;
@@ -315,9 +327,11 @@ public class ScaleStates : Functions {
 		if (_cacheState != state) {
 			CalculateLocalScale (Ld);
 			//transform.localScale = new Vector3 (transform.localScale.x * 10, transform.localScale.y * 10, transform.localScale.z * 10);
+			ColliderScale();
 			inputsRevised = new string[] { "LH", "Ld", "LY"};
 			measurements = new double[] { LH, Ld, LY };
 			gameObject.transform.parent = scaleStateParent ["Ld"];
+			_cacheState = state;
 		}
 
 		if (light) {
@@ -336,10 +350,11 @@ public class ScaleStates : Functions {
 		CalculatePosition (LY, positionProcessingScript.position, positioningScript.camPosition);
 		if (_cacheState != state) {
 			CalculateLocalScale (LY);
-			ColliderRescale();
+			ColliderScale();
 			inputsRevised = new string[] { "Ld", "LY", "PA" };
 			measurements = new double[] { Ld, LY, PA };
 			gameObject.transform.parent = scaleStateParent ["LY"];
+			_cacheState = state;
 		}
 		if (light)
 			light.enabled = false;
@@ -351,9 +366,11 @@ public class ScaleStates : Functions {
 		CalculatePosition (PA, positionProcessingScript.position, positioningScript.camPosition);
 		if (_cacheState != state) {
 			CalculateLocalScale (PA);
+			ColliderScale();
 			inputsRevised = new string[] { "LY", "PA", "LD" };
 			measurements = new double[] { LY, PA, LD };
 			gameObject.transform.parent = scaleStateParent ["PA"];
+			_cacheState = state;
 		}
 		if (light)
 			light.enabled = false;
@@ -365,9 +382,11 @@ public class ScaleStates : Functions {
 		CalculatePosition (LD, positionProcessingScript.position, positioningScript.camPosition);
 		if (_cacheState != state) {
 			CalculateLocalScale (LD);
+			ColliderScale();
 			inputsRevised = new string[] { "PA", "LD", "LC" };
 			measurements = new double[] { PA, LD, LC };
 			gameObject.transform.parent = scaleStateParent ["LD"];
+			_cacheState = state;
 		}
 		if (light)
 			light.enabled = false;
@@ -379,9 +398,11 @@ public class ScaleStates : Functions {
 		CalculatePosition (LC, positionProcessingScript.position, positioningScript.camPosition);
 		if (_cacheState != state) {
 			CalculateLocalScale (LC);
+			ColliderScale();
 			inputsRevised = new string[] { "LD", "LC", "LM" };
 			measurements = new double[] { LD, LC, LM };
 			gameObject.transform.parent = scaleStateParent ["LC"];
+			_cacheState = state;
 		}
 		if (light)
 			light.enabled = false;
@@ -393,9 +414,11 @@ public class ScaleStates : Functions {
 		CalculatePosition (LM, positionProcessingScript.position, positioningScript.camPosition);
 		if (_cacheState != state) {
 			CalculateLocalScale (LM);
+			ColliderScale();
 			inputsRevised = new string[] { "LC", "LM" };
 			measurements = new double[] { LC, LM };
 			gameObject.transform.parent = scaleStateParent ["LM"];
+			_cacheState = state;
 		}
 		if (light)
 			light.enabled = false;
@@ -414,33 +437,51 @@ public class ScaleStates : Functions {
 	 * it appear that nothing has happened.
 	 */
 	private void CalculateLocalScale(double value) {
+		prevLocalScale = V3ToV3d(gameObject.transform.localScale);
 		gameObject.transform.localScale = new Vector3 (
 			(float)((originalLocalScale.x / value) * maxUnits),
 			(float)((originalLocalScale.y / value) * maxUnits),
 			(float)((originalLocalScale.z / value) * maxUnits));
-		_cacheState = state;
 	}
 
-	private void ColliderRescale() {
-		if (proximityColliders) {
-			transform.localScale = new Vector3 (
+	/*
+	 * We may need to rescale the proximity collider children of a body.
+	 * The localColliders children rescale locally so that a smaller body
+	 * gets a smaller collider.  The systemColliders are a set size which
+	 * does not depend on the size of the body it's a child of.  This way
+	 * we should get consistent results for long-distance speeds and 
+	 * relevent speeds when we're much closer to a body
+	 */
+	private void ColliderScale() {
+		if (localColliders) {
+			/*transform.localScale = new Vector3 (
 				transform.localScale.x * 7500f, 
 				transform.localScale.y * 7500f, 
 				transform.localScale.z * 7500f);
 
-			proximityColliders.localScale = new Vector3 (
-				proximityColliders.localScale.x / 7500f, 
-				proximityColliders.localScale.y / 7500f, 
-				proximityColliders.localScale.z / 7500f);
+			localColliders.localScale = new Vector3 (
+				localColliders.localScale.x / 7500f, 
+				localColliders.localScale.y / 7500f, 
+				localColliders.localScale.z / 7500f);*/
+		}
+		// Get the ratio of old scale to new so we can adjust the static-sized colliders
+		if (systemColliders) {
+			//Debug.LogError ("orig: "+prevLocalScale.x+", cur: "+transform.localScale.x); 
+			Vector3d newLocalScale = new Vector3d(
+				prevLocalScale.x/transform.localScale.x, 
+				prevLocalScale.y/transform.localScale.y, 
+				prevLocalScale.z/transform.localScale.z);
+			
+			systemColliders.localScale = V3dToV3 (newLocalScale);
 		}
 	}
-
 
 	/*
 	 * This function iterates through the 5 smallest States and for each one
 	 * it will either enable or disable the auto-generated light.  If the original
 	 * light is in the current State, then the auto-generated light will be 
-	 * disabled, and vice versa.
+	 * disabled, and vice versa.  This way we ensure that we have consistent lighting
+	 * on any given body as it goes from one state to the next.
 	 */
 	void Lights(string value) {
 		for(int i=0;i<5;i++) {
