@@ -537,11 +537,10 @@ MonoBehaviour:
     x: 0
     y: 0
     z: 304400
-  coordX: 0
-  coordY: 0
-  coordZ: 304400
-  xRadius: 6371
-  yRadius: 6371
+  radius:
+    x: 6371
+    y: 6371
+    z: 6371
 --- !u!54 &82396088
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2126,9 +2125,9 @@ GameObject:
   - 4: {fileID: 659638059}
   - 33: {fileID: 659638058}
   - 23: {fileID: 659638057}
+  - 114: {fileID: 659638054}
   - 114: {fileID: 659638056}
   - 114: {fileID: 659638055}
-  - 114: {fileID: 659638054}
   m_Layer: 8
   m_Name: Sphere
   m_TagString: Untagged
@@ -2151,11 +2150,10 @@ MonoBehaviour:
     x: 20000
     y: 0
     z: 149597870.7
-  coordX: 20000
-  coordY: 0
-  coordZ: 149597870.7
-  xRadius: 259020683710
-  yRadius: 259020683710
+  radius:
+    x: 259020683710
+    y: 259020683710
+    z: 259020683710
 --- !u!114 &659638055
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3105,9 +3103,9 @@ GameObject:
   - 4: {fileID: 964901403}
   - 33: {fileID: 964901402}
   - 23: {fileID: 964901401}
+  - 114: {fileID: 964901398}
   - 114: {fileID: 964901400}
   - 114: {fileID: 964901399}
-  - 114: {fileID: 964901398}
   - 114: {fileID: 964901397}
   m_Layer: 8
   m_Name: Sphere
@@ -3142,11 +3140,10 @@ MonoBehaviour:
     x: 20000
     y: 0
     z: 149597870.7
-  coordX: 20000
-  coordY: 0
-  coordZ: 149597870.7
-  xRadius: 259020683710
-  yRadius: 259020683710
+  radius:
+    x: 259020683710
+    y: 259020683710
+    z: 259020683710
 --- !u!114 &964901399
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3709,11 +3706,10 @@ MonoBehaviour:
     x: 020000
     y: 0
     z: 304400
-  coordX: 20000
-  coordY: 0
-  coordZ: 304400
-  xRadius: 3389.5
-  yRadius: 3389.5
+  radius:
+    x: 3389.5
+    y: 3389.5
+    z: 3389.5
 --- !u!114 &1094652975
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3874,11 +3870,10 @@ MonoBehaviour:
     x: 0
     y: 0
     z: 1100000
-  coordX: 0
-  coordY: 0
-  coordZ: 1100000
-  xRadius: 695508
-  yRadius: 695508
+  radius:
+    x: 695508
+    y: 695508
+    z: 695508
 --- !u!108 &1120951050
 Light:
   m_ObjectHideFlags: 0
@@ -4807,11 +4802,10 @@ MonoBehaviour:
     x: 100000000
     y: 0
     z: 149597870
-  coordX: 100000000
-  coordY: 0
-  coordZ: 149597870
-  xRadius: 1391016
-  yRadius: 1391016
+  radius:
+    x: 1391016
+    y: 1391016
+    z: 1391016
 --- !u!1 &1312816695
 GameObject:
   m_ObjectHideFlags: 0
@@ -4918,11 +4912,10 @@ MonoBehaviour:
     x: 0
     y: 0
     z: -80000
-  coordX: 0
-  coordY: 0
-  coordZ: -80000
-  xRadius: 1737.5
-  yRadius: 1737.5
+  radius:
+    x: 1737.5
+    y: 1737.5
+    z: 1737.5
 --- !u!54 &1312816702
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -6468,9 +6461,9 @@ GameObject:
   - 4: {fileID: 1886891877}
   - 33: {fileID: 1886891876}
   - 23: {fileID: 1886891875}
+  - 114: {fileID: 1886891872}
   - 114: {fileID: 1886891874}
   - 114: {fileID: 1886891873}
-  - 114: {fileID: 1886891872}
   - 54: {fileID: 1886891878}
   m_Layer: 8
   m_Name: Jupiter
@@ -6494,11 +6487,10 @@ MonoBehaviour:
     x: -90000
     y: 0
     z: 304400
-  coordX: -90000
-  coordY: 0
-  coordZ: 304400
-  xRadius: 69911
-  yRadius: 69911
+  radius:
+    x: 69911
+    y: 69911
+    z: 69911
 --- !u!114 &1886891873
 MonoBehaviour:
   m_ObjectHideFlags: 0

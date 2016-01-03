@@ -201,45 +201,21 @@ public class Functions : Constants {
 		public double x;
 		public double y;
 		public double z;
-		
+
+		// Constructor
+		public Vector3d() {
+			x = 0;
+			y = 0;
+			z = 0;
+		}
+
 		public Vector3d(double xc, double yc, double zc) {
 			x = xc;
 			y = yc;
 			z = zc;
 		}
-		
-		// Constructor
-		public Vector3d() { x = 0; y = 0; z = 0; }
 	}
-
-	public class Vector3d2 {
-		/*
-		 * Create a new Type.  Vector3 double.
-		 * 
-		 * Parameters
-		 * ----------
-		 * x : x coordinate double
-		 * y : y coordinate double
-		 * z : z coordinate double
-		 * 
-		 * Returns
-		 * -------
-		 * Coordinates : x,y,z - all doubles
-		 * Stores a Vector that contains doubles instead of floats for higher accuracy
-		*/
-		public double x;
-		public double y;
-		public double z;
-		
-		public Vector3d2(Vector3d a) {
-			x = a.x;
-			y = a.y;
-			z = a.z;
-		}
-		
-		// Constructor
-		public Vector3d2() { x = 0; y = 0; z = 0; }
-	}
+	
 
 	// Make these variables, when public, available in the inspector
 	[System.Serializable]
@@ -255,7 +231,8 @@ public class Functions : Constants {
 		 * 
 		 * Returns
 		 * -------
-		 * Coordinates : x,y,z - all strings which should be converted to doubles in code
+		 * Coordinates : x,y,z - all strings, which should be converted to doubles in code,
+		 * such as S3dToV3d(String3d) for example.
 		 * Stores a Vector that contains string instead of input field doubles, for higher accuracy
 		*/
 		public string x;
@@ -288,13 +265,11 @@ public class Functions : Constants {
 		 * -------
 		 * Assigns the position to the gameObject that the calling ScaleStates.cs script is attached to
 		*/
-		//positionRatio = maxUnits / value;
-		// position.x (vector3d) + camera position adjustment / the size of scale * maximum unity units (10k)
 
 		float _x = (float)(((position.x + camPosition.x) / value) * maxUnits);
 		float _y = (float)(((position.y + camPosition.y) / value) * maxUnits);
 		float _z = (float)(((position.z + camPosition.z) / value) * maxUnits);
-		//Debug.Log ("POST: _x = " + _x + ", _y = " + _y + ", _z = " + _z);
+
 		transform.position = new Vector3 (_x, _y, _z);
 	}
 	public Vector3d camPosition = new Vector3d(0d,0d,0d);

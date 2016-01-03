@@ -6,22 +6,20 @@ public class ObjectData : Functions {
 	ScaleStates scaleStatesScript;
 
 	public String3d coordinates;
-	public string coordX = "0";
-	public string coordY = "0";
-	public string coordZ = "0";
+	//public string coordX = "0";
+	//public string coordY = "0";
+	//public string coordZ = "0";
 
-	double xRad = 0d;
-	public string xRadius = "";
-	double yRad = 0d;
-	public string yRadius = "";
+	public String3d radius;
 
 	void Awake() {
 		scaleStatesScript = GetComponent<ScaleStates> ();
-		if (xRadius == "" || yRadius == "")
-			Debug.LogError ("The X or Y Radius hasn't been set for this object.", gameObject);
-		xRad = double.Parse (xRadius);
-		yRad = double.Parse (yRadius);
-		// Get the original localScale of the gameObject to use for reference later when rescaling based on State
-		scaleStatesScript.originalLocalScale = new Vector3d (xRad*2d, yRad*2d, xRad*2d);
+		if (radius.x == "" || radius.y == "" || radius.z == "")
+			Debug.LogError ("The Radius hasn't been set correctly for this object.", gameObject);
+
+		scaleStatesScript.originalLocalScale = S3dToV3d(radius);
+		scaleStatesScript.originalLocalScale.x *= 2;
+		scaleStatesScript.originalLocalScale.y *= 2;
+		scaleStatesScript.originalLocalScale.z *= 2;
 	}
 }
