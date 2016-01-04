@@ -12,7 +12,9 @@ public class CameraSpeedStates : Functions {
 		Ld,
 		LY,
 		PA,
-		LC
+		LD,
+		LC,
+		LM
 	}
 	
 	public State state = State.Initialize;
@@ -72,19 +74,21 @@ public class CameraSpeedStates : Functions {
 				case State.PA:
 					PA ();
 					break;
+				case State.LD:
+					LD ();
+					break;
+				case State.LC:
+					LC ();
+					break;
+				case State.LM:
+					LM ();
+					break;
 				}
 			}
 			yield return null;
 		}
 	}
-	
 
-
-	void Update() {
-	}
-	
-	
-	
 	public void SetState(State newState) {
 		_prevState = state;
 		state = newState;
@@ -92,51 +96,63 @@ public class CameraSpeedStates : Functions {
 	
 	
 	void SM() {								// This State is heavily commented as each other state uses same conditions		
-		Debug.Log ("Slowest");
 		positionScript.holdTimeMin = 30f;
 		positionScript.holdTimeMax = 300f;
 		_cacheState = state;
 	}
 
 	void MK() {
-		Debug.Log ("Slower");
 		positionScript.holdTimeMin = 300f;
 		positionScript.holdTimeMax = 3000f;
 		_cacheState = state;
 	}
 
 	void AU() {	
-		Debug.Log ("Slow");
 		positionScript.holdTimeMin = 3000f;
 		positionScript.holdTimeMax = 30000f;
 		_cacheState = state;
 	}
 
 	void LH() {	
-		Debug.Log ("Medium");
-		positionScript.holdTimeMin = 30000f;
-		positionScript.holdTimeMax = 300000f;
-		_cacheState = state;
-	}
-
-	void Ld() {	
-		Debug.Log ("Fast");
 		positionScript.holdTimeMin = 15000f;
 		positionScript.holdTimeMax = 1500000f;
 		_cacheState = state;
 	}
 
+	void Ld() {	
+		positionScript.holdTimeMin = 150000f;
+		positionScript.holdTimeMax = 15000000f;
+		_cacheState = state;
+	}
+
 	void LY() {	
-		Debug.Log ("Faster");
 		positionScript.holdTimeMin = 1500000f;
 		positionScript.holdTimeMax = 150000000f;
 		_cacheState = state;
 	}
 
 	void PA() {	
-		Debug.Log ("Fastest");
 		positionScript.holdTimeMin = 15000000f;
 		positionScript.holdTimeMax = 1500000000f;
 		_cacheState = state;
 	}
+
+	void LD() {	
+		positionScript.holdTimeMin = 35000000f;
+		positionScript.holdTimeMax = 3500000000f;
+		_cacheState = state;
+	}
+
+	void LC() {	
+		positionScript.holdTimeMin = 70000000f;
+		positionScript.holdTimeMax = 7000000000f;
+		_cacheState = state;
+	}
+
+	void LM() {	
+		positionScript.holdTimeMin = 500000000f;
+		positionScript.holdTimeMax = 50000000000f;
+		_cacheState = state;
+	}
+
 }

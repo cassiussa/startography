@@ -9,9 +9,15 @@ TagManager:
   - LH
   - Ld
   - LY
+  - PA
   - LD
   - LC
   - LM
+  - Faster
+  - Fast
+  - Slower
+  - Slow
+  - Slowest
   - 
   Builtin Layer 0: Default
   Builtin Layer 1: TransparentFX

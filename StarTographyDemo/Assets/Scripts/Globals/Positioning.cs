@@ -26,24 +26,30 @@ public class Positioning : Functions {
 
 	float xSpeed = 0f;							// Don't touch this
 	float zSpeed = 0f;							// Don't touch this
-	float zAcceleration = 0f	;				// How fast will object reach a maximum speed 
-	float xAcceleration = 0f	;				// How fast will object reach a maximum speed 
+	float zAcceleration = 0f;					// How fast will object reach a maximum speed 
+	float xAcceleration = 0f;					// How fast will object reach a maximum speed 
 	float Deceleration = 75000f;				// How fast will object reach a speed of 0
 
 	Vector3d thisPosition = new Vector3d (0d, 0d, 0d);
 	[HideInInspector]
-	public float holdTimeMin = 300f;
+	public float holdTimeMin = 30f;
 	[HideInInspector]
-	public float holdTimeMax = 300000f;
+	public float holdTimeMax = 300f;
 
 	float holdTime = 0;
 	bool timeSet = false;
+
+	void Awake(){
+		holdTimeMin = 30f;
+		holdTimeMax = 300f;
+	}
+
 	void Update () {
 		float horizontal = Input.GetAxis ("Horizontal")*-1;
 		float vertical = Input.GetAxis ("Vertical");
 
 		camPosition = new Vector3d (camPosition.x + xAcceleration,
-		                             camPosition.y, 
+		                            camPosition.y, 
 		                            camPosition.z + zAcceleration);
 
 		if (vertical != 0) {
