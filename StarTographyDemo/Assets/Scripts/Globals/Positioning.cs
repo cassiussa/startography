@@ -32,16 +32,16 @@ public class Positioning : Functions {
 
 	Vector3d thisPosition = new Vector3d (0d, 0d, 0d);
 	[HideInInspector]
-	public float holdTimeMin = 30f;
+	public double holdTimeMin = 30d;
 	[HideInInspector]
-	public float holdTimeMax = 300f;
+	public double holdTimeMax = 300d;
 
-	float holdTime = 0;
+	double holdTime = 0;
 	bool timeSet = false;
 
 	void Awake(){
-		holdTimeMin = 300f;
-		holdTimeMax = 3000f;
+		holdTimeMin = 300d;
+		holdTimeMax = 3000d;
 	}
 
 	void Update () {
@@ -54,8 +54,8 @@ public class Positioning : Functions {
 
 		if (vertical != 0) {
 			holdTime += ((holdTime * Time.deltaTime) + Time.deltaTime);
-			holdTime = Mathf.Clamp (holdTime, holdTimeMin, holdTimeMax);
-			zAcceleration = (holdTime * vertical);
+			holdTime = Mathf.Clamp ((float)holdTime, (float)holdTimeMin, (float)holdTimeMax);
+			zAcceleration = ((float)holdTime * vertical);
 		} else {
 			zAcceleration = 0;
 		}
