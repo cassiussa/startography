@@ -93,7 +93,21 @@ public class CameraSpeedStates : Functions {
 		_prevState = state;
 		state = newState;
 	}
-	
+
+
+
+		/* Ok to fix the collider issues, I think!
+ 		 * 
+ 		 * we need to make sure that the distances, such as SM, MK, AU, etc aren't just 8xlast_collider_size.  They need
+ 		 * to be relevant so that we can do better maxTime and minTime
+ 		 * 
+ 		 * something = body radius * 2
+ 		 * ScaleState size / something = collider radius
+ 		 * 
+		*/
+
+
+
 	
 	void SM() {								// This State is heavily commented as each other state uses same conditions		
 		//Debug.LogError ("Entered state " + state);

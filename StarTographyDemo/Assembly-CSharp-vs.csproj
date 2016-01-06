@@ -205,6 +205,7 @@
      <Compile Include="Assets\Scripts\Globals\Positioning.cs" />
      <Compile Include="Assets\Scripts\Globals\SimulationSpeed.cs" />
      <Compile Include="Assets\Scripts\ObjectLabel.cs" />
+     <Compile Include="Assets\Scripts\Objects\GenerateBodyColliders.cs" />
      <Compile Include="Assets\Scripts\Objects\ObjectCollider.cs" />
      <Compile Include="Assets\Scripts\Objects\ObjectData.cs" />
      <Compile Include="Assets\Scripts\PositionProcessing.cs" />

@@ -18,7 +18,7 @@ public class collidertest : MonoBehaviour {
 	void OnTriggerEnter(Collider other) {
 		if (i == 1) {
 			string tag = other.tag;
-			//Debug.Log ("OnTriggerEnter " + other.gameObject.name);
+			//	Debug.Log ("OnTriggerEnter " + other.gameObject.name);
 			// Order is from largest to smallest as smaller colliders for these are always inside larger ones
 			if (tag == "LC") {
 				cameraSpeedStates.state = CameraSpeedStates.State.LC;
