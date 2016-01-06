@@ -96,62 +96,68 @@ public class CameraSpeedStates : Functions {
 	
 	
 	void SM() {								// This State is heavily commented as each other state uses same conditions		
+		//Debug.LogError ("Entered state " + state);
 		positionScript.holdTimeMin = 30f;
 		positionScript.holdTimeMax = 300f;
 		_cacheState = state;
 	}
 
 	void MK() {
+		//Debug.LogError ("Entered state " + state);
 		positionScript.holdTimeMin = 300f;
 		positionScript.holdTimeMax = 3000f;
 		_cacheState = state;
 	}
 
 	void AU() {	
+		//Debug.LogError ("Entered state " + state);
 		positionScript.holdTimeMin = 3000f;
 		positionScript.holdTimeMax = 30000f;
 		_cacheState = state;
 	}
 
 	void LH() {	
-		positionScript.holdTimeMin = 15000f;
-		positionScript.holdTimeMax = 1500000f;
+		//Debug.LogError ("Entered state " + state);
+		positionScript.holdTimeMin = 30000f;
+		positionScript.holdTimeMax = 300000f;
 		_cacheState = state;
 	}
 
 	void Ld() {	
-		positionScript.holdTimeMin = 150000f;
-		positionScript.holdTimeMax = 15000000f;
+		//Debug.LogError ("Entered state " + state);
+		positionScript.holdTimeMin = 300000f;
+		positionScript.holdTimeMax = 3000000f;
 		_cacheState = state;
 	}
 
 	void LY() {	
-		positionScript.holdTimeMin = 1500000f;
-		positionScript.holdTimeMax = 150000000f;
+		//Debug.LogError ("Entered state " + state);
+		positionScript.holdTimeMin = 3000000f;
+		positionScript.holdTimeMax = 30000000f;
 		_cacheState = state;
 	}
 
 	void PA() {	
-		positionScript.holdTimeMin = 15000000f;
-		positionScript.holdTimeMax = 1500000000f;
+		positionScript.holdTimeMin = 30000000f;
+		positionScript.holdTimeMax = 300000000f;
 		_cacheState = state;
 	}
 
 	void LD() {	
-		positionScript.holdTimeMin = 35000000f;
-		positionScript.holdTimeMax = 3500000000f;
+		positionScript.holdTimeMin = 300000000f;
+		positionScript.holdTimeMax = 3000000000f;
 		_cacheState = state;
 	}
 
 	void LC() {	
-		positionScript.holdTimeMin = 70000000f;
-		positionScript.holdTimeMax = 7000000000f;
+		positionScript.holdTimeMin = 3000000000f;
+		positionScript.holdTimeMax = 30000000000f;
 		_cacheState = state;
 	}
 
 	void LM() {	
-		positionScript.holdTimeMin = 500000000f;
-		positionScript.holdTimeMax = 50000000000f;
+		positionScript.holdTimeMin = 3000000000f;
+		positionScript.holdTimeMax = 30000000000f;
 		_cacheState = state;
 	}
 

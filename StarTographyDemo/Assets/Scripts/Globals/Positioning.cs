@@ -40,8 +40,8 @@ public class Positioning : Functions {
 	bool timeSet = false;
 
 	void Awake(){
-		holdTimeMin = 30f;
-		holdTimeMax = 300f;
+		holdTimeMin = 300f;
+		holdTimeMax = 3000f;
 	}
 
 	void Update () {
@@ -53,21 +53,23 @@ public class Positioning : Functions {
 		                            camPosition.z + zAcceleration);
 
 		if (vertical != 0) {
-			holdTime += (holdTime * Time.deltaTime) + Time.deltaTime;
+			holdTime += ((holdTime * Time.deltaTime) + Time.deltaTime);
 			holdTime = Mathf.Clamp (holdTime, holdTimeMin, holdTimeMax);
 			zAcceleration = (holdTime * vertical);
 		} else {
 			zAcceleration = 0;
 		}
-		if (vertical != 0) {
+		/*if (horizontal != 0) {
 			holdTime += (holdTime*Time.deltaTime)+Time.deltaTime;
 			holdTime = Mathf.Clamp (holdTime, holdTimeMin, holdTimeMax);
 			xAcceleration = (holdTime*horizontal);
 		} else {
 			xAcceleration = 0;
-		}
+		}*/
 
 		if(vertical == 0 && horizontal == 0)
 			holdTime = 0f;
+
+		Debug.Log ("holdTime = " + holdTime);
 	}
 }
