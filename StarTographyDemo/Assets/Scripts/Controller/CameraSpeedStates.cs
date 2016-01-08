@@ -133,45 +133,45 @@ public class CameraSpeedStates : Functions {
 	void LH() {	
 		//Debug.LogError ("Entered state " + state);
 		positionScript.holdTimeMin = 3000000d;
-		positionScript.holdTimeMax = 30000000000d;
+		positionScript.holdTimeMax = 30000000d;
 		_cacheState = state;
 	}
 
 	void Ld() {	
 		//Debug.LogError ("Entered state " + state);
-		positionScript.holdTimeMin = 30000000000d;
-		positionScript.holdTimeMax = 300000000000d;
+		positionScript.holdTimeMin = 30000000d;
+		positionScript.holdTimeMax = 300000000d;
 		_cacheState = state;
 	}
 
 	void LY() {	
 		//Debug.LogError ("Entered state " + state);
-		positionScript.holdTimeMin = 300000000000d;
-		positionScript.holdTimeMax = 3000000000000d;
+		positionScript.holdTimeMin = 300000000d;
+		positionScript.holdTimeMax = 109500000000d;
 		_cacheState = state;
 	}
 
 	void PA() {	
-		positionScript.holdTimeMin = 3000000000000d;
-		positionScript.holdTimeMax = 9000000000000d;
+		positionScript.holdTimeMin = 109500000000d;
+		positionScript.holdTimeMax = 328500000000d;
 		_cacheState = state;
 	}
 
 	void LD() {	
-		positionScript.holdTimeMin = 9000000000000d;
-		positionScript.holdTimeMax = 27000000000000d;
+		positionScript.holdTimeMin = 328500000000d;
+		positionScript.holdTimeMax = 1095000000000d;
 		_cacheState = state;
 	}
 
 	void LC() {	
-		positionScript.holdTimeMin = 27000000000000d;
-		positionScript.holdTimeMax = 270000000000000d;
+		positionScript.holdTimeMin = 1095000000000d;
+		positionScript.holdTimeMax = 10950000000000d;
 		_cacheState = state;
 	}
 
 	void LM() {	
-		positionScript.holdTimeMin = 270000000000000d;
-		positionScript.holdTimeMax = 2700000000000000d;
+		positionScript.holdTimeMin = 10950000000000d;
+		positionScript.holdTimeMax = 109500000000000d;
 		_cacheState = state;
 	}
 

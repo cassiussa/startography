@@ -53,7 +53,7 @@ public class Positioning : Functions {
 		                            camPosition.z + zAcceleration);
 
 		if (vertical != 0) {
-			holdTime += ((holdTime * Time.deltaTime) + Time.deltaTime);
+			holdTime +=  Time.deltaTime*holdTime;
 			holdTime = Mathf.Clamp ((float)holdTime, (float)holdTimeMin, (float)holdTimeMax);
 			zAcceleration = ((float)holdTime * vertical);
 		} else {
