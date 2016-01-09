@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 
 /*
  * This script contains a series of functions to allow for processes such as
@@ -8,6 +9,10 @@ using System.Collections;
  * and other things
  */
 public class Functions : Constants {
+
+	void Start() {
+		ConvertDistanceStart();
+	}
 
 	protected double dmsToDeg(string declination) {
 		/*
@@ -73,7 +78,16 @@ public class Functions : Constants {
 		return result;
 	}
 	
-	
+
+
+	Dictionary<string, double> measurements = new Dictionary<string, double>();							// Set up a new dictionary of all the distances
+
+	void ConvertDistanceStart() {
+		measurements.Add ("SM", SM); measurements.Add ("MK", MK); measurements.Add ("AU", AU);			// Add the string as a name we can use in order to get the value of the doubles
+		measurements.Add ("LH", LH); measurements.Add ("Ld", Ld); measurements.Add ("LY", LY);
+		measurements.Add ("PA", PA); measurements.Add ("LD", LD); measurements.Add ("LC", LC);
+		measurements.Add ("LM", LM);
+	}
 	protected double conDist(double value, string from, string to) {
 		/*
 		 * Convert Distance : Convert any one type of measurement to another
@@ -89,22 +103,7 @@ public class Functions : Constants {
 		 * distance : double
 		 * The corresponding distance in the new measurement type
 		*/
-		double ratio = 0d;																				// Set up an array of all the possible measurement type shortforms
-		string[] inputs = new string[] {"SM,", "MK", "AU", "LH", "Ld", "LY", "PA", "LD", "LC", "LM" };	// Set up an array of all the possible measurement variables
-		double[] measurements = new double[] {SM, MK, AU, LH, Ld, LY, PA, LD, LC, LM };					// Iterate through each of the types of measurements looking for the one stored in the "from" variable
-		for (int i=0; i<measurements.Length; i++) {
-			if(inputs[i] == from) {																		// Iterate through each type of measurement again, now looking for the one stored in the "to" variable
-				for (int a=0;a<inputs.Length;a++) {
-					if(inputs[a] == to) {																// We have the "from" and "to" values, so calculate them to get the ratio
-						ratio = measurements[i]/measurements[a];
-						Debug.LogError("ration = "+ratio);
-						break;
-					}
-				}
-				break;																					// We've already iterated to where we need, so break the loop
-			}
-		}
-		double result = value * ratio;
+		double result = value * (measurements[from]/measurements[to]);									// We have the "from" and "to" values, so calculate them to get the ratio
 		return result;
 	}
 	
