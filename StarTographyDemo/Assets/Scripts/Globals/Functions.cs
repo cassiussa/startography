@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 /*
  * This script contains a series of functions to allow for processes such as
@@ -166,7 +167,7 @@ public class Functions : Constants {
 		Vector3d result = new Vector3d (double.Parse(vector.x), double.Parse(vector.y), double.Parse(vector.z));
 		return result;
 	}
-	
+
 	public class Vector3d {
 		/*
 		 * Create a new Type.  Vector3 double.
@@ -257,4 +258,7 @@ public class Functions : Constants {
 		transform.position = new Vector3 (_x, _y, _z);
 	}
 	public Vector3d camPosition = new Vector3d(0d,0d,0d);
+
+
+
 }

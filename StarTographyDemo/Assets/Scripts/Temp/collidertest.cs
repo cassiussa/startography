@@ -21,23 +21,23 @@ public class collidertest : MonoBehaviour {
 			//	Debug.Log ("OnTriggerEnter " + other.gameObject.name);
 			// Order is from largest to smallest as smaller colliders for these are always inside larger ones
 			if (tag == "LC") {
-				cameraSpeedStates.state = CameraSpeedStates.State.LC;
+				cameraSpeedStates.state = CameraSpeedStates.State.LightCentury;
 			} else if (tag == "LD") {
-				cameraSpeedStates.state = CameraSpeedStates.State.LD;
+				cameraSpeedStates.state = CameraSpeedStates.State.LightDecade;
 			} else if (tag == "PA") {
-				cameraSpeedStates.state = CameraSpeedStates.State.PA;
+				cameraSpeedStates.state = CameraSpeedStates.State.Parsec;
 			} else if (tag == "LY") {
-				cameraSpeedStates.state = CameraSpeedStates.State.LY;
+				cameraSpeedStates.state = CameraSpeedStates.State.LightYear;
 			} else if (tag == "Ld") {
-				cameraSpeedStates.state = CameraSpeedStates.State.Ld;
+				cameraSpeedStates.state = CameraSpeedStates.State.LightDay;
 			} else if (tag == "LH") {
-				cameraSpeedStates.state = CameraSpeedStates.State.LH;
+				cameraSpeedStates.state = CameraSpeedStates.State.LightHour;
 			} else if (tag == "AU") {
-				cameraSpeedStates.state = CameraSpeedStates.State.AU;
+				cameraSpeedStates.state = CameraSpeedStates.State.AstronomicalUnit;
 			} else if (tag == "MK") {
-				cameraSpeedStates.state = CameraSpeedStates.State.MK;
+				cameraSpeedStates.state = CameraSpeedStates.State.MillionKilometers;
 			} else if (tag == "SM") {
-				cameraSpeedStates.state = CameraSpeedStates.State.SM;
+				cameraSpeedStates.state = CameraSpeedStates.State.SubMillion;
 			}
 		}
 	}
@@ -49,23 +49,23 @@ public class collidertest : MonoBehaviour {
 		// So when we exit a collider it means we've entered the next fastest state
 		//Debug.LogError ("exited " + other.gameObject.name, gameObject);
 		if (tag == "SM") {
-			cameraSpeedStates.state = CameraSpeedStates.State.MK;
+			cameraSpeedStates.state = CameraSpeedStates.State.MillionKilometers;
 		} else if (tag == "MK") {
-			cameraSpeedStates.state = CameraSpeedStates.State.AU;
+			cameraSpeedStates.state = CameraSpeedStates.State.AstronomicalUnit;
 		} else if (tag == "AU") {
-			cameraSpeedStates.state = CameraSpeedStates.State.LH;
+			cameraSpeedStates.state = CameraSpeedStates.State.LightHour;
 		} else if (tag == "LH") {
-			cameraSpeedStates.state = CameraSpeedStates.State.Ld;
+			cameraSpeedStates.state = CameraSpeedStates.State.LightDay;
 		} else if (tag == "Ld") {
-			cameraSpeedStates.state = CameraSpeedStates.State.LY;
+			cameraSpeedStates.state = CameraSpeedStates.State.LightYear;
 		} else if (tag == "LY") {
-			cameraSpeedStates.state = CameraSpeedStates.State.PA;
+			cameraSpeedStates.state = CameraSpeedStates.State.Parsec;
 		} else if (tag == "PA") {
-			cameraSpeedStates.state = CameraSpeedStates.State.LD;
+			cameraSpeedStates.state = CameraSpeedStates.State.LightDecade;
 		} else if (tag == "LD") {
-			cameraSpeedStates.state = CameraSpeedStates.State.LC;
+			cameraSpeedStates.state = CameraSpeedStates.State.LightCentury;
 		} else if (tag == "LC") {
-			cameraSpeedStates.state = CameraSpeedStates.State.LM;
+			cameraSpeedStates.state = CameraSpeedStates.State.LightMillenium;
 		}
 	}
 }

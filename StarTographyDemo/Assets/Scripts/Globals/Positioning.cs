@@ -70,6 +70,6 @@ public class Positioning : Functions {
 		if(vertical == 0 && horizontal == 0)
 			holdTime = 0f;
 
-		Debug.Log ("holdTime = " + holdTime);
+		//Debug.Log ("holdTime = " + holdTime);
 	}
 }

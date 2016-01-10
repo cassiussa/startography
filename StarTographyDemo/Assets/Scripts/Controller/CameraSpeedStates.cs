@@ -1,26 +1,48 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class CameraSpeedStates : Functions {
 
 	public enum State { 
 		Initialize, 
-		SM,
-		MK,
-		AU,
-		LH,
-		Ld,
-		LY,
-		PA,
-		LD,
-		LC,
-		LM
+		SubMillion, 
+		MillionKilometers, 
+		AstronomicalUnit, 
+		LightHour, 
+		LightDay, 
+		LightYear, 
+		Parsec, 
+		LightDecade, 
+		LightCentury, 
+		LightMillenium
 	}
 	
 	public State state = State.Initialize;
 	State _prevState;
 	State _cacheState;
-	
+
+
+	//public List<double> collidingNow = new List<double>();
+	public Dictionary<double, State> distanceCheck = new Dictionary<double, State>();	// So that we can get values
+	public Dictionary<Collider, double> currentCollisions = new Dictionary<Collider, double>();	// So that we can remove correct colliders
+
+	public void OnScaleCollision() {
+		double size = 10000000000000000000000000d;
+		foreach (KeyValuePair<Collider, double> currentCollision in currentCollisions) {
+			if(currentCollision.Value < size) {
+
+				size = currentCollision.Value;
+			}
+		}
+		Debug.Log ("currentCollisions = "+distanceCheck[size]);
+
+		SetState (distanceCheck[size]);
+	}
+
+
+
+
 	/* 
 	 * Check to see what type of item this script is attached to.  For example,
 	 * if it's a camera, we'll update the clipping upon state change.  If it's
@@ -44,6 +66,23 @@ public class CameraSpeedStates : Functions {
 		positionScript = GetComponent<Positioning> ();
 		if (!positionScript)
 			Debug.LogError ("There is no Positioning script attached to this gameObject.  It is required", gameObject);
+
+		/*
+		 * I'm adding these in here so that we can do a comparison to
+		 * the value held in the first field, see which the smallestCollision
+		 * variable falls within, and then set the relevant state thereof.
+		 */
+
+		distanceCheck.Add (SM, State.SubMillion);
+		distanceCheck.Add (MK, State.MillionKilometers);
+		distanceCheck.Add (AU, State.AstronomicalUnit);
+		distanceCheck.Add (LH, State.LightHour);
+		distanceCheck.Add (Ld, State.LightDay);
+		distanceCheck.Add (LY, State.LightYear);
+		distanceCheck.Add (PA, State.Parsec);
+		distanceCheck.Add (LD, State.LightDecade);
+		distanceCheck.Add (LC, State.LightCentury);
+		distanceCheck.Add (LM, State.LightMillenium);
 	}
 	
 	// NOTE: Async version of Start.
@@ -53,35 +92,35 @@ public class CameraSpeedStates : Functions {
 				switch (state) {
 				case State.Initialize:
 					break;
-				case State.SM:
-					SM ();
+				case State.SubMillion:
+					SubMillion ();
 					break;
-				case State.MK:
-					MK ();
+				case State.MillionKilometers:
+					MillionKilometers ();
 					break;
-				case State.AU:
-					AU ();
+				case State.AstronomicalUnit:
+					AstronomicalUnit ();
 					break;
-				case State.LH:
-					LH ();
+				case State.LightHour:
+					LightHour ();
 					break;
-				case State.Ld:
-					Ld ();
+				case State.LightDay:
+					LightDay ();
 					break;
-				case State.LY:
-					LY ();
+				case State.LightYear:
+					LightYear ();
 					break;
-				case State.PA:
-					PA ();
+				case State.Parsec:
+					Parsec ();
 					break;
-				case State.LD:
-					LD ();
+				case State.LightDecade:
+					LightDecade ();
 					break;
-				case State.LC:
-					LC ();
+				case State.LightCentury:
+					LightCentury ();
 					break;
-				case State.LM:
-					LM ();
+				case State.LightMillenium:
+					LightMillenium ();
 					break;
 				}
 			}
@@ -98,7 +137,7 @@ public class CameraSpeedStates : Functions {
 
 		/* Ok to fix the collider issues, I think!
  		 * 
- 		 * we need to make sure that the distances, such as SM, MK, AU, etc aren't just 8xlast_collider_size.  They need
+ 		 * we need to make sure that the distances, such as SM, MillionKilometers, AstronomicalUnit, etc aren't just 8xlast_collider_size.  They need
  		 * to be relevant so that we can do better maxTime and minTime
  		 * 
  		 * something = body radius * 2
@@ -109,70 +148,71 @@ public class CameraSpeedStates : Functions {
 
 
 	
-	void SM() {								// This State is heavily commented as each other state uses same conditions		
+	void SubMillion() {								// This State is heavily commented as each other state uses same conditions		
 		//Debug.LogError ("Entered state " + state);
 		positionScript.holdTimeMin = 30d;
 		positionScript.holdTimeMax = 300d;
 		_cacheState = state;
 	}
 
-	void MK() {
+	void MillionKilometers() {
 		//Debug.LogError ("Entered state " + state);
 		positionScript.holdTimeMin = 300d;
 		positionScript.holdTimeMax = 30000d;
 		_cacheState = state;
 	}
 
-	void AU() {	
+	void AstronomicalUnit() {	
 		//Debug.LogError ("Entered state " + state);
 		positionScript.holdTimeMin = 30000d;
 		positionScript.holdTimeMax = 3000000d;
 		_cacheState = state;
 	}
 
-	void LH() {	
+	void LightHour() {	
 		//Debug.LogError ("Entered state " + state);
 		positionScript.holdTimeMin = 3000000d;
 		positionScript.holdTimeMax = 30000000d;
 		_cacheState = state;
 	}
 
-	void Ld() {	
+	void LightDay() {	
 		//Debug.LogError ("Entered state " + state);
 		positionScript.holdTimeMin = 30000000d;
 		positionScript.holdTimeMax = 300000000d;
 		_cacheState = state;
 	}
 
-	void LY() {	
+	void LightYear() {	
 		//Debug.LogError ("Entered state " + state);
 		positionScript.holdTimeMin = 300000000d;
 		positionScript.holdTimeMax = 109500000000d;
 		_cacheState = state;
 	}
 
-	void PA() {	
+	void Parsec() {	
 		positionScript.holdTimeMin = 109500000000d;
 		positionScript.holdTimeMax = 328500000000d;
 		_cacheState = state;
 	}
 
-	void LD() {	
+	void LightDecade() {	
 		positionScript.holdTimeMin = 328500000000d;
 		positionScript.holdTimeMax = 1095000000000d;
 		_cacheState = state;
 	}
 
-	void LC() {	
+	void LightCentury() {	
 		positionScript.holdTimeMin = 1095000000000d;
 		positionScript.holdTimeMax = 10950000000000d;
 		_cacheState = state;
 	}
 
-	void LM() {	
+	void LightMillenium() {	
 		positionScript.holdTimeMin = 10950000000000d;
 		positionScript.holdTimeMax = 109500000000000d;
 		_cacheState = state;
 	}
+	
 
 }

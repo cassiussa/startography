@@ -149,6 +149,7 @@ public class ScaleStates : Functions {
 			if(!systemColliders)
 				Debug.LogWarning ("There doesn't appear to be a systemColliders gameObject, but there is a localColliders.  Usually when there's a localColliders there should also be a systemColliders gameObject.", gameObject);
 	
+		meshes.Add (gameObject);
 		if (gameObject.renderer)
 			meshes.Add (gameObject);
 		foreach (Transform child in transform) {
