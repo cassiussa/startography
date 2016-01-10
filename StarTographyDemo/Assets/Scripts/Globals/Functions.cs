@@ -81,7 +81,6 @@ public class Functions : Constants {
 
 
 	Dictionary<string, double> measurements = new Dictionary<string, double>();							// Set up a new dictionary of all the distances
-
 	void ConvertDistanceStart() {
 		measurements.Add ("SM", SM); measurements.Add ("MK", MK); measurements.Add ("AU", AU);			// Add the string as a name we can use in order to get the value of the doubles
 		measurements.Add ("LH", LH); measurements.Add ("Ld", Ld); measurements.Add ("LY", LY);
@@ -123,21 +122,7 @@ public class Functions : Constants {
 		 * distance : double
 		 * The corresponding distance in the new measurement type
 		*/
-		double ratio = 0d;
-		string[] inputs = new string[] {"SM", "MK", "AU", "LH", "Ld", "LY", "PA", "LD", "LC", "LM" };	// Set up an array of all the possible measurement type shortforms
-		double[] measurements = new double[] {SM, MK, AU, LH, Ld, LY, PA, LD, LC, LM };					// Set up an array of all the possible measurement variables
-		for (int i=0; i<measurements.Length; i++) {														// Iterate through each of the types of measurements looking for the one stored in the "from" variable
-			if(inputs[i] == from) {																		// Iterate through each type of measurement again, now looking for the one stored in the "to" variable
-				for (int a=0;a<inputs.Length;a++) {
-					if(inputs[a] == to) {																// We have the "from" and "to" values, so calculate them to get the ratio
-						ratio = measurements[a]/measurements[i];
-						break;
-					}
-				}
-				break;																					// We've already iterated to where we need, so break the loop
-			}
-		}
-		double result = value * ratio * maxUnits;														// 10,000 is the maximum distance for the camera clip
+		double result = value * (measurements[to]/measurements[from]) * maxUnits;						// 10,000 is the maximum distance for the camera clip
 		return result;																					// The near clipping plane for the camera
 	}
 	
