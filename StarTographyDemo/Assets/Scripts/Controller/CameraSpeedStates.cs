@@ -31,12 +31,12 @@ public class CameraSpeedStates : Functions {
 		double size = 10000000000000000000000000d;
 		foreach (KeyValuePair<Collider, double> currentCollision in currentCollisions) {
 			if(currentCollision.Value < size) {
-
+				
 				size = currentCollision.Value;
 			}
 		}
 		Debug.Log ("currentCollisions = "+distanceCheck[size]);
-
+		
 		SetState (distanceCheck[size]);
 	}
 
@@ -157,42 +157,91 @@ public class CameraSpeedStates : Functions {
 
 	void MillionKilometers() {
 		//Debug.LogError ("Entered state " + state);
-		positionScript.holdTimeMin = 300d;
-		positionScript.holdTimeMax = 30000d;
+		if (_cacheState == State.SubMillion) {
+			positionScript.holdTimeMin = 300d;
+			positionScript.holdTimeMax = 30000d;				// Scale up to the min speed of the next state
+		} else if (_cacheState == State.AstronomicalUnit) {		// Came from a faster state so slow it down
+			positionScript.holdTimeMin = 300d;
+			positionScript.holdTimeMax = 3000d;					// Scale down, likely to the same as min speed for this state
+		} else {
+			Debug.LogError ("Skippined a state somehow.  This shouldn't happen",gameObject);
+		}
 		_cacheState = state;
 	}
 
 	void AstronomicalUnit() {	
 		//Debug.LogError ("Entered state " + state);
-		positionScript.holdTimeMin = 30000d;
-		positionScript.holdTimeMax = 3000000d;
+		if (_cacheState == State.MillionKilometers) {
+			positionScript.holdTimeMin = 30000d;
+			positionScript.holdTimeMax = 3000000d;
+		} else if (_cacheState == State.LightHour) {		// Came from a faster state so slow it down
+			positionScript.holdTimeMin = 30000d;
+			positionScript.holdTimeMax = 300000d;
+		} else {
+			Debug.LogError ("Skippined a state somehow.  This shouldn't happen",gameObject);
+		}
+
 		_cacheState = state;
 	}
 
 	void LightHour() {	
-		//Debug.LogError ("Entered state " + state);
-		positionScript.holdTimeMin = 3000000d;
-		positionScript.holdTimeMax = 30000000d;
+		if (_cacheState == State.AstronomicalUnit) {
+			positionScript.holdTimeMin = 3000000d;
+			positionScript.holdTimeMax = 30000000d;				// Scale up to the min speed of the next state
+		} else if (_cacheState == State.LightDay) {				// Came from a faster state so slow it down
+			positionScript.holdTimeMin = 3000000d;
+			positionScript.holdTimeMax = 3000000d;					// Scale down, likely to the same as min speed for this state
+		} else {
+			Debug.LogError ("Skippined a state somehow.  This shouldn't happen",gameObject);
+		}
+
+		//positionScript.holdTimeMin = 3000000d;
+		//positionScript.holdTimeMax = 30000000d;
 		_cacheState = state;
 	}
 
 	void LightDay() {	
-		//Debug.LogError ("Entered state " + state);
-		positionScript.holdTimeMin = 30000000d;
-		positionScript.holdTimeMax = 300000000d;
+		if (_cacheState == State.LightHour) {
+			positionScript.holdTimeMin = 30000000d;
+			positionScript.holdTimeMax = 300000000d;				// Scale up to the min speed of the next state
+		} else if (_cacheState == State.LightYear) {				// Came from a faster state so slow it down
+			positionScript.holdTimeMin = 30000000d;
+			positionScript.holdTimeMax = 30000000d;					// Scale down, likely to the same as min speed for this state
+		} else {
+			Debug.LogError ("Skippined a state somehow.  This shouldn't happen",gameObject);
+		}
+		//positionScript.holdTimeMin = 30000000d;
+		//positionScript.holdTimeMax = 300000000d;
 		_cacheState = state;
 	}
 
 	void LightYear() {	
-		//Debug.LogError ("Entered state " + state);
-		positionScript.holdTimeMin = 300000000d;
-		positionScript.holdTimeMax = 109500000000d;
+		if (_cacheState == State.LightHour) {
+			positionScript.holdTimeMin = 300000000d;
+			positionScript.holdTimeMax = 109500000000d;				// Scale up to the min speed of the next state
+		} else if (_cacheState == State.LightYear) {				// Came from a faster state so slow it down
+			positionScript.holdTimeMin = 300000000d;
+			positionScript.holdTimeMax = 300000000d;					// Scale down, likely to the same as min speed for this state
+		} else {
+			Debug.LogError ("Skippined a state somehow.  This shouldn't happen",gameObject);
+		}
+		//positionScript.holdTimeMin = 300000000d;
+		//positionScript.holdTimeMax = 109500000000d;
 		_cacheState = state;
 	}
 
-	void Parsec() {	
-		positionScript.holdTimeMin = 109500000000d;
-		positionScript.holdTimeMax = 328500000000d;
+	void Parsec() {
+		if (_cacheState == State.LightYear) {
+			positionScript.holdTimeMin = 109500000000d;
+			positionScript.holdTimeMax = 328500000000d;				// Scale up to the min speed of the next state
+		} else if (_cacheState == State.LightDecade) {				// Came from a faster state so slow it down
+			positionScript.holdTimeMin = 109500000000d;
+			positionScript.holdTimeMax = 109500000000d;					// Scale down, likely to the same as min speed for this state
+		} else {
+			Debug.LogError ("Skippined a state somehow.  This shouldn't happen",gameObject);
+		}
+		//positionScript.holdTimeMin = 109500000000d;
+		//positionScript.holdTimeMax = 328500000000d;
 		_cacheState = state;
 	}
 

@@ -38,13 +38,14 @@ public class GenerateBodyColliders : Functions {
 			tempObj.AddComponent<SphereCollider>();												// Add a SphereCollider to the child GameObject
 			Vector3d thisRadius = S3dToV3d(objectDataScript.radius);							// Get the assign radius from ObjectData and convert it to a Vector3d
 			if(i == 0)																			// Make sure we give smallest scale at least a 2.0 radius
-				tempObj.GetComponent<SphereCollider>().radius = 3.0f;							// Set the radius to 2.0
+				tempObj.GetComponent<SphereCollider>().radius = (float)(34955.5f/thisRadius.x);							// Set the radius to 2.0
 			else
 				tempObj.GetComponent<SphereCollider>().radius = (float)(measurements[i]/(thisRadius.x*2));	// Dynamically apply the radius scale to the scale state's GameObject
 			tempObj.GetComponent<SphereCollider>().isTrigger = true;							// Set the scale state's collider to report on triggers
 
 			tempObj.AddComponent<BodyColliderTest01>();											// Add the OnTrigger(Enter|Exit) script
 			tempObj.GetComponent<BodyColliderTest01>().thisScale = measurements[i];				// Add the scale, in double, of this GameObject's scale
+			tempObj.GetComponent<BodyColliderTest01>().thisLocalScale = transform.localScale.x;				// Add the scale, in double, of this GameObject's scale
 		}
 	}
 

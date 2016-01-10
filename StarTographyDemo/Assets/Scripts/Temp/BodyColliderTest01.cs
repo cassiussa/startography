@@ -7,6 +7,7 @@ public class BodyColliderTest01 : MonoBehaviour {
 
 	public CameraSpeedStates cameraSpeedStates;
 	public double thisScale;
+	public double thisLocalScale;
 	
 	void Start() {
 		cameraSpeedStates = GameObject.Find ("/Cameras").GetComponent<CameraSpeedStates> ();
@@ -27,7 +28,9 @@ public class BodyColliderTest01 : MonoBehaviour {
 		if (other.tag == "MainCamera") {
 			if (cameraSpeedStates.currentCollisions.ContainsKey(gameObject.collider)) {
 				cameraSpeedStates.currentCollisions.Remove(gameObject.collider);
+				Debug.Log ("A Time = "+Time.time);
 				cameraSpeedStates.OnScaleCollision();
+				Debug.Log ("Z Time = "+Time.time);
 			}
 		}
 	}
