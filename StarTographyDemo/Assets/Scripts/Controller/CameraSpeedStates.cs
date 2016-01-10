@@ -4,31 +4,23 @@ using System.Collections.Generic;
 
 public class CameraSpeedStates : Functions {
 
-	public enum State { 
-		Initialize, 
-		A,B,C,D,E,F,G,H,I,J,K,L,M
-	}
+	public enum State { Initialize,A,B,C,D,E,F,G,H,I,J,K,L,M }
 	
 	public State state = State.Initialize;
 	State _prevState;
 	State _cacheState;
-
-
-	//public List<double> collidingNow = new List<double>();
-	public Dictionary<double, State> distanceCheck = new Dictionary<double, State>();	// So that we can get values
-	public Dictionary<Collider, double> currentCollisions = new Dictionary<Collider, double>();	// So that we can remove correct colliders
+	
+	public Dictionary<double, State> distanceCheck = new Dictionary<double, State>();				// So that we can get the States based on the double value (key)
+	public Dictionary<Collider, double> currentCollisions = new Dictionary<Collider, double>();		// So that we can remove correct colliders and find the appropriate key for the distanceCheck dictionary
 
 	public void OnScaleCollision() {
-		double size = 10000000000000000000000000d;
-		foreach (KeyValuePair<Collider, double> currentCollision in currentCollisions) {
-			if(currentCollision.Value < size) {
-				
-				size = currentCollision.Value;
+		double size = 10000000000000000000000000d;													// Assign a crazy-high number we know we'll never reach as the start point
+		foreach (KeyValuePair<Collider, double> currentCollision in currentCollisions) {			// Iterate through each Collider:double pair in the currentCollisions Dictionary
+			if(currentCollision.Value < size) {														// See if the double of this iteration is smaller than all previous iterations
+				size = currentCollision.Value;														// If it's smaller, assign it as the new smallest
 			}
 		}
-		Debug.Log ("currentCollisions = "+distanceCheck[size]);
-		
-		SetState (distanceCheck[size]);
+		SetState (distanceCheck[size]);																// We've found the smallest scale that we're currently colliding with, so set the appropriate state
 	}
 
 
@@ -58,13 +50,8 @@ public class CameraSpeedStates : Functions {
 		if (!positionScript)
 			Debug.LogError ("There is no Positioning script attached to this gameObject.  It is required", gameObject);
 
-		/*
-		 * I'm adding these in here so that we can do a comparison to
-		 * the value held in the first field, see which the smallestCollision
-		 * variable falls within, and then set the relevant state thereof.
-		 */
 
-		distanceCheck.Add (100000, State.A);
+		distanceCheck.Add (100000, State.A);				// See distanceCheck variable creation for details
 		distanceCheck.Add (1000000, State.B);
 		distanceCheck.Add (10000000, State.C);
 		distanceCheck.Add (100000000, State.D);
@@ -73,9 +60,10 @@ public class CameraSpeedStates : Functions {
 		distanceCheck.Add (100000000000, State.G);
 		distanceCheck.Add (1000000000000, State.H);
 		distanceCheck.Add (10000000000000, State.I);
-		distanceCheck.Add (100000000000000, State.K);
-		distanceCheck.Add (1000000000000000, State.L);
-		distanceCheck.Add (10000000000000000, State.M);
+		distanceCheck.Add (100000000000000, State.J);
+		distanceCheck.Add (1000000000000000, State.K);
+		distanceCheck.Add (10000000000000000, State.L);
+		distanceCheck.Add (100000000000000000, State.M);
 	}
 	
 	// NOTE: Async version of Start.
@@ -112,6 +100,9 @@ public class CameraSpeedStates : Functions {
 				case State.I:
 					I ();
 					break;
+				case State.J:
+					J ();
+					break;
 				case State.K:
 					K ();
 					break;
@@ -131,24 +122,9 @@ public class CameraSpeedStates : Functions {
 		_prevState = state;
 		state = newState;
 	}
-
-
-
-		/* Ok to fix the collider issues, I think!
- 		 * 
- 		 * we need to make sure that the distances, such as SM, MillionKilometers, AstronomicalUnit, etc aren't just 8xlast_collider_size.  They need
- 		 * to be relevant so that we can do better maxTime and minTime
- 		 * 
- 		 * something = body radius * 2
- 		 * ScaleState size / something = collider radius
- 		 * 
-		*/
-
-
-
 	
+
 	void A() {								// This State is heavily commented as each other state uses same conditions		
-		//Debug.LogError ("Entered state " + state);
 		positionScript.holdTimeMin = 30d;
 		positionScript.holdTimeMax = 300d;
 		_cacheState = state;

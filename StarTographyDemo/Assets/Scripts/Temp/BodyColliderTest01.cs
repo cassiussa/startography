@@ -16,9 +16,9 @@ public class BodyColliderTest01 : MonoBehaviour {
 
 	void OnTriggerEnter(Collider other) {
 		if (other.tag == "MainCamera") {
-			if (!cameraSpeedStates.currentCollisions.ContainsKey(gameObject.collider)) {
-				cameraSpeedStates.currentCollisions.Add(gameObject.collider,thisScale);
-				cameraSpeedStates.OnScaleCollision();
+			if (!cameraSpeedStates.currentCollisions.ContainsKey(gameObject.collider)) {	// Check to see that we haven't already added this collider to the currentCollisions Dictionary
+				cameraSpeedStates.currentCollisions.Add(gameObject.collider,thisScale);		// Add this SphereCollider to the currentCollisions Dictionary
+				cameraSpeedStates.OnScaleCollision();										// Find the smallest scale found in the currentCollisions Dictionary
 			}
 		}
 	}
@@ -26,11 +26,9 @@ public class BodyColliderTest01 : MonoBehaviour {
 	
 	void OnTriggerExit(Collider other) {
 		if (other.tag == "MainCamera") {
-			if (cameraSpeedStates.currentCollisions.ContainsKey(gameObject.collider)) {
-				cameraSpeedStates.currentCollisions.Remove(gameObject.collider);
-				Debug.Log ("A Time = "+Time.time);
-				cameraSpeedStates.OnScaleCollision();
-				Debug.Log ("Z Time = "+Time.time);
+			if (cameraSpeedStates.currentCollisions.ContainsKey(gameObject.collider)) {		// Make sure the current collider exists in the currentCollisions Dictionary before trying to remove it
+				cameraSpeedStates.currentCollisions.Remove(gameObject.collider);			// Remove this SphereCollider to the currentCollisions Dictionary
+				cameraSpeedStates.OnScaleCollision();										// Find the smallest scale found in the currentCollisions Dictionary
 			}
 		}
 	}
