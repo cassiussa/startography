@@ -15,7 +15,7 @@ public class collidertest : MonoBehaviour {
 			i = 1;
 	}
 
-	void OnTriggerEnter(Collider other) {
+/*	void OnTriggerEnter(Collider other) {
 		if (i == 1) {
 			string tag = other.tag;
 			//	Debug.Log ("OnTriggerEnter " + other.gameObject.name);
@@ -67,5 +67,5 @@ public class collidertest : MonoBehaviour {
 		} else if (tag == "LC") {
 			cameraSpeedStates.state = CameraSpeedStates.State.LightMillenium;
 		}
-	}
+	}*/
 }

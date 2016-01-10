@@ -6,16 +6,7 @@ public class CameraSpeedStates : Functions {
 
 	public enum State { 
 		Initialize, 
-		SubMillion, 
-		MillionKilometers, 
-		AstronomicalUnit, 
-		LightHour, 
-		LightDay, 
-		LightYear, 
-		Parsec, 
-		LightDecade, 
-		LightCentury, 
-		LightMillenium
+		A,B,C,D,E,F,G,H,I,J,K,L,M
 	}
 	
 	public State state = State.Initialize;
@@ -73,16 +64,18 @@ public class CameraSpeedStates : Functions {
 		 * variable falls within, and then set the relevant state thereof.
 		 */
 
-		distanceCheck.Add (SM, State.SubMillion);
-		distanceCheck.Add (MK, State.MillionKilometers);
-		distanceCheck.Add (AU, State.AstronomicalUnit);
-		distanceCheck.Add (LH, State.LightHour);
-		distanceCheck.Add (Ld, State.LightDay);
-		distanceCheck.Add (LY, State.LightYear);
-		distanceCheck.Add (PA, State.Parsec);
-		distanceCheck.Add (LD, State.LightDecade);
-		distanceCheck.Add (LC, State.LightCentury);
-		distanceCheck.Add (LM, State.LightMillenium);
+		distanceCheck.Add (100000, State.A);
+		distanceCheck.Add (1000000, State.B);
+		distanceCheck.Add (10000000, State.C);
+		distanceCheck.Add (100000000, State.D);
+		distanceCheck.Add (1000000000, State.E);
+		distanceCheck.Add (10000000000, State.F);
+		distanceCheck.Add (100000000000, State.G);
+		distanceCheck.Add (1000000000000, State.H);
+		distanceCheck.Add (10000000000000, State.I);
+		distanceCheck.Add (100000000000000, State.K);
+		distanceCheck.Add (1000000000000000, State.L);
+		distanceCheck.Add (10000000000000000, State.M);
 	}
 	
 	// NOTE: Async version of Start.
@@ -92,35 +85,41 @@ public class CameraSpeedStates : Functions {
 				switch (state) {
 				case State.Initialize:
 					break;
-				case State.SubMillion:
-					SubMillion ();
+				case State.A:
+					A ();
 					break;
-				case State.MillionKilometers:
-					MillionKilometers ();
+				case State.B:
+					B ();
 					break;
-				case State.AstronomicalUnit:
-					AstronomicalUnit ();
+				case State.C:
+					C ();
 					break;
-				case State.LightHour:
-					LightHour ();
+				case State.D:
+					D ();
 					break;
-				case State.LightDay:
-					LightDay ();
+				case State.E:
+					E ();
 					break;
-				case State.LightYear:
-					LightYear ();
+				case State.F:
+					F ();
 					break;
-				case State.Parsec:
-					Parsec ();
+				case State.G:
+					G ();
 					break;
-				case State.LightDecade:
-					LightDecade ();
+				case State.H:
+					H ();
 					break;
-				case State.LightCentury:
-					LightCentury ();
+				case State.I:
+					I ();
 					break;
-				case State.LightMillenium:
-					LightMillenium ();
+				case State.K:
+					K ();
+					break;
+				case State.L:
+					L ();
+					break;
+				case State.M:
+					M ();
 					break;
 				}
 			}
@@ -148,118 +147,82 @@ public class CameraSpeedStates : Functions {
 
 
 	
-	void SubMillion() {								// This State is heavily commented as each other state uses same conditions		
+	void A() {								// This State is heavily commented as each other state uses same conditions		
 		//Debug.LogError ("Entered state " + state);
 		positionScript.holdTimeMin = 30d;
 		positionScript.holdTimeMax = 300d;
 		_cacheState = state;
 	}
 
-	void MillionKilometers() {
-		//Debug.LogError ("Entered state " + state);
-		if (_cacheState == State.SubMillion) {
-			positionScript.holdTimeMin = 300d;
-			positionScript.holdTimeMax = 30000d;				// Scale up to the min speed of the next state
-		} else if (_cacheState == State.AstronomicalUnit) {		// Came from a faster state so slow it down
-			positionScript.holdTimeMin = 300d;
-			positionScript.holdTimeMax = 3000d;					// Scale down, likely to the same as min speed for this state
-		} else {
-			Debug.LogError ("Skippined a state somehow.  This shouldn't happen",gameObject);
-		}
+	void B() {
+		positionScript.holdTimeMin = 300d;
+		positionScript.holdTimeMax = 3000d;
 		_cacheState = state;
 	}
 
-	void AstronomicalUnit() {	
-		//Debug.LogError ("Entered state " + state);
-		if (_cacheState == State.MillionKilometers) {
-			positionScript.holdTimeMin = 30000d;
-			positionScript.holdTimeMax = 3000000d;
-		} else if (_cacheState == State.LightHour) {		// Came from a faster state so slow it down
-			positionScript.holdTimeMin = 30000d;
-			positionScript.holdTimeMax = 300000d;
-		} else {
-			Debug.LogError ("Skippined a state somehow.  This shouldn't happen",gameObject);
-		}
-
+	void C() {	
+		positionScript.holdTimeMin = 3000d;
+		positionScript.holdTimeMax = 30000d;
 		_cacheState = state;
 	}
 
-	void LightHour() {	
-		if (_cacheState == State.AstronomicalUnit) {
-			positionScript.holdTimeMin = 3000000d;
-			positionScript.holdTimeMax = 30000000d;				// Scale up to the min speed of the next state
-		} else if (_cacheState == State.LightDay) {				// Came from a faster state so slow it down
-			positionScript.holdTimeMin = 3000000d;
-			positionScript.holdTimeMax = 3000000d;					// Scale down, likely to the same as min speed for this state
-		} else {
-			Debug.LogError ("Skippined a state somehow.  This shouldn't happen",gameObject);
-		}
-
-		//positionScript.holdTimeMin = 3000000d;
-		//positionScript.holdTimeMax = 30000000d;
+	void D() {	
+		positionScript.holdTimeMin = 30000d;
+		positionScript.holdTimeMax = 300000d;
 		_cacheState = state;
 	}
 
-	void LightDay() {	
-		if (_cacheState == State.LightHour) {
-			positionScript.holdTimeMin = 30000000d;
-			positionScript.holdTimeMax = 300000000d;				// Scale up to the min speed of the next state
-		} else if (_cacheState == State.LightYear) {				// Came from a faster state so slow it down
-			positionScript.holdTimeMin = 30000000d;
-			positionScript.holdTimeMax = 30000000d;					// Scale down, likely to the same as min speed for this state
-		} else {
-			Debug.LogError ("Skippined a state somehow.  This shouldn't happen",gameObject);
-		}
-		//positionScript.holdTimeMin = 30000000d;
-		//positionScript.holdTimeMax = 300000000d;
+	void E() {	
+		positionScript.holdTimeMin = 300000d;
+		positionScript.holdTimeMax = 3000000d;
 		_cacheState = state;
 	}
 
-	void LightYear() {	
-		if (_cacheState == State.LightHour) {
-			positionScript.holdTimeMin = 300000000d;
-			positionScript.holdTimeMax = 109500000000d;				// Scale up to the min speed of the next state
-		} else if (_cacheState == State.LightYear) {				// Came from a faster state so slow it down
-			positionScript.holdTimeMin = 300000000d;
-			positionScript.holdTimeMax = 300000000d;					// Scale down, likely to the same as min speed for this state
-		} else {
-			Debug.LogError ("Skippined a state somehow.  This shouldn't happen",gameObject);
-		}
-		//positionScript.holdTimeMin = 300000000d;
-		//positionScript.holdTimeMax = 109500000000d;
+	void F() {	
+		positionScript.holdTimeMin = 3000000d;
+		positionScript.holdTimeMax = 30000000d;
 		_cacheState = state;
 	}
 
-	void Parsec() {
-		if (_cacheState == State.LightYear) {
-			positionScript.holdTimeMin = 109500000000d;
-			positionScript.holdTimeMax = 328500000000d;				// Scale up to the min speed of the next state
-		} else if (_cacheState == State.LightDecade) {				// Came from a faster state so slow it down
-			positionScript.holdTimeMin = 109500000000d;
-			positionScript.holdTimeMax = 109500000000d;					// Scale down, likely to the same as min speed for this state
-		} else {
-			Debug.LogError ("Skippined a state somehow.  This shouldn't happen",gameObject);
-		}
-		//positionScript.holdTimeMin = 109500000000d;
-		//positionScript.holdTimeMax = 328500000000d;
+	void G() {
+		positionScript.holdTimeMin = 30000000d;
+		positionScript.holdTimeMax = 300000000d;
 		_cacheState = state;
 	}
 
-	void LightDecade() {	
-		positionScript.holdTimeMin = 328500000000d;
-		positionScript.holdTimeMax = 1095000000000d;
+	void H() {	
+		positionScript.holdTimeMin = 300000000d;
+		positionScript.holdTimeMax = 3000000000d;
 		_cacheState = state;
 	}
 
-	void LightCentury() {	
-		positionScript.holdTimeMin = 1095000000000d;
-		positionScript.holdTimeMax = 10950000000000d;
+	void I() {	
+		positionScript.holdTimeMin = 3000000000d;
+		positionScript.holdTimeMax = 30000000000d;
 		_cacheState = state;
 	}
 
-	void LightMillenium() {	
-		positionScript.holdTimeMin = 10950000000000d;
-		positionScript.holdTimeMax = 109500000000000d;
+	void J() {	
+		positionScript.holdTimeMin = 30000000000d;
+		positionScript.holdTimeMax = 300000000000d;
+		_cacheState = state;
+	}
+
+	void K() {	
+		positionScript.holdTimeMin = 300000000000d;
+		positionScript.holdTimeMax = 3000000000000d;
+		_cacheState = state;
+	}
+
+	void L() {	
+		positionScript.holdTimeMin = 3000000000000d;
+		positionScript.holdTimeMax = 30000000000000d;
+		_cacheState = state;
+	}
+
+	void M() {	
+		positionScript.holdTimeMin = 30000000000000d;
+		positionScript.holdTimeMax = 300000000000000d;
 		_cacheState = state;
 	}
 	

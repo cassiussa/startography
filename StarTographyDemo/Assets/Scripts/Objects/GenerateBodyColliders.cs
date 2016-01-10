@@ -24,8 +24,21 @@ public class GenerateBodyColliders : Functions {
 
 		string[] inputs;																		// Array of strings of distance types
 		double[] measurements;																	// Array of doubles of distances taken from Constants.cs file
-		inputs = new string[] { "SM", "MK", "AU", "LH", "Ld", "LY", "PA", "LD", "LC", "LM" };	// Create an array of the names (string) of each scale state
-		measurements = new double[] { SM, MK, AU, LH, Ld, LY, PA, LD, LC, LM };					// Create an array of the size (double) of each scale state using values from Constants.cs
+		inputs = new string[] { "A","B","C","D","E","F","G","H","I","J","K","L","M" };			// Create an array of the names (string) of each scale state
+		measurements = new double[] { 
+			100000,
+			1000000,
+			10000000,
+			100000000,
+			1000000000,
+			10000000000,
+			100000000000,
+			1000000000000,
+			10000000000000,
+			100000000000000,
+			1000000000000000,
+			10000000000000000,
+			100000000000000000};					// Create an array of the size (double) of each scale state using values from Constants.cs
 
 		for(int i=0;i<inputs.Length;i++) {														// Iterate through each of the scale state sizes
 			GameObject tempObj = new GameObject();												// Create a new GameObject for this specific scale state
@@ -37,10 +50,7 @@ public class GenerateBodyColliders : Functions {
 			tempObj.transform.localRotation = new Quaternion (0f,0f,0f,0f);						// Reset the rotation of the scale state's GameObject
 			tempObj.AddComponent<SphereCollider>();												// Add a SphereCollider to the child GameObject
 			Vector3d thisRadius = S3dToV3d(objectDataScript.radius);							// Get the assign radius from ObjectData and convert it to a Vector3d
-			if(i == 0)																			// Make sure we give smallest scale at least a 2.0 radius
-				tempObj.GetComponent<SphereCollider>().radius = (float)(34955.5f/thisRadius.x);							// Set the radius to 2.0
-			else
-				tempObj.GetComponent<SphereCollider>().radius = (float)(measurements[i]/(thisRadius.x*2));	// Dynamically apply the radius scale to the scale state's GameObject
+			tempObj.GetComponent<SphereCollider>().radius = (float)(measurements[i]/(thisRadius.x*2));	// Dynamically apply the radius scale to the scale state's GameObject
 			tempObj.GetComponent<SphereCollider>().isTrigger = true;							// Set the scale state's collider to report on triggers
 
 			tempObj.AddComponent<BodyColliderTest01>();											// Add the OnTrigger(Enter|Exit) script
