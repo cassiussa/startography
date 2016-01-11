@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class ObjectCollider : MonoBehaviour {
-
+	/*
 	public ScaleStates scaleStatesScript;
 	public int collisionCount = 0;				// This way we can know if we're not colliding with anything
 
@@ -13,6 +13,8 @@ public class ObjectCollider : MonoBehaviour {
 			scaleStatesScript = transform.parent.GetComponent<ScaleStates> ();
 		if (!scaleStatesScript)
 			Debug.LogError ("Unable to assign the ScaleStates script to the scaleStatesScript variable", gameObject);
+
+		Debug.LogError ("gameojb = " + gameObject.name, gameObject);
 	}
 
 	void Update () {
@@ -39,5 +41,5 @@ public class ObjectCollider : MonoBehaviour {
 			//Debug.Log ("collisionCount = " + collisionCount);
 		}
 	}
-
+*/
 }

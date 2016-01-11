@@ -4,32 +4,13 @@ using System.Collections;
 public class ScaleLargeCollider : MonoBehaviour {
 
 	public FadeMaterial fadeMaterial;
-	bool started = false;
-
-	//bool fadeIn = false;
-	//private float alphaCounter = 0f;
 	Color colour;
 	private Color colourInvisible;
 	private Color colourVisible;
-	
-	
-	// Use this for initialization
-	void Start () {
 
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		if (started == false) {
-			started = true;
-			GetComponent<Collider>().enabled = true;
-		}
-	}
-
-	
-	
 	void OnTriggerEnter(Collider other) {
 		if (other.gameObject.tag == "MainCamera") {
+			Debug.LogError ("camera is inside");
 			fadeMaterial.fadeIn = true;
 			fadeMaterial.largeEntered = true;
 		}
@@ -38,14 +19,10 @@ public class ScaleLargeCollider : MonoBehaviour {
 	
 	void OnTriggerExit(Collider other) {
 		if (other.gameObject.tag == "MainCamera") {
+			Debug.LogError ("large exited");
 			fadeMaterial.fadeIn = false;
 			fadeMaterial.largeEntered = false;
 		}
 	}
 }
-
-
-
-
-
 

@@ -41,7 +41,9 @@ public class ScaleStates : Functions {
 
 	// For knowing what localScale to set for a gameObject in any given State
 	public Vector3d originalLocalScale;
+	public Vector3d thisLocalScale;
 	Vector3d prevLocalScale = new Vector3d (1d, 1d, 1d);
+	Vector3d newLocalScale = new Vector3d (1d, 1d, 1d);
 	double localScaleRatio = 0;
 
 	int layerMask;
@@ -56,13 +58,13 @@ public class ScaleStates : Functions {
 	PositionProcessing positionProcessingScript;
 	Positioning positioningScript;
 
-	Transform localColliders;
-	Transform systemColliders;
+	//Transform localColliders;
+	//Transform systemColliders;
 
-	public List<GameObject> meshes;
+	public GameObject meshes;
 	public bool isSun = false;
 	///[HideInInspector]
-	public bool hittingCamera = false;
+	//public bool hittingCamera = false;
 
 
 	#region Basic Getters/Setters
@@ -143,19 +145,14 @@ public class ScaleStates : Functions {
 			}
 		}
 
-		localColliders = transform.Find ("LocalColliders");
+		/*localColliders = transform.Find ("LocalColliders");
 		systemColliders = transform.Find ("SystemColliders");
 		if (localColliders)
 			if(!systemColliders)
 				Debug.LogWarning ("There doesn't appear to be a systemColliders gameObject, but there is a localColliders.  Usually when there's a localColliders there should also be a systemColliders gameObject.", gameObject);
-	
-		meshes.Add (gameObject);
-		if (gameObject.renderer)
-			meshes.Add (gameObject);
-		foreach (Transform child in transform) {
-			if (child.gameObject.renderer)
-				meshes.Add (child.gameObject);
-		}
+		*/
+
+		meshes = gameObject.transform.Find ("Mesh").gameObject;
 	}
 	
 	// NOTE: Async version of Start.
@@ -227,10 +224,10 @@ public class ScaleStates : Functions {
 			}
 		}
 
-		if (hittingCamera == false && state != thisScale) {
-			//Debug.LogError ("switch to LightHour");
+		/*if (hittingCamera == false && state != thisScale) {
 			SetState (State.LightHour);
-		}
+			Debug.LogError ("just set state to LightHour...  but why?",gameObject);
+		}*/
 
 		if (state != thisScale)																// Only perform the state transition if we're not already in the same state
 			SetState (thisScale);															// Assign the scale that was determined by distance from origin Vector3(0,0,0)
@@ -251,11 +248,12 @@ public class ScaleStates : Functions {
 
 		CalculatePosition (SM, positionProcessingScript.position, positioningScript.camPosition);	// Calculate the relative position based on real position and scale of this State
 		if (_cacheState != state) {												// Without this we get crazy bugs.  Don't know why.  It needs to be here for code efficiency anyways!
-			foreach (GameObject mesh in meshes) {								// Iterate through the array of child gameObjects with mesh renderers attached
-				mesh.layer = layerMask;											// Set the layer that this scale State resides in
-			}
+			//foreach (GameObject mesh in meshes) {								// Iterate through the array of child gameObjects with mesh renderers attached
+			gameObject.layer = layerMask;											// Set the layer that this scale State resides in
+			meshes.layer = layerMask;
+			//}
 			CalculateLocalScale(SM);											// Calculate the gameObject scale based on original scale and the scale of this State
-			ColliderScale();
+			MeshScale(1f);
 			inputsRevised = new string[] { "SM", "MK" };						// Specify only the scale States immediately surrounding this state so we can keep loop to minimum as there
 			measurements = new double[] { SM, MK };								// is no point looping through every possible state since - we can only jump up or down one state at a time
 
@@ -277,11 +275,12 @@ public class ScaleStates : Functions {
 
 		CalculatePosition (MK, positionProcessingScript.position, positioningScript.camPosition);
 		if (_cacheState != state) {
-			foreach (GameObject mesh in meshes) {
-				mesh.layer = layerMask;
-			}
+			//foreach (GameObject mesh in meshes) {
+			gameObject.layer = layerMask;
+			meshes.layer = layerMask;
+			//}
 			CalculateLocalScale(MK);
-			ColliderScale();
+			MeshScale(1f);
 			inputsRevised = new string[] { "SM", "MK", "AU" };
 			measurements = new double[] { SM, MK, AU };
 			gameObject.transform.parent = scaleStateParent ["MK"];
@@ -302,12 +301,13 @@ public class ScaleStates : Functions {
 
 		CalculatePosition (AU, positionProcessingScript.position, positioningScript.camPosition);
 		if (_cacheState != state) {
-			foreach (GameObject mesh in meshes) {
-				mesh.layer = layerMask;
-			}
+			//foreach (GameObject mesh in meshes) {
+			gameObject.layer = layerMask;
+			meshes.layer = layerMask;
+			//}
 			CalculateLocalScale(AU);
 			//transform.localScale = new Vector3 (transform.localScale.x * 4, transform.localScale.y * 4, transform.localScale.z * 4);
-			ColliderScale();
+			MeshScale(250f);
 			inputsRevised = new string[] {  "MK", "AU", "LH" };
 			measurements = new double[] { MK, AU, LH };
 			gameObject.transform.parent = scaleStateParent ["AU"];
@@ -329,8 +329,9 @@ public class ScaleStates : Functions {
 
 		CalculatePosition (LH, positionProcessingScript.position, positioningScript.camPosition);
 		if (_cacheState != state) {
-			foreach (GameObject mesh in meshes) {
-				mesh.layer = layerMask;
+			//foreach (GameObject mesh in meshes) {
+			gameObject.layer = layerMask;
+			meshes.layer = layerMask;
 					/*if (isSun == false) {
 						if (_prevState == State.AstronomicalUnit)
 							mesh.transform.localScale = new Vector3(1200f,1200f,1200f);
@@ -338,10 +339,10 @@ public class ScaleStates : Functions {
 							mesh.transform.localScale =  new Vector3(1f,1f,1f);
 					}*/
 				
-			}
+			//}
 			CalculateLocalScale (LH);
 			//transform.localScale = new Vector3 (transform.localScale.x * 50, transform.localScale.y * 50, transform.localScale.z * 50);
-			ColliderScale();
+			MeshScale(2000f);
 			inputsRevised = new string[] { "AU", "LH", "Ld" };
 			measurements = new double[] { AU, LH, Ld };
 			gameObject.transform.parent = scaleStateParent ["LH"];
@@ -362,12 +363,13 @@ public class ScaleStates : Functions {
 
 		CalculatePosition (Ld, positionProcessingScript.position, positioningScript.camPosition);
 		if (_cacheState != state) {
-			foreach (GameObject mesh in meshes) {
-				mesh.layer = layerMask;
-			}
+			//foreach (GameObject mesh in meshes) {
+			gameObject.layer = layerMask;
+			meshes.layer = layerMask;
+			//}
 			CalculateLocalScale (Ld);
 			//transform.localScale = new Vector3 (transform.localScale.x * 10, transform.localScale.y * 10, transform.localScale.z * 10);
-			ColliderScale();
+			MeshScale(1000f);
 			inputsRevised = new string[] { "LH", "Ld", "LY"};
 			measurements = new double[] { LH, Ld, LY };
 			gameObject.transform.parent = scaleStateParent ["Ld"];
@@ -389,11 +391,12 @@ public class ScaleStates : Functions {
 
 		CalculatePosition (LY, positionProcessingScript.position, positioningScript.camPosition);
 		if (_cacheState != state) {
-			foreach (GameObject mesh in meshes) {
-				mesh.layer = layerMask;
-			}
+			//foreach (GameObject mesh in meshes) {
+			gameObject.layer = layerMask;
+			meshes.layer = layerMask;
+			//}
 			CalculateLocalScale (LY);
-			ColliderScale();
+			MeshScale(0f);
 			inputsRevised = new string[] { "Ld", "LY", "PA" };
 			measurements = new double[] { Ld, LY, PA };
 			gameObject.transform.parent = scaleStateParent ["LY"];
@@ -408,11 +411,12 @@ public class ScaleStates : Functions {
 
 		CalculatePosition (PA, positionProcessingScript.position, positioningScript.camPosition);
 		if (_cacheState != state) {
-			foreach (GameObject mesh in meshes) {
-				mesh.layer = layerMask;
-			}
+			//foreach (GameObject mesh in meshes) {
+			gameObject.layer = layerMask;
+			meshes.layer = layerMask;
+			//}
 			CalculateLocalScale (PA);
-			ColliderScale();
+			MeshScale(0f);
 			inputsRevised = new string[] { "LY", "PA", "LD" };
 			measurements = new double[] { LY, PA, LD };
 			gameObject.transform.parent = scaleStateParent ["PA"];
@@ -427,11 +431,12 @@ public class ScaleStates : Functions {
 
 		CalculatePosition (LD, positionProcessingScript.position, positioningScript.camPosition);
 		if (_cacheState != state) {
-			foreach (GameObject mesh in meshes) {
-				mesh.layer = layerMask;
-			}
+			//foreach (GameObject mesh in meshes) {
+			gameObject.layer = layerMask;
+			meshes.layer = layerMask;
+			//}
 			CalculateLocalScale (LD);
-			ColliderScale();
+			MeshScale(0f);
 			inputsRevised = new string[] { "PA", "LD", "LC" };
 			measurements = new double[] { PA, LD, LC };
 			gameObject.transform.parent = scaleStateParent ["LD"];
@@ -446,11 +451,12 @@ public class ScaleStates : Functions {
 
 		CalculatePosition (LC, positionProcessingScript.position, positioningScript.camPosition);
 		if (_cacheState != state) {
-			foreach (GameObject mesh in meshes) {
-				mesh.layer = layerMask;
-			}
+			//foreach (GameObject mesh in meshes) {
+			gameObject.layer = layerMask;
+			meshes.layer = layerMask;
+			//}
 			CalculateLocalScale (LC);
-			ColliderScale();
+			MeshScale(0f);
 			inputsRevised = new string[] { "LD", "LC", "LM" };
 			measurements = new double[] { LD, LC, LM };
 			gameObject.transform.parent = scaleStateParent ["LC"];
@@ -465,11 +471,12 @@ public class ScaleStates : Functions {
 
 		CalculatePosition (LM, positionProcessingScript.position, positioningScript.camPosition);
 		if (_cacheState != state) {
-			foreach (GameObject mesh in meshes) {
-				mesh.layer = layerMask;
-			}
+			//foreach (GameObject mesh in meshes) {
+			gameObject.layer = layerMask;
+			meshes.layer = layerMask;
+			//}
 			CalculateLocalScale (LM);
-			ColliderScale();
+			MeshScale(0f);
 			inputsRevised = new string[] { "LC", "LM" };
 			measurements = new double[] { LC, LM };
 			gameObject.transform.parent = scaleStateParent ["LM"];
@@ -492,11 +499,15 @@ public class ScaleStates : Functions {
 	 * it appear that nothing has happened.
 	 */
 	private void CalculateLocalScale(double value) {
-		prevLocalScale = V3ToV3d(gameObject.transform.localScale);
-		gameObject.transform.localScale = new Vector3 (
-			(float)((originalLocalScale.x / value) * maxUnits),
-			(float)((originalLocalScale.y / value) * maxUnits),
-			(float)((originalLocalScale.z / value) * maxUnits));
+		//prevLocalScale = V3ToV3d(gameObject.transform.localScale);
+		newLocalScale = new Vector3d (
+			(thisLocalScale.x / value) * maxUnits,
+			(thisLocalScale.y / value) * maxUnits,
+			(thisLocalScale.z / value) * maxUnits);
+
+		gameObject.transform.localScale = V3dToV3(newLocalScale);
+		if (value == MK)
+			originalLocalScale = newLocalScale;
 	}
 
 	/*
@@ -507,28 +518,11 @@ public class ScaleStates : Functions {
 	 * we should get consistent results for long-distance speeds and 
 	 * relevent speeds when we're much closer to a body
 	 */
-	private void ColliderScale() {
-		if (localColliders) {
-			/*transform.localScale = new Vector3 (
-				transform.localScale.x * 7500f, 
-				transform.localScale.y * 7500f, 
-				transform.localScale.z * 7500f);
-
-			localColliders.localScale = new Vector3 (
-				localColliders.localScale.x / 7500f, 
-				localColliders.localScale.y / 7500f, 
-				localColliders.localScale.z / 7500f);*/
-		}
+	private void MeshScale(float scale) {
 		// Get the ratio of old scale to new so we can adjust the static-sized colliders
-		if (systemColliders) {
-			//Debug.LogError ("orig: "+prevLocalScale.x+", cur: "+transform.localScale.x); 
-			Vector3d newLocalScale = new Vector3d(
-				prevLocalScale.x/transform.localScale.x, 
-				prevLocalScale.y/transform.localScale.y, 
-				prevLocalScale.z/transform.localScale.z);
-			
-			systemColliders.localScale = V3dToV3 (newLocalScale);
-		}
+		Vector3d adjustedLocalScale = new Vector3d(scale, scale, scale);
+
+		meshes.transform.localScale = V3dToV3 (adjustedLocalScale);
 	}
 
 	/*
