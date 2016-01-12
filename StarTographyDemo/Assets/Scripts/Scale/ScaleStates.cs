@@ -254,108 +254,72 @@ public class ScaleStates : Functions {
 
 	void SubMillion() {															// This State is heavily commented as each other state uses same conditions
 		CalculatePosition (SM, positionProcessingScript.position, positioningScript.camPosition);	// Calculate the relative position based on real position and scale of this State
+		layerMask = 8;
 		if (_cacheState != state) {												// Without this we get crazy bugs.  Don't know why.  It needs to be here for code efficiency anyways!
-			StateFunction(8, SM, "SM", 1f);
-
-			inputsRevised = new string[] { "SM", "MK" };						// Specify only the scale States immediately surrounding this state so we can keep loop to minimum as there
-			measurements = new double[] { SM, MK };								// is no point looping through every possible state since - we can only jump up or down one state at a time
+			StateFunction(layerMask, SM, "SM", 1f, "", "SM", "MK", 0d, SM, MK);							
 			_cacheState = state;
 		}
 
 		if (light) {															// Check if this gameObject is, or contains, a light
-			light.cullingMask = 1 << layerMask;									// set the culling mask to use the Nth layer
-			float calculatedRange = (float)((lightRange/SM) * maxUnits);		// Range of the light depending on State
-			light.range = calculatedRange;										// Set the light's Range for the original light
-			light.enabled = true;												// If this gameObject contains a light then enable it for this State
-			Lights("SM");														// Activate or deactivate the lights, depending on state
+			Lights("MK", MK);													// Activate or deactivate the lights, depending on state
 		}
 	}
 
 	void MillionKilometers() {
 		CalculatePosition (MK, positionProcessingScript.position, positioningScript.camPosition);
+		layerMask = 9;
 		if (_cacheState != state) {
-			StateFunction(9, MK, "MK", 1f);
-
-			inputsRevised = new string[] { "SM", "MK", "AU" };
-			measurements = new double[] { SM, MK, AU };
+			StateFunction(layerMask, MK, "MK", 1f, "SM", "MK", "AU", SM, MK, AU);
 			_cacheState = state;
 		}
 
 		if (light) {
-			light.cullingMask = 1 << layerMask;
-			float calculatedRange = (float)((lightRange/MK) * maxUnits);
-			light.range = calculatedRange;
-			light.enabled = true;
-			Lights("MK");
+			Lights("MK", MK);
 		}
 	}
 	
 	void AstronomicalUnit() {
 		CalculatePosition (AU, positionProcessingScript.position, positioningScript.camPosition);
+		layerMask = 10;
 		if (_cacheState != state) {
-			StateFunction(10, AU, "AU", 250f);
-
-			inputsRevised = new string[] {  "MK", "AU", "LH" };
-			measurements = new double[] { MK, AU, LH };
+			StateFunction(layerMask, AU, "AU", 250f, "MK", "AU", "LH", MK, AU, LH);
 			_cacheState = state;
 		}
 		if (light) {
-			light.cullingMask = 1 << layerMask;
-			float calculatedRange = (float)((lightRange/AU) * maxUnits);
-			light.range = calculatedRange;
-			light.enabled = true;
-			Lights("AU");
+			Lights("AU", AU);
 		}
-
-
 	}
 	
 	void LightHour() {
 		CalculatePosition (LH, positionProcessingScript.position, positioningScript.camPosition);
+		layerMask = 11;
 		if (_cacheState != state) {
-			StateFunction(11, LH, "LH", 5000f);
-
-			inputsRevised = new string[] { "AU", "LH", "Ld" };
-			measurements = new double[] { AU, LH, Ld };
+			StateFunction(layerMask, LH, "LH", 5000f, "AU", "LH", "Ld", AU, LH, Ld);
 			_cacheState = state;
 		}
 		if (light) {
-			light.cullingMask = 1 << layerMask;
-			float calculatedRange = (float)((lightRange/LH) * maxUnits);
-			light.range = calculatedRange;
-			light.enabled = true;
-			Lights("LH");
+			Lights("LG", LH);
 		}
-
 	}
 	
 	void LightDay() {
 		CalculatePosition (Ld, positionProcessingScript.position, positioningScript.camPosition);
+		layerMask = 12;
 		if (_cacheState != state) {
-			StateFunction(12, Ld, "Ld", 40000f);
-
-			inputsRevised = new string[] { "LH", "Ld", "LY"};
-			measurements = new double[] { LH, Ld, LY };
+			StateFunction(layerMask, Ld, "Ld", 40000f, "LH", "Ld", "LY", LH, Ld, LY);
 			_cacheState = state;
 		}
 
 		if (light) {
-			light.cullingMask = 1 << layerMask;
-			float calculatedRange = (float)((lightRange/LH) * maxUnits);
-			light.range = calculatedRange;
-			light.enabled = true;
-			Lights("Ld");
+			Lights("Ld", Ld);
 		}
-
 	}
 
 	void LightYear() {
 		CalculatePosition (LY, positionProcessingScript.position, positioningScript.camPosition);
+		layerMask = 13;
 		if (_cacheState != state) {
-			StateFunction(13, LY, "LY", 0f);
-
-			inputsRevised = new string[] { "Ld", "LY", "PA" };
-			measurements = new double[] { Ld, LY, PA };
+			StateFunction(layerMask, LY, "LY", 0f, "Ld", "LY", "PA", Ld, LY, PA);
 			_cacheState = state;
 		}
 		if (light)
@@ -364,11 +328,9 @@ public class ScaleStates : Functions {
 
 	void Parsec() {
 		CalculatePosition (PA, positionProcessingScript.position, positioningScript.camPosition);
+		layerMask = 14;
 		if (_cacheState != state) {
-			StateFunction(14, PA, "PA", 0f);
-
-			inputsRevised = new string[] { "LY", "PA", "LD" };
-			measurements = new double[] { LY, PA, LD };
+			StateFunction(layerMask, PA, "PA", 0f, "LY", "PA", "LD", LY, PA, LD);
 			_cacheState = state;
 		}
 		if (light)
@@ -377,11 +339,9 @@ public class ScaleStates : Functions {
 
 	void LightDecade() {
 		CalculatePosition (LD, positionProcessingScript.position, positioningScript.camPosition);
+		layerMask = 15;
 		if (_cacheState != state) {
-			StateFunction(15, LD, "LD", 0f);
-
-			inputsRevised = new string[] { "PA", "LD", "LC" };
-			measurements = new double[] { PA, LD, LC };
+			StateFunction(layerMask, LD, "LD", 0f, "PA", "LD", "LC", PA, LD, LC);
 			_cacheState = state;
 		}
 		if (light)
@@ -390,11 +350,9 @@ public class ScaleStates : Functions {
 
 	void LightCentury() {
 		CalculatePosition (LC, positionProcessingScript.position, positioningScript.camPosition);
+		layerMask = 16;
 		if (_cacheState != state) {
-			StateFunction(16, LC, "LC", 0f);
-
-			inputsRevised = new string[] { "LD", "LC", "LM" };
-			measurements = new double[] { LD, LC, LM };
+			StateFunction(layerMask, LC, "LC", 0f, "LD", "LC", "LM", LD, LC, LM);
 			_cacheState = state;
 		}
 		if (light)
@@ -404,11 +362,9 @@ public class ScaleStates : Functions {
 
 	void LightMillenium() {
 		CalculatePosition (LM, positionProcessingScript.position, positioningScript.camPosition);
+		layerMask = 17;
 		if (_cacheState != state) {
-			StateFunction(17, LM, "LM", 0f);
-
-			inputsRevised = new string[] { "LC", "LM" };
-			measurements = new double[] { LC, LM };
+			StateFunction(layerMask, LM, "LM", 0f, "LC", "LM", "", LC, LM, 0d);
 			_cacheState = state;
 		}
 		if (light)
@@ -416,12 +372,28 @@ public class ScaleStates : Functions {
 	}
 
 
-	void StateFunction(int layerMask, double scaleD, string scaleS, float meshScale) {
+	void StateFunction(int layerMask, double scaleD, string scaleS, float meshScale, string beforeS, string currentS, string afterS, double beforeD, double currentD, double afterD) {
 		gameObject.layer = layerMask;
 		if(meshes) meshes.layer = layerMask;
 		CalculateLocalScale (scaleD);													// Calculate the gameObject scale based on original scale and the scale of this State
 		if(meshes) MeshScale(meshScale);
 		gameObject.transform.parent = scaleStateParent [scaleS];						// Set this gameObject's parent to the appropriate scale's gameObject container
+
+		// Specify only the scale States immediately surrounding this state so we can keep loop to minimum as there
+		List<string> inputsRevisedList = new List<string> ();							// Can't resize arrays after being made, which led to complications with knowing if beforeS or afterS was missing
+		if(beforeS != "") inputsRevisedList.Add (beforeS);								// Add beforeS if it isn't empty
+		inputsRevisedList.Add (currentS);												// Add currentS to the list as it should always exist
+		if(afterS != "") inputsRevisedList.Add (afterS);								// Add afterS if it isn't empty
+		inputsRevised = inputsRevisedList.ToArray();									// Convert the List to an array
+
+		// is no point looping through every possible state since - we can only jump up or down one state at a time
+		List<double> measurementsList = new List<double> ();							// Can't resize arrays after being made, which led to complications with knowing if beforeS or afterS was missing
+		if(beforeD != 0d) measurementsList.Add (beforeD);								// Add beforeS if it isn't empty
+		measurementsList.Add (currentD);												// Add currentS to the list as it should always exist
+		if(afterD != 0d) measurementsList.Add (afterD);									// Add afterS if it isn't empty
+		measurements = measurementsList.ToArray();										// Convert the List to an array
+
+		//measurements = new double[] { LC, LM };
 	}
 
 
@@ -469,9 +441,14 @@ public class ScaleStates : Functions {
 	 * disabled, and vice versa.  This way we ensure that we have consistent lighting
 	 * on any given body as it goes from one state to the next.
 	 */
-	void Lights(string value) {
+	void Lights(string valueS, double valueD) {
+		light.cullingMask = 1 << layerMask;										// set the culling mask to use the Nth layer
+		float calculatedRange = (float)((lightRange/valueD) * maxUnits);		// Range of the light depending on State
+		light.range = calculatedRange;											// Set the light's Range for the original light
+		light.enabled = true;													// If this gameObject contains a light then enable it for this State
+
 		for(int i=0;i<5;i++) {
-			if(inputs[i] != value)
+			if(inputs[i] != valueS)
 				lightGameObjects[inputs[i]].SetActive(true);
 			else
 				lightGameObjects[inputs[i]].SetActive(false);
