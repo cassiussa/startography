@@ -53,21 +53,14 @@ public class ScaleStates : Functions {
 	float lightRange;
 	Dictionary<string, GameObject> lightGameObjects = new Dictionary<string, GameObject>();
 	Dictionary<string, Light> lights = new Dictionary<string, Light>();
-
-
+	
 	PositionProcessing positionProcessingScript;
 	Positioning positioningScript;
 
-	//Transform localColliders;
-	//Transform systemColliders;
-
 	public GameObject meshes;
 	public bool isSun = false;
-	///[HideInInspector]
-	//public bool hittingCamera = false;
 
 	ObjectData objectDataScript;
-
 
 	#region Basic Getters/Setters
 	public State CurrentState {
@@ -147,13 +140,6 @@ public class ScaleStates : Functions {
 			}
 		}
 
-		/*localColliders = transform.Find ("LocalColliders");
-		systemColliders = transform.Find ("SystemColliders");
-		if (localColliders)
-			if(!systemColliders)
-				Debug.LogWarning ("There doesn't appear to be a systemColliders gameObject, but there is a localColliders.  Usually when there's a localColliders there should also be a systemColliders gameObject.", gameObject);
-		*/
-
 		objectDataScript = GetComponent<ObjectData> ();
 		if (!objectDataScript)
 			Debug.LogError ("There is no ObjectData script attached.", gameObject);
@@ -167,42 +153,40 @@ public class ScaleStates : Functions {
 	// NOTE: Async version of Start.
 	IEnumerator Start() {
 		while (true) {
-			//if (_cacheState != state) {	// Commented out because we need to run state every frame
-				switch (state) {
-				case State.Initialize:
-					break;
-				case State.SubMillion:
-					SubMillion ();
-					break;
-				case State.MillionKilometers:
-					MillionKilometers ();
-					break;
-				case State.AstronomicalUnit:
-					AstronomicalUnit ();
-					break;
-				case State.LightHour:
-					LightHour ();
-					break;
-				case State.LightDay:
-					LightDay ();
-					break;
-				case State.LightYear:
-					LightYear ();
-					break;
-				case State.Parsec:
-					Parsec ();
-					break;
-				case State.LightDecade:
-					LightDecade ();
-					break;
-				case State.LightCentury:
-					LightCentury ();
-					break;
-				case State.LightMillenium:
-					LightMillenium ();
-					break;
-				}
-			//}
+			switch (state) {
+			case State.Initialize:
+				break;
+			case State.SubMillion:
+				SubMillion ();
+				break;
+			case State.MillionKilometers:
+				MillionKilometers ();
+				break;
+			case State.AstronomicalUnit:
+				AstronomicalUnit ();
+				break;
+			case State.LightHour:
+				LightHour ();
+				break;
+			case State.LightDay:
+				LightDay ();
+				break;
+			case State.LightYear:
+				LightYear ();
+				break;
+			case State.Parsec:
+				Parsec ();
+				break;
+			case State.LightDecade:
+				LightDecade ();
+				break;
+			case State.LightCentury:
+				LightCentury ();
+				break;
+			case State.LightMillenium:
+				LightMillenium ();
+				break;
+			}
 			yield return null;
 		}
 	}
@@ -241,7 +225,6 @@ public class ScaleStates : Functions {
 		if (state != thisScale)																// Only perform the state transition if we're not already in the same state
 			SetState (thisScale);															// Assign the scale that was determined by distance from origin Vector3(0,0,0)
 
-
 	}
 
 
@@ -252,16 +235,16 @@ public class ScaleStates : Functions {
 	}
 	
 
-	void SubMillion() {															// This State is heavily commented as each other state uses same conditions
+	void SubMillion() {																		// This State is heavily commented as each other state uses same conditions
 		CalculatePosition (SM, positionProcessingScript.position, positioningScript.camPosition);	// Calculate the relative position based on real position and scale of this State
 		layerMask = 8;
-		if (_cacheState != state) {												// Without this we get crazy bugs.  Don't know why.  It needs to be here for code efficiency anyways!
+		if (_cacheState != state) {															// Without this we get crazy bugs.  Don't know why.  It needs to be here for code efficiency anyways!
 			StateFunction(layerMask, SM, "SM", 1f, "", "SM", "MK", 0d, SM, MK);							
 			_cacheState = state;
-		}
-
-		if (light) {															// Check if this gameObject is, or contains, a light
-			Lights("MK", MK);													// Activate or deactivate the lights, depending on state
+		
+			if (light) {																		// Check if this gameObject is, or contains, a light
+				Lights("MK", MK);																// Activate or deactivate the lights, depending on state
+			}
 		}
 	}
 
@@ -271,10 +254,10 @@ public class ScaleStates : Functions {
 		if (_cacheState != state) {
 			StateFunction(layerMask, MK, "MK", 1f, "SM", "MK", "AU", SM, MK, AU);
 			_cacheState = state;
-		}
-
-		if (light) {
-			Lights("MK", MK);
+		
+			if (light) {
+				Lights("MK", MK);
+			}
 		}
 	}
 	
@@ -282,11 +265,12 @@ public class ScaleStates : Functions {
 		CalculatePosition (AU, positionProcessingScript.position, positioningScript.camPosition);
 		layerMask = 10;
 		if (_cacheState != state) {
-			StateFunction(layerMask, AU, "AU", 250f, "MK", "AU", "LH", MK, AU, LH);
+			StateFunction(layerMask, AU, "AU", 1f, "MK", "AU", "LH", MK, AU, LH);
 			_cacheState = state;
-		}
-		if (light) {
-			Lights("AU", AU);
+		
+			if (light) {
+				Lights("AU", AU);
+			}
 		}
 	}
 	
@@ -294,11 +278,12 @@ public class ScaleStates : Functions {
 		CalculatePosition (LH, positionProcessingScript.position, positioningScript.camPosition);
 		layerMask = 11;
 		if (_cacheState != state) {
-			StateFunction(layerMask, LH, "LH", 5000f, "AU", "LH", "Ld", AU, LH, Ld);
+			StateFunction(layerMask, LH, "LH", 1f, "AU", "LH", "Ld", AU, LH, Ld);
 			_cacheState = state;
-		}
-		if (light) {
-			Lights("LG", LH);
+		
+			if (light) {
+				Lights("LH", LH);
+			}
 		}
 	}
 	
@@ -306,12 +291,12 @@ public class ScaleStates : Functions {
 		CalculatePosition (Ld, positionProcessingScript.position, positioningScript.camPosition);
 		layerMask = 12;
 		if (_cacheState != state) {
-			StateFunction(layerMask, Ld, "Ld", 40000f, "LH", "Ld", "LY", LH, Ld, LY);
+			StateFunction(layerMask, Ld, "Ld", 1f, "LH", "Ld", "LY", LH, Ld, LY);
 			_cacheState = state;
-		}
-
-		if (light) {
-			Lights("Ld", Ld);
+		
+			if (light) {
+				Lights("Ld", Ld);
+			}
 		}
 	}
 
@@ -321,9 +306,10 @@ public class ScaleStates : Functions {
 		if (_cacheState != state) {
 			StateFunction(layerMask, LY, "LY", 0f, "Ld", "LY", "PA", Ld, LY, PA);
 			_cacheState = state;
+		
+			if (light)
+				light.enabled = false;
 		}
-		if (light)
-			light.enabled = false;
 	}
 
 	void Parsec() {
@@ -332,9 +318,10 @@ public class ScaleStates : Functions {
 		if (_cacheState != state) {
 			StateFunction(layerMask, PA, "PA", 0f, "LY", "PA", "LD", LY, PA, LD);
 			_cacheState = state;
+		
+			if (light)
+				light.enabled = false;
 		}
-		if (light)
-			light.enabled = false;
 	}
 
 	void LightDecade() {
@@ -343,9 +330,10 @@ public class ScaleStates : Functions {
 		if (_cacheState != state) {
 			StateFunction(layerMask, LD, "LD", 0f, "PA", "LD", "LC", PA, LD, LC);
 			_cacheState = state;
+		
+			if (light)
+				light.enabled = false;
 		}
-		if (light)
-			light.enabled = false;
 	}
 
 	void LightCentury() {
@@ -354,9 +342,10 @@ public class ScaleStates : Functions {
 		if (_cacheState != state) {
 			StateFunction(layerMask, LC, "LC", 0f, "LD", "LC", "LM", LD, LC, LM);
 			_cacheState = state;
+		
+			if (light)
+				light.enabled = false;
 		}
-		if (light)
-			light.enabled = false;
 	}
 
 
@@ -366,17 +355,18 @@ public class ScaleStates : Functions {
 		if (_cacheState != state) {
 			StateFunction(layerMask, LM, "LM", 0f, "LC", "LM", "", LC, LM, 0d);
 			_cacheState = state;
+		
+			if (light)
+				light.enabled = false;
 		}
-		if (light)
-			light.enabled = false;
 	}
 
 
 	void StateFunction(int layerMask, double scaleD, string scaleS, float meshScale, string beforeS, string currentS, string afterS, double beforeD, double currentD, double afterD) {
-		gameObject.layer = layerMask;
-		if(meshes) meshes.layer = layerMask;
+		gameObject.layer = layerMask;													// Set the layer, by number, to the appropriate layer mask
+		if(meshes) meshes.layer = layerMask;											// Set the layer, by number, to the appropriate layer mask
 		CalculateLocalScale (scaleD);													// Calculate the gameObject scale based on original scale and the scale of this State
-		if(meshes) MeshScale(meshScale);
+		if(meshes) MeshScale(meshScale);												// If there's any items in the meshes variable, adjust the local scale appropriately
 		gameObject.transform.parent = scaleStateParent [scaleS];						// Set this gameObject's parent to the appropriate scale's gameObject container
 
 		// Specify only the scale States immediately surrounding this state so we can keep loop to minimum as there
@@ -392,8 +382,6 @@ public class ScaleStates : Functions {
 		measurementsList.Add (currentD);												// Add currentS to the list as it should always exist
 		if(afterD != 0d) measurementsList.Add (afterD);									// Add afterS if it isn't empty
 		measurements = measurementsList.ToArray();										// Convert the List to an array
-
-		//measurements = new double[] { LC, LM };
 	}
 
 
@@ -447,6 +435,7 @@ public class ScaleStates : Functions {
 		light.range = calculatedRange;											// Set the light's Range for the original light
 		light.enabled = true;													// If this gameObject contains a light then enable it for this State
 
+		// Iterate through the 6 smallest states
 		for(int i=0;i<5;i++) {
 			if(inputs[i] != valueS)
 				lightGameObjects[inputs[i]].SetActive(true);

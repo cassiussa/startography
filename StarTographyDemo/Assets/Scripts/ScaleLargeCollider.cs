@@ -10,7 +10,7 @@ public class ScaleLargeCollider : MonoBehaviour {
 
 	void OnTriggerEnter(Collider other) {
 		if (other.gameObject.tag == "MainCamera") {
-			Debug.LogError ("camera is inside");
+		//	Debug.LogError ("camera is inside");
 			fadeMaterial.fadeIn = true;
 			fadeMaterial.largeEntered = true;
 		}
