@@ -66,6 +66,8 @@ public class ScaleStates : Functions {
 	///[HideInInspector]
 	//public bool hittingCamera = false;
 
+	ObjectData objectDataScript;
+
 
 	#region Basic Getters/Setters
 	public State CurrentState {
@@ -152,7 +154,14 @@ public class ScaleStates : Functions {
 				Debug.LogWarning ("There doesn't appear to be a systemColliders gameObject, but there is a localColliders.  Usually when there's a localColliders there should also be a systemColliders gameObject.", gameObject);
 		*/
 
-		meshes = gameObject.transform.Find ("Mesh").gameObject;
+		objectDataScript = GetComponent<ObjectData> ();
+		if (!objectDataScript)
+			Debug.LogError ("There is no ObjectData script attached.", gameObject);
+
+		if(objectDataScript.celestialBodyType != CelestialBodyType.UserInterface) {
+			meshes = gameObject.transform.Find ("Mesh").gameObject;
+		}
+
 	}
 	
 	// NOTE: Async version of Start.
@@ -244,20 +253,12 @@ public class ScaleStates : Functions {
 	
 
 	void SubMillion() {															// This State is heavily commented as each other state uses same conditions
-		layerMask = 8;															// Set the index of the layer this State uses										
-
 		CalculatePosition (SM, positionProcessingScript.position, positioningScript.camPosition);	// Calculate the relative position based on real position and scale of this State
 		if (_cacheState != state) {												// Without this we get crazy bugs.  Don't know why.  It needs to be here for code efficiency anyways!
-			//foreach (GameObject mesh in meshes) {								// Iterate through the array of child gameObjects with mesh renderers attached
-			gameObject.layer = layerMask;											// Set the layer that this scale State resides in
-			meshes.layer = layerMask;
-			//}
-			CalculateLocalScale(SM);											// Calculate the gameObject scale based on original scale and the scale of this State
-			MeshScale(1f);
+			StateFunction(8, SM, "SM", 1f);
+
 			inputsRevised = new string[] { "SM", "MK" };						// Specify only the scale States immediately surrounding this state so we can keep loop to minimum as there
 			measurements = new double[] { SM, MK };								// is no point looping through every possible state since - we can only jump up or down one state at a time
-
-			gameObject.transform.parent = scaleStateParent ["SM"];				// Set this gameObject's parent to the appropriate scale's gameObject container
 			_cacheState = state;
 		}
 
@@ -271,19 +272,12 @@ public class ScaleStates : Functions {
 	}
 
 	void MillionKilometers() {
-		layerMask = 9;
-
 		CalculatePosition (MK, positionProcessingScript.position, positioningScript.camPosition);
 		if (_cacheState != state) {
-			//foreach (GameObject mesh in meshes) {
-			gameObject.layer = layerMask;
-			meshes.layer = layerMask;
-			//}
-			CalculateLocalScale(MK);
-			MeshScale(1f);
+			StateFunction(9, MK, "MK", 1f);
+
 			inputsRevised = new string[] { "SM", "MK", "AU" };
 			measurements = new double[] { SM, MK, AU };
-			gameObject.transform.parent = scaleStateParent ["MK"];
 			_cacheState = state;
 		}
 
@@ -297,20 +291,12 @@ public class ScaleStates : Functions {
 	}
 	
 	void AstronomicalUnit() {
-		layerMask = 10;
-
 		CalculatePosition (AU, positionProcessingScript.position, positioningScript.camPosition);
 		if (_cacheState != state) {
-			//foreach (GameObject mesh in meshes) {
-			gameObject.layer = layerMask;
-			meshes.layer = layerMask;
-			//}
-			CalculateLocalScale(AU);
-			//transform.localScale = new Vector3 (transform.localScale.x * 4, transform.localScale.y * 4, transform.localScale.z * 4);
-			MeshScale(250f);
+			StateFunction(10, AU, "AU", 250f);
+
 			inputsRevised = new string[] {  "MK", "AU", "LH" };
 			measurements = new double[] { MK, AU, LH };
-			gameObject.transform.parent = scaleStateParent ["AU"];
 			_cacheState = state;
 		}
 		if (light) {
@@ -325,27 +311,12 @@ public class ScaleStates : Functions {
 	}
 	
 	void LightHour() {
-		layerMask = 11;
-
 		CalculatePosition (LH, positionProcessingScript.position, positioningScript.camPosition);
 		if (_cacheState != state) {
-			//foreach (GameObject mesh in meshes) {
-			gameObject.layer = layerMask;
-			meshes.layer = layerMask;
-					/*if (isSun == false) {
-						if (_prevState == State.AstronomicalUnit)
-							mesh.transform.localScale = new Vector3(1200f,1200f,1200f);
-						else if(_prevState == State.LightDay)
-							mesh.transform.localScale =  new Vector3(1f,1f,1f);
-					}*/
-				
-			//}
-			CalculateLocalScale (LH);
-			//transform.localScale = new Vector3 (transform.localScale.x * 50, transform.localScale.y * 50, transform.localScale.z * 50);
-			MeshScale(2000f);
+			StateFunction(11, LH, "LH", 5000f);
+
 			inputsRevised = new string[] { "AU", "LH", "Ld" };
 			measurements = new double[] { AU, LH, Ld };
-			gameObject.transform.parent = scaleStateParent ["LH"];
 			_cacheState = state;
 		}
 		if (light) {
@@ -359,20 +330,12 @@ public class ScaleStates : Functions {
 	}
 	
 	void LightDay() {
-		layerMask = 12;
-
 		CalculatePosition (Ld, positionProcessingScript.position, positioningScript.camPosition);
 		if (_cacheState != state) {
-			//foreach (GameObject mesh in meshes) {
-			gameObject.layer = layerMask;
-			meshes.layer = layerMask;
-			//}
-			CalculateLocalScale (Ld);
-			//transform.localScale = new Vector3 (transform.localScale.x * 10, transform.localScale.y * 10, transform.localScale.z * 10);
-			MeshScale(1000f);
+			StateFunction(12, Ld, "Ld", 40000f);
+
 			inputsRevised = new string[] { "LH", "Ld", "LY"};
 			measurements = new double[] { LH, Ld, LY };
-			gameObject.transform.parent = scaleStateParent ["Ld"];
 			_cacheState = state;
 		}
 
@@ -387,19 +350,12 @@ public class ScaleStates : Functions {
 	}
 
 	void LightYear() {
-		layerMask = 13;
-
 		CalculatePosition (LY, positionProcessingScript.position, positioningScript.camPosition);
 		if (_cacheState != state) {
-			//foreach (GameObject mesh in meshes) {
-			gameObject.layer = layerMask;
-			meshes.layer = layerMask;
-			//}
-			CalculateLocalScale (LY);
-			MeshScale(0f);
+			StateFunction(13, LY, "LY", 0f);
+
 			inputsRevised = new string[] { "Ld", "LY", "PA" };
 			measurements = new double[] { Ld, LY, PA };
-			gameObject.transform.parent = scaleStateParent ["LY"];
 			_cacheState = state;
 		}
 		if (light)
@@ -407,19 +363,12 @@ public class ScaleStates : Functions {
 	}
 
 	void Parsec() {
-		layerMask = 14;
-
 		CalculatePosition (PA, positionProcessingScript.position, positioningScript.camPosition);
 		if (_cacheState != state) {
-			//foreach (GameObject mesh in meshes) {
-			gameObject.layer = layerMask;
-			meshes.layer = layerMask;
-			//}
-			CalculateLocalScale (PA);
-			MeshScale(0f);
+			StateFunction(14, PA, "PA", 0f);
+
 			inputsRevised = new string[] { "LY", "PA", "LD" };
 			measurements = new double[] { LY, PA, LD };
-			gameObject.transform.parent = scaleStateParent ["PA"];
 			_cacheState = state;
 		}
 		if (light)
@@ -427,19 +376,12 @@ public class ScaleStates : Functions {
 	}
 
 	void LightDecade() {
-		layerMask = 15;
-
 		CalculatePosition (LD, positionProcessingScript.position, positioningScript.camPosition);
 		if (_cacheState != state) {
-			//foreach (GameObject mesh in meshes) {
-			gameObject.layer = layerMask;
-			meshes.layer = layerMask;
-			//}
-			CalculateLocalScale (LD);
-			MeshScale(0f);
+			StateFunction(15, LD, "LD", 0f);
+
 			inputsRevised = new string[] { "PA", "LD", "LC" };
 			measurements = new double[] { PA, LD, LC };
-			gameObject.transform.parent = scaleStateParent ["LD"];
 			_cacheState = state;
 		}
 		if (light)
@@ -447,45 +389,40 @@ public class ScaleStates : Functions {
 	}
 
 	void LightCentury() {
-		layerMask = 16;
-
 		CalculatePosition (LC, positionProcessingScript.position, positioningScript.camPosition);
 		if (_cacheState != state) {
-			//foreach (GameObject mesh in meshes) {
-			gameObject.layer = layerMask;
-			meshes.layer = layerMask;
-			//}
-			CalculateLocalScale (LC);
-			MeshScale(0f);
+			StateFunction(16, LC, "LC", 0f);
+
 			inputsRevised = new string[] { "LD", "LC", "LM" };
 			measurements = new double[] { LD, LC, LM };
-			gameObject.transform.parent = scaleStateParent ["LC"];
 			_cacheState = state;
 		}
 		if (light)
 			light.enabled = false;
 	}
+
 
 	void LightMillenium() {
-		layerMask = 17;
-
 		CalculatePosition (LM, positionProcessingScript.position, positioningScript.camPosition);
 		if (_cacheState != state) {
-			//foreach (GameObject mesh in meshes) {
-			gameObject.layer = layerMask;
-			meshes.layer = layerMask;
-			//}
-			CalculateLocalScale (LM);
-			MeshScale(0f);
+			StateFunction(17, LM, "LM", 0f);
+
 			inputsRevised = new string[] { "LC", "LM" };
 			measurements = new double[] { LC, LM };
-			gameObject.transform.parent = scaleStateParent ["LM"];
 			_cacheState = state;
 		}
 		if (light)
 			light.enabled = false;
 	}
 
+
+	void StateFunction(int layerMask, double scaleD, string scaleS, float meshScale) {
+		gameObject.layer = layerMask;
+		if(meshes) meshes.layer = layerMask;
+		CalculateLocalScale (scaleD);													// Calculate the gameObject scale based on original scale and the scale of this State
+		if(meshes) MeshScale(meshScale);
+		gameObject.transform.parent = scaleStateParent [scaleS];						// Set this gameObject's parent to the appropriate scale's gameObject container
+	}
 
 
 	/*

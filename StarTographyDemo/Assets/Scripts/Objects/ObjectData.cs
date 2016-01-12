@@ -1,9 +1,18 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+public enum CelestialBodyType {
+	Planet,
+	Star,
+	UserInterface
+}
+
+
 public class ObjectData : Functions {
 
 	ScaleStates scaleStatesScript;
+
+	public CelestialBodyType celestialBodyType;
 
 	public String3d coordinates;
 	//public string coordX = "0";
