@@ -5,7 +5,8 @@ public class GenerateBodyColliders : Functions {
 
 	ObjectData objectDataScript;
 	/*
-	 * This script creates the gameobject children for the colliders for any given body
+	 * This script creates the gameobject children for the colliders for any given body.
+	 * It is automatically added to Planets and Stars by the ScaleStates script.
 	 */
 	void Awake () {
 		objectDataScript = GetComponent<ObjectData> ();

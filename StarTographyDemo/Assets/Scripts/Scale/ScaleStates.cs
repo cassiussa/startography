@@ -58,7 +58,6 @@ public class ScaleStates : Functions {
 	Positioning positioningScript;
 
 	public GameObject meshes;
-	public bool isSun = false;
 
 	ObjectData objectDataScript;
 
@@ -146,6 +145,15 @@ public class ScaleStates : Functions {
 
 		if(objectDataScript.celestialBodyType != CelestialBodyType.UserInterface) {
 			meshes = gameObject.transform.Find ("Mesh").gameObject;
+		}
+
+		// Add the visuals script centered around the star
+		if (objectDataScript.celestialBodyType == CelestialBodyType.Star) {
+			gameObject.AddComponent<GenerateDistanceVisuals>();
+		}
+
+		if(objectDataScript.celestialBodyType == CelestialBodyType.Planet || objectDataScript.celestialBodyType == CelestialBodyType.Star) {
+			gameObject.AddComponent<GenerateBodyColliders>();
 		}
 
 	}

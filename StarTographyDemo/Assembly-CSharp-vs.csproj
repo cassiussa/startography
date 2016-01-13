@@ -204,6 +204,8 @@
      <Compile Include="Assets\Scripts\Globals\Functions.cs" />
      <Compile Include="Assets\Scripts\Globals\Positioning.cs" />
      <Compile Include="Assets\Scripts\Globals\SimulationSpeed.cs" />
+     <Compile Include="Assets\Scripts\Interface\DistanceMarkers.cs" />
+     <Compile Include="Assets\Scripts\Interface\GenerateDistanceVisuals.cs" />
      <Compile Include="Assets\Scripts\ObjectLabel.cs" />
      <Compile Include="Assets\Scripts\Objects\GenerateBodyColliders.cs" />
      <Compile Include="Assets\Scripts\Objects\ObjectCollider.cs" />
