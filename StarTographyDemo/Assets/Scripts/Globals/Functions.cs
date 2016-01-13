@@ -168,6 +168,11 @@ public class Functions : Constants {
 		return result;
 	}
 
+	protected String3d V3dToS3d(Vector3d vector) {
+		String3d result = new String3d (vector.x.ToString(), vector.y.ToString(), vector.z.ToString());
+		return result;
+	}
+
 	public class Vector3d {
 		/*
 		 * Create a new Type.  Vector3 double.
@@ -224,10 +229,10 @@ public class Functions : Constants {
 		public string y;
 		public string z;
 		
-		public String3d(String3d a) {
-			x = a.x;
-			y = a.y;
-			z = a.z;
+		public String3d(string a, string b, string c) {
+			x = a;
+			y = b;
+			z = c;
 		}
 		
 		// Constructor

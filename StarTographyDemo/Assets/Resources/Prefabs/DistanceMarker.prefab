@@ -75,9 +75,11 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 433412}
+  - 114: {fileID: 11449530}
+  - 114: {fileID: 11444036}
   - 114: {fileID: 11433408}
   m_Layer: 10
-  m_Name: 1 AU
+  m_Name: DistanceMarker
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -392,6 +394,40 @@ MonoBehaviour:
   clampBorderSize: .0500000007
   useMainCamera: 1
   cameraToUse: {fileID: 0}
+--- !u!114 &11444036
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 133412}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c60940f22cc6a40e8a66c8ab7460f205, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  state: 0
+  thisScale: 0
+  meshes: {fileID: 0}
+--- !u!114 &11449530
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 133412}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c7a4498cd9e848a486fc890cbfad0d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  celestialBodyType: 0
+  coordinates:
+    x: 0
+    y: 0
+    z: 0
+  radius:
+    x: 0
+    y: 0
+    z: 0
 --- !u!120 &12033404
 LineRenderer:
   m_ObjectHideFlags: 1

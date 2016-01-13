@@ -207,6 +207,7 @@
      <Compile Include="Assets\Scripts\Interface\DistanceMarkers.cs" />
      <Compile Include="Assets\Scripts\Interface\GenerateDistanceVisuals.cs" />
      <Compile Include="Assets\Scripts\ObjectLabel.cs" />
+     <Compile Include="Assets\Scripts\Objects\DistanceMarkerData.cs" />
      <Compile Include="Assets\Scripts\Objects\GenerateBodyColliders.cs" />
      <Compile Include="Assets\Scripts\Objects\ObjectCollider.cs" />
      <Compile Include="Assets\Scripts\Objects\ObjectData.cs" />
