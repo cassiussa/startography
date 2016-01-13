@@ -35,6 +35,6 @@ public class PositionProcessing : Positioning {
 	// Update is called once per frame
 	void Update () {
 		angle = new Vector3d (angle.x, angle.y + (random*Time.deltaTime), angle.z);
-		transform.eulerAngles = V3dToV3(angle);
+		//transform.eulerAngles = V3dToV3(angle);
 	}
 }

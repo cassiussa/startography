@@ -17,7 +17,7 @@ public class Constants : MonoBehaviour {
 	protected double MK = 1000000d;					// Million Kilometers
 	protected double AU = 149597870.7d;				// Astronomical Units
 	protected double LH = 1079252848.8d;			// Light Hours
-	protected double Ld = 25902068371d;				// Light Days
+	protected double Ld = 25902068371.2d;				// Light Days
 	protected double LY = 9460730472600d;			// Light Years (Julian)
 	protected double PA = 30856740080213.256d;		// Parsecs
 	protected double LD = 94607304725808d;			// Light Decades (Julian)
