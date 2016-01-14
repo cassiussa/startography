@@ -76,7 +76,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 433412}
   - 114: {fileID: 11449530}
-  - 114: {fileID: 11444036}
+  - 114: {fileID: 11485288}
   - 114: {fileID: 11433408}
   m_Layer: 10
   m_Name: DistanceMarker
@@ -394,20 +394,6 @@ MonoBehaviour:
   clampBorderSize: .0500000007
   useMainCamera: 1
   cameraToUse: {fileID: 0}
---- !u!114 &11444036
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 133412}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c60940f22cc6a40e8a66c8ab7460f205, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  state: 0
-  thisScale: 0
-  meshes: {fileID: 0}
 --- !u!114 &11449530
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -416,18 +402,31 @@ MonoBehaviour:
   m_GameObject: {fileID: 133412}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7c7a4498cd9e848a486fc890cbfad0d9, type: 3}
+  m_Script: {fileID: 11500000, guid: 12b7c390e3ad54614b6146f88db572c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  celestialBodyType: 0
+  celestialBodyType: 2
   coordinates:
     x: 0
     y: 0
     z: 0
   radius:
-    x: 0
-    y: 0
-    z: 0
+    x: 1
+    y: 1
+    z: 1
+--- !u!114 &11485288
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 133412}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4920418b18074fc0bdba723f9501f2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  holdTimeMin: 30
+  holdTimeMax: 300
 --- !u!120 &12033404
 LineRenderer:
   m_ObjectHideFlags: 1

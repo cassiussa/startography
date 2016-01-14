@@ -92,7 +92,7 @@ public class ScaleStates : Functions {
 		if (!positionProcessingScript)
 			Debug.LogError ("The PositionProcessing script appears to be missing", gameObject);
 		positioningScript = GameObject.Find ("/Cameras").GetComponent<Positioning> ();
-		if(!positioningScript)
+		if (!positioningScript)
 			Debug.LogError ("The Positioning script appears to be missing from the 'Camera's gameObject", gameObject);
 
 		/*
@@ -106,7 +106,7 @@ public class ScaleStates : Functions {
 
 		// Add all of the child ScaleState containers to the scaleStateParent dictionary
 		for (int i=0; i<inputs.Length; i++) {
-			scaleStateParent.Add (inputs[i], GameObject.Find (scaleStatesParents.name + inputs[i]).transform);
+			scaleStateParent.Add (inputs [i], GameObject.Find (scaleStatesParents.name + inputs [i]).transform);
 		}
 
 		/* 
@@ -115,45 +115,61 @@ public class ScaleStates : Functions {
 		 * be represented in that state's space and cast light on the gameObjects within the
 		 * layer.
 		 */
-		light = GetComponent<Light>();
-		if(light) {
+		light = GetComponent<Light> ();
+		if (light) {
 			layerMask = 8;																		// 8 is the lowest layer we can manually create or edit
 			lightRange = light.range;															// cache the original light Range
-			for(int i=0;i<5;i++) {																// Limit to the 5 smallest scales.  Anything beyond that would be crazy
-				lightGameObjects.Add (inputs[i],new GameObject("Light - "+gameObject.name));	// Create empty gameObjects on the fly and reference them in the Dictionary
-				GameObject lightGameObject = lightGameObjects[inputs[i]];						// Create a variable for this GameObject for faster processing
-				lightGameObject.transform.parent = scaleStateParent[inputs[i]];					// Set this gameObject's parent to the appropriate scale's gameObject container
-				double thisMeasurement = measurements[i];										// Cache the measurement for this iteration to save processing
-				Vector3d thisPosition = new Vector3d(											// Set the initial position of the new light gameObjects
-					((System.Math.Abs(positionProcessingScript.position.x)/thisMeasurement)*maxUnits),
-					((System.Math.Abs(positionProcessingScript.position.y)/thisMeasurement)*maxUnits),
-					((System.Math.Abs(positionProcessingScript.position.z)/thisMeasurement)*maxUnits));
-				lightGameObject.transform.position = V3dToV3(thisPosition);
-				lightGameObject.layer = i+layerMask;											// Set the layer.  Note that 8 is the lowest layer we've made
-				lights.Add (inputs[i],lightGameObject.AddComponent<Light>());					// Add the Light component to the gameObjects
-				float calculatedRange = (float)((light.range/measurements[i]) * maxUnits);		// Range of the light depending on State
-				lights[inputs[i]].range = calculatedRange;										// Copy the light's Range from the original light's Range
-				lights[inputs[i]].intensity = light.intensity;									// as well as the light's intensity
-				lights[inputs[i]].color = light.color;											// and the light's colour
-				lights[inputs[i]].cullingMask = 1 << i+layerMask;								// Now set the culling mask for the light
+			for (int i=0; i<5; i++) {																// Limit to the 5 smallest scales.  Anything beyond that would be crazy
+				lightGameObjects.Add (inputs [i], new GameObject ("Light - " + gameObject.name));	// Create empty gameObjects on the fly and reference them in the Dictionary
+				GameObject lightGameObject = lightGameObjects [inputs [i]];						// Create a variable for this GameObject for faster processing
+				lightGameObject.transform.parent = scaleStateParent [inputs [i]];					// Set this gameObject's parent to the appropriate scale's gameObject container
+				double thisMeasurement = measurements [i];										// Cache the measurement for this iteration to save processing
+				Vector3d thisPosition = new Vector3d (// Set the initial position of the new light gameObjects
+					((System.Math.Abs (positionProcessingScript.position.x) / thisMeasurement) * maxUnits),
+					((System.Math.Abs (positionProcessingScript.position.y) / thisMeasurement) * maxUnits),
+					((System.Math.Abs (positionProcessingScript.position.z) / thisMeasurement) * maxUnits));
+				lightGameObject.transform.position = V3dToV3 (thisPosition);
+				lightGameObject.layer = i + layerMask;											// Set the layer.  Note that 8 is the lowest layer we've made
+				lights.Add (inputs [i], lightGameObject.AddComponent<Light> ());					// Add the Light component to the gameObjects
+				float calculatedRange = (float)((light.range / measurements [i]) * maxUnits);		// Range of the light depending on State
+				lights [inputs [i]].range = calculatedRange;										// Copy the light's Range from the original light's Range
+				lights [inputs [i]].intensity = light.intensity;									// as well as the light's intensity
+				lights [inputs [i]].color = light.color;											// and the light's colour
+				lights [inputs [i]].cullingMask = 1 << i + layerMask;								// Now set the culling mask for the light
 			}
 		}
 
-		objectDataScript = GetComponent<ObjectData> ();
-		if (!objectDataScript)
-			Debug.LogError ("There is no ObjectData script attached.", gameObject);
 
-		if(objectDataScript.celestialBodyType != CelestialBodyType.UserInterface) {
-			meshes = gameObject.transform.Find ("Mesh").gameObject;
-		}
+		//objectDataScript = GetComponent<ObjectData> ();
+		if (!GetComponent<ObjectData> ()) {
+			if (GetComponent<DistanceMarkerData> ().celestialBodyType != CelestialBodyType.UserInterface) {
+				meshes = gameObject.transform.Find ("Mesh").gameObject;
+			}
+			
+			// Add the visuals script centered around the star
+			if (GetComponent<DistanceMarkerData> ().celestialBodyType == CelestialBodyType.Star) {
+				gameObject.AddComponent<GenerateDistanceVisuals> ();
+			}
+			
+			if (GetComponent<DistanceMarkerData> ().celestialBodyType == CelestialBodyType.Planet || GetComponent<DistanceMarkerData> ().celestialBodyType == CelestialBodyType.Star) {
+				gameObject.AddComponent<GenerateBodyColliders> ();
+			}
 
-		// Add the visuals script centered around the star
-		if (objectDataScript.celestialBodyType == CelestialBodyType.Star) {
-			gameObject.AddComponent<GenerateDistanceVisuals>();
-		}
+		} else if (GetComponent<ObjectData> ()) {
+			if (GetComponent<ObjectData> ().celestialBodyType != CelestialBodyType.UserInterface) {
+				meshes = gameObject.transform.Find ("Mesh").gameObject;
+			}
 
-		if(objectDataScript.celestialBodyType == CelestialBodyType.Planet || objectDataScript.celestialBodyType == CelestialBodyType.Star) {
-			gameObject.AddComponent<GenerateBodyColliders>();
+			// Add the visuals script centered around the star
+			if (GetComponent<ObjectData> ().celestialBodyType == CelestialBodyType.Star) {
+				gameObject.AddComponent<GenerateDistanceVisuals> ();
+			}
+
+			if (GetComponent<ObjectData> ().celestialBodyType == CelestialBodyType.Planet || GetComponent<ObjectData> ().celestialBodyType == CelestialBodyType.Star) {
+				gameObject.AddComponent<GenerateBodyColliders> ();
+			}
+		} else {
+			Debug.LogError ("There is no ObjectData script nor a DistanceMarkerData script attached.", gameObject);
 		}
 
 	}
@@ -405,6 +421,8 @@ public class ScaleStates : Functions {
 	 */
 	private void CalculateLocalScale(double value) {
 		//prevLocalScale = V3ToV3d(gameObject.transform.localScale);
+		if (gameObject.name == "DistanceMarker")
+			Debug.LogError ("DistanceMarker " + thisLocalScale.x);
 		newLocalScale = new Vector3d (
 			(thisLocalScale.x / value) * maxUnits,
 			(thisLocalScale.y / value) * maxUnits,
