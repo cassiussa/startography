@@ -18,11 +18,11 @@ public class PositionProcessing : Positioning {
 	void Awake() {
 		objectDataScript = GetComponent<ObjectData> ();
 		starDataScript = GetComponent<StarData> ();
-		if (objectDataScript) {
-			position = S3dToV3d(objectDataScript.coordinates);
-		} else if (starDataScript) {
+		if (GetComponent<ObjectData> ()) {
+			position = S3dToV3d(GetComponent<ObjectData> ().coordinates);
+		} else if (GetComponent<DistanceMarkerData> ()) {
 			Debug.Log ("My god! It's full of stars!");
-			position = S3dToV3d(objectDataScript.coordinates);
+			position = S3dToV3d(GetComponent<DistanceMarkerData> ().coordinates);
 		} else {
 			Debug.Log ("It's not an object or a star?");
 			position = S3dToV3d(objectDataScript.coordinates);
