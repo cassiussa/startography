@@ -26,9 +26,9 @@ public class Positioning : Functions {
 
 	float xSpeed = 0f;							// Don't touch this
 	float zSpeed = 0f;							// Don't touch this
+	float factor = 0f;
 	float zAcceleration = 0f;					// How fast will object reach a maximum speed 
 	float xAcceleration = 0f;					// How fast will object reach a maximum speed 
-	float Deceleration = 75000f;				// How fast will object reach a speed of 0
 
 	Vector3d thisPosition = new Vector3d (0d, 0d, 0d);
 	[HideInInspector]
@@ -42,34 +42,61 @@ public class Positioning : Functions {
 	void Awake(){
 		holdTimeMin = 300d;
 		holdTimeMax = 3000d;
+		cacheMovement = new GameObject();
 	}
 
+	GameObject cacheMovement;
 	void Update () {
+		/*
+		 * Controller Mapping for Left Analog Stick
+		 * 
+		 * Left	 +1
+		 * Right -1
+		 * Up	 -1
+		 * Down	 +1
+		 * 
+		 */
 		float horizontal = Input.GetAxis ("Horizontal")*-1;
 		float vertical = Input.GetAxis ("Vertical");
 
-		camPosition = new Vector3d (camPosition.x + xAcceleration,
-		                            camPosition.y, 
-		                            camPosition.z + zAcceleration);
+		/*
+		 * Controller Mapping for Right Analog Stick
+		 * 
+		 * Left	 -1
+		 * Right +1
+		 * Up	 -1
+		 * Down	 +1
+		 * 
+		 */
 
-		if (vertical != 0) {
-			holdTime +=  Time.deltaTime*holdTime;
-			holdTime = Mathf.Clamp ((float)holdTime, (float)holdTimeMin, (float)holdTimeMax);
-			zAcceleration = ((float)holdTime * vertical);
+		float turnVertical = Input.GetAxis ("TurnVertical");										// Get the up/down input from the right analog stick
+		float turnHorizontal = Input.GetAxis ("TurnHorizontal");									// Get the left/right input from the right analog stick
+		transform.Rotate(Vector3.up, turnHorizontal * Time.deltaTime * 20);							// Assign the up/down rotation to the camera itself
+		transform.Rotate(Vector3.right, turnVertical * Time.deltaTime * 20);						// Assign the left/right rotation to the camera itself
+
+
+
+		cacheMovement.transform.position = Vector3.zero;											// Reset the cached gameObject's Vector3 position to 0,0,0
+		cacheMovement.transform.rotation = transform.rotation;										// Assign the rotation of the camera to the cached gameObject
+		if (vertical != 0 || horizontal != 0) {
+			holdTime += Time.deltaTime * holdTime;
+			holdTime = Mathf.Clamp ((float)holdTime, (float)holdTimeMin, (float)holdTimeMax);		// Clamp the holdTime variable so that we don't get insane exceleration or speed on the camera
+
+			zAcceleration = ((float)holdTime * vertical);											// Calculate the acceleration along the Z axis
+			xAcceleration = ((float)holdTime * horizontal);											// Calculate the acceleration along the X axis
+			cacheMovement.transform.Translate(Vector3.forward * zAcceleration);						// Translate the position of the cached Vector3
+			cacheMovement.transform.Translate(Vector3.right * xAcceleration);						// Translate the position of the cached Vector3
+
 		} else {
-			zAcceleration = 0;
+			xAcceleration = 0;																		// Reset the acceleration along the X axis
+			zAcceleration = 0;																		// Reset the acceleration along the z axis
+			holdTime = 0f;																			// reset the holdTime variable as no movement on the gamepad was detected
 		}
-		/*if (horizontal != 0) {
-			holdTime += (holdTime*Time.deltaTime)+Time.deltaTime;
-			holdTime = Mathf.Clamp (holdTime, holdTimeMin, holdTimeMax);
-			xAcceleration = (holdTime*horizontal);
-		} else {
-			xAcceleration = 0;
-		}*/
 
-		if(vertical == 0 && horizontal == 0)
-			holdTime = 0f;
+		camPosition = new Vector3d (																// Create the new double position of where the camera would be if the universe didn't move around it
+			camPosition.x + (cacheMovement.transform.position.x),
+			camPosition.y + (cacheMovement.transform.position.y), 
+			camPosition.z + (cacheMovement.transform.position.z));
 
-		//Debug.Log ("holdTime = " + holdTime);
 	}
 }
