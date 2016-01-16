@@ -34,7 +34,7 @@ public class StarLightScaleStates : Functions {
 	string[] inputs;		// Array of strings of distance types
 	string[] inputsRevised;	// Array of strings, taken from 'inputs' array, which can be updated
 	double[] measurements;	// Array of the measurements of the distance types
-	public State thisScale;
+	public State thisScaleState;
 	
 	// These are used for assigning the container gameObjects upon change in States
 	GameObject scaleStatesParents;
@@ -108,7 +108,7 @@ public class StarLightScaleStates : Functions {
 		
 		// Add all of the child ScaleState containers to the scaleStateParent dictionary
 		for (int i=0; i<inputs.Length; i++) {
-			scaleStateParent.Add (inputs [i], GameObject.Find (scaleStatesParents.name + inputs [i]).transform);
+			scaleStateParent.Add (inputs [i], GameObject.Find (scaleStatesParents.name +"/"+ inputs [i]).transform);
 		}
 		
 		
@@ -169,31 +169,8 @@ public class StarLightScaleStates : Functions {
 	
 	void Update() {
 		
-		/* 
-		 * Count down instead of up because the vast majority of objects will 
-		 * be closer to LightMillenium, LightCentury and LightDecade
-		 * than they will be to millions of MillionKilometers
-		 * 
-		 * Can likely revise this later as I had to hack it and add the "SubMK" state to get it to work
-		 * how I want.  Issue is that it bumps up to the state above the one we really want.
-		*/
-		// Iterates through an array and then uses the string within scales[string] dictionary key to attain dictionary value (State) 
-		
-		// This needs to be changed to Distance to origin, not just that x y or z are smaller.  A^2 + B^2 = C^2
-		// Or does it need to be changed?  May not if every scale State has the same 'issue'.  If that makes it ok
-		// I should leave it like this as it's faster processing than the Distance function
-		for (int i=0;i<inputsRevised.Length; i++) {
-			double thisMeasurement = System.Math.Abs(measurements[i]);						// Cache the value instead of calculating it for each comparison
-			if (thisMeasurement > System.Math.Abs(positionProcessingScript.position.x+positioningScript.camPosition.x) && 
-			    thisMeasurement > System.Math.Abs(positionProcessingScript.position.y+positioningScript.camPosition.y) && 
-			    thisMeasurement > System.Math.Abs(positionProcessingScript.position.z+positioningScript.camPosition.z)) {
-				thisScale = scales[inputsRevised[i]];										// inputsRevised[i-1] is a string that is a key for the scales dictionary
-				break;																		// Break the loop as soon as we've found the scale.  Continue with Update() function
-			}
-		}
-		
-		if (state != thisScale)																// Only perform the state transition if we're not already in the same state
-			SetState (thisScale);															// Assign the scale that was determined by distance from origin Vector3(0,0,0)
+		if (state != thisScaleState)																// Only perform the state transition if we're not already in the same state
+			SetState (thisScaleState);																// Assign the scale that was determined by distance from origin Vector3(0,0,0)
 		
 	}
 	
@@ -208,8 +185,7 @@ public class StarLightScaleStates : Functions {
 	void SubMillion() {																				// This State is heavily commented as each other state uses same conditions
 		CalculatePosition (SM, positionProcessingScript.position, positioningScript.camPosition);	// Calculate the relative position based on real position and scale of this State
 		layerMask = 8;
-		if (_cacheState != state) {																	// Without this we get crazy bugs.  Don't know why.  It needs to be here for code efficiency anyways!
-			StateFunction(layerMask, SM, "SM", 1f, "", "SM", "MK", 0d, SM, MK);							
+		if (_cacheState != state) {																	// Without this we get crazy bugs.  Don't know why.  It needs to be here for code efficiency anyways!						
 			_cacheState = state;
 		}
 	}
@@ -218,7 +194,6 @@ public class StarLightScaleStates : Functions {
 		CalculatePosition (MK, positionProcessingScript.position, positioningScript.camPosition);
 		layerMask = 9;
 		if (_cacheState != state) {
-			StateFunction(layerMask, MK, "MK", 1f, "SM", "MK", "AU", SM, MK, AU);
 			_cacheState = state;
 		}
 	}
@@ -227,7 +202,6 @@ public class StarLightScaleStates : Functions {
 		CalculatePosition (AU, positionProcessingScript.position, positioningScript.camPosition);
 		layerMask = 10;
 		if (_cacheState != state) {
-			StateFunction(layerMask, AU, "AU", 1f, "MK", "AU", "LH", MK, AU, LH);
 			_cacheState = state;
 		}
 	}
@@ -236,7 +210,6 @@ public class StarLightScaleStates : Functions {
 		CalculatePosition (LH, positionProcessingScript.position, positioningScript.camPosition);
 		layerMask = 11;
 		if (_cacheState != state) {
-			StateFunction(layerMask, LH, "LH", 1f, "AU", "LH", "Ld", AU, LH, Ld);
 			_cacheState = state;
 		}
 	}
@@ -245,7 +218,6 @@ public class StarLightScaleStates : Functions {
 		CalculatePosition (Ld, positionProcessingScript.position, positioningScript.camPosition);
 		layerMask = 12;
 		if (_cacheState != state) {
-			StateFunction(layerMask, Ld, "Ld", 1f, "LH", "Ld", "LY", LH, Ld, LY);
 			_cacheState = state;
 		}
 	}
@@ -254,7 +226,6 @@ public class StarLightScaleStates : Functions {
 		CalculatePosition (LY, positionProcessingScript.position, positioningScript.camPosition);
 		layerMask = 13;
 		if (_cacheState != state) {
-			StateFunction(layerMask, LY, "LY", 0f, "Ld", "LY", "PA", Ld, LY, PA);
 			_cacheState = state;
 		}
 	}
@@ -263,7 +234,6 @@ public class StarLightScaleStates : Functions {
 		CalculatePosition (PA, positionProcessingScript.position, positioningScript.camPosition);
 		layerMask = 14;
 		if (_cacheState != state) {
-			StateFunction(layerMask, PA, "PA", 0f, "LY", "PA", "LD", LY, PA, LD);
 			_cacheState = state;
 		}
 	}
@@ -272,7 +242,6 @@ public class StarLightScaleStates : Functions {
 		CalculatePosition (LD, positionProcessingScript.position, positioningScript.camPosition);
 		layerMask = 15;
 		if (_cacheState != state) {
-			StateFunction(layerMask, LD, "LD", 0f, "PA", "LD", "LC", PA, LD, LC);
 			_cacheState = state;
 		}
 	}
@@ -281,7 +250,6 @@ public class StarLightScaleStates : Functions {
 		CalculatePosition (LC, positionProcessingScript.position, positioningScript.camPosition);
 		layerMask = 16;
 		if (_cacheState != state) {
-			StateFunction(layerMask, LC, "LC", 0f, "LD", "LC", "LM", LD, LC, LM);
 			_cacheState = state;
 		}
 	}
@@ -291,30 +259,11 @@ public class StarLightScaleStates : Functions {
 		CalculatePosition (LM, positionProcessingScript.position, positioningScript.camPosition);
 		layerMask = 17;
 		if (_cacheState != state) {
-			StateFunction(layerMask, LM, "LM", 0f, "LC", "LM", "", LC, LM, 0d);
 			_cacheState = state;
 		}
 	}
 	
-	
-	void StateFunction(int layerMask, double scaleD, string scaleS, float meshScale, string beforeS, string currentS, string afterS, double beforeD, double currentD, double afterD) {
-		gameObject.layer = layerMask;													// Set the layer, by number, to the appropriate layer mask
-		gameObject.transform.parent = scaleStateParent [scaleS];					// Set this gameObject's parent to the appropriate scale's gameObject container
-		
-		// Specify only the scale States immediately surrounding this state so we can keep loop to minimum as there
-		List<string> inputsRevisedList = new List<string> ();							// Can't resize arrays after being made, which led to complications with knowing if beforeS or afterS was missing
-		if(beforeS != "") inputsRevisedList.Add (beforeS);								// Add beforeS if it isn't empty
-		inputsRevisedList.Add (currentS);												// Add currentS to the list as it should always exist
-		if(afterS != "") inputsRevisedList.Add (afterS);								// Add afterS if it isn't empty
-		inputsRevised = inputsRevisedList.ToArray();									// Convert the List to an array
-		
-		// is no point looping through every possible state since - we can only jump up or down one state at a time
-		List<double> measurementsList = new List<double> ();							// Can't resize arrays after being made, which led to complications with knowing if beforeS or afterS was missing
-		if(beforeD != 0d) measurementsList.Add (beforeD);								// Add beforeS if it isn't empty
-		measurementsList.Add (currentD);												// Add currentS to the list as it should always exist
-		if(afterD != 0d) measurementsList.Add (afterD);									// Add afterS if it isn't empty
-		measurements = measurementsList.ToArray();										// Convert the List to an array
-	}
+
 	
 }
 

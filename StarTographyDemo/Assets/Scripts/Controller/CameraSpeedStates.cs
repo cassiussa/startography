@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class CameraSpeedStates : Functions {
 
-	public enum State { Initialize,A,B,C,D,E,F,G,H,I,J,K,L,M }
+	public enum State { Initialize,A,B,C,D,E,F,G,H,I,J,K,L,M,N }
 	
 	public State state = State.Initialize;
 	State _prevState;
@@ -50,20 +50,20 @@ public class CameraSpeedStates : Functions {
 		if (!positionScript)
 			Debug.LogError ("There is no Positioning script attached to this gameObject.  It is required", gameObject);
 
-
-		distanceCheck.Add (100000, State.A);				// See distanceCheck variable creation for details
-		distanceCheck.Add (1000000, State.B);
-		distanceCheck.Add (10000000, State.C);
-		distanceCheck.Add (100000000, State.D);
-		distanceCheck.Add (1000000000, State.E);
-		distanceCheck.Add (10000000000, State.F);
-		distanceCheck.Add (100000000000, State.G);
-		distanceCheck.Add (1000000000000, State.H);
-		distanceCheck.Add (10000000000000, State.I);
-		distanceCheck.Add (100000000000000, State.J);
-		distanceCheck.Add (1000000000000000, State.K);
-		distanceCheck.Add (10000000000000000, State.L);
-		distanceCheck.Add (100000000000000000, State.M);
+		distanceCheck.Add (10000, State.A);
+		distanceCheck.Add (100000, State.B);				// See distanceCheck variable creation for details
+		distanceCheck.Add (1000000, State.C);
+		distanceCheck.Add (10000000, State.D);
+		distanceCheck.Add (100000000, State.E);
+		distanceCheck.Add (1000000000, State.F);
+		distanceCheck.Add (10000000000, State.G);
+		distanceCheck.Add (100000000000, State.H);
+		distanceCheck.Add (1000000000000, State.I);
+		distanceCheck.Add (10000000000000, State.J);
+		distanceCheck.Add (100000000000000, State.K);
+		distanceCheck.Add (1000000000000000, State.L);
+		distanceCheck.Add (10000000000000000, State.M);
+		distanceCheck.Add (100000000000000000, State.N);
 	}
 	
 	// NOTE: Async version of Start.
@@ -112,6 +112,9 @@ public class CameraSpeedStates : Functions {
 				case State.M:
 					M ();
 					break;
+				case State.N:
+					N ();
+					break;
 				}
 			}
 			yield return null;
@@ -124,79 +127,85 @@ public class CameraSpeedStates : Functions {
 	}
 	
 
-	void A() {								// This State is heavily commented as each other state uses same conditions		
+	void A() {	
+		positionScript.holdTimeMin = 3d;
+		positionScript.holdTimeMax = 30d;
+		_cacheState = state;
+	}
+
+	void B() {
 		positionScript.holdTimeMin = 30d;
 		positionScript.holdTimeMax = 300d;
 		_cacheState = state;
 	}
 
-	void B() {
+	void C() {	
 		positionScript.holdTimeMin = 300d;
 		positionScript.holdTimeMax = 3000d;
 		_cacheState = state;
 	}
 
-	void C() {	
+	void D() {	
 		positionScript.holdTimeMin = 3000d;
 		positionScript.holdTimeMax = 30000d;
 		_cacheState = state;
 	}
 
-	void D() {	
+	void E() {	
 		positionScript.holdTimeMin = 30000d;
 		positionScript.holdTimeMax = 300000d;
 		_cacheState = state;
 	}
 
-	void E() {	
+	void F() {	
 		positionScript.holdTimeMin = 300000d;
 		positionScript.holdTimeMax = 3000000d;
 		_cacheState = state;
 	}
 
-	void F() {	
+	void G() {
 		positionScript.holdTimeMin = 3000000d;
 		positionScript.holdTimeMax = 30000000d;
 		_cacheState = state;
 	}
 
-	void G() {
+	void H() {	
 		positionScript.holdTimeMin = 30000000d;
 		positionScript.holdTimeMax = 300000000d;
 		_cacheState = state;
 	}
 
-	void H() {	
+	void I() {	
 		positionScript.holdTimeMin = 300000000d;
 		positionScript.holdTimeMax = 3000000000d;
 		_cacheState = state;
 	}
 
-	void I() {	
+	void J() {	
 		positionScript.holdTimeMin = 3000000000d;
 		positionScript.holdTimeMax = 30000000000d;
 		_cacheState = state;
 	}
 
-	void J() {	
+	void K() {	
 		positionScript.holdTimeMin = 30000000000d;
 		positionScript.holdTimeMax = 300000000000d;
 		_cacheState = state;
 	}
 
-	void K() {	
+	void L() {	
 		positionScript.holdTimeMin = 300000000000d;
 		positionScript.holdTimeMax = 3000000000000d;
 		_cacheState = state;
 	}
 
-	void L() {	
+	void M() {	
 		positionScript.holdTimeMin = 3000000000000d;
 		positionScript.holdTimeMax = 30000000000000d;
 		_cacheState = state;
 	}
 
-	void M() {	
+	void N() {	
 		positionScript.holdTimeMin = 30000000000000d;
 		positionScript.holdTimeMax = 300000000000000d;
 		_cacheState = state;
