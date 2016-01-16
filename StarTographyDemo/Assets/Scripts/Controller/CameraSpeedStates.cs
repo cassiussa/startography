@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 public class CameraSpeedStates : Functions {
 
+	bool test = true;
 	public enum State { Initialize,A,B,C,D,E,F,G,H,I,J,K,L,M,N }
 	
 	public State state = State.Initialize;

@@ -52,8 +52,8 @@ public class ScaleStates : Functions {
 	Light starLight;
 	float lightRange;
 	//Dictionary<string, GameObject> lightGameObjects = new Dictionary<string, GameObject>();
-	public GameObject[] lightGameObjectsArray;
-	public StarLightScaleStates[] starLightScalesStatesScript;
+	GameObject[] lightGameObjectsArray;
+	StarLightScaleStates[] starLightScalesStatesScript;
 	Dictionary<string, Light> lights = new Dictionary<string, Light>();
 	
 	PositionProcessing positionProcessingScript;
