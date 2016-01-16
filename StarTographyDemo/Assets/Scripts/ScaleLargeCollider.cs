@@ -19,7 +19,7 @@ public class ScaleLargeCollider : MonoBehaviour {
 	
 	void OnTriggerExit(Collider other) {
 		if (other.gameObject.tag == "MainCamera") {
-			Debug.LogError ("large exited");
+			//Debug.LogError ("large exited");
 			fadeMaterial.fadeIn = false;
 			fadeMaterial.largeEntered = false;
 		}

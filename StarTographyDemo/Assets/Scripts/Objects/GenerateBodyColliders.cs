@@ -25,7 +25,7 @@ public class GenerateBodyColliders : Functions {
 
 		string[] inputs;																		// Array of strings of distance types
 		double[] measurements;																	// Array of doubles of distances taken from Constants.cs file
-		inputs = new string[] { "A","B","C","D","E","F","G","H","I","J","K","L","M", "N" };			// Create an array of the names (string) of each scale state
+		inputs = new string[] { "A","B","C","D","E","F","G","H","I","J","K","L","M","N" };			// Create an array of the names (string) of each scale state
 		measurements = new double[] { 
 			10000,
 			100000,
