@@ -21,7 +21,7 @@ public class PositionProcessing : Positioning {
 			position = S3dToV3d(GetComponent<ObjectData> ().coordinates);
 		} else if (objectDataScript.celestialBodyType == ObjectData.CelestialBodyType.Star) {
 			Debug.Log ("My god! It's full of stars!");
-			position = S3dToV3d(GetComponent<DistanceMarkerData> ().coordinates);
+			//position = S3dToV3d(GetComponent<DistanceMarkerData> ().coordinates);
 		} else {
 			Debug.Log ("It's not an object or a star?");
 			//position = GetComponent<SunLightPosition>().position;

@@ -48,12 +48,12 @@ public class GenerateDistanceVisuals : Functions {
 									trans.gameObject.layer = thisLayer;													// ...assign the layer value based on the calculated layer
 								}
 								Debug.LogError ("bah "+measurements[thisScaleSize],distanceMarker);
-								distanceMarker.GetComponent<DistanceMarkerData>().radius = V3dToS3d(new Vector3d(		// Assign the radius variable values based on the double value from the Constants script
+								/*distanceMarker.GetComponent<DistanceMarkerData>().radius = V3dToS3d(new Vector3d(		// Assign the radius variable values based on the double value from the Constants script
                                                  distanceMarkersRadius[i],
                                                  distanceMarkersRadius[i],
-                                                 distanceMarkersRadius[i]));
-								//distanceMarker.GetComponent<DistanceMarkerData>().celestialBodyType = CelestialBodyType.UserInterface;
-								distanceMarker.GetComponent<DistanceMarkerData>().coordinates = GetComponent<ObjectData>().coordinates;	// Assign the coordinates from the origin gameObject (star)
+                                                 distanceMarkersRadius[i]));*/
+
+								//distanceMarker.GetComponent<DistanceMarkerData>().coordinates = GetComponent<ObjectData>().coordinates;	// Assign the coordinates from the origin gameObject (star)
 								distanceMarker.transform.localRotation = new Quaternion (0f, 0f, 0f, 0f);				// Reset the rotation of the newly-created gameObject
 								distanceMarker.transform.localScale = new Vector3 (1f, 1f, 1f);							// Reset the scale of the newly-created gameObject
 								positionProcessingScript = distanceMarker.GetComponent<PositionProcessing>();

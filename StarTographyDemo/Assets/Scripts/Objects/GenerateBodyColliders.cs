@@ -25,7 +25,13 @@ public class GenerateBodyColliders : Functions {
 
 		string[] inputs;																		// Array of strings of distance types
 		double[] measurements;																	// Array of doubles of distances taken from Constants.cs file
-		inputs = new string[] { "A","B","C","D","E","F","G","H","I","J","K","L","M", "N" };			// Create an array of the names (string) of each scale state
+		if (objectDataScript.celestialBodyType == ObjectData.CelestialBodyType.Planet) {
+			inputs = new string[] { "A","B","C","D"};											// Planets only get 4 sphere colliders
+		} else if (objectDataScript.celestialBodyType == ObjectData.CelestialBodyType.Star) {
+			inputs = new string[] { "A","B","C","D","E","F","G","H","I","J","K","L","M", "N" };	// Create an array of the names (string) of each scale state
+		} else {
+			inputs = new string[] { "A","B" };													// Create an array of the names (string) of each scale state
+		}
 		measurements = new double[] { 
 			10000,
 			100000,

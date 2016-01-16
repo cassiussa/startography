@@ -9,7 +9,8 @@ public class ObjectData : Functions {
 		Planet,
 		Star,
 		StarLight,
-		UserInterface
+		UserInterface,
+		DistanceMarker
 	}
 	ScaleStates scaleStatesScript;
 	StarLightScaleStates starLightScaleStatesScript;
