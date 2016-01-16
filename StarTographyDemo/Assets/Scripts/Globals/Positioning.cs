@@ -29,7 +29,6 @@ public class Positioning : Functions {
 	float factor = 0f;
 	float zAcceleration = 0f;					// How fast will object reach a maximum speed 
 	float xAcceleration = 0f;					// How fast will object reach a maximum speed 
-	float Deceleration = 75000f;				// How fast will object reach a speed of 0
 
 	Vector3d thisPosition = new Vector3d (0d, 0d, 0d);
 	[HideInInspector]
@@ -57,7 +56,6 @@ public class Positioning : Functions {
 		 */
 		float horizontal = Input.GetAxis ("Horizontal")*-1;
 		float vertical = Input.GetAxis ("Vertical");
-		//Debug.Log ("horizontal = " + horizontal+", vertical = "+vertical);
 
 		/*
 		 * Controller Mapping for Right Analog Stick
@@ -80,17 +78,17 @@ public class Positioning : Functions {
 		                            camPosition.y, 
 		                            camPosition.z + zAcceleration);
 
-		if (vertical != 0) {
-			holdTime +=  Time.deltaTime*holdTime;
+		if (vertical != 0 || horizontal != 0) {
+			holdTime += Time.deltaTime * holdTime;
 			holdTime = Mathf.Clamp ((float)holdTime, (float)holdTimeMin, (float)holdTimeMax);
-			factor = ((float)holdTime * vertical);
-			zAcceleration = factor;
+			zAcceleration = ((float)holdTime * vertical);
+			xAcceleration = ((float)holdTime * horizontal);
 		} else {
+			xAcceleration = 0;
 			zAcceleration = 0;
+			holdTime = 0f;
 		}
 
-		if(vertical == 0 && horizontal == 0)
-			holdTime = 0f;
 
 		//Debug.Log ("holdTime = " + holdTime);
 	}
