@@ -39,13 +39,14 @@ public class Positioning : Functions {
 	double holdTime = 0;
 	bool timeSet = false;
 
+	GameObject cacheMovement;
+
 	void Awake(){
 		holdTimeMin = 300d;
 		holdTimeMax = 3000d;
 		cacheMovement = new GameObject();
 	}
-
-	GameObject cacheMovement;
+	
 	void Update () {
 		/*
 		 * Controller Mapping for Left Analog Stick

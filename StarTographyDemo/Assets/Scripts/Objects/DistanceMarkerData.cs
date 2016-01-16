@@ -2,7 +2,11 @@
 using System.Collections;
 
 public class DistanceMarkerData : Functions {
-
+	public enum CelestialBodyType {
+		Planet,
+		Star,
+		UserInterface
+	}
 	ScaleStates scaleStatesScript;
 
 	public CelestialBodyType celestialBodyType;
