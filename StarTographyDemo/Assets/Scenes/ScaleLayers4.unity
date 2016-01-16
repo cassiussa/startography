@@ -528,7 +528,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &82396082
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -555,9 +555,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   state: 0
   thisScale: 0
-  meshes: []
-  isSun: 0
-  hittingCamera: 0
+  lightGameObjectsArray: []
+  meshes: {fileID: 0}
 --- !u!4 &82396086
 Transform:
   m_ObjectHideFlags: 0
@@ -583,6 +582,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c7a4498cd9e848a486fc890cbfad0d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  celestialBodyType: 0
   coordinates:
     x: -149598262
     y: 0
@@ -1158,8 +1158,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a330029f047de4b8d97b1c1539b1b42f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scaleStatesScript: {fileID: 0}
-  collisionCount: 0
 --- !u!1 &294396437
 GameObject:
   m_ObjectHideFlags: 0
@@ -1774,9 +1772,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   state: 0
   thisScale: 0
-  meshes: []
-  isSun: 0
-  hittingCamera: 0
+  lightGameObjectsArray: []
+  meshes: {fileID: 0}
 --- !u!114 &403842784
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1788,6 +1785,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c7a4498cd9e848a486fc890cbfad0d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  celestialBodyType: 0
   coordinates:
     x: 0
     y: 0
@@ -2645,6 +2643,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c7a4498cd9e848a486fc890cbfad0d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  celestialBodyType: 0
   coordinates:
     x: 100000000
     y: 0
@@ -2679,9 +2678,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   state: 0
   thisScale: 0
-  meshes: []
-  isSun: 0
-  hittingCamera: 0
+  lightGameObjectsArray: []
+  meshes: {fileID: 0}
 --- !u!23 &659638057
 Renderer:
   m_ObjectHideFlags: 0
@@ -3190,7 +3188,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: df42500788d1c2f4d96e5db4ff3c2c5d, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: df42500788d1c2f4d96e5db4ff3c2c5d, type: 3}
       propertyPath: m_Name
@@ -3815,6 +3813,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c7a4498cd9e848a486fc890cbfad0d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  celestialBodyType: 0
   coordinates:
     x: 100000000
     y: 0
@@ -3849,9 +3848,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   state: 0
   thisScale: 0
-  meshes: []
-  isSun: 0
-  hittingCamera: 0
+  lightGameObjectsArray: []
+  meshes: {fileID: 0}
 --- !u!23 &964901401
 Renderer:
   m_ObjectHideFlags: 0
@@ -4358,6 +4356,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c7a4498cd9e848a486fc890cbfad0d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  celestialBodyType: 0
   coordinates:
     x: 0
     y: -227943824
@@ -4392,9 +4391,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   state: 0
   thisScale: 0
-  meshes: []
-  isSun: 0
-  hittingCamera: 0
+  lightGameObjectsArray: []
+  meshes: {fileID: 0}
 --- !u!4 &1094652979
 Transform:
   m_ObjectHideFlags: 0
@@ -4540,9 +4538,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   state: 0
   thisScale: 0
-  meshes: []
-  isSun: 0
-  hittingCamera: 0
+  lightGameObjectsArray: []
+  meshes: {fileID: 0}
 --- !u!114 &1132309942
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4554,6 +4551,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c7a4498cd9e848a486fc890cbfad0d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  celestialBodyType: 0
   coordinates:
     x: 0
     y: 0
@@ -4849,8 +4847,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a330029f047de4b8d97b1c1539b1b42f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scaleStatesScript: {fileID: 0}
-  collisionCount: 0
 --- !u!54 &1166539212
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -5452,7 +5448,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1303949536
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5479,9 +5475,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   state: 0
   thisScale: 0
-  meshes: []
-  isSun: 1
-  hittingCamera: 0
+  lightGameObjectsArray: []
+  meshes: {fileID: 0}
 --- !u!4 &1303949540
 Transform:
   m_ObjectHideFlags: 0
@@ -5502,7 +5497,7 @@ Light:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1303949535}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Type: 2
   m_Color: {r: 1, g: .937110722, b: .82071799, a: 1}
@@ -5542,6 +5537,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c7a4498cd9e848a486fc890cbfad0d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  celestialBodyType: 1
   coordinates:
     x: 0
     y: 0
@@ -5653,9 +5649,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   state: 0
   thisScale: 0
-  meshes: []
-  isSun: 0
-  hittingCamera: 0
+  lightGameObjectsArray: []
+  meshes: {fileID: 0}
 --- !u!23 &1312816698
 Renderer:
   m_ObjectHideFlags: 0
@@ -5710,6 +5705,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c7a4498cd9e848a486fc890cbfad0d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  celestialBodyType: 0
   coordinates:
     x: 0
     y: 0
@@ -7049,9 +7045,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   state: 0
   thisScale: 0
-  meshes: []
-  isSun: 0
-  hittingCamera: 0
+  lightGameObjectsArray: []
+  meshes: {fileID: 0}
 --- !u!114 &1705622336
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7063,6 +7058,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c7a4498cd9e848a486fc890cbfad0d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  celestialBodyType: 0
   coordinates:
     x: 0
     y: -1426666422
@@ -7308,7 +7304,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: df42500788d1c2f4d96e5db4ff3c2c5d, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: df42500788d1c2f4d96e5db4ff3c2c5d, type: 3}
       propertyPath: m_Name
@@ -7618,8 +7614,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a330029f047de4b8d97b1c1539b1b42f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scaleStatesScript: {fileID: 0}
-  collisionCount: 0
 --- !u!54 &1859650854
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -7760,7 +7754,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1886891872
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7772,6 +7766,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c7a4498cd9e848a486fc890cbfad0d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  celestialBodyType: 0
   coordinates:
     x: 0
     y: -778340821
@@ -7806,9 +7801,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   state: 0
   thisScale: 0
-  meshes: []
-  isSun: 0
-  hittingCamera: 0
+  lightGameObjectsArray: []
+  meshes: {fileID: 0}
 --- !u!114 &1886891875
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7820,8 +7814,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a330029f047de4b8d97b1c1539b1b42f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scaleStatesScript: {fileID: 0}
-  collisionCount: 0
 --- !u!4 &1886891877
 Transform:
   m_ObjectHideFlags: 0
@@ -8757,7 +8749,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: df42500788d1c2f4d96e5db4ff3c2c5d, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: df42500788d1c2f4d96e5db4ff3c2c5d, type: 3}
       propertyPath: m_Name

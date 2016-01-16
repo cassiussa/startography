@@ -49,10 +49,10 @@ public class ScaleStates : Functions {
 	int layerMask;
 
 	// If it contains a light, there's a number of things we'll need to do.  For now, create the variables
-	Light light;
+	Light starLight;
 	float lightRange;
-	Dictionary<string, GameObject> lightGameObjects = new Dictionary<string, GameObject>();
-	public Light[] lightGameObjectsArray;
+	//Dictionary<string, GameObject> lightGameObjects = new Dictionary<string, GameObject>();
+	GameObject[] lightGameObjectsArray;
 	Dictionary<string, Light> lights = new Dictionary<string, Light>();
 	
 	PositionProcessing positionProcessingScript;
@@ -110,7 +110,7 @@ public class ScaleStates : Functions {
 			scaleStateParent.Add (inputs [i], GameObject.Find (scaleStatesParents.name + inputs [i]).transform);
 		}
 
-		lightGameObjectsArray = new Light[5];														// Set the size to 5 as that's the number of lights we create for 5 scale states
+
 
 		/* 
 		 * Create a series of lights as this gameObject contains a light.  We need to create one
@@ -118,68 +118,47 @@ public class ScaleStates : Functions {
 		 * be represented in that state's space and cast light on the gameObjects within the
 		 * layer.
 		 */
-		light = GetComponent<Light> ();																// Add the Light component if there is one
-		if (light) {
+		objectDataScript = GetComponent<ObjectData> ();
+
+		starLight = GetComponent<Light> ();															// Add the Light component if there is one
+		if (objectDataScript.celestialBodyType == ObjectData.CelestialBodyType.Star) {
+			lightGameObjectsArray = new GameObject[5];												// Set the size to 5 as that's the number of lights we create for 5 scale states
 			layerMask = 8;																			// 8 is the lowest layer we can manually create or edit
 			lightRange = light.range;																// cache the original light Range
-			for (int i=0; i<5; i++) {																// Limit to the 5 smallest scales.  Anything beyond that would be crazy
-				lightGameObjects.Add (inputs [i], new GameObject ("Light - " + gameObject.name));	// Create empty gameObjects on the fly and reference them in the Dictionary
-				GameObject lightGameObject = lightGameObjects [inputs [i]];							// Create a variable for this GameObject for faster processing
-				lightGameObject.transform.parent = scaleStateParent [inputs [i]];					// Set this gameObject's parent to the appropriate scale's gameObject container
+			for (int i=0; i<5; i++) {																// Limit to the 5 smallest scales.  Anything beyond that would be crazy			
 				double thisMeasurement = measurements [i];											// Cache the measurement for this iteration to save processing
 				Vector3d thisPosition = new Vector3d (												// Set the initial position of the new light gameObjects
 					((System.Math.Abs (positionProcessingScript.position.x) / thisMeasurement) * maxUnits),
 					((System.Math.Abs (positionProcessingScript.position.y) / thisMeasurement) * maxUnits),
 					((System.Math.Abs (positionProcessingScript.position.z) / thisMeasurement) * maxUnits));
-				lightGameObject.transform.position = V3dToV3 (thisPosition);
-				lightGameObject.layer = i + layerMask;												// Set the layer.  Note that 8 is the lowest layer we've made
-				lights.Add (inputs [i], lightGameObject.AddComponent<Light> ());					// Add the Light component to the gameObjects
-				lightGameObjectsArray[i] = lightGameObject.GetComponent<Light> ();					// Get an array of the Light components so we can quickly iterate
+
+				lightGameObjectsArray[i] =  Instantiate (Resources.Load ("Prefabs/StarLightObject")) as GameObject;		// Instantiate the light and assign it into the array
+				lightGameObjectsArray[i].name = gameObject.name+" Light";							// Rename the gameObject
+				lightGameObjectsArray[i].transform.parent = scaleStateParent [inputs [i]];			// Set this gameObject's parent to the appropriate scale's gameObject container
+				lightGameObjectsArray[i].transform.position = V3dToV3 (thisPosition);				// Assign the initial position of this light's gameObject
+				lightGameObjectsArray[i].layer = i + layerMask;										// Set the layer.  Note that 8 is the lowest layer we've made
+				lights.Add (inputs [i], lightGameObjectsArray[i].GetComponent<Light> ());			// Add the Light component to the gameObjects
 				float calculatedRange = (float)((light.range / measurements [i]) * maxUnits);		// Range of the light depending on State
+
 				lights [inputs [i]].range = calculatedRange;										// Copy the light's Range from the original light's Range
 				lights [inputs [i]].intensity = light.intensity;									// as well as the light's intensity
 				lights [inputs [i]].color = light.color;											// and the light's colour
 				lights [inputs [i]].cullingMask = 1 << i + layerMask;								// Now set the culling mask for the light
 
-				lights [inputs [i]].gameObject.AddComponent<PositionProcessing>();					// Add the PositionProcessing script so we can move the lights
-				lights [inputs [i]].gameObject.GetComponent<PositionProcessing>().enabled = true;	// Enable the script as it seems to be disabled by default
+				//lights [inputs [i]].gameObject.AddComponent<PositionProcessing>();					// Add the PositionProcessing script so we can move the lights
+				//lights [inputs [i]].gameObject.GetComponent<PositionProcessing>().enabled = true;	// Enable the script as it seems to be disabled by default
 
 			}
 		}
-
-
-		//objectDataScript = GetComponent<ObjectData> ();
-		if (!GetComponent<ObjectData> ()) {
-			if (GetComponent<DistanceMarkerData> ().celestialBodyType != CelestialBodyType.UserInterface) {
-				meshes = gameObject.transform.Find ("Mesh").gameObject;
-			}
-			
+		if (objectDataScript.celestialBodyType == ObjectData.CelestialBodyType.Planet ||
+		    objectDataScript.celestialBodyType == ObjectData.CelestialBodyType.Star) {
+			meshes = gameObject.transform.Find ("Mesh").gameObject;
 			// Add the visuals script centered around the star
-			if (GetComponent<DistanceMarkerData> ().celestialBodyType == CelestialBodyType.Star) {
-				gameObject.AddComponent<GenerateDistanceVisuals> ();
-			}
-			
-			if (GetComponent<DistanceMarkerData> ().celestialBodyType == CelestialBodyType.Planet || GetComponent<DistanceMarkerData> ().celestialBodyType == CelestialBodyType.Star) {
-				gameObject.AddComponent<GenerateBodyColliders> ();
-			}
-
-		} else if (GetComponent<ObjectData> ()) {
-			if (GetComponent<ObjectData> ().celestialBodyType != CelestialBodyType.UserInterface) {
-				meshes = gameObject.transform.Find ("Mesh").gameObject;
-			}
-
-			// Add the visuals script centered around the star
-			if (GetComponent<ObjectData> ().celestialBodyType == CelestialBodyType.Star) {
-				gameObject.AddComponent<GenerateDistanceVisuals> ();
-			}
-
-			if (GetComponent<ObjectData> ().celestialBodyType == CelestialBodyType.Planet || GetComponent<ObjectData> ().celestialBodyType == CelestialBodyType.Star) {
-				gameObject.AddComponent<GenerateBodyColliders> ();
-			}
-		} else {
-			Debug.LogError ("There is no ObjectData script nor a DistanceMarkerData script attached.", gameObject);
+			//gameObject.AddComponent<GenerateDistanceVisuals> ();
+			gameObject.AddComponent<GenerateBodyColliders> ();
 		}
-
+		
+		
 	}
 	
 	// NOTE: Async version of Start.
@@ -249,11 +228,6 @@ public class ScaleStates : Functions {
 			}
 		}
 
-		/*if (hittingCamera == false && state != thisScale) {
-			SetState (State.LightHour);
-			Debug.LogError ("just set state to LightHour...  but why?",gameObject);
-		}*/
-
 		if (state != thisScale)																// Only perform the state transition if we're not already in the same state
 			SetState (thisScale);															// Assign the scale that was determined by distance from origin Vector3(0,0,0)
 
@@ -267,15 +241,15 @@ public class ScaleStates : Functions {
 	}
 	
 
-	void SubMillion() {																		// This State is heavily commented as each other state uses same conditions
+	void SubMillion() {																				// This State is heavily commented as each other state uses same conditions
 		CalculatePosition (SM, positionProcessingScript.position, positioningScript.camPosition);	// Calculate the relative position based on real position and scale of this State
 		layerMask = 8;
-		if (_cacheState != state) {															// Without this we get crazy bugs.  Don't know why.  It needs to be here for code efficiency anyways!
+		if (_cacheState != state) {																	// Without this we get crazy bugs.  Don't know why.  It needs to be here for code efficiency anyways!
 			StateFunction(layerMask, SM, "SM", 1f, "", "SM", "MK", 0d, SM, MK);							
 			_cacheState = state;
 		
-			if (light) {																		// Check if this gameObject is, or contains, a light
-				Lights("MK", MK);																// Activate or deactivate the lights, depending on state
+			if (objectDataScript.celestialBodyType == ObjectData.CelestialBodyType.Star) {			// Check if this gameObject is, or contains, a light
+				Lights(true, "MK", MK);																	// Activate or deactivate the lights, depending on state
 			}
 		}
 	}
@@ -287,8 +261,8 @@ public class ScaleStates : Functions {
 			StateFunction(layerMask, MK, "MK", 1f, "SM", "MK", "AU", SM, MK, AU);
 			_cacheState = state;
 		
-			if (light) {
-				Lights("MK", MK);
+			if (objectDataScript.celestialBodyType == ObjectData.CelestialBodyType.Star) {
+				Lights(true, "MK", MK);
 			}
 		}
 	}
@@ -300,8 +274,8 @@ public class ScaleStates : Functions {
 			StateFunction(layerMask, AU, "AU", 1f, "MK", "AU", "LH", MK, AU, LH);
 			_cacheState = state;
 		
-			if (light) {
-				Lights("AU", AU);
+			if (objectDataScript.celestialBodyType == ObjectData.CelestialBodyType.Star) {
+				Lights(true, "AU", AU);
 			}
 		}
 	}
@@ -313,8 +287,8 @@ public class ScaleStates : Functions {
 			StateFunction(layerMask, LH, "LH", 1f, "AU", "LH", "Ld", AU, LH, Ld);
 			_cacheState = state;
 		
-			if (light) {
-				Lights("LH", LH);
+			if (objectDataScript.celestialBodyType == ObjectData.CelestialBodyType.Star) {
+				Lights(true, "LH", LH);
 			}
 		}
 	}
@@ -326,8 +300,8 @@ public class ScaleStates : Functions {
 			StateFunction(layerMask, Ld, "Ld", 1f, "LH", "Ld", "LY", LH, Ld, LY);
 			_cacheState = state;
 		
-			if (light) {
-				Lights("Ld", Ld);
+			if (objectDataScript.celestialBodyType == ObjectData.CelestialBodyType.Star) {
+				Lights(true, "Ld", Ld);
 			}
 		}
 	}
@@ -338,9 +312,10 @@ public class ScaleStates : Functions {
 		if (_cacheState != state) {
 			StateFunction(layerMask, LY, "LY", 0f, "Ld", "LY", "PA", Ld, LY, PA);
 			_cacheState = state;
-		
-			if (light)
-				light.enabled = false;
+
+			if (objectDataScript.celestialBodyType == ObjectData.CelestialBodyType.Star) {
+				Lights(false, "LY", LY);
+			}
 		}
 	}
 
@@ -351,8 +326,9 @@ public class ScaleStates : Functions {
 			StateFunction(layerMask, PA, "PA", 0f, "LY", "PA", "LD", LY, PA, LD);
 			_cacheState = state;
 		
-			if (light)
-				light.enabled = false;
+			if (objectDataScript.celestialBodyType == ObjectData.CelestialBodyType.Star) {
+				Lights(false, "PA", PA);
+			}
 		}
 	}
 
@@ -362,9 +338,10 @@ public class ScaleStates : Functions {
 		if (_cacheState != state) {
 			StateFunction(layerMask, LD, "LD", 0f, "PA", "LD", "LC", PA, LD, LC);
 			_cacheState = state;
-		
-			if (light)
-				light.enabled = false;
+
+			if (objectDataScript.celestialBodyType == ObjectData.CelestialBodyType.Star) {
+				Lights(false, "LD", LD);
+			}
 		}
 	}
 
@@ -375,8 +352,9 @@ public class ScaleStates : Functions {
 			StateFunction(layerMask, LC, "LC", 0f, "LD", "LC", "LM", LD, LC, LM);
 			_cacheState = state;
 		
-			if (light)
-				light.enabled = false;
+			if (objectDataScript.celestialBodyType == ObjectData.CelestialBodyType.Star) {
+				Lights(false, "LC", LC);
+			}
 		}
 	}
 
@@ -388,8 +366,9 @@ public class ScaleStates : Functions {
 			StateFunction(layerMask, LM, "LM", 0f, "LC", "LM", "", LC, LM, 0d);
 			_cacheState = state;
 		
-			if (light)
-				light.enabled = false;
+			if (objectDataScript.celestialBodyType == ObjectData.CelestialBodyType.Star) {
+				Lights(false, "LM", LM);
+			}
 		}
 	}
 
@@ -463,18 +442,11 @@ public class ScaleStates : Functions {
 	 * disabled, and vice versa.  This way we ensure that we have consistent lighting
 	 * on any given body as it goes from one state to the next.
 	 */
-	void Lights(string valueS, double valueD) {
-		light.cullingMask = 1 << layerMask;										// set the culling mask to use the Nth layer
-		float calculatedRange = (float)((lightRange/valueD) * maxUnits);		// Range of the light depending on State
-		light.range = calculatedRange;											// Set the light's Range for the original light
-		light.enabled = true;													// If this gameObject contains a light then enable it for this State
-
+	void Lights(bool isOn, string valueS, double valueD) {
 		// Iterate through the 6 smallest states
 		for(int i=0;i<5;i++) {
-			if(inputs[i] != valueS)
-				lightGameObjectsArray[i].active = true;							// Enable the Light component
-			else
-				lightGameObjectsArray[i].active = false;						// Disable the Light component because the star is in the same distance state
+			lightGameObjectsArray[i].active = isOn;	// Enable or disable the Light component
 		}
+
 	}
 }

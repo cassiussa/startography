@@ -1,15 +1,16 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public enum CelestialBodyType {
-	Planet,
-	Star,
-	UserInterface
-}
+
 
 
 public class ObjectData : Functions {
-
+	public enum CelestialBodyType {
+		Planet,
+		Star,
+		StarLight,
+		UserInterface
+	}
 	ScaleStates scaleStatesScript;
 
 	public CelestialBodyType celestialBodyType;
@@ -30,5 +31,8 @@ public class ObjectData : Functions {
 		scaleStatesScript.thisLocalScale.x *= 2;
 		scaleStatesScript.thisLocalScale.y *= 2;
 		scaleStatesScript.thisLocalScale.z *= 2;
+
+		if (celestialBodyType == CelestialBodyType.Star)
+			gameObject.AddComponent<StarLightObjectBuilder> ();
 	}
 }

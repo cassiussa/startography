@@ -19,7 +19,7 @@ public class PositionProcessing : Positioning {
 		starDataScript = GetComponent<StarData> ();
 		if (GetComponent<ObjectData> ()) {
 			position = S3dToV3d(GetComponent<ObjectData> ().coordinates);
-		} else if (GetComponent<DistanceMarkerData> ()) {
+		} else if (objectDataScript.celestialBodyType == ObjectData.CelestialBodyType.Star) {
 			Debug.Log ("My god! It's full of stars!");
 			position = S3dToV3d(GetComponent<DistanceMarkerData> ().coordinates);
 		} else {

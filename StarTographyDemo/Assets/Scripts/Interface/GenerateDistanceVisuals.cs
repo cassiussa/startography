@@ -52,7 +52,7 @@ public class GenerateDistanceVisuals : Functions {
                                                  distanceMarkersRadius[i],
                                                  distanceMarkersRadius[i],
                                                  distanceMarkersRadius[i]));
-								distanceMarker.GetComponent<DistanceMarkerData>().celestialBodyType = CelestialBodyType.UserInterface;
+								//distanceMarker.GetComponent<DistanceMarkerData>().celestialBodyType = CelestialBodyType.UserInterface;
 								distanceMarker.GetComponent<DistanceMarkerData>().coordinates = GetComponent<ObjectData>().coordinates;	// Assign the coordinates from the origin gameObject (star)
 								distanceMarker.transform.localRotation = new Quaternion (0f, 0f, 0f, 0f);				// Reset the rotation of the newly-created gameObject
 								distanceMarker.transform.localScale = new Vector3 (1f, 1f, 1f);							// Reset the scale of the newly-created gameObject
