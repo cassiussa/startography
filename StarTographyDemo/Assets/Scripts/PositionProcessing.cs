@@ -12,7 +12,6 @@ public class PositionProcessing : Positioning {
 	ObjectData objectDataScript;								// The script that we get initial telemetry from
 	StarData starDataScript;
 	public Vector3d position;
-	public Vector3d angle;
 
 	float random;
 	void Awake() {
@@ -25,16 +24,13 @@ public class PositionProcessing : Positioning {
 			position = S3dToV3d(GetComponent<DistanceMarkerData> ().coordinates);
 		} else {
 			Debug.Log ("It's not an object or a star?");
-			position = S3dToV3d(objectDataScript.coordinates);
+			//position = GetComponent<SunLightPosition>().position;
 		}
 
-		angle = new Vector3d (transform.eulerAngles.x, transform.eulerAngles.y, transform.eulerAngles.z);
-		random = Random.Range (-10.0f, -5.0f);
 	}
 
-	// Update is called once per frame
+	// I don't know why, but this update needs to be here or stuff breaks
 	void Update () {
-		angle = new Vector3d (angle.x, angle.y + (random*Time.deltaTime), angle.z);
-		//transform.eulerAngles = V3dToV3(angle);
+
 	}
 }

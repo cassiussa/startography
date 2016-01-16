@@ -531,6 +531,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   state: 0
   thisScale: 0
+  lightGameObjectsArray: []
   meshes: {fileID: 0}
 --- !u!4 &82396086
 Transform:
@@ -1539,6 +1540,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   state: 0
   thisScale: 0
+  lightGameObjectsArray: []
   meshes: {fileID: 0}
 --- !u!114 &403842784
 MonoBehaviour:
@@ -3555,6 +3557,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   state: 0
   thisScale: 0
+  lightGameObjectsArray: []
   meshes: {fileID: 0}
 --- !u!114 &927472709
 MonoBehaviour:
@@ -3840,6 +3843,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   state: 0
   thisScale: 0
+  lightGameObjectsArray: []
   meshes: {fileID: 0}
 --- !u!23 &964901401
 Renderer:
@@ -4356,6 +4360,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   state: 0
   thisScale: 0
+  lightGameObjectsArray: []
   meshes: {fileID: 0}
 --- !u!114 &1094652977
 MonoBehaviour:
@@ -4649,6 +4654,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   state: 0
   thisScale: 0
+  lightGameObjectsArray: []
   meshes: {fileID: 0}
 --- !u!114 &1132309942
 MonoBehaviour:
@@ -5590,6 +5596,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   state: 0
   thisScale: 0
+  lightGameObjectsArray: []
   meshes: {fileID: 0}
 --- !u!4 &1303949540
 Transform:
@@ -5759,6 +5766,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   state: 0
   thisScale: 0
+  lightGameObjectsArray: []
   meshes: {fileID: 0}
 --- !u!4 &1312816700
 Transform:
@@ -7198,6 +7206,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   state: 0
   thisScale: 0
+  lightGameObjectsArray: []
   meshes: {fileID: 0}
 --- !u!114 &1705622336
 MonoBehaviour:
@@ -7764,6 +7773,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   state: 0
   thisScale: 0
+  lightGameObjectsArray: []
   meshes: {fileID: 0}
 --- !u!4 &1886891877
 Transform:
@@ -8186,6 +8196,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   state: 0
   thisScale: 0
+  lightGameObjectsArray: []
   meshes: {fileID: 0}
 --- !u!114 &1979474559
 MonoBehaviour:

@@ -44,7 +44,7 @@ public class ScaleStates : Functions {
 	public Vector3d thisLocalScale;
 	Vector3d prevLocalScale = new Vector3d (1d, 1d, 1d);
 	Vector3d newLocalScale = new Vector3d (1d, 1d, 1d);
-	double localScaleRatio = 0;
+	double localScaleRatio = 0d;
 
 	int layerMask;
 
@@ -52,6 +52,7 @@ public class ScaleStates : Functions {
 	Light light;
 	float lightRange;
 	Dictionary<string, GameObject> lightGameObjects = new Dictionary<string, GameObject>();
+	public Light[] lightGameObjectsArray;
 	Dictionary<string, Light> lights = new Dictionary<string, Light>();
 	
 	PositionProcessing positionProcessingScript;
@@ -109,33 +110,40 @@ public class ScaleStates : Functions {
 			scaleStateParent.Add (inputs [i], GameObject.Find (scaleStatesParents.name + inputs [i]).transform);
 		}
 
+		lightGameObjectsArray = new Light[5];														// Set the size to 5 as that's the number of lights we create for 5 scale states
+
 		/* 
 		 * Create a series of lights as this gameObject contains a light.  We need to create one
 		 * for each of the the smallest 5 states.  We can then position each light where it would
 		 * be represented in that state's space and cast light on the gameObjects within the
 		 * layer.
 		 */
-		light = GetComponent<Light> ();
+		light = GetComponent<Light> ();																// Add the Light component if there is one
 		if (light) {
-			layerMask = 8;																		// 8 is the lowest layer we can manually create or edit
-			lightRange = light.range;															// cache the original light Range
+			layerMask = 8;																			// 8 is the lowest layer we can manually create or edit
+			lightRange = light.range;																// cache the original light Range
 			for (int i=0; i<5; i++) {																// Limit to the 5 smallest scales.  Anything beyond that would be crazy
 				lightGameObjects.Add (inputs [i], new GameObject ("Light - " + gameObject.name));	// Create empty gameObjects on the fly and reference them in the Dictionary
-				GameObject lightGameObject = lightGameObjects [inputs [i]];						// Create a variable for this GameObject for faster processing
+				GameObject lightGameObject = lightGameObjects [inputs [i]];							// Create a variable for this GameObject for faster processing
 				lightGameObject.transform.parent = scaleStateParent [inputs [i]];					// Set this gameObject's parent to the appropriate scale's gameObject container
-				double thisMeasurement = measurements [i];										// Cache the measurement for this iteration to save processing
-				Vector3d thisPosition = new Vector3d (// Set the initial position of the new light gameObjects
+				double thisMeasurement = measurements [i];											// Cache the measurement for this iteration to save processing
+				Vector3d thisPosition = new Vector3d (												// Set the initial position of the new light gameObjects
 					((System.Math.Abs (positionProcessingScript.position.x) / thisMeasurement) * maxUnits),
 					((System.Math.Abs (positionProcessingScript.position.y) / thisMeasurement) * maxUnits),
 					((System.Math.Abs (positionProcessingScript.position.z) / thisMeasurement) * maxUnits));
 				lightGameObject.transform.position = V3dToV3 (thisPosition);
-				lightGameObject.layer = i + layerMask;											// Set the layer.  Note that 8 is the lowest layer we've made
+				lightGameObject.layer = i + layerMask;												// Set the layer.  Note that 8 is the lowest layer we've made
 				lights.Add (inputs [i], lightGameObject.AddComponent<Light> ());					// Add the Light component to the gameObjects
+				lightGameObjectsArray[i] = lightGameObject.GetComponent<Light> ();					// Get an array of the Light components so we can quickly iterate
 				float calculatedRange = (float)((light.range / measurements [i]) * maxUnits);		// Range of the light depending on State
 				lights [inputs [i]].range = calculatedRange;										// Copy the light's Range from the original light's Range
 				lights [inputs [i]].intensity = light.intensity;									// as well as the light's intensity
 				lights [inputs [i]].color = light.color;											// and the light's colour
 				lights [inputs [i]].cullingMask = 1 << i + layerMask;								// Now set the culling mask for the light
+
+				lights [inputs [i]].gameObject.AddComponent<PositionProcessing>();					// Add the PositionProcessing script so we can move the lights
+				lights [inputs [i]].gameObject.GetComponent<PositionProcessing>().enabled = true;	// Enable the script as it seems to be disabled by default
+
 			}
 		}
 
@@ -464,9 +472,9 @@ public class ScaleStates : Functions {
 		// Iterate through the 6 smallest states
 		for(int i=0;i<5;i++) {
 			if(inputs[i] != valueS)
-				lightGameObjects[inputs[i]].SetActive(true);
+				lightGameObjectsArray[i].active = true;							// Enable the Light component
 			else
-				lightGameObjects[inputs[i]].SetActive(false);
+				lightGameObjectsArray[i].active = false;						// Disable the Light component because the star is in the same distance state
 		}
 	}
 }
