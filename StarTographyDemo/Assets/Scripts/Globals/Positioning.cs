@@ -42,8 +42,10 @@ public class Positioning : Functions {
 	void Awake(){
 		holdTimeMin = 300d;
 		holdTimeMax = 3000d;
+		cacheMovement = new GameObject();
 	}
 
+	GameObject cacheMovement;
 	void Update () {
 		/*
 		 * Controller Mapping for Left Analog Stick
@@ -67,29 +69,34 @@ public class Positioning : Functions {
 		 * 
 		 */
 
-		float turnVertical = Input.GetAxis ("TurnVertical");
-		float turnHorizontal = Input.GetAxis ("TurnHorizontal");
+		float turnVertical = Input.GetAxis ("TurnVertical");										// Get the up/down input from the right analog stick
+		float turnHorizontal = Input.GetAxis ("TurnHorizontal");									// Get the left/right input from the right analog stick
+		transform.Rotate(Vector3.up, turnHorizontal * Time.deltaTime * 20);							// Assign the up/down rotation to the camera itself
+		transform.Rotate(Vector3.right, turnVertical * Time.deltaTime * 20);						// Assign the left/right rotation to the camera itself
 
 
-		transform.Rotate(Vector3.up, turnHorizontal * Time.deltaTime * 20);
-		transform.Rotate(Vector3.right, turnVertical * Time.deltaTime * 20);
 
-		camPosition = new Vector3d (camPosition.x + xAcceleration,
-		                            camPosition.y, 
-		                            camPosition.z + zAcceleration);
-
+		cacheMovement.transform.position = Vector3.zero;											// Reset the cached gameObject's Vector3 position to 0,0,0
+		cacheMovement.transform.rotation = transform.rotation;										// Assign the rotation of the camera to the cached gameObject
 		if (vertical != 0 || horizontal != 0) {
 			holdTime += Time.deltaTime * holdTime;
-			holdTime = Mathf.Clamp ((float)holdTime, (float)holdTimeMin, (float)holdTimeMax);
-			zAcceleration = ((float)holdTime * vertical);
-			xAcceleration = ((float)holdTime * horizontal);
+			holdTime = Mathf.Clamp ((float)holdTime, (float)holdTimeMin, (float)holdTimeMax);		// Clamp the holdTime variable so that we don't get insane exceleration or speed on the camera
+
+			zAcceleration = ((float)holdTime * vertical);											// Calculate the acceleration along the Z axis
+			xAcceleration = ((float)holdTime * horizontal);											// Calculate the acceleration along the X axis
+			cacheMovement.transform.Translate(Vector3.forward * zAcceleration);						// Translate the position of the cached Vector3
+			cacheMovement.transform.Translate(Vector3.right * xAcceleration);						// Translate the position of the cached Vector3
+
 		} else {
-			xAcceleration = 0;
-			zAcceleration = 0;
-			holdTime = 0f;
+			xAcceleration = 0;																		// Reset the acceleration along the X axis
+			zAcceleration = 0;																		// Reset the acceleration along the z axis
+			holdTime = 0f;																			// reset the holdTime variable as no movement on the gamepad was detected
 		}
 
+		camPosition = new Vector3d (																// Create the new double position of where the camera would be if the universe didn't move around it
+			camPosition.x + (cacheMovement.transform.position.x),
+			camPosition.y + (cacheMovement.transform.position.y), 
+			camPosition.z + (cacheMovement.transform.position.z));
 
-		//Debug.Log ("holdTime = " + holdTime);
 	}
 }
