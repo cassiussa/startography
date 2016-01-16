@@ -38,36 +38,36 @@ InputManager:
     axis: 1
     joyNum: 0
   - serializedVersion: 3
-    m_Name: X Axis
-    descriptiveName: Up on Analog
+    m_Name: TurnHorizontal
+    descriptiveName: 
     descriptiveNegativeName: 
-    negativeButton: 
+    negativeButton: 4
     positiveButton: 
     altNegativeButton: 
     altPositiveButton: 
-    gravity: 1000
-    dead: .00100000005
-    sensitivity: 1000
+    gravity: 0
+    dead: .189999998
+    sensitivity: 1
     snap: 0
     invert: 0
     type: 2
-    axis: 0
+    axis: 2
     joyNum: 0
   - serializedVersion: 3
-    m_Name: Y Axis
+    m_Name: TurnVertical
     descriptiveName: 
     descriptiveNegativeName: 
     negativeButton: 
     positiveButton: 
     altNegativeButton: 
     altPositiveButton: 
-    gravity: 1000
-    dead: .00100000005
-    sensitivity: 1000
+    gravity: 0
+    dead: .189999998
+    sensitivity: 1
     snap: 0
     invert: 0
     type: 2
-    axis: 1
+    axis: 3
     joyNum: 0
   - serializedVersion: 3
     m_Name: Down

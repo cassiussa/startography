@@ -26,6 +26,7 @@ public class Positioning : Functions {
 
 	float xSpeed = 0f;							// Don't touch this
 	float zSpeed = 0f;							// Don't touch this
+	float factor = 0f;
 	float zAcceleration = 0f;					// How fast will object reach a maximum speed 
 	float xAcceleration = 0f;					// How fast will object reach a maximum speed 
 	float Deceleration = 75000f;				// How fast will object reach a speed of 0
@@ -45,8 +46,35 @@ public class Positioning : Functions {
 	}
 
 	void Update () {
+		/*
+		 * Controller Mapping for Left Analog Stick
+		 * 
+		 * Left	 +1
+		 * Right -1
+		 * Up	 -1
+		 * Down	 +1
+		 * 
+		 */
 		float horizontal = Input.GetAxis ("Horizontal")*-1;
 		float vertical = Input.GetAxis ("Vertical");
+		//Debug.Log ("horizontal = " + horizontal+", vertical = "+vertical);
+
+		/*
+		 * Controller Mapping for Right Analog Stick
+		 * 
+		 * Left	 -1
+		 * Right +1
+		 * Up	 -1
+		 * Down	 +1
+		 * 
+		 */
+
+		float turnVertical = Input.GetAxis ("TurnVertical");
+		float turnHorizontal = Input.GetAxis ("TurnHorizontal");
+
+
+		transform.Rotate(Vector3.up, turnHorizontal * Time.deltaTime * 20);
+		transform.Rotate(Vector3.right, turnVertical * Time.deltaTime * 20);
 
 		camPosition = new Vector3d (camPosition.x + xAcceleration,
 		                            camPosition.y, 
@@ -55,17 +83,11 @@ public class Positioning : Functions {
 		if (vertical != 0) {
 			holdTime +=  Time.deltaTime*holdTime;
 			holdTime = Mathf.Clamp ((float)holdTime, (float)holdTimeMin, (float)holdTimeMax);
-			zAcceleration = ((float)holdTime * vertical);
+			factor = ((float)holdTime * vertical);
+			zAcceleration = factor;
 		} else {
 			zAcceleration = 0;
 		}
-		/*if (horizontal != 0) {
-			holdTime += (holdTime*Time.deltaTime)+Time.deltaTime;
-			holdTime = Mathf.Clamp (holdTime, holdTimeMin, holdTimeMax);
-			xAcceleration = (holdTime*horizontal);
-		} else {
-			xAcceleration = 0;
-		}*/
 
 		if(vertical == 0 && horizontal == 0)
 			holdTime = 0f;
