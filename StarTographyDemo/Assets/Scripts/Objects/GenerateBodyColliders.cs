@@ -25,6 +25,7 @@ public class GenerateBodyColliders : Functions {
 
 		string[] inputs;																		// Array of strings of distance types
 		double[] measurements;																	// Array of doubles of distances taken from Constants.cs file
+		
 		if (objectDataScript.celestialBodyType == ObjectData.CelestialBodyType.Planet) {
 			inputs = new string[] { "A","B","C","D"};											// Planets only get 4 sphere colliders
 		} else if (objectDataScript.celestialBodyType == ObjectData.CelestialBodyType.Star) {
