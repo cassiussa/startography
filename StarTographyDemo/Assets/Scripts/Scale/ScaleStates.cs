@@ -169,6 +169,7 @@ public class ScaleStates : Functions {
 				distanceMarkerScaleObjects[i] = Instantiate (Resources.Load ("Prefabs/DistanceMarker")) as GameObject;
 				distanceMarkerScaleObjects[i].name = gameObject.name+" D.M.";
 				distanceMarkerScaleScripts[i] = distanceMarkerScaleObjects[i].GetComponent<DistanceMarkerScaleStates>();
+				distanceMarkerScaleScripts[i].star = gameObject;									// Assign this star to the 'star' variable on the instantiated Distance Marker
 
 				if(i==0) distanceMarkerScaleScripts[i].size = DistanceMarkerScaleStates.Size.AstronomicalUnits;
 				if(i==1) distanceMarkerScaleScripts[i].size = DistanceMarkerScaleStates.Size.LightHours;
