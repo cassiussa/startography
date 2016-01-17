@@ -4,6 +4,7 @@ using System.Collections;
 public class DistanceMarkerScaleStates : Functions {
 
 	public enum Size {
+		Initialize,
 		AstronomicalUnits,
 		LightHours,
 		LightDays,
@@ -13,28 +14,36 @@ public class DistanceMarkerScaleStates : Functions {
 	}
 	
 
-	public GameObject star;	// Attained by the ScaleStates.cs script assigning it.  Forget why I thought I needed this here.
+	Size _prevSize;
+	Size _cacheSize;
 
-	public Size size = Size.AstronomicalUnits;										// The variable to hold what size of Distance Marker this is
-
+	public GameObject star;								// Attained by the ScaleStates.cs script assigning it.  Forget why I thought I needed this here.
+	public Size size = Size.Initialize;					// The initial state as it needs to switch on Start/Awake to perform needed operations
 
 	Circle scaleCirclesScript;
 	LineRenderer scaleCircleLines;
 
 	double ratio = 0d;
+
+	#region Basic Getters/Setters
+	public Size CurrentSize {
+		get { return size; }
+	}
 	
+	public Size PrevSize {
+		get { return _prevSize; }
+	}
+	#endregion
 
 	void Awake() {
 		scaleCirclesScript = GetComponentInChildren<Circle> ();
 		scaleCircleLines = scaleCirclesScript.gameObject.GetComponent<LineRenderer> ();
-
 		scaleCirclesScript.horizCirclePoints = (100);
 		scaleCircleLines.SetVertexCount (scaleCirclesScript.horizCirclePoints + 1);
 		scaleCircleLines.useWorldSpace = false;
 		// These are measured in Units
 		scaleCirclesScript.xradius = 10000f;
 		scaleCirclesScript.yradius = 10000f;
-
 		scaleCircleLines.SetWidth(scaleCirclesScript.xradius / 1000, scaleCirclesScript.xradius / 1000);
 		scaleCirclesScript.CreatePoints (scaleCircleLines);
 	}
@@ -42,17 +51,23 @@ public class DistanceMarkerScaleStates : Functions {
 	// NOTE: Async version of Start.
 	IEnumerator Start() {
 		while (true) {
-			switch(size) {
-				case Size.AstronomicalUnits: AstronomicalUnits(); break;
-				case Size.LightHours: LightHours(); break;
-				case Size.LightDays: LightDays(); break;
-				case Size.LightYears: LightYears(); break;
-				case Size.LightDecades: LightDecades(); break;
-				case Size.LightCenturies: LightCenturies(); break;
+			if (_cacheSize != size) {
+				switch(size) {
+					case Size.AstronomicalUnits: AstronomicalUnits(); break;
+					case Size.LightHours: LightHours(); break;
+					case Size.LightDays: LightDays(); break;
+					case Size.LightYears: LightYears(); break;
+					case Size.LightDecades: LightDecades(); break;
+					case Size.LightCenturies: LightCenturies(); break;
+				}
 			}
-
 			yield return null;
 		}
+	}
+
+	public void SetSize(Size newSize) {
+		_prevSize = size;
+		size = newSize;
 	}
 
 	/*
@@ -88,13 +103,20 @@ public class DistanceMarkerScaleStates : Functions {
 		ScaleAndPosition(LC);
 	}
 
-
+	int reRun = 0;
 	void ScaleAndPosition(double scale) {
-		ratio = scale / AU;
-		transform.position = star.transform.position;
-		double scaling = ratio/(double)star.transform.localScale.x;
-		transform.parent = star.transform;
-		transform.localScale = new Vector3 ( (float)(scaling),(float)(scaling),(float)(scaling) );
+		reRun++;
+		if (reRun < 2) {
+			return;
+		} else {
+			ratio = scale / AU;
+			transform.position = star.transform.position;
+			double scaling = ratio / (double)star.transform.localScale.x;
+			transform.parent = star.transform;
+			transform.localScale = new Vector3 ((float)(scaling), (float)(scaling), (float)(scaling));
+			Debug.LogError ("scale change", gameObject);
+			_cacheSize = size;
+		}
 	}
 
 
