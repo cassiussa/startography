@@ -4,7 +4,7 @@ using System.Collections;
 public class Circle : MonoBehaviour
 {
 	public Transform parentForScale;
-	public int HorizCirclePoints;
+	public int horizCirclePoints;
 	public float xradius;
 	public float yradius;
 	LineRenderer line;
@@ -13,16 +13,16 @@ public class Circle : MonoBehaviour
 	{
 		line = gameObject.GetComponent<LineRenderer>();
 		
-		line.SetVertexCount (HorizCirclePoints + 1);
-		line.useWorldSpace = false;
+		//line.SetVertexCount (horizCirclePoints + 1);
+		//line.useWorldSpace = false;
 		// multiply the size of the parent to the scale so that the border lines aren't too thick for smaller measurements
 		//line.Start = line.width * parentForScale.scale.x;
-		line.SetWidth(parentForScale.localScale.x*2, parentForScale.localScale.x*2);
-		CreatePoints ();
+		//line.SetWidth(parentForScale.localScale.x*2, parentForScale.localScale.x*2);
+		//CreatePoints ();
 	}
 	
 	
-	void CreatePoints () {
+	public void CreatePoints (LineRenderer line) {
 		if (gameObject.activeSelf == false) return;
 		float x;
 		float y;
@@ -30,14 +30,13 @@ public class Circle : MonoBehaviour
 		
 		float angle = 20f;
 		
-		for (int i = 0; i < (HorizCirclePoints + 1); i++)
-		{
-			x = Mathf.Sin (Mathf.Deg2Rad * angle) * xradius;
-			y = Mathf.Cos (Mathf.Deg2Rad * angle) * yradius;
+		for (int i=0; i<(horizCirclePoints+1); i++) {
+			x = Mathf.Sin(Mathf.Deg2Rad * angle) * xradius;
+			y = Mathf.Cos(Mathf.Deg2Rad * angle) * yradius;
 			
-			line.SetPosition (i,new Vector3(x,y,z) );
+			line.SetPosition(i,new Vector3(x,y,z) );
 			
-			angle += (360f / HorizCirclePoints);
+			angle += (360f / horizCirclePoints);
 		}
 	}
 }

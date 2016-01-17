@@ -62,6 +62,9 @@ public class ScaleStates : Functions {
 
 	ObjectData objectDataScript;
 
+	public GameObject[] distanceMarkerScaleObjects;
+	public DistanceMarkerScaleStates[] distanceMarkerScaleScripts;
+
 	#region Basic Getters/Setters
 	public State CurrentState {
 		get { return state; }
@@ -157,8 +160,31 @@ public class ScaleStates : Functions {
 			//gameObject.AddComponent<GenerateDistanceVisuals> ();
 			gameObject.AddComponent<GenerateBodyColliders> ();										// Add the GenerateBodyColliders component to objects, such as Stars and Planets
 		}
-		
-		
+
+		// If this is a star then we need to prepare the Distance Markers
+		if (objectDataScript.celestialBodyType == ObjectData.CelestialBodyType.Star) {
+			distanceMarkerScaleObjects = new GameObject[6];
+			distanceMarkerScaleScripts = new DistanceMarkerScaleStates[6];
+			for (int i=0; i<6; i++) {
+				distanceMarkerScaleObjects[i] = Instantiate (Resources.Load ("Prefabs/DistanceMarker")) as GameObject;
+				distanceMarkerScaleObjects[i].name = gameObject.name+" D.M.";
+				distanceMarkerScaleScripts[i] = distanceMarkerScaleObjects[i].GetComponent<DistanceMarkerScaleStates>();
+
+				if(i==0) distanceMarkerScaleScripts[i].size = DistanceMarkerScaleStates.Size.AstronomicalUnits;
+				if(i==1) distanceMarkerScaleScripts[i].size = DistanceMarkerScaleStates.Size.LightHours;
+				if(i==2) distanceMarkerScaleScripts[i].size = DistanceMarkerScaleStates.Size.LightDays;
+				if(i==3) distanceMarkerScaleScripts[i].size = DistanceMarkerScaleStates.Size.LightYears;
+				if(i==4) distanceMarkerScaleScripts[i].size = DistanceMarkerScaleStates.Size.LightDecades;
+				if(i==5) distanceMarkerScaleScripts[i].size = DistanceMarkerScaleStates.Size.LightCenturies;
+			}
+			distanceMarkerScaleObjects [0].name = distanceMarkerScaleObjects [0].name+" AU";
+			distanceMarkerScaleObjects [1].name = distanceMarkerScaleObjects [1].name+" LH";
+			distanceMarkerScaleObjects [2].name = distanceMarkerScaleObjects [2].name+" Ld";
+			distanceMarkerScaleObjects [3].name = distanceMarkerScaleObjects [3].name+" LY";
+			distanceMarkerScaleObjects [4].name = distanceMarkerScaleObjects [4].name+" LD";
+			distanceMarkerScaleObjects [5].name = distanceMarkerScaleObjects [5].name+" LC";
+		}
+
 	}
 	
 	// NOTE: Async version of Start.
@@ -251,7 +277,7 @@ public class ScaleStates : Functions {
 		
 			if (objectDataScript.celestialBodyType == ObjectData.CelestialBodyType.Star) {			// Check if this gameObject is, or contains, a light
 				Lights(true, "MK", MK);																	// Activate or deactivate the lights, depending on state
-			//	StarLightsFunction(0,StarLightScaleStates.State.SubMillion);
+				DistanceMarkerScaleUpdate();
 			}
 		}
 	}
@@ -266,7 +292,7 @@ public class ScaleStates : Functions {
 		
 			if (objectDataScript.celestialBodyType == ObjectData.CelestialBodyType.Star) {
 				Lights(true, "MK", MK);
-				//StarLightsFunction(1,StarLightScaleStates.State.MillionKilometers);
+				DistanceMarkerScaleUpdate();
 			}
 		}
 	}
@@ -281,7 +307,7 @@ public class ScaleStates : Functions {
 		
 			if (objectDataScript.celestialBodyType == ObjectData.CelestialBodyType.Star) {
 				Lights(true, "AU", AU);
-				//StarLightsFunction(2,StarLightScaleStates.State.AstronomicalUnit);
+				DistanceMarkerScaleUpdate();
 			}
 		}
 	}
@@ -296,7 +322,7 @@ public class ScaleStates : Functions {
 		
 			if (objectDataScript.celestialBodyType == ObjectData.CelestialBodyType.Star) {
 				Lights(true, "LH", LH);
-				//StarLightsFunction(3,StarLightScaleStates.State.LightHour);
+				DistanceMarkerScaleUpdate();
 			}
 		}
 	}
@@ -311,7 +337,7 @@ public class ScaleStates : Functions {
 		
 			if (objectDataScript.celestialBodyType == ObjectData.CelestialBodyType.Star) {
 				Lights(true, "Ld", Ld);
-				//StarLightsFunction(4,StarLightScaleStates.State.LightDay);
+				DistanceMarkerScaleUpdate();
 			}
 		}
 	}
@@ -325,6 +351,7 @@ public class ScaleStates : Functions {
 
 			if (objectDataScript.celestialBodyType == ObjectData.CelestialBodyType.Star) {
 				Lights(false, "LY", LY);
+				DistanceMarkerScaleUpdate();
 			}
 		}
 	}
@@ -338,6 +365,7 @@ public class ScaleStates : Functions {
 		
 			if (objectDataScript.celestialBodyType == ObjectData.CelestialBodyType.Star) {
 				Lights(false, "PA", PA);
+				DistanceMarkerScaleUpdate();
 			}
 		}
 	}
@@ -351,6 +379,7 @@ public class ScaleStates : Functions {
 
 			if (objectDataScript.celestialBodyType == ObjectData.CelestialBodyType.Star) {
 				Lights(false, "LD", LD);
+				DistanceMarkerScaleUpdate();
 			}
 		}
 	}
@@ -364,6 +393,7 @@ public class ScaleStates : Functions {
 		
 			if (objectDataScript.celestialBodyType == ObjectData.CelestialBodyType.Star) {
 				Lights(false, "LC", LC);
+				DistanceMarkerScaleUpdate();
 			}
 		}
 	}
@@ -378,6 +408,7 @@ public class ScaleStates : Functions {
 		
 			if (objectDataScript.celestialBodyType == ObjectData.CelestialBodyType.Star) {
 				Lights(false, "LM", LM);
+				DistanceMarkerScaleUpdate();
 			}
 		}
 	}
@@ -472,6 +503,15 @@ public class ScaleStates : Functions {
 		for(int i=0;i<5;i++) {
 			lightGameObjectsArray[i].active = isOn;	// Enable or disable the Light component
 		}
+	}
+
+	/*
+	 * This function sends changes in state down to the DistanceMarker child
+	 * gameObjects of Stars.  Since the local system's star is the central point
+	 * from which it's planets orbit, the distance markers use the star as the
+	 * local point of origin.
+	 */
+	void DistanceMarkerScaleUpdate() {
 
 	}
 }

@@ -75,10 +75,8 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 433412}
-  - 114: {fileID: 11449530}
-  - 114: {fileID: 11485288}
+  - 114: {fileID: 11448778}
   - 114: {fileID: 11433408}
-  - 114: {fileID: 11407352}
   m_Layer: 10
   m_Name: DistanceMarker
   m_TagString: Untagged
@@ -146,7 +144,7 @@ Transform:
   m_GameObject: {fileID: 133404}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 200.138443, y: .926566839, z: 200.138443}
+  m_LocalScale: {x: 2000, y: 1, z: 2000}
   m_Children: []
   m_Father: {fileID: 433412}
   m_RootOrder: 3
@@ -158,7 +156,7 @@ Transform:
   m_GameObject: {fileID: 133406}
   m_LocalRotation: {x: .707106829, y: 0, z: 0, w: .707106829}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: .926566839, y: .926566839, z: .926566839}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 433412}
   m_RootOrder: 4
@@ -182,7 +180,7 @@ Transform:
   m_GameObject: {fileID: 133410}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -986.793701}
-  m_LocalScale: {x: .926566839, y: .926566839, z: .926566839}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 433412}
   m_RootOrder: 5
@@ -192,8 +190,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 133412}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1019, y: -57, z: 0}
+  m_LocalRotation: {x: 0, y: -0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 433408}
@@ -225,7 +223,7 @@ Transform:
   m_GameObject: {fileID: 133416}
   m_LocalRotation: {x: 5.96046306e-08, y: -9.45874268e-10, z: 1.164153e-09, w: 1}
   m_LocalPosition: {x: 0, y: 8.33910179, z: 0}
-  m_LocalScale: {x: .926566839, y: .926566839, z: .926566839}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 433412}
   m_RootOrder: 6
@@ -237,7 +235,7 @@ Transform:
   m_GameObject: {fileID: 133418}
   m_LocalRotation: {x: 0, y: 0, z: 1, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 200.138443, y: .926566839, z: 200.138443}
+  m_LocalScale: {x: 2000, y: 1, z: 2000}
   m_Children: []
   m_Father: {fileID: 433412}
   m_RootOrder: 2
@@ -302,20 +300,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 133418}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &11407352
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 133412}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c60940f22cc6a40e8a66c8ab7460f205, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  state: 0
-  thisScale: 0
-  meshes: {fileID: 0}
 --- !u!114 &11433404
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -328,7 +312,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parentForScale: {fileID: 433412}
-  HorizCirclePoints: 100
+  horizCirclePoints: 100
   xradius: 1080
   yradius: 1080
 --- !u!114 &11433406
@@ -409,7 +393,7 @@ MonoBehaviour:
   clampBorderSize: .0500000007
   useMainCamera: 1
   cameraToUse: {fileID: 0}
---- !u!114 &11449530
+--- !u!114 &11448778
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -417,22 +401,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 133412}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 12b7c390e3ad54614b6146f88db572c5, type: 3}
+  m_Script: {fileID: 11500000, guid: cb2fdf80afdd64267b116d6a48446b80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &11485288
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 133412}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b4920418b18074fc0bdba723f9501f2f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  holdTimeMin: 30
-  holdTimeMax: 300
+  size: 0
+  state: 0
 --- !u!120 &12033404
 LineRenderer:
   m_ObjectHideFlags: 1
@@ -499,7 +472,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 3240
+  m_Radius: 60000
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!135 &13533406
 SphereCollider:
@@ -511,7 +484,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 700
+  m_Radius: 5000
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &100100000
 Prefab:
