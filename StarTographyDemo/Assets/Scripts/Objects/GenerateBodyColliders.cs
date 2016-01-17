@@ -4,6 +4,7 @@ using System.Collections;
 public class GenerateBodyColliders : Functions {
 
 	ObjectData objectDataScript;
+	ScaleStates scaleStatesScript;
 	/*
 	 * This script creates the gameobject children for the colliders for any given body.
 	 * It is automatically added to Planets and Stars by the ScaleStates script.
@@ -12,6 +13,7 @@ public class GenerateBodyColliders : Functions {
 		objectDataScript = GetComponent<ObjectData> ();
 		if (!objectDataScript)
 			Debug.LogError ("There needs to be an ObjectData script here", gameObject);
+		scaleStatesScript = GetComponent<ScaleStates> ();
 
 		GameObject localColliders = new GameObject();											// Instantiate a new GameObject
 		localColliders.name = "LocalColliders";													// Set the name for the LocalColliders GameObject
@@ -64,7 +66,13 @@ public class GenerateBodyColliders : Functions {
 
 			tempObj.AddComponent<BodyColliderTest01>();											// Add the OnTrigger(Enter|Exit) script
 			tempObj.GetComponent<BodyColliderTest01>().thisScale = measurements[i];				// Add the scale, in double, of this GameObject's scale
-			tempObj.GetComponent<BodyColliderTest01>().thisLocalScale = transform.localScale.x;				// Add the scale, in double, of this GameObject's scale
+			tempObj.GetComponent<BodyColliderTest01>().thisLocalScale = transform.localScale.x;	// Add the scale, in double, of this GameObject's scale
+			if(objectDataScript.celestialBodyType == ObjectData.CelestialBodyType.Planet)	 {
+				if(i == inputs.Length-1) {
+					tempObj.GetComponent<BodyColliderTest01>().lastCollider = true;						// Add the scale, in double, of this GameObject's scale
+				}
+				tempObj.GetComponent<BodyColliderTest01>().mesh = scaleStatesScript.meshes;
+			}
 		}
 	}
 

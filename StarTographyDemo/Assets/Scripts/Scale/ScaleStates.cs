@@ -50,7 +50,6 @@ public class ScaleStates : Functions {
 
 	// If it contains a light, there's a number of things we'll need to do.  For now, create the variables
 	Light starLight;
-	float lightRange;
 	//Dictionary<string, GameObject> lightGameObjects = new Dictionary<string, GameObject>();
 	GameObject[] lightGameObjectsArray;
 	StarLightScaleStates[] starLightScalesStatesScript;
@@ -126,7 +125,6 @@ public class ScaleStates : Functions {
 			lightGameObjectsArray = new GameObject[5];												// Set the size to 5 as that's the number of lights we create for 5 scale states
 			starLightScalesStatesScript = new StarLightScaleStates[5];								// set the size to 5 as that's the number of lights we create for 5 scale states
 			layerMask = 8;																			// 8 is the lowest layer we can manually create or edit
-			lightRange = light.range;																// cache the original light Range
 			for (int i=0; i<5; i++) {																// Limit to the 5 smallest scales.  Anything beyond that would be crazy			
 				double thisMeasurement = measurements [i];											// Cache the measurement for this iteration to save processing
 				Vector3d thisPosition = new Vector3d (												// Set the initial position of the new light gameObjects
@@ -142,11 +140,11 @@ public class ScaleStates : Functions {
 				starLightScalesStatesScript[i] = lightGameObjectsArray[i].GetComponent<StarLightScaleStates>();	// Get the StarLightScaleStates components from the instantiated star light gameObjects
 
 				lights.Add (inputs [i], lightGameObjectsArray[i].GetComponent<Light> ());			// Add the Light component to the gameObjects
-				float calculatedRange = (float)((light.range / measurements [i]) * maxUnits);		// Range of the light depending on State
+				float calculatedRange = (float)(measurements [i] * maxUnits);		// Range of the light depending on State
 
 				lights [inputs [i]].range = calculatedRange;										// Copy the light's Range from the original light's Range
-				lights [inputs [i]].intensity = light.intensity;									// as well as the light's intensity
-				lights [inputs [i]].color = light.color;											// and the light's colour
+				//lights [inputs [i]].intensity = light.intensity;									// as well as the light's intensity
+				//lights [inputs [i]].color = light.color;											// and the light's colour
 				lights [inputs [i]].cullingMask = 1 << i + layerMask;								// Now set the culling mask for the light
 
 			}
