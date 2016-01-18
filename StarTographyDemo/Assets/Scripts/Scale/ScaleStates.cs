@@ -278,7 +278,7 @@ public class ScaleStates : Functions {
 		
 			if (objectDataScript.celestialBodyType == ObjectData.CelestialBodyType.Star) {			// Check if this gameObject is, or contains, a light
 				Lights(true, "MK", MK);																	// Activate or deactivate the lights, depending on state
-				DistanceMarkerScaleUpdate();
+				DistanceMarkerScaleUpdate(DistanceMarkerScaleStates.Scale.SubMillion);
 			}
 		}
 	}
@@ -293,7 +293,7 @@ public class ScaleStates : Functions {
 		
 			if (objectDataScript.celestialBodyType == ObjectData.CelestialBodyType.Star) {
 				Lights(true, "MK", MK);
-				DistanceMarkerScaleUpdate();
+				DistanceMarkerScaleUpdate(DistanceMarkerScaleStates.Scale.MillionKilometers);
 			}
 		}
 	}
@@ -308,7 +308,7 @@ public class ScaleStates : Functions {
 		
 			if (objectDataScript.celestialBodyType == ObjectData.CelestialBodyType.Star) {
 				Lights(true, "AU", AU);
-				DistanceMarkerScaleUpdate();
+				DistanceMarkerScaleUpdate(DistanceMarkerScaleStates.Scale.AstronomicalUnit);
 			}
 		}
 	}
@@ -323,7 +323,7 @@ public class ScaleStates : Functions {
 		
 			if (objectDataScript.celestialBodyType == ObjectData.CelestialBodyType.Star) {
 				Lights(true, "LH", LH);
-				DistanceMarkerScaleUpdate();
+				DistanceMarkerScaleUpdate(DistanceMarkerScaleStates.Scale.LightHour);
 			}
 		}
 	}
@@ -338,7 +338,7 @@ public class ScaleStates : Functions {
 		
 			if (objectDataScript.celestialBodyType == ObjectData.CelestialBodyType.Star) {
 				Lights(true, "Ld", Ld);
-				DistanceMarkerScaleUpdate();
+				DistanceMarkerScaleUpdate(DistanceMarkerScaleStates.Scale.LightDay);
 			}
 		}
 	}
@@ -352,7 +352,7 @@ public class ScaleStates : Functions {
 
 			if (objectDataScript.celestialBodyType == ObjectData.CelestialBodyType.Star) {
 				Lights(false, "LY", LY);
-				DistanceMarkerScaleUpdate();
+				DistanceMarkerScaleUpdate(DistanceMarkerScaleStates.Scale.LightYear);
 			}
 		}
 	}
@@ -366,7 +366,7 @@ public class ScaleStates : Functions {
 		
 			if (objectDataScript.celestialBodyType == ObjectData.CelestialBodyType.Star) {
 				Lights(false, "PA", PA);
-				DistanceMarkerScaleUpdate();
+				DistanceMarkerScaleUpdate(DistanceMarkerScaleStates.Scale.Parsec);
 			}
 		}
 	}
@@ -380,7 +380,7 @@ public class ScaleStates : Functions {
 
 			if (objectDataScript.celestialBodyType == ObjectData.CelestialBodyType.Star) {
 				Lights(false, "LD", LD);
-				DistanceMarkerScaleUpdate();
+				DistanceMarkerScaleUpdate(DistanceMarkerScaleStates.Scale.LightDecade);
 			}
 		}
 	}
@@ -394,7 +394,7 @@ public class ScaleStates : Functions {
 		
 			if (objectDataScript.celestialBodyType == ObjectData.CelestialBodyType.Star) {
 				Lights(false, "LC", LC);
-				DistanceMarkerScaleUpdate();
+				DistanceMarkerScaleUpdate(DistanceMarkerScaleStates.Scale.LightCentury);
 			}
 		}
 	}
@@ -409,7 +409,7 @@ public class ScaleStates : Functions {
 		
 			if (objectDataScript.celestialBodyType == ObjectData.CelestialBodyType.Star) {
 				Lights(false, "LM", LM);
-				DistanceMarkerScaleUpdate();
+				DistanceMarkerScaleUpdate(DistanceMarkerScaleStates.Scale.LightMillenium);
 			}
 		}
 	}
@@ -512,7 +512,9 @@ public class ScaleStates : Functions {
 	 * from which it's planets orbit, the distance markers use the star as the
 	 * local point of origin.
 	 */
-	void DistanceMarkerScaleUpdate() {
-
+	void DistanceMarkerScaleUpdate(DistanceMarkerScaleStates.Scale newState) {
+		for(int i=0; i<distanceMarkerScaleScripts.Length; i++) {
+			distanceMarkerScaleScripts[i].scale = newState;
+		}
 	}
 }
