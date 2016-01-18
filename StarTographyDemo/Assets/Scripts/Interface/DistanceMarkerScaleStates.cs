@@ -12,13 +12,31 @@ public class DistanceMarkerScaleStates : Functions {
 		LightDecades,
 		LightCenturies
 	}
-	
+
+	public enum Scale { 
+		Initialize, 
+		SubMillion, 
+		MillionKilometers, 
+		AstronomicalUnit, 
+		LightHour, 
+		LightDay, 
+		LightYear, 
+		Parsec, 
+		LightDecade, 
+		LightCentury, 
+		LightMillenium
+	}
+
 
 	Size _prevSize;
 	Size _cacheSize;
 
 	public GameObject star;								// Attained by the ScaleStates.cs script assigning it.  Forget why I thought I needed this here.
 	public Size size = Size.Initialize;					// The initial state as it needs to switch on Start/Awake to perform needed operations
+
+	public Scale scale = Scale.Initialize;
+	Scale _prevScale;
+	Scale _cacheScale;
 
 	Circle scaleCirclesScript;
 	LineRenderer scaleCircleLines;
@@ -29,9 +47,15 @@ public class DistanceMarkerScaleStates : Functions {
 	public Size CurrentSize {
 		get { return size; }
 	}
-	
 	public Size PrevSize {
 		get { return _prevSize; }
+	}
+
+	public Scale CurrentScale {
+		get { return scale; }
+	}
+	public Scale PrevScale {
+		get { return _prevScale; }
 	}
 	#endregion
 
@@ -59,6 +83,20 @@ public class DistanceMarkerScaleStates : Functions {
 					case Size.LightYears: LightYears(); break;
 					case Size.LightDecades: LightDecades(); break;
 					case Size.LightCenturies: LightCenturies(); break;
+				}
+
+				switch (scale) {
+					case Scale.Initialize: break;
+					case Scale.SubMillion: SubMillion (); break;
+					case Scale.MillionKilometers: MillionKilometers (); break;
+					case Scale.AstronomicalUnit: AstronomicalUnit (); break;
+					case Scale.LightHour: LightHour (); break;
+					case Scale.LightDay: LightDay (); break;
+					case Scale.LightYear: LightYear (); break;
+					case Scale.Parsec: Parsec (); break;
+					case Scale.LightDecade: LightDecade (); break;
+					case Scale.LightCentury: LightCentury (); break;
+					case Scale.LightMillenium: LightMillenium (); break;
 				}
 			}
 			yield return null;
@@ -114,11 +152,55 @@ public class DistanceMarkerScaleStates : Functions {
 			double scaling = ratio / (double)star.transform.localScale.x;
 			transform.parent = star.transform;
 			transform.localScale = new Vector3 ((float)(scaling), (float)(scaling), (float)(scaling));
-			Debug.LogError ("scale change", gameObject);
 			_cacheSize = size;
 		}
 	}
 
 
+
+
+
+	void SubMillion() {																				// This State is heavily commented as each other state uses same conditions
+		/*CalculatePosition (SM, positionProcessingScript.position, positioningScript.camPosition);	// Calculate the relative position based on real position and scale of this State
+		layerMask = 8;
+		if (_cacheState != state) {																	// Without this we get crazy bugs.  Don't know why.  It needs to be here for code efficiency anyways!
+			StateFunction(layerMask, SM, "SM", 1f, "", "SM", "MK", 0d, SM, MK);
+			
+			_cacheState = state;
+			
+			if (objectDataScript.celestialBodyType == ObjectData.CelestialBodyType.Star) {			// Check if this gameObject is, or contains, a light
+				Lights(true, "MK", MK);																	// Activate or deactivate the lights, depending on state
+				DistanceMarkerScaleUpdate();
+			}
+		}*/
+	}
+	
+	void MillionKilometers() {
+	}
+	
+	void AstronomicalUnit() {
+	}
+	
+	void LightHour() {
+	}
+	
+	void LightDay() {
+	}
+	
+	void LightYear() {
+	}
+	
+	void Parsec() {
+	}
+	
+	void LightDecade() {
+	}
+	
+	void LightCentury() {
+	}
+	
+	
+	void LightMillenium() {
+	}
 
 }
