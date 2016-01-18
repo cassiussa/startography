@@ -10,8 +10,7 @@ public class DistanceMarkerScaleStates : Functions {
 		LightHours,
 		LightDays,
 		LightYears,
-		//LightDecades,
-		//LightCenturies
+		LightParsecs
 	}
 
 	public enum Scale { 
@@ -82,12 +81,12 @@ public class DistanceMarkerScaleStates : Functions {
 		 * and End sizes of the LineRenderers.  The farther out we go,
 		 * the larger the baseLineWidth would therefore become.
 		 */
+		lineSizes.Add (0d,Size.Initialize);
 		lineSizes.Add (AU,Size.AstronomicalUnits);
 		lineSizes.Add (LH,Size.LightHours);
 		lineSizes.Add (Ld,Size.LightDays);
 		lineSizes.Add (LY,Size.LightYears);
-		//lineSizes.Add (LD,Size.LightDecades);
-		//lineSizes.Add (LC,Size.LightCenturies);
+		lineSizes.Add (PA,Size.LightParsecs);
 
 	}
 	
@@ -100,8 +99,7 @@ public class DistanceMarkerScaleStates : Functions {
 					case Size.LightHours: LightHours(); break;
 					case Size.LightDays: LightDays(); break;
 					case Size.LightYears: LightYears(); break;
-					//case Size.LightDecades: LightDecades(); break;
-					//case Size.LightCenturies: LightCenturies(); break;
+					case Size.LightParsecs: LightParsecs(); break;
 				}
 			}
 			if(_cacheScale != scale) {
@@ -132,33 +130,28 @@ public class DistanceMarkerScaleStates : Functions {
 	 * The states of Size that this Distace Marker exists as
 	 */
 	void AstronomicalUnits() {
-		Debug.Log ("In AstronomicalUnits");
+		//Debug.Log ("In AstronomicalUnits");
 		ScaleAndPosition(AU);
 	}
 
 	void LightHours() {
-		Debug.Log ("In LightHours");
+		//Debug.Log ("In LightHours");
 		ScaleAndPosition(LH);
 	}
 	
 	void LightDays() {
-		Debug.Log ("In LightDays");
+		//Debug.Log ("In LightDays");
 		ScaleAndPosition(Ld);
 	}
 	
 	void LightYears() {
-		Debug.Log ("In LightYears");
+		//Debug.Log ("In LightYears");
 		ScaleAndPosition(LY);
 	}
 	
-	void LightDecades() {
-		Debug.Log ("In LightDecades");
+	void LightParsecs() {
+		//Debug.Log ("In LightDecades");
 		ScaleAndPosition(LD);
-	}
-	
-	void LightCenturies() {
-		Debug.Log ("In LightCenturies");
-		ScaleAndPosition(LC);
 	}
 
 	int reRun = 0;
@@ -179,139 +172,76 @@ public class DistanceMarkerScaleStates : Functions {
 
 
 
-
-	void SubMillion() {																				// This State is heavily commented as each other state uses same conditions
-		/*CalculatePosition (SM, positionProcessingScript.position, positioningScript.camPosition);	// Calculate the relative position based on real position and scale of this State
-		layerMask = 8;
-		if (_cacheState != state) {																	// Without this we get crazy bugs.  Don't know why.  It needs to be here for code efficiency anyways!
-			StateFunction(layerMask, SM, "SM", 1f, "", "SM", "MK", 0d, SM, MK);
-			
-			_cacheState = state;
-			
-			if (objectDataScript.celestialBodyType == ObjectData.CelestialBodyType.Star) {			// Check if this gameObject is, or contains, a light
-				Lights(true, "MK", MK);																	// Activate or deactivate the lights, depending on state
-				DistanceMarkerScaleUpdate();
-			}
-		}*/
+	// Let empty because we don't use it for anything, but we do need to keep it
+	void SubMillion() {
+		_cacheScale = scale;
 	}
 	
 	void MillionKilometers() {
 		//Debug.LogError (System.Enum.GetValues(typeof(Size)).Length);
-		float lineWidth = (float)((AU / MK) * baseLineWidth);
-		scaleCircleLines.SetWidth(lineWidth,lineWidth);
-		//Debug.LogError ("Width is " + lineWidth, gameObject);
 		_cacheScale = scale;
 	}
-	
+
 	void AstronomicalUnit() {
-		//Debug.LogError (System.Enum.GetValues(typeof(Size)).Length);
-		float lineWidth;
-		if(size == Size.AstronomicalUnits) {
-			lineWidth = (float)((AU / AU) * baseLineWidth);
-			scaleCircleLines.SetWidth(lineWidth,lineWidth);
-		} else if(size == Size.LightHours) {
-			lineWidth = (float)((LH / AU) * baseLineWidth);
-			scaleCircleLines.SetWidth(lineWidth,lineWidth);
-		} else if(size == Size.LightDays) {
-			lineWidth = (float)((Ld / AU) * baseLineWidth);
-			scaleCircleLines.SetWidth(lineWidth,lineWidth);
-		} else if(size == Size.LightYears) {
-			lineWidth = (float)((LY / AU) * baseLineWidth);
-			scaleCircleLines.SetWidth(lineWidth,lineWidth);
-		}
+		CalculateLineRenderSizes (0d, AU, LH);
 		_cacheScale = scale;
 	}
 	
 	void LightHour() {
-		float lineWidth;
-		if(size == Size.AstronomicalUnits) {
-			lineWidth = (float)((AU / LH) * baseLineWidth);
-			scaleCircleLines.SetWidth(lineWidth,lineWidth);
-		} else if(size == Size.LightHours) {
-			lineWidth = (float)((LH / LH) * baseLineWidth);
-			scaleCircleLines.SetWidth(lineWidth,lineWidth);
-		} else if(size == Size.LightDays) {
-			lineWidth = (float)((Ld / LH) * baseLineWidth);
-			scaleCircleLines.SetWidth(lineWidth,lineWidth);
-		} else if(size == Size.LightYears) {
-			lineWidth = (float)((LY / LH) * baseLineWidth);
-			scaleCircleLines.SetWidth(lineWidth,lineWidth);
-		}
+		CalculateLineRenderSizes (AU, LH, Ld);
 		_cacheScale = scale;
-		/*
-		scaleCircleLines.SetWidth(lineWidth,lineWidth);
-		Debug.LogError ("Width is " + lineWidth, gameObject);
-		_cacheScale = scale;*/
 	}
 	
 	void LightDay() {
-		float lineWidth;
-		if(size == Size.AstronomicalUnits) {
-			lineWidth = (float)((AU / Ld) * baseLineWidth);
-			scaleCircleLines.SetWidth(lineWidth,lineWidth);
-		} else if(size == Size.LightHours) {
-			lineWidth = (float)((LH / Ld) * baseLineWidth);
-			scaleCircleLines.SetWidth(lineWidth,lineWidth);
-		} else if(size == Size.LightDays) {
-			lineWidth = (float)((Ld / Ld) * baseLineWidth);
-			scaleCircleLines.SetWidth(lineWidth,lineWidth);
-		} else if(size == Size.LightYears) {
-			lineWidth = (float)((LY / Ld) * baseLineWidth);
-			scaleCircleLines.SetWidth(lineWidth,lineWidth);
-		/*} else if(size == Size.LightDecades) {
-			lineWidth = (float)((LD / Ld) * baseLineWidth);
-			scaleCircleLines.SetWidth(lineWidth,lineWidth);*/
-		}
+		CalculateLineRenderSizes (LH, Ld, LY);
 		_cacheScale = scale;
 	}
 	
 	void LightYear() {
-		float lineWidth;
-		if(size == Size.LightHours) {
-			lineWidth = (float)((LH / LY) * baseLineWidth);
-			scaleCircleLines.SetWidth(lineWidth,lineWidth);
-		} else if(size == Size.LightDays) {
-			lineWidth = (float)((Ld / LY) * baseLineWidth);
-			scaleCircleLines.SetWidth(lineWidth,lineWidth);
-		} else if(size == Size.LightYears) {
-			lineWidth = (float)((LY / LY) * baseLineWidth);
-			scaleCircleLines.SetWidth(lineWidth,lineWidth);
-		/*} else if(size == Size.LightDecades) {
-			lineWidth = (float)((LD / LY) * baseLineWidth);
-			scaleCircleLines.SetWidth(lineWidth,lineWidth);
-		} else if(size == Size.LightCenturies) {
-			lineWidth = (float)((LC / LY) * baseLineWidth);
-			scaleCircleLines.SetWidth(lineWidth,lineWidth);*/
-		}
+		CalculateLineRenderSizes (Ld, LY, PA);
 		_cacheScale = scale;
 	}
 	
 	void Parsec() {
-		float lineWidth = (float)((AU / PA) * baseLineWidth);
-		scaleCircleLines.SetWidth(lineWidth,lineWidth);
-		Debug.LogError ("Width is " + lineWidth, gameObject);
+		CalculateLineRenderSizes (LY, PA, 0d);
 		_cacheScale = scale;
 	}
 	
 	void LightDecade() {
-		float lineWidth = (float)((AU / LD) * baseLineWidth);
-		scaleCircleLines.SetWidth(lineWidth,lineWidth);
-		Debug.LogError ("Width is " + lineWidth, gameObject);
 		_cacheScale = scale;
 	}
 	
 	void LightCentury() {
-		float lineWidth = (float)((AU / LC) * baseLineWidth);
-		scaleCircleLines.SetWidth(lineWidth,lineWidth);
-		Debug.LogError ("Width is " + lineWidth, gameObject);
 		_cacheScale = scale;
 	}
 	
 	void LightMillenium() {
-		float lineWidth = (float)((AU / LM) * baseLineWidth);
-		scaleCircleLines.SetWidth(lineWidth,lineWidth);
-		Debug.LogError ("Width is " + lineWidth, gameObject);
 		_cacheScale = scale;
 	}
+
+
+	/*
+	 * This function uses a Dictionary variable and will
+	 * check to see he current Size State being passed 
+	 * by the dictionary variable is the same as the Size 
+	 * State that this gameObject is set to.  It uses the
+	 * Constants values as Indexes on the variable to
+	 * run the conditional.  It then uses those same values
+	 * again, but to calculate the LineRenderer's Start and End
+	 * sizes.
+	 */
+	void CalculateLineRenderSizes(double beforeD, double currentD, double afterD) {
+		float lineWidth = 0f;
+		if (size == lineSizes [beforeD]) {
+			lineWidth = (float)((beforeD / currentD) * baseLineWidth);
+		} else if (size == lineSizes [currentD]) {
+			lineWidth = (float)baseLineWidth;
+		} else if (size == lineSizes [afterD]) {
+			lineWidth = (float)((afterD / currentD) * baseLineWidth);
+		}
+		scaleCircleLines.SetWidth (lineWidth, lineWidth);
+	}
+
+
 
 }

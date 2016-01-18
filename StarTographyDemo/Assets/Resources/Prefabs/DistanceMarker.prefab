@@ -312,7 +312,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parentForScale: {fileID: 433412}
-  horizCirclePoints: 100
+  horizCirclePoints: 200
   xradius: 1080
   yradius: 1080
 --- !u!114 &11433406
@@ -404,8 +404,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb2fdf80afdd64267b116d6a48446b80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  star: {fileID: 0}
   size: 0
-  state: 0
+  scale: 0
+  baseLineWidth: 21
 --- !u!120 &12033404
 LineRenderer:
   m_ObjectHideFlags: 1
