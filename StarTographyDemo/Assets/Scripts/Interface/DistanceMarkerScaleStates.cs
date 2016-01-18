@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class DistanceMarkerScaleStates : Functions {
 
@@ -9,8 +10,8 @@ public class DistanceMarkerScaleStates : Functions {
 		LightHours,
 		LightDays,
 		LightYears,
-		LightDecades,
-		LightCenturies
+		//LightDecades,
+		//LightCenturies
 	}
 
 	public enum Scale { 
@@ -43,6 +44,9 @@ public class DistanceMarkerScaleStates : Functions {
 
 	double ratio = 0d;
 
+	public double baseLineWidth = 21d;					// This is the base Start and End width of the LineRenderer (21 is same as AU)
+	Dictionary<double, Size> lineSizes = new Dictionary<double, Size>();
+
 	#region Basic Getters/Setters
 	public Size CurrentSize {
 		get { return size; }
@@ -62,14 +66,29 @@ public class DistanceMarkerScaleStates : Functions {
 	void Awake() {
 		scaleCirclesScript = GetComponentInChildren<Circle> ();
 		scaleCircleLines = scaleCirclesScript.gameObject.GetComponent<LineRenderer> ();
-		scaleCirclesScript.horizCirclePoints = (100);
+		scaleCirclesScript.horizCirclePoints = 200;
 		scaleCircleLines.SetVertexCount (scaleCirclesScript.horizCirclePoints + 1);
 		scaleCircleLines.useWorldSpace = false;
 		// These are measured in Units
 		scaleCirclesScript.xradius = 10000f;
 		scaleCirclesScript.yradius = 10000f;
-		scaleCircleLines.SetWidth(scaleCirclesScript.xradius / 1000, scaleCirclesScript.xradius / 1000);
+		scaleCircleLines.SetWidth(3, 3);
 		scaleCirclesScript.CreatePoints (scaleCircleLines);
+
+		/*
+		 * Add a Dictionary of the Double scale sizes that we can then
+		 * use as indexes to get the States.  This is done because we
+		 * need to use a sliding scale of adjustments for the Start
+		 * and End sizes of the LineRenderers.  The farther out we go,
+		 * the larger the baseLineWidth would therefore become.
+		 */
+		lineSizes.Add (AU,Size.AstronomicalUnits);
+		lineSizes.Add (LH,Size.LightHours);
+		lineSizes.Add (Ld,Size.LightDays);
+		lineSizes.Add (LY,Size.LightYears);
+		//lineSizes.Add (LD,Size.LightDecades);
+		//lineSizes.Add (LC,Size.LightCenturies);
+
 	}
 	
 	// NOTE: Async version of Start.
@@ -81,10 +100,11 @@ public class DistanceMarkerScaleStates : Functions {
 					case Size.LightHours: LightHours(); break;
 					case Size.LightDays: LightDays(); break;
 					case Size.LightYears: LightYears(); break;
-					case Size.LightDecades: LightDecades(); break;
-					case Size.LightCenturies: LightCenturies(); break;
+					//case Size.LightDecades: LightDecades(); break;
+					//case Size.LightCenturies: LightCenturies(); break;
 				}
-
+			}
+			if(_cacheScale != scale) {
 				switch (scale) {
 					case Scale.Initialize: break;
 					case Scale.SubMillion: SubMillion (); break;
@@ -176,30 +196,122 @@ public class DistanceMarkerScaleStates : Functions {
 	}
 	
 	void MillionKilometers() {
+		//Debug.LogError (System.Enum.GetValues(typeof(Size)).Length);
+		float lineWidth = (float)((AU / MK) * baseLineWidth);
+		scaleCircleLines.SetWidth(lineWidth,lineWidth);
+		//Debug.LogError ("Width is " + lineWidth, gameObject);
+		_cacheScale = scale;
 	}
 	
 	void AstronomicalUnit() {
+		//Debug.LogError (System.Enum.GetValues(typeof(Size)).Length);
+		float lineWidth;
+		if(size == Size.AstronomicalUnits) {
+			lineWidth = (float)((AU / AU) * baseLineWidth);
+			scaleCircleLines.SetWidth(lineWidth,lineWidth);
+		} else if(size == Size.LightHours) {
+			lineWidth = (float)((LH / AU) * baseLineWidth);
+			scaleCircleLines.SetWidth(lineWidth,lineWidth);
+		} else if(size == Size.LightDays) {
+			lineWidth = (float)((Ld / AU) * baseLineWidth);
+			scaleCircleLines.SetWidth(lineWidth,lineWidth);
+		} else if(size == Size.LightYears) {
+			lineWidth = (float)((LY / AU) * baseLineWidth);
+			scaleCircleLines.SetWidth(lineWidth,lineWidth);
+		}
+		_cacheScale = scale;
 	}
 	
 	void LightHour() {
+		float lineWidth;
+		if(size == Size.AstronomicalUnits) {
+			lineWidth = (float)((AU / LH) * baseLineWidth);
+			scaleCircleLines.SetWidth(lineWidth,lineWidth);
+		} else if(size == Size.LightHours) {
+			lineWidth = (float)((LH / LH) * baseLineWidth);
+			scaleCircleLines.SetWidth(lineWidth,lineWidth);
+		} else if(size == Size.LightDays) {
+			lineWidth = (float)((Ld / LH) * baseLineWidth);
+			scaleCircleLines.SetWidth(lineWidth,lineWidth);
+		} else if(size == Size.LightYears) {
+			lineWidth = (float)((LY / LH) * baseLineWidth);
+			scaleCircleLines.SetWidth(lineWidth,lineWidth);
+		}
+		_cacheScale = scale;
+		/*
+		scaleCircleLines.SetWidth(lineWidth,lineWidth);
+		Debug.LogError ("Width is " + lineWidth, gameObject);
+		_cacheScale = scale;*/
 	}
 	
 	void LightDay() {
+		float lineWidth;
+		if(size == Size.AstronomicalUnits) {
+			lineWidth = (float)((AU / Ld) * baseLineWidth);
+			scaleCircleLines.SetWidth(lineWidth,lineWidth);
+		} else if(size == Size.LightHours) {
+			lineWidth = (float)((LH / Ld) * baseLineWidth);
+			scaleCircleLines.SetWidth(lineWidth,lineWidth);
+		} else if(size == Size.LightDays) {
+			lineWidth = (float)((Ld / Ld) * baseLineWidth);
+			scaleCircleLines.SetWidth(lineWidth,lineWidth);
+		} else if(size == Size.LightYears) {
+			lineWidth = (float)((LY / Ld) * baseLineWidth);
+			scaleCircleLines.SetWidth(lineWidth,lineWidth);
+		/*} else if(size == Size.LightDecades) {
+			lineWidth = (float)((LD / Ld) * baseLineWidth);
+			scaleCircleLines.SetWidth(lineWidth,lineWidth);*/
+		}
+		_cacheScale = scale;
 	}
 	
 	void LightYear() {
+		float lineWidth;
+		if(size == Size.LightHours) {
+			lineWidth = (float)((LH / LY) * baseLineWidth);
+			scaleCircleLines.SetWidth(lineWidth,lineWidth);
+		} else if(size == Size.LightDays) {
+			lineWidth = (float)((Ld / LY) * baseLineWidth);
+			scaleCircleLines.SetWidth(lineWidth,lineWidth);
+		} else if(size == Size.LightYears) {
+			lineWidth = (float)((LY / LY) * baseLineWidth);
+			scaleCircleLines.SetWidth(lineWidth,lineWidth);
+		/*} else if(size == Size.LightDecades) {
+			lineWidth = (float)((LD / LY) * baseLineWidth);
+			scaleCircleLines.SetWidth(lineWidth,lineWidth);
+		} else if(size == Size.LightCenturies) {
+			lineWidth = (float)((LC / LY) * baseLineWidth);
+			scaleCircleLines.SetWidth(lineWidth,lineWidth);*/
+		}
+		_cacheScale = scale;
 	}
 	
 	void Parsec() {
+		float lineWidth = (float)((AU / PA) * baseLineWidth);
+		scaleCircleLines.SetWidth(lineWidth,lineWidth);
+		Debug.LogError ("Width is " + lineWidth, gameObject);
+		_cacheScale = scale;
 	}
 	
 	void LightDecade() {
+		float lineWidth = (float)((AU / LD) * baseLineWidth);
+		scaleCircleLines.SetWidth(lineWidth,lineWidth);
+		Debug.LogError ("Width is " + lineWidth, gameObject);
+		_cacheScale = scale;
 	}
 	
 	void LightCentury() {
+		float lineWidth = (float)((AU / LC) * baseLineWidth);
+		scaleCircleLines.SetWidth(lineWidth,lineWidth);
+		Debug.LogError ("Width is " + lineWidth, gameObject);
+		_cacheScale = scale;
 	}
 	
 	void LightMillenium() {
+		float lineWidth = (float)((AU / LM) * baseLineWidth);
+		scaleCircleLines.SetWidth(lineWidth,lineWidth);
+		Debug.LogError ("Width is " + lineWidth, gameObject);
+		_cacheScale = scale;
 	}
 
 }

@@ -163,9 +163,9 @@ public class ScaleStates : Functions {
 
 		// If this is a star then we need to prepare the Distance Markers
 		if (objectDataScript.celestialBodyType == ObjectData.CelestialBodyType.Star) {
-			distanceMarkerScaleObjects = new GameObject[6];
-			distanceMarkerScaleScripts = new DistanceMarkerScaleStates[6];
-			for (int i=0; i<6; i++) {
+			distanceMarkerScaleObjects = new GameObject[4];
+			distanceMarkerScaleScripts = new DistanceMarkerScaleStates[4];
+			for (int i=0; i<4; i++) {
 				distanceMarkerScaleObjects[i] = Instantiate (Resources.Load ("Prefabs/DistanceMarker")) as GameObject;
 				distanceMarkerScaleObjects[i].name = gameObject.name+" D.M.";
 				distanceMarkerScaleScripts[i] = distanceMarkerScaleObjects[i].GetComponent<DistanceMarkerScaleStates>();
@@ -175,15 +175,15 @@ public class ScaleStates : Functions {
 				if(i==1) distanceMarkerScaleScripts[i].size = DistanceMarkerScaleStates.Size.LightHours;
 				if(i==2) distanceMarkerScaleScripts[i].size = DistanceMarkerScaleStates.Size.LightDays;
 				if(i==3) distanceMarkerScaleScripts[i].size = DistanceMarkerScaleStates.Size.LightYears;
-				if(i==4) distanceMarkerScaleScripts[i].size = DistanceMarkerScaleStates.Size.LightDecades;
-				if(i==5) distanceMarkerScaleScripts[i].size = DistanceMarkerScaleStates.Size.LightCenturies;
+				//if(i==4) distanceMarkerScaleScripts[i].size = DistanceMarkerScaleStates.Size.LightDecades;
+				//if(i==5) distanceMarkerScaleScripts[i].size = DistanceMarkerScaleStates.Size.LightCenturies;
 			}
 			distanceMarkerScaleObjects [0].name = distanceMarkerScaleObjects [0].name+" AU";
 			distanceMarkerScaleObjects [1].name = distanceMarkerScaleObjects [1].name+" LH";
 			distanceMarkerScaleObjects [2].name = distanceMarkerScaleObjects [2].name+" Ld";
 			distanceMarkerScaleObjects [3].name = distanceMarkerScaleObjects [3].name+" LY";
-			distanceMarkerScaleObjects [4].name = distanceMarkerScaleObjects [4].name+" LD";
-			distanceMarkerScaleObjects [5].name = distanceMarkerScaleObjects [5].name+" LC";
+			//distanceMarkerScaleObjects [4].name = distanceMarkerScaleObjects [4].name+" LD";
+			//distanceMarkerScaleObjects [5].name = distanceMarkerScaleObjects [5].name+" LC";
 		}
 
 	}
