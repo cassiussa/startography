@@ -44,7 +44,7 @@ public class ScaleStates : Functions {
 	public Vector3d thisLocalScale;
 	Vector3d prevLocalScale = new Vector3d (1d, 1d, 1d);
 	Vector3d newLocalScale = new Vector3d (1d, 1d, 1d);
-	double localScaleRatio = 0d;
+	//double localScaleRatio = 0d;
 
 	int layerMask;
 
@@ -59,6 +59,7 @@ public class ScaleStates : Functions {
 	Positioning positioningScript;
 
 	public GameObject meshes;
+	Scaling meshesScalingScript;
 
 	ObjectData objectDataScript;
 
@@ -159,6 +160,14 @@ public class ScaleStates : Functions {
 			// Add the visuals script centered around the star
 			//gameObject.AddComponent<GenerateDistanceVisuals> ();
 			gameObject.AddComponent<GenerateBodyColliders> ();										// Add the GenerateBodyColliders component to objects, such as Stars and Planets
+		}
+
+		if (meshes) {
+			meshes.AddComponent<Scaling> ();
+			//float meshScale = (float)(2000/((thisLocalScale.x / MK) * maxUnits));
+			float meshScale = (float)((thisLocalScale.x / LH) * maxUnits) * 2000;
+			meshesScalingScript = meshes.GetComponent<Scaling>();
+			//Debug.LogError ("meshScale = "+gameObject.name+" "+meshScale+", thisLocalScale.x = "+thisLocalScale.x+", scale = "+LH);
 		}
 
 		// If this is a star then we need to prepare the Distance Markers
@@ -310,6 +319,7 @@ public class ScaleStates : Functions {
 				Lights(true, "AU", AU);
 				DistanceMarkerScaleUpdate(DistanceMarkerScaleStates.Scale.AstronomicalUnit);
 			}
+
 		}
 	}
 	
@@ -325,6 +335,7 @@ public class ScaleStates : Functions {
 				Lights(true, "LH", LH);
 				DistanceMarkerScaleUpdate(DistanceMarkerScaleStates.Scale.LightHour);
 			}
+
 		}
 	}
 	
@@ -419,7 +430,7 @@ public class ScaleStates : Functions {
 		gameObject.layer = layerMask;													// Set the layer, by number, to the appropriate layer mask
 		if(meshes) meshes.layer = layerMask;											// Set the layer, by number, to the appropriate layer mask
 		CalculateLocalScale (scaleD);													// Calculate the gameObject scale based on original scale and the scale of this State
-		if(meshes) MeshScale(meshScale);												// If there's any items in the meshes variable, adjust the local scale appropriately
+		if(meshes) MeshScale(scaleD);												// If there's any items in the meshes variable, adjust the local scale appropriately
 		gameObject.transform.parent = scaleStateParent [scaleS];						// Set this gameObject's parent to the appropriate scale's gameObject container
 
 		// Specify only the scale States immediately surrounding this state so we can keep loop to minimum as there
@@ -460,6 +471,8 @@ public class ScaleStates : Functions {
 		gameObject.transform.localScale = V3dToV3(newLocalScale);
 		if (value == MK)
 			originalLocalScale = newLocalScale;
+
+
 	}
 
 
@@ -485,11 +498,15 @@ public class ScaleStates : Functions {
 	 * we should get consistent results for long-distance speeds and 
 	 * relevent speeds when we're much closer to a body
 	 */
-	private void MeshScale(float scale) {
+	private void MeshScale(double scale) {
 		// Get the ratio of old scale to new so we can adjust the static-sized colliders
-		Vector3d adjustedLocalScale = new Vector3d(scale, scale, scale);
+		//Vector3d adjustedLocalScale = new Vector3d(scale, scale, scale);
 
-		meshes.transform.localScale = V3dToV3 (adjustedLocalScale);
+		/*
+		 * This will allow the user to scale the planets and stars that
+		 * are local so that they all become the same size
+		 */
+		meshesScalingScript.maxScale = (float)(236/newLocalScale.x);
 	}
 
 	/*
