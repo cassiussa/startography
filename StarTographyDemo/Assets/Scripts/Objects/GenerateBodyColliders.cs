@@ -68,9 +68,9 @@ public class GenerateBodyColliders : Functions {
 			tempObj.GetComponent<BodyColliderTest01>().thisScale = measurements[i];				// Add the scale, in double, of this GameObject's scale
 			tempObj.GetComponent<BodyColliderTest01>().thisLocalScale = transform.localScale.x;	// Add the scale, in double, of this GameObject's scale
 			if(objectDataScript.celestialBodyType == ObjectData.CelestialBodyType.Planet)	 {
-				if(i == inputs.Length-1) {
+				/*if(i == inputs.Length-1) {
 					tempObj.GetComponent<BodyColliderTest01>().lastCollider = true;						// Add the scale, in double, of this GameObject's scale
-				}
+				}*/
 				tempObj.GetComponent<BodyColliderTest01>().mesh = scaleStatesScript.meshes;
 			}
 		}
