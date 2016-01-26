@@ -4457,9 +4457,9 @@ MonoBehaviour:
     y: 0
     z: -10000000
   radius:
-    x: 1391016
-    y: 1391016
-    z: 1391016
+    x: 695508
+    y: 695508
+    z: 695508
 --- !u!1 &1307173960
 GameObject:
   m_ObjectHideFlags: 0
