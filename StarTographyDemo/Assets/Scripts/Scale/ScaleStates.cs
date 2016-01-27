@@ -66,6 +66,8 @@ public class ScaleStates : Functions {
 	public GameObject[] distanceMarkerScaleObjects;
 	public DistanceMarkerScaleStates[] distanceMarkerScaleScripts;
 
+	public List<GameObject> allChildren = new List<GameObject>();
+
 	#region Basic Getters/Setters
 	public State CurrentState {
 		get { return state; }
@@ -187,6 +189,14 @@ public class ScaleStates : Functions {
 			distanceMarkerScaleObjects [2].name = distanceMarkerScaleObjects [2].name+" Ld";
 			distanceMarkerScaleObjects [3].name = distanceMarkerScaleObjects [3].name+" LY";
 		}
+
+		// Create a list of all the child objects in this gameObject
+		allChildren.Add (transform.gameObject);
+		foreach (Transform _child in transform) {
+			allChildren.Add (_child.gameObject);
+			//Debug.LogError ("adding = " + _child.name,_child);
+		}
+
 
 	}
 	
@@ -417,11 +427,15 @@ public class ScaleStates : Functions {
 			}
 		}
 	}
-
+	
 
 	void StateFunction(int layerMask, double scaleD, string scaleS, float meshScale, string beforeS, string currentS, string afterS, double beforeD, double currentD, double afterD) {
-		gameObject.layer = layerMask;													// Set the layer, by number, to the appropriate layer mask
-		if(meshes) meshes.layer = layerMask;											// Set the layer, by number, to the appropriate layer mask
+		//gameObject.layer = layerMask;													// Set the layer, by number, to the appropriate layer mask
+		for(int i=0;i<allChildren.Count;i++) {
+			//Debug.LogError("count = "+allChildren.Count+", on object "+allChildren[i].name,allChildren[i]);
+			allChildren[i].layer = layerMask;
+		}
+		//if(meshes) meshes.layer = layerMask;											// Set the layer, by number, to the appropriate layer mask
 		CalculateLocalScale (scaleD);													// Calculate the gameObject scale based on original scale and the scale of this State
 		if(meshes) MeshScale(scaleD);												// If there's any items in the meshes variable, adjust the local scale appropriately
 		gameObject.transform.parent = scaleStateParent [scaleS];						// Set this gameObject's parent to the appropriate scale's gameObject container
