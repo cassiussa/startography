@@ -173,6 +173,21 @@ public class Functions : Constants {
 		return result;
 	}
 
+	protected float RadToSunRad(float radius) {							// Takes in a star's radius and retuns the amount in solar portions
+		float result = radius / (float)radiusConstantSolar;
+		return result;
+	}
+
+	protected float TempToSunTemp(float temperature) {					// Takes in a star's temperature and retuns the amount in solar portions
+		float result = temperature / (float)radiusTemperatureSolar;
+		return result;
+	}
+
+	protected float Luminosity(float radius, float temperature) {		// Calculates luminosity in solar terms.  Input is radius compared to Sun, temp compared to Sun
+		float result = Mathf.Pow(radius, 2) * Mathf.Pow(temperature, 4);
+		return result;
+	}
+
 	public class Vector3d {
 		/*
 		 * Create a new Type.  Vector3 double.
@@ -264,7 +279,7 @@ public class Functions : Constants {
 	}
 	public Vector3d camPosition = new Vector3d(0d,0d,0d);
 
-
+	
 
 	public IEnumerator StarGlowResize(Transform glow, float endSize, float time) {
 		/*

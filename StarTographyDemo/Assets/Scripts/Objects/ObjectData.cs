@@ -18,30 +18,45 @@ public class ObjectData : Functions {
 	public CelestialBodyType celestialBodyType;
 
 	public String3d coordinates;
-	//public string coordX = "0";
-	//public string coordY = "0";
-	//public string coordZ = "0";
-
 	public String3d radius;
 
+	public float temperature;
+	public float luminosity;		// This shouldn' be visible.  Used to set amount of glow on a star
+
 	void Awake() {
+		Vector3d vRadius = S3dToV3d (radius);
+
+		if (radius.x == "" || radius.y == "" || radius.z == "") Debug.LogError ("The Radius hasn't been set correctly for this object.", gameObject);
+
 		scaleStatesScript = GetComponent<ScaleStates> ();
 		starLightScaleStatesScript = GetComponent<StarLightScaleStates> ();
-		if (radius.x == "" || radius.y == "" || radius.z == "")
-			Debug.LogError ("The Radius hasn't been set correctly for this object.", gameObject);
+		if (celestialBodyType == CelestialBodyType.Star) {
+			if(temperature <= 0) Debug.LogError ("Invalid temperature has been assigned to the star.",gameObject);
+			gameObject.AddComponent<StarLightObjectBuilder> ();				// Take this out???
+
+			if((vRadius.x+vRadius.y+vRadius.z)/3 < 1000) {					// This is likely in Solar radii, not actual size
+				vRadius = new Vector3d(vRadius.x*radiusConstantSolar, vRadius.y*radiusConstantSolar, vRadius.z*radiusConstantSolar);
+				radius = V3dToS3d(vRadius);									// Convert it back into the string variables
+			}
+			if(temperature < 1000) {										// This is likely in Solar temperatures, not actual size
+				temperature = temperature * (float)radiusTemperatureSolar;
+			}
+
+			luminosity = Mathf.Pow(RadToSunRad((float)vRadius.x),2) * Mathf.Pow(TempToSunTemp(temperature),4);
+		}
+
 
 		if (scaleStatesScript) {
-			scaleStatesScript.thisLocalScale = S3dToV3d (radius);
+			scaleStatesScript.thisLocalScale = vRadius;
 			scaleStatesScript.thisLocalScale.x *= 2;
 			scaleStatesScript.thisLocalScale.y *= 2;
 			scaleStatesScript.thisLocalScale.z *= 2;
 		} else if (starLightScaleStatesScript) {
-			starLightScaleStatesScript.thisLocalScale = S3dToV3d (radius);
+			starLightScaleStatesScript.thisLocalScale = vRadius;
 			starLightScaleStatesScript.thisLocalScale.x *= 2;
 			starLightScaleStatesScript.thisLocalScale.y *= 2;
 			starLightScaleStatesScript.thisLocalScale.z *= 2;
 		}
-		if (celestialBodyType == CelestialBodyType.Star)
-			gameObject.AddComponent<StarLightObjectBuilder> ();
+
 	}
 }

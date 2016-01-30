@@ -66,8 +66,9 @@ public class ScaleStates : Functions {
 	public GameObject[] distanceMarkerScaleObjects;
 	public DistanceMarkerScaleStates[] distanceMarkerScaleScripts;
 
+	[HideInInspector]
 	public List<GameObject> allChildren = new List<GameObject>();
-
+	[HideInInspector]
 	public Transform starGlow;
 
 	#region Basic Getters/Setters
@@ -357,7 +358,7 @@ public class ScaleStates : Functions {
 			if (objectDataScript.celestialBodyType == ObjectData.CelestialBodyType.Star) {
 				Lights(true, "Ld", Ld);
 				DistanceMarkerScaleUpdate(DistanceMarkerScaleStates.Scale.LightDay);
-				StartCoroutine(StarGlowResize(starGlow, 7f, 3f));
+				StartCoroutine(StarGlowResize(starGlow, 3f, 3f));
 			}
 			_cacheState = state;
 		}
@@ -372,7 +373,7 @@ public class ScaleStates : Functions {
 			if (objectDataScript.celestialBodyType == ObjectData.CelestialBodyType.Star) {
 				Lights(false, "LY", LY);
 				DistanceMarkerScaleUpdate(DistanceMarkerScaleStates.Scale.LightYear);
-				StartCoroutine(StarGlowResize(starGlow, 15f, 3f));
+				StartCoroutine(StarGlowResize(starGlow, 3f, 3f));
 			}
 			_cacheState = state;
 		}
@@ -387,7 +388,7 @@ public class ScaleStates : Functions {
 			if (objectDataScript.celestialBodyType == ObjectData.CelestialBodyType.Star) {
 				Lights(false, "PA", PA);
 				DistanceMarkerScaleUpdate(DistanceMarkerScaleStates.Scale.Parsec);
-				StartCoroutine(StarGlowResize(starGlow, 1f, 5f));
+				StartCoroutine(StarGlowResize(starGlow, 3f, 5f));
 			}
 			_cacheState = state;
 		}
@@ -402,7 +403,7 @@ public class ScaleStates : Functions {
 			if (objectDataScript.celestialBodyType == ObjectData.CelestialBodyType.Star) {
 				Lights(false, "LD", LD);
 				DistanceMarkerScaleUpdate(DistanceMarkerScaleStates.Scale.LightDecade);
-				StartCoroutine(StarGlowResize(starGlow, 1f, 5f));
+				StartCoroutine(StarGlowResize(starGlow, 3f, 5f));
 			}
 			_cacheState = state;
 		}
@@ -417,7 +418,7 @@ public class ScaleStates : Functions {
 			if (objectDataScript.celestialBodyType == ObjectData.CelestialBodyType.Star) {
 				Lights(false, "LC", LC);
 				DistanceMarkerScaleUpdate(DistanceMarkerScaleStates.Scale.LightCentury);
-				StartCoroutine(StarGlowResize(starGlow, 1f, 5f));
+				StartCoroutine(StarGlowResize(starGlow, 3f, 5f));
 			}
 			_cacheState = state;
 		}
@@ -433,7 +434,7 @@ public class ScaleStates : Functions {
 			if (objectDataScript.celestialBodyType == ObjectData.CelestialBodyType.Star) {
 				Lights(false, "LM", LM);
 				DistanceMarkerScaleUpdate(DistanceMarkerScaleStates.Scale.LightMillenium);
-				StartCoroutine(StarGlowResize(starGlow, 1f, 5f));
+				StartCoroutine(StarGlowResize(starGlow, 3f, 5f));
 			}
 			_cacheState = state;
 		}

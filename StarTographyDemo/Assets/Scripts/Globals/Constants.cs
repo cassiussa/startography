@@ -4,6 +4,7 @@ using System.Collections;
 public class Constants : MonoBehaviour {
 	protected double PI = 3.14159265358979323846d;
 	protected double radiusConstantSolar = 695508d;							// In kilometers
+	protected double radiusTemperatureSolar = 5777d;						// The effective temperature of the sun, in Kelvin
 	protected double radiusConstantEarth = 6371d;							// In kilometers
 	protected double radiusConstantJupiter = 69911d;						// In kilometers
 	protected double massConstantSolar = 1988500000000000000000000000000d;	// In kilograms
