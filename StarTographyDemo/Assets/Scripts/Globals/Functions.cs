@@ -266,4 +266,32 @@ public class Functions : Constants {
 
 
 
+	public IEnumerator StarGlowResize(Transform glow, float endSize, float time) {
+		/*
+		 * Calculate the scale of the Vector3 in a coroutine
+		 * 
+		 * Parameters
+		 * ----------
+		 * glow : The transform of the StarGlow gameObject - we will be rescaling this
+		 * endSize : The end size scale of the StarGlow transform
+		 * time : The amount of time that the scaling transition takes
+		 * 
+		 * Actions
+		 * -------
+		 * Assigns the Vector3 scale of the StarGlow gameObject as it trasitions between one ScaleState size and the next
+		 */
+		float startSize = glow.localScale.x;
+		float elapsedTime = 0;
+		float currentScale = startSize;
+		glow.localScale = new Vector3(startSize, startSize, startSize);
+
+		while (elapsedTime < time) {
+			currentScale = Mathf.Lerp (startSize, endSize, (elapsedTime/time));
+			glow.localScale = new Vector3(currentScale,currentScale,currentScale);
+			elapsedTime += Time.deltaTime;
+			yield return new WaitForEndOfFrame();
+		}
+		glow.localScale = new Vector3(endSize, endSize, endSize);
+	}
+
 }
