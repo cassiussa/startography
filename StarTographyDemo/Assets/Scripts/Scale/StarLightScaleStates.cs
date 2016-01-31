@@ -57,6 +57,7 @@ public class StarLightScaleStates : Functions {
 	Dictionary<string, Light> lights = new Dictionary<string, Light>();
 	
 	PositionProcessing positionProcessingScript;
+	public PositionProcessing starPositionProcessingScript;
 	Positioning positioningScript;
 	
 	public GameObject meshes;
@@ -168,10 +169,11 @@ public class StarLightScaleStates : Functions {
 	
 	
 	void Update() {
-		
-		if (state != thisScaleState)																// Only perform the state transition if we're not already in the same state
+		positionProcessingScript.position = starPositionProcessingScript.position;					// Pull the real position from the star that generated this light and apply it every frame
+
+		if (state != thisScaleState) {																// Only perform the state transition if we're not already in the same state
 			SetState (thisScaleState);																// Assign the scale that was determined by distance from origin Vector3(0,0,0)
-		
+		}
 	}
 	
 	

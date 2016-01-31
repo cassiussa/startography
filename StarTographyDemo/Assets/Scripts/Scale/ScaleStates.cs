@@ -66,6 +66,11 @@ public class ScaleStates : Functions {
 	public GameObject[] distanceMarkerScaleObjects;
 	public DistanceMarkerScaleStates[] distanceMarkerScaleScripts;
 
+	[HideInInspector]
+	public List<GameObject> allChildren = new List<GameObject>();
+	[HideInInspector]
+	public Transform starGlow;
+
 	#region Basic Getters/Setters
 	public State CurrentState {
 		get { return state; }
@@ -136,15 +141,16 @@ public class ScaleStates : Functions {
 					((System.Math.Abs (positionProcessingScript.position.y) / thisMeasurement) * maxUnits),
 					((System.Math.Abs (positionProcessingScript.position.z) / thisMeasurement) * maxUnits));
 
-				lightGameObjectsArray[i] =  Instantiate (Resources.Load ("Prefabs/StarLightObject")) as GameObject;		// Instantiate the light and assign it into the array
+				lightGameObjectsArray[i] = Instantiate(Resources.Load ("Prefabs/StarLightObject")) as GameObject;	// Instantiate the light and assign it into the array
 				lightGameObjectsArray[i].name = gameObject.name+" Light";							// Rename the gameObject
 				lightGameObjectsArray[i].transform.parent = scaleStateParent [inputs [i]];			// Set this gameObject's parent to the appropriate scale's gameObject container
 				lightGameObjectsArray[i].transform.position = V3dToV3 (thisPosition);				// Assign the initial position of this light's gameObject
 				lightGameObjectsArray[i].layer = i + layerMask;										// Set the layer.  Note that 8 is the lowest layer we've made
 				starLightScalesStatesScript[i] = lightGameObjectsArray[i].GetComponent<StarLightScaleStates>();	// Get the StarLightScaleStates components from the instantiated star light gameObjects
+				starLightScalesStatesScript[i].starPositionProcessingScript = positionProcessingScript;// Assign this star's PositionProcess.cs script into the generated light so we can assign same positions
 
 				lights.Add (inputs [i], lightGameObjectsArray[i].GetComponent<Light> ());			// Add the Light component to the gameObjects
-				float calculatedRange = (float)(measurements [i] * maxUnits);		// Range of the light depending on State
+				float calculatedRange = (float)(measurements [i] * maxUnits);						// Range of the light depending on State
 
 				lights [inputs [i]].range = calculatedRange;										// Copy the light's Range from the original light's Range
 				//lights [inputs [i]].intensity = light.intensity;									// as well as the light's intensity
@@ -157,17 +163,13 @@ public class ScaleStates : Functions {
 		if (objectDataScript.celestialBodyType == ObjectData.CelestialBodyType.Planet ||
 		    objectDataScript.celestialBodyType == ObjectData.CelestialBodyType.Star) {				// Make sure that we're not trying to assign mesh to this if it's not an object that would have any (such as Starlight)
 			meshes = gameObject.transform.Find ("Mesh").gameObject;
-			// Add the visuals script centered around the star
-			//gameObject.AddComponent<GenerateDistanceVisuals> ();
 			gameObject.AddComponent<GenerateBodyColliders> ();										// Add the GenerateBodyColliders component to objects, such as Stars and Planets
 		}
 
 		if (meshes) {
 			meshes.AddComponent<Scaling> ();
-			//float meshScale = (float)(2000/((thisLocalScale.x / MK) * maxUnits));
 			float meshScale = (float)((thisLocalScale.x / LH) * maxUnits) * 2000;
 			meshesScalingScript = meshes.GetComponent<Scaling>();
-			//Debug.LogError ("meshScale = "+gameObject.name+" "+meshScale+", thisLocalScale.x = "+thisLocalScale.x+", scale = "+LH);
 		}
 
 		// If this is a star then we need to prepare the Distance Markers
@@ -184,16 +186,25 @@ public class ScaleStates : Functions {
 				if(i==1) distanceMarkerScaleScripts[i].size = DistanceMarkerScaleStates.Size.LightHours;
 				if(i==2) distanceMarkerScaleScripts[i].size = DistanceMarkerScaleStates.Size.LightDays;
 				if(i==3) distanceMarkerScaleScripts[i].size = DistanceMarkerScaleStates.Size.LightYears;
-				//if(i==4) distanceMarkerScaleScripts[i].size = DistanceMarkerScaleStates.Size.LightDecades;
-				//if(i==5) distanceMarkerScaleScripts[i].size = DistanceMarkerScaleStates.Size.LightCenturies;
 			}
 			distanceMarkerScaleObjects [0].name = distanceMarkerScaleObjects [0].name+" AU";
 			distanceMarkerScaleObjects [1].name = distanceMarkerScaleObjects [1].name+" LH";
 			distanceMarkerScaleObjects [2].name = distanceMarkerScaleObjects [2].name+" Ld";
 			distanceMarkerScaleObjects [3].name = distanceMarkerScaleObjects [3].name+" LY";
-			//distanceMarkerScaleObjects [4].name = distanceMarkerScaleObjects [4].name+" LD";
-			//distanceMarkerScaleObjects [5].name = distanceMarkerScaleObjects [5].name+" LC";
 		}
+
+		if (objectDataScript.celestialBodyType == ObjectData.CelestialBodyType.Star) {
+			starGlow = transform.Find("StarGlow");
+		}
+
+		// Create a list of all the child objects in this gameObject
+		//allChildren.Add (transform.gameObject);
+		Transform[] _allChildren = gameObject.GetComponentsInChildren<Transform>();
+		foreach (Transform _child in _allChildren) {
+			allChildren.Add (_child.gameObject);
+			//Debug.LogError ("adding = " + _child.name,_child);
+		}
+
 
 	}
 	
@@ -283,12 +294,12 @@ public class ScaleStates : Functions {
 		if (_cacheState != state) {																	// Without this we get crazy bugs.  Don't know why.  It needs to be here for code efficiency anyways!
 			StateFunction(layerMask, SM, "SM", 1f, "", "SM", "MK", 0d, SM, MK);
 
-			_cacheState = state;
-		
 			if (objectDataScript.celestialBodyType == ObjectData.CelestialBodyType.Star) {			// Check if this gameObject is, or contains, a light
 				Lights(true, "MK", MK);																	// Activate or deactivate the lights, depending on state
 				DistanceMarkerScaleUpdate(DistanceMarkerScaleStates.Scale.SubMillion);
+				StartCoroutine(StarGlowResize(starGlow, 0.5f, 5f));
 			}
+			_cacheState = state;
 		}
 	}
 
@@ -298,12 +309,12 @@ public class ScaleStates : Functions {
 		if (_cacheState != state) {
 			StateFunction(layerMask, MK, "MK", 1f, "SM", "MK", "AU", SM, MK, AU);
 
-			_cacheState = state;
-		
 			if (objectDataScript.celestialBodyType == ObjectData.CelestialBodyType.Star) {
 				Lights(true, "MK", MK);
 				DistanceMarkerScaleUpdate(DistanceMarkerScaleStates.Scale.MillionKilometers);
+				StartCoroutine(StarGlowResize(starGlow, 0.5f, 5f));
 			}
+			_cacheState = state;
 		}
 	}
 	
@@ -313,13 +324,13 @@ public class ScaleStates : Functions {
 		if (_cacheState != state) {
 			StateFunction(layerMask, AU, "AU", 1f, "MK", "AU", "LH", MK, AU, LH);
 
-			_cacheState = state;
-		
 			if (objectDataScript.celestialBodyType == ObjectData.CelestialBodyType.Star) {
 				Lights(true, "AU", AU);
 				DistanceMarkerScaleUpdate(DistanceMarkerScaleStates.Scale.AstronomicalUnit);
+				StartCoroutine(StarGlowResize(starGlow, 0.5f, 5f));
 			}
 
+			_cacheState = state;
 		}
 	}
 	
@@ -329,13 +340,12 @@ public class ScaleStates : Functions {
 		if (_cacheState != state) {
 			StateFunction(layerMask, LH, "LH", 1f, "AU", "LH", "Ld", AU, LH, Ld);
 
-			_cacheState = state;
-		
 			if (objectDataScript.celestialBodyType == ObjectData.CelestialBodyType.Star) {
 				Lights(true, "LH", LH);
 				DistanceMarkerScaleUpdate(DistanceMarkerScaleStates.Scale.LightHour);
+				StartCoroutine(StarGlowResize(starGlow, 3f, 3f));
 			}
-
+			_cacheState = state;
 		}
 	}
 	
@@ -345,12 +355,12 @@ public class ScaleStates : Functions {
 		if (_cacheState != state) {
 			StateFunction(layerMask, Ld, "Ld", 1f, "LH", "Ld", "LY", LH, Ld, LY);
 
-			_cacheState = state;
-		
 			if (objectDataScript.celestialBodyType == ObjectData.CelestialBodyType.Star) {
 				Lights(true, "Ld", Ld);
 				DistanceMarkerScaleUpdate(DistanceMarkerScaleStates.Scale.LightDay);
+				StartCoroutine(StarGlowResize(starGlow, 3f, 3f));
 			}
+			_cacheState = state;
 		}
 	}
 
@@ -359,12 +369,13 @@ public class ScaleStates : Functions {
 		layerMask = 13;
 		if (_cacheState != state) {
 			StateFunction(layerMask, LY, "LY", 0f, "Ld", "LY", "PA", Ld, LY, PA);
-			_cacheState = state;
 
 			if (objectDataScript.celestialBodyType == ObjectData.CelestialBodyType.Star) {
 				Lights(false, "LY", LY);
 				DistanceMarkerScaleUpdate(DistanceMarkerScaleStates.Scale.LightYear);
+				StartCoroutine(StarGlowResize(starGlow, 3f, 3f));
 			}
+			_cacheState = state;
 		}
 	}
 
@@ -373,12 +384,13 @@ public class ScaleStates : Functions {
 		layerMask = 14;
 		if (_cacheState != state) {
 			StateFunction(layerMask, PA, "PA", 0f, "LY", "PA", "LD", LY, PA, LD);
-			_cacheState = state;
 		
 			if (objectDataScript.celestialBodyType == ObjectData.CelestialBodyType.Star) {
 				Lights(false, "PA", PA);
 				DistanceMarkerScaleUpdate(DistanceMarkerScaleStates.Scale.Parsec);
+				StartCoroutine(StarGlowResize(starGlow, 3f, 5f));
 			}
+			_cacheState = state;
 		}
 	}
 
@@ -387,12 +399,13 @@ public class ScaleStates : Functions {
 		layerMask = 15;
 		if (_cacheState != state) {
 			StateFunction(layerMask, LD, "LD", 0f, "PA", "LD", "LC", PA, LD, LC);
-			_cacheState = state;
 
 			if (objectDataScript.celestialBodyType == ObjectData.CelestialBodyType.Star) {
 				Lights(false, "LD", LD);
 				DistanceMarkerScaleUpdate(DistanceMarkerScaleStates.Scale.LightDecade);
+				StartCoroutine(StarGlowResize(starGlow, 3f, 5f));
 			}
+			_cacheState = state;
 		}
 	}
 
@@ -401,12 +414,13 @@ public class ScaleStates : Functions {
 		layerMask = 16;
 		if (_cacheState != state) {
 			StateFunction(layerMask, LC, "LC", 0f, "LD", "LC", "LM", LD, LC, LM);
-			_cacheState = state;
 		
 			if (objectDataScript.celestialBodyType == ObjectData.CelestialBodyType.Star) {
 				Lights(false, "LC", LC);
 				DistanceMarkerScaleUpdate(DistanceMarkerScaleStates.Scale.LightCentury);
+				StartCoroutine(StarGlowResize(starGlow, 3f, 5f));
 			}
+			_cacheState = state;
 		}
 	}
 
@@ -416,19 +430,24 @@ public class ScaleStates : Functions {
 		layerMask = 17;
 		if (_cacheState != state) {
 			StateFunction(layerMask, LM, "LM", 0f, "LC", "LM", "", LC, LM, 0d);
-			_cacheState = state;
 		
 			if (objectDataScript.celestialBodyType == ObjectData.CelestialBodyType.Star) {
 				Lights(false, "LM", LM);
 				DistanceMarkerScaleUpdate(DistanceMarkerScaleStates.Scale.LightMillenium);
+				StartCoroutine(StarGlowResize(starGlow, 3f, 5f));
 			}
+			_cacheState = state;
 		}
 	}
-
+	
 
 	void StateFunction(int layerMask, double scaleD, string scaleS, float meshScale, string beforeS, string currentS, string afterS, double beforeD, double currentD, double afterD) {
-		gameObject.layer = layerMask;													// Set the layer, by number, to the appropriate layer mask
-		if(meshes) meshes.layer = layerMask;											// Set the layer, by number, to the appropriate layer mask
+		//gameObject.layer = layerMask;													// Set the layer, by number, to the appropriate layer mask
+		for(int i=0;i<allChildren.Count;i++) {
+			//Debug.LogError("count = "+allChildren.Count+", on object "+allChildren[i].name,allChildren[i]);
+			allChildren[i].layer = layerMask;
+		}
+		//if(meshes) meshes.layer = layerMask;											// Set the layer, by number, to the appropriate layer mask
 		CalculateLocalScale (scaleD);													// Calculate the gameObject scale based on original scale and the scale of this State
 		if(meshes) MeshScale(scaleD);												// If there's any items in the meshes variable, adjust the local scale appropriately
 		gameObject.transform.parent = scaleStateParent [scaleS];						// Set this gameObject's parent to the appropriate scale's gameObject container
@@ -487,7 +506,6 @@ public class ScaleStates : Functions {
 		starLightScalesStatesScript [2].thisScaleState = StarLightScaleStates.State.AstronomicalUnit;
 		starLightScalesStatesScript [3].thisScaleState = StarLightScaleStates.State.LightHour;
 		starLightScalesStatesScript [4].thisScaleState = StarLightScaleStates.State.LightDay;
-		//starLightScalesStatesScript[index].state = state;
 	}
 
 	/*

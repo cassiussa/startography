@@ -173,6 +173,21 @@ public class Functions : Constants {
 		return result;
 	}
 
+	protected float RadToSunRad(float radius) {							// Takes in a star's radius and retuns the amount in solar portions
+		float result = radius / (float)radiusConstantSolar;
+		return result;
+	}
+
+	protected float TempToSunTemp(float temperature) {					// Takes in a star's temperature and retuns the amount in solar portions
+		float result = temperature / (float)radiusTemperatureSolar;
+		return result;
+	}
+
+	protected float Luminosity(float radius, float temperature) {		// Calculates luminosity in solar terms.  Input is radius compared to Sun, temp compared to Sun
+		float result = Mathf.Pow(radius, 2) * Mathf.Pow(temperature, 4);
+		return result;
+	}
+
 	public class Vector3d {
 		/*
 		 * Create a new Type.  Vector3 double.
@@ -264,6 +279,34 @@ public class Functions : Constants {
 	}
 	public Vector3d camPosition = new Vector3d(0d,0d,0d);
 
+	
 
+	public IEnumerator StarGlowResize(Transform glow, float endSize, float time) {
+		/*
+		 * Calculate the scale of the Vector3 in a coroutine
+		 * 
+		 * Parameters
+		 * ----------
+		 * glow : The transform of the StarGlow gameObject - we will be rescaling this
+		 * endSize : The end size scale of the StarGlow transform
+		 * time : The amount of time that the scaling transition takes
+		 * 
+		 * Actions
+		 * -------
+		 * Assigns the Vector3 scale of the StarGlow gameObject as it trasitions between one ScaleState size and the next
+		 */
+		float startSize = glow.localScale.x;
+		float elapsedTime = 0;
+		float currentScale = startSize;
+		glow.localScale = new Vector3(startSize, startSize, startSize);
+
+		while (elapsedTime < time) {
+			currentScale = Mathf.Lerp (startSize, endSize, (elapsedTime/time));
+			glow.localScale = new Vector3(currentScale,currentScale,currentScale);
+			elapsedTime += Time.deltaTime;
+			yield return new WaitForEndOfFrame();
+		}
+		glow.localScale = new Vector3(endSize, endSize, endSize);
+	}
 
 }
