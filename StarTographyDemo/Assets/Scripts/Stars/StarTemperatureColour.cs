@@ -10,9 +10,12 @@ public class StarTemperatureColour : Functions {
 	StreamReader theReader;
 	public float[,] temperatureColours;
 	public GameObject meshes;
+	public SgtProminence sgtProminenceScript;
+	public SgtCorona sgtCoronaScript;
 	public Color starColour;
 	public Transform starGlow;
 	//public float temperature;
+	public Material[] starRenderer;
 	public ObjectData objectDataScript;
 
 	void Awake() {
@@ -52,6 +55,11 @@ public class StarTemperatureColour : Functions {
 					starColour = new Color (temperatureColours[_i,1]/255,
 					                        temperatureColours[_i,2]/255,
 					                        temperatureColours[_i,3]/255);
+					starRenderer[0].color = starColour;
+					sgtProminenceScript.Color = starColour;
+					GradientColorKey[] defaultAtmosphereColor = new GradientColorKey[] { new GradientColorKey(starColour, 0.5f) };
+					sgtCoronaScript.DensityColor.colorKeys = defaultAtmosphereColor;
+					//sgtCoronaScript.DensityColor = new Gradient()
 				}
 			}
 			

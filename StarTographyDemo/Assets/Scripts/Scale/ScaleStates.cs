@@ -167,9 +167,12 @@ public class ScaleStates : Functions {
 		}
 		if (objectDataScript.celestialBodyType == ObjectData.CelestialBodyType.Star) {
 			gameObject.AddComponent<StarTemperatureColour> ();										// Add the script that sets the colour of the star
+			gameObject.GetComponent<StarTemperatureColour> ().sgtProminenceScript = meshes.GetComponent<SgtProminence>();
+			gameObject.GetComponent<StarTemperatureColour> ().sgtCoronaScript = meshes.GetComponent<SgtCorona>();
 			gameObject.GetComponent<StarTemperatureColour> ().meshes = meshes;						// Assign the mesh gameObject into the StarTemperatureColour.cs script
 			starGlow = transform.Find ("StarGlow");
 			gameObject.GetComponent<StarTemperatureColour> ().starGlow = starGlow;					// Assign the starGlow transform into the StarTemperatureColour.cs script
+			gameObject.GetComponent<StarTemperatureColour> ().starRenderer = meshes.GetComponent<Renderer> ().materials;
 			gameObject.GetComponent<StarTemperatureColour> ().Load ();
 		}
 		
