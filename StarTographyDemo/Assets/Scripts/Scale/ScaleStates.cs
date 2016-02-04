@@ -165,15 +165,16 @@ public class ScaleStates : Functions {
 			meshes = gameObject.transform.Find ("Mesh").gameObject;
 			gameObject.AddComponent<GenerateBodyColliders> ();										// Add the GenerateBodyColliders component to objects, such as Stars and Planets
 		}
+
 		if (objectDataScript.celestialBodyType == ObjectData.CelestialBodyType.Star) {
-			gameObject.AddComponent<StarTemperatureColour> ();										// Add the script that sets the colour of the star
-			gameObject.GetComponent<StarTemperatureColour> ().sgtProminenceScript = meshes.GetComponent<SgtProminence>();
-			gameObject.GetComponent<StarTemperatureColour> ().sgtCoronaScript = meshes.GetComponent<SgtCorona>();
-			gameObject.GetComponent<StarTemperatureColour> ().meshes = meshes;						// Assign the mesh gameObject into the StarTemperatureColour.cs script
+			gameObject.AddComponent<StarColour>();										// Add the script that sets the colour of the star
+			GetComponent<StarColour>().sgtProminenceScript = meshes.GetComponent<SgtProminence>();
+			GetComponent<StarColour>().sgtCoronaScript = meshes.GetComponent<SgtCorona>();
+			GetComponent<StarColour>().meshes = meshes;						// Assign the mesh gameObject into the StarTemperatureColour.cs script
 			starGlow = transform.Find ("StarGlow");
-			gameObject.GetComponent<StarTemperatureColour> ().starGlow = starGlow;					// Assign the starGlow transform into the StarTemperatureColour.cs script
-			gameObject.GetComponent<StarTemperatureColour> ().starRenderer = meshes.GetComponent<Renderer> ().materials;
-			gameObject.GetComponent<StarTemperatureColour> ().Load ();
+			GetComponent<StarColour>().starGlow = starGlow;					// Assign the starGlow transform into the StarTemperatureColour.cs script
+			GetComponent<StarColour>().starRenderer = meshes.GetComponent<Renderer> ().materials;
+			//gameObject.GetComponent<StarTemperatureColour>().Load ();
 		}
 		
 		if (meshes) {

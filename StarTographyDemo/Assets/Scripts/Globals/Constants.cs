@@ -25,6 +25,7 @@ public class Constants : MonoBehaviour {
 	protected double LC = 946073047258080d;			// Light Centuries (Julian)
 	protected double LM = 9460730472580800d;		// Light Millenia (Julian)
 	protected double LDM = 94607304725808000d;		// Light DecaMillenia (Julian) [decamillenia is not a real name]
+
 }
 
 
