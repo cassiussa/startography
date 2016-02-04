@@ -36,8 +36,15 @@ public class StarColour : MonoBehaviour {
 		}
 		starRenderer[0].color = starColour;
 		sgtProminenceScript.Color = starColour;
-		GradientColorKey[] defaultAtmosphereColor = new GradientColorKey[] { new GradientColorKey (starColour, 0.5f) };
+		GradientColorKey[] defaultAtmosphereColor = new GradientColorKey[2];
+		defaultAtmosphereColor[0] = new GradientColorKey(new Color(starColour.r,starColour.g,starColour.b), 0.0f);
+		defaultAtmosphereColor[1] = new GradientColorKey(new Color(starColour.r-0.3f, starColour.g-0.3f, starColour.b-0.3f), 1.0f);
 		sgtCoronaScript.DensityColor.colorKeys = defaultAtmosphereColor;
+
+		/*sgtCoronaScript.DensityColor.colorKeys[0].color = starColour;
+		sgtCoronaScript.DensityColor.colorKeys[0].time = 0.0f;
+		sgtCoronaScript.DensityColor.colorKeys[1].color = new Color(starColour.r-20f,starColour.g-20f,starColour.b-20f);
+		sgtCoronaScript.DensityColor.colorKeys[1].time = 1.0f;*/
 
 		Debug.Log ("starColour = " + starColour);
 	}

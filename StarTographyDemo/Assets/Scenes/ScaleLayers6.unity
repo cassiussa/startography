@@ -1282,7 +1282,7 @@ MonoBehaviour:
   RenderQueueOffset: 0
   Seed: 349333379
   InnerRadius: .980000019
-  OuterRadius: 2
+  OuterRadius: 1.5
   PlaneCount: 20
   Detail: 50
   FadeEdge: 0
@@ -1357,7 +1357,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Color: {r: 1, g: 1, b: 1, a: 1}
-  Brightness: 1
+  Brightness: 2
   RenderQueue: 3000
   RenderQueueOffset: 0
   Fog: 0
@@ -2961,7 +2961,7 @@ MonoBehaviour:
     x: 918070.56
     y: 918070.56
     z: 918070.56
-  temperature: 1
+  temperature: 40000
   luminosity: 0
 --- !u!1 &311209607
 GameObject:
@@ -8181,7 +8181,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11454192, guid: 1f72ba190792d4c0682867112ec7ab83, type: 2}
       propertyPath: Brightness
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 11454194, guid: 1f72ba190792d4c0682867112ec7ab83, type: 2}
       propertyPath: Brightness
@@ -8189,7 +8189,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 11454194, guid: 1f72ba190792d4c0682867112ec7ab83, type: 2}
       propertyPath: OuterRadius
-      value: 2
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 11454194, guid: 1f72ba190792d4c0682867112ec7ab83, type: 2}
       propertyPath: Detail
