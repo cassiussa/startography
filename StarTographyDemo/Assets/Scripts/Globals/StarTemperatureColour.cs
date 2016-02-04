@@ -13,17 +13,11 @@ public class StarTemperatureColour : Functions {
 	void Awake() {
 		//objectDataScript = GetComponent<ObjectData> ();
 		theReader = new StreamReader(file, Encoding.Default);
-		Debug.Log ("StarTemperatureColour.cs Awake()");
 		Load ();
-
-		/*for (int i=0; i<temperatureColours.Length; i++) {
-
-		}*/
 
 	}
 
 	public void Load() {
-		Debug.Log ("StarTemperatureColour.cs Load()");
 		// Handle any problems that might arise when reading the text
 		try {
 			string line;
