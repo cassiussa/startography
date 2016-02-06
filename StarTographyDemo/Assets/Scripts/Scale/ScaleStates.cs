@@ -167,13 +167,14 @@ public class ScaleStates : Functions {
 		}
 
 		if (objectDataScript.celestialBodyType == ObjectData.CelestialBodyType.Star) {
-			gameObject.AddComponent<StarColour>();										// Add the script that sets the colour of the star
-			GetComponent<StarColour>().sgtProminenceScript = meshes.GetComponent<SgtProminence>();
-			GetComponent<StarColour>().sgtCoronaScript = meshes.GetComponent<SgtCorona>();
-			GetComponent<StarColour>().meshes = meshes;						// Assign the mesh gameObject into the StarTemperatureColour.cs script
+			gameObject.AddComponent<StarColour>();													// Add the script that sets the colour of the star
+			StarColour starComponentScript = GetComponent<StarColour>();
+			starComponentScript.sgtProminenceScript = meshes.GetComponent<SgtProminence>();
+			starComponentScript.sgtCoronaScript = meshes.GetComponent<SgtCorona>();
+			starComponentScript.meshes = meshes;													// Assign the mesh gameObject into the StarTemperatureColour.cs script
 			starGlow = transform.Find ("StarGlow");
-			GetComponent<StarColour>().starGlow = starGlow;					// Assign the starGlow transform into the StarTemperatureColour.cs script
-			GetComponent<StarColour>().starRenderer = meshes.GetComponent<Renderer> ().materials;
+			starComponentScript.starGlow = starGlow;												// Assign the starGlow transform into the StarTemperatureColour.cs script
+			starComponentScript.starRenderer = meshes.GetComponent<Renderer> ().materials;
 			//gameObject.GetComponent<StarTemperatureColour>().Load ();
 		}
 		
@@ -204,7 +205,18 @@ public class ScaleStates : Functions {
 			distanceMarkerScaleObjects [3].name = distanceMarkerScaleObjects [3].name+" LY";
 		}
 
-		if (objectDataScript.celestialBodyType == ObjectData.CelestialBodyType.Star) {
+		if (objectDataScript.celestialBodyType == ObjectData.CelestialBodyType.Planet) {			// Things we do if this of type Planet
+			GameObject lineRendererObject = new GameObject();										// Create a new empty gameObject to use for the Line Renderer
+			LineRenderer lineRenderer = lineRendererObject.AddComponent<LineRenderer>();			// Add the LineRenderer component, which will make the orbital path visible
+
+			lineRendererObject.transform.parent = transform;										// Assign the gameObject as a child of this object
+			lineRendererObject.name = gameObject.name+"__Orbit_Path";								// Name the Line Renderer orbital path gameObject
+			lineRenderer.material = new Material(Resources.Load("Material/PlanetOrbitPathTrail") as Material);	// Assign the default material
+			lineRenderer.castShadows = false;														// Don't case shadows as this is UI
+			lineRenderer.receiveShadows = false;													// No point in receiving shadows as this is UI
+			Color startColor = new Color(1f, 0.7647f, 0.294f, 1f);									// Start color of 255,195,75,255
+			Color endColor = new Color(1f, 0.7647f, 0.294f, 0f);									// End color of 255,195,75,0
+			lineRenderer.SetColors(startColor, endColor);											// Set the Start and End colours of the LineRenderer material
 
 		}
 
