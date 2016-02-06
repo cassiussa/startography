@@ -6,6 +6,7 @@ public class StarColour : MonoBehaviour {
 	public StarTemperatureColour starTemperatureColourScript;
 	public float[,] temperatureColours;
 	public SgtProminence sgtProminenceScript;
+	public Material starGlowPlane;
 	public SgtCorona sgtCoronaScript;
 	public GameObject meshes;
 	public Color starColour;
@@ -17,6 +18,7 @@ public class StarColour : MonoBehaviour {
 		objectDataScript = GetComponent<ObjectData> ();
 		starTemperatureColourScript = GameObject.Find ("Globals").GetComponent<StarTemperatureColour> ();
 		sgtProminenceScript = meshes.GetComponent<SgtProminence> ();
+		starGlowPlane = GameObject.Find ("StarMainGlow").GetComponent<Renderer>().material;
 
 		temperatureColours = starTemperatureColourScript.temperatureColours;
 		for (int i=0; i<temperatureColours.GetLength(0); i++) {
@@ -30,6 +32,9 @@ public class StarColour : MonoBehaviour {
 		}
 		starRenderer[0].color = starColour;
 		sgtProminenceScript.Color = starColour;
+		float starGlowPlaneA = starGlowPlane.color.a;	// Cache the pre-defined alpha value of the material
+		starGlowPlane.color = new Color(starColour.r, starColour.g, starColour.b, starGlowPlaneA); // Revert to the pre-defined alpha value of the material
+
 		// Here we're creating a gradient of the colour, so that the edge of the stars look a little bit better
 		// Gradients use an array, with the last float being the "time" between 0.0 and 1.0 (and anywhere in between)
 		GradientColorKey[] defaultAtmosphereColor = new GradientColorKey[2];

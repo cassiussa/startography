@@ -1,0 +1,173 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: StarCorona
+  m_Shader: {fileID: 4800000, guid: 3c4836ac53a9f41b7b803de0985ddab6, type: 3}
+  m_ShaderKeywords: []
+  m_CustomRenderQueue: -1
+  m_SavedProperties:
+    serializedVersion: 2
+    m_TexEnvs:
+      data:
+        first:
+          name: _MainTex
+        second:
+          m_Texture: {fileID: 2800000, guid: 52b544dcade124349a38220f6c3df391, type: 3}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _AtmosphereLut
+        second:
+          m_Texture: {fileID: 0}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _LightingLut
+        second:
+          m_Texture: {fileID: 0}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _Shadow1Texture
+        second:
+          m_Texture: {fileID: 0}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _Shadow2Texture
+        second:
+          m_Texture: {fileID: 0}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _RimLut
+        second:
+          m_Texture: {fileID: 0}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _Illum
+        second:
+          m_Texture: {fileID: 0}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+      data:
+        first:
+          name: _Cube
+        second:
+          m_Texture: {fileID: 0}
+          m_Scale: {x: 1, y: 1}
+          m_Offset: {x: 0, y: 0}
+    m_Floats:
+      data:
+        first:
+          name: _Cutoff
+        second: .5
+      data:
+        first:
+          name: _Shininess
+        second: .078125
+      data:
+        first:
+          name: _AtmosphereScale
+        second: 1
+      data:
+        first:
+          name: _HorizonLengthRecip
+        second: 0
+      data:
+        first:
+          name: _Power
+        second: 3
+      data:
+        first:
+          name: _Shadow1Ratio
+        second: 1
+      data:
+        first:
+          name: _Shadow2Ratio
+        second: 1
+      data:
+        first:
+          name: _SkyRadius
+        second: 3
+      data:
+        first:
+          name: _SkyRadiusRecip
+        second: 3
+      data:
+        first:
+          name: _FadeRadius
+        second: 1
+      data:
+        first:
+          name: _FadeScale
+        second: 1
+      data:
+        first:
+          name: _FadePower
+        second: 1
+      data:
+        first:
+          name: _ClipPower
+        second: 10
+      data:
+        first:
+          name: _EmissionLM
+        second: 0
+    m_Colors:
+      data:
+        first:
+          name: _Color
+        second: {r: 1, g: .549019635, b: .141176477, a: 1}
+      data:
+        first:
+          name: _SpecColor
+        second: {r: .5, g: .5, b: .5, a: 0}
+      data:
+        first:
+          name: _Light1Color
+        second: {r: 0, g: 0, b: 0, a: 1}
+      data:
+        first:
+          name: _Light2Color
+        second: {r: 0, g: 0, b: 0, a: 1}
+      data:
+        first:
+          name: _Light1Position
+        second: {r: 0, g: 0, b: 0, a: 1}
+      data:
+        first:
+          name: _Light2Position
+        second: {r: 0, g: 0, b: 0, a: 1}
+      data:
+        first:
+          name: _Light1Direction
+        second: {r: 0, g: 0, b: 0, a: 1}
+      data:
+        first:
+          name: _Light2Direction
+        second: {r: 0, g: 0, b: 0, a: 1}
+      data:
+        first:
+          name: _Emission
+        second: {r: 0, g: 0, b: 0, a: 0}
+      data:
+        first:
+          name: _WorldPosition
+        second: {r: 0, g: 0, b: 0, a: 0}
+      data:
+        first:
+          name: _ReflectColor
+        second: {r: 1, g: 1, b: 1, a: .5}
