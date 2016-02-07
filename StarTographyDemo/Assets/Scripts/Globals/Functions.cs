@@ -274,13 +274,40 @@ public class Functions : Constants {
 
 	}
 
+	public Vector3 ScalePosDiff(double value, Vector3d position) {
+		/*
+		 * Calculate the position in real Vector3 space, based on the ScaleState supplied in
+		 * the 'value' variable.
+		 * 
+		 * Parameters
+		 * ----------
+		 * value : The distance value of the scale State (ex: 100000 for MK)
+		 *		- supplied by the PlanetOrbitPathTrail.cs script
+		 * firstPosition : A Vector3d value of the real position of any point in space based on the scale (value)
+		 * 
+		 * Actions
+		 * -------
+		 * Returns a Vector3 coordinate position of where the point in space would be within the 
+		 * supplied Scalestate (value).
+		*/
+		
+		float _x = (float)( (position.x / value) * maxUnits );
+		float _y = (float)( (position.y / value) * maxUnits );
+		float _z = (float)( (position.z / value) * maxUnits );
+		
+		Vector3 localizedPosition = new Vector3 (_x, _y, _z);
+		return localizedPosition;
+	}
+
 	public Vector3 CalculatePosition(double value, Vector3d position, Vector3d camPosition) {
 		/*
 		 * Calculate the ratio of real position to fit within 10k unit limit
 		 * 
 		 * Parameters
 		 * ----------
-		 * value : The distance value of the scale State (ex: 100000 for MK) - supplied by the ScaleStates.cs script
+		 * value : The distance value of the scale State (ex: 100000 for MK)
+		 *		- supplied by the ScaleStates.cs script
+		 *		- supplied by the PlanetOrbitPathTrail.cs script
 		 * position : A Vector3d value of the real position of the object
 		 * 
 		 * Actions

@@ -227,7 +227,7 @@ public class ScaleStates : Functions {
 			Color startColor = new Color(1f, 0.7647f, 0.294f, 1f);									// Start color of 255,195,75,255
 			Color endColor = new Color(1f, 0.7647f, 0.294f, 0f);									// End color of 255,195,75,0
 			lineRenderer.SetColors(startColor, endColor);											// Set the Start and End colours of the LineRenderer material
-			lineRenderer.SetWidth (0.1f,0.1f);															// Set the Start and End width of the line
+			lineRenderer.SetWidth (0.025f,0.0f);															// Set the Start and End width of the line
 			lineRenderer.useWorldSpace = false;														// Set to local space
 
 			/*
@@ -244,7 +244,7 @@ public class ScaleStates : Functions {
 			 * to instantiate the next segment of the LineRenderer.
 			 */
 			planetOrbitPathTrailScript.positionProcessingScript = positionProcessingScript;
-			planetOrbitPathTrailScript.positioningScript = positioningScript;
+			planetOrbitPathTrailScript.planetTransform = transform;
 			planetOrbitPathTrailScript.scaleStatesScript = this;
 			//planetOrbitPathTrailScript.state = state;
 
@@ -497,12 +497,11 @@ public class ScaleStates : Functions {
 	void StateFunction(int layerMask, double scaleD, string scaleS, float meshScale, string beforeS, string currentS, string afterS, double beforeD, double currentD, double afterD) {
 		//gameObject.layer = layerMask;													// Set the layer, by number, to the appropriate layer mask
 		for(int i=0;i<allChildren.Count;i++) {
-			//Debug.LogError("count = "+allChildren.Count+", on object "+allChildren[i].name,allChildren[i]);
 			allChildren[i].layer = layerMask;
 		}
 		//if(meshes) meshes.layer = layerMask;											// Set the layer, by number, to the appropriate layer mask
 		CalculateLocalScale (scaleD);													// Calculate the gameObject scale based on original scale and the scale of this State
-		if(meshes) MeshScale(scaleD);												// If there's any items in the meshes variable, adjust the local scale appropriately
+		if(meshes) MeshScale(scaleD);													// If there's any items in the meshes variable, adjust the local scale appropriately
 		gameObject.transform.parent = scaleStateParent [scaleS];						// Set this gameObject's parent to the appropriate scale's gameObject container
 
 		// Specify only the scale States immediately surrounding this state so we can keep loop to minimum as there

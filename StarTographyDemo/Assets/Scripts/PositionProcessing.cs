@@ -28,7 +28,8 @@ public class PositionProcessing : Positioning {
 	// I don't know why, but this update needs to be here or stuff breaks
 	void Update () {
 		if (gameObject.name == "Earth") {
-			//Debug.Log ("position x = " + position.x);
+			//Debug.Log ("position = Vector3d(" + position.x+","+position.y+","+position.z+")");
+			position.x += 100;
 		}
 	}
 }
