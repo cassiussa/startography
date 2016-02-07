@@ -10,27 +10,25 @@ public class PositionProcessing : Positioning {
 	 */
 
 	ObjectData objectDataScript;								// The script that we get initial telemetry from
-	StarData starDataScript;
 	public Vector3d position;
 
 	float random;
 	void Awake() {
 		objectDataScript = GetComponent<ObjectData> ();
-		starDataScript = GetComponent<StarData> ();
 		if (GetComponent<ObjectData> ()) {
-			position = S3dToV3d(GetComponent<ObjectData> ().coordinates);
-		} else if (objectDataScript.celestialBodyType == ObjectData.CelestialBodyType.Star) {
-			Debug.Log ("My god! It's full of stars!");
-			//position = S3dToV3d(GetComponent<DistanceMarkerData> ().coordinates);
-		} else {
-			Debug.Log ("It's not an object or a star?");
-			//position = GetComponent<SunLightPosition>().position;
+			position = S3dToV3d (GetComponent<ObjectData> ().coordinates);
 		}
-
+		if (objectDataScript.celestialBodyType == ObjectData.CelestialBodyType.Star) {
+			//Debug.Log ("My god! It's full of stars!");
+		} else {
+			//Debug.Log ("It's not an object or a star?");
+		}
 	}
 
 	// I don't know why, but this update needs to be here or stuff breaks
 	void Update () {
-
+		if (gameObject.name == "Earth") {
+			//Debug.Log ("position x = " + position.x);
+		}
 	}
 }

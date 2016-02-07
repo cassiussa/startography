@@ -56,6 +56,7 @@ public class ScaleStates : Functions {
 	Dictionary<string, Light> lights = new Dictionary<string, Light>();
 	
 	PositionProcessing positionProcessingScript;
+	Vector3d realPosition;								// We'll assign the positionProcessingScript.position Vector3d.  Both are same item as they're of type Object
 	Positioning positioningScript;
 
 	public GameObject meshes;
@@ -98,9 +99,11 @@ public class ScaleStates : Functions {
 		inputsRevised = inputs;		// Make a copy so that we can update the array to be smaller as desired
 		measurements = new double[] { SM, MK, AU, LH, Ld, LY, PA, LD, LC, LM };
 
+
 		positionProcessingScript = GetComponent<PositionProcessing> ();
 		if (!positionProcessingScript)
 			Debug.LogError ("The PositionProcessing script appears to be missing", gameObject);
+		realPosition = positionProcessingScript.position;									// Literally the same item in memory
 		positioningScript = GameObject.Find ("/Cameras").GetComponent<Positioning> ();
 		if (!positioningScript)
 			Debug.LogError ("The Positioning script appears to be missing from the 'Camera's gameObject", gameObject);
@@ -137,9 +140,9 @@ public class ScaleStates : Functions {
 			for (int i=0; i<5; i++) {																// Limit to the 5 smallest scales.  Anything beyond that would be crazy			
 				double thisMeasurement = measurements [i];											// Cache the measurement for this iteration to save processing
 				Vector3d thisPosition = new Vector3d (												// Set the initial position of the new light gameObjects
-					((System.Math.Abs (positionProcessingScript.position.x) / thisMeasurement) * maxUnits),
-					((System.Math.Abs (positionProcessingScript.position.y) / thisMeasurement) * maxUnits),
-					((System.Math.Abs (positionProcessingScript.position.z) / thisMeasurement) * maxUnits));
+                      ((System.Math.Abs (realPosition.x) / thisMeasurement) * maxUnits),
+                      ((System.Math.Abs (realPosition.y) / thisMeasurement) * maxUnits),
+                      ((System.Math.Abs (realPosition.z) / thisMeasurement) * maxUnits));
 
 				lightGameObjectsArray[i] = Instantiate(Resources.Load ("Prefabs/StarLightObject")) as GameObject;	// Instantiate the light and assign it into the array
 				lightGameObjectsArray[i].name = gameObject.name+" Light";							// Rename the gameObject
@@ -317,9 +320,9 @@ public class ScaleStates : Functions {
 		// I should leave it like this as it's faster processing than the Distance function
 		for (int i=0;i<inputsRevised.Length; i++) {
 			double thisMeasurement = System.Math.Abs(measurements[i]);						// Cache the value instead of calculating it for each comparison
-			if (thisMeasurement > System.Math.Abs(positionProcessingScript.position.x+positioningScript.camPosition.x) && 
-			    thisMeasurement > System.Math.Abs(positionProcessingScript.position.y+positioningScript.camPosition.y) && 
-			    thisMeasurement > System.Math.Abs(positionProcessingScript.position.z+positioningScript.camPosition.z)) {
+			if (thisMeasurement > System.Math.Abs(realPosition.x+positioningScript.camPosition.x) && 
+			    thisMeasurement > System.Math.Abs(realPosition.y+positioningScript.camPosition.y) && 
+			    thisMeasurement > System.Math.Abs(realPosition.z+positioningScript.camPosition.z)) {
 				thisScale = scales[inputsRevised[i]];										// inputsRevised[i-1] is a string that is a key for the scales dictionary
 				break;																		// Break the loop as soon as we've found the scale.  Continue with Update() function
 			}
@@ -339,7 +342,7 @@ public class ScaleStates : Functions {
 	
 
 	void SubMillion() {																				// This State is heavily commented as each other state uses same conditions
-		transform.position = CalculatePosition (SM, positionProcessingScript.position, positioningScript.camPosition);	// Calculate the relative position based on real position and scale of this State
+		transform.position = CalculatePosition (SM, realPosition, positioningScript.camPosition);	// Calculate the relative position based on real position and scale of this State
 		layerMask = 8;
 		if (_cacheState != state) {																	// Without this we get crazy bugs.  Don't know why.  It needs to be here for code efficiency anyways!
 			StateFunction(layerMask, SM, "SM", 1f, "", "SM", "MK", 0d, SM, MK);
@@ -354,7 +357,7 @@ public class ScaleStates : Functions {
 	}
 
 	void MillionKilometers() {
-		transform.position = CalculatePosition (MK, positionProcessingScript.position, positioningScript.camPosition);
+		transform.position = CalculatePosition (MK, realPosition, positioningScript.camPosition);
 		layerMask = 9;
 		if (_cacheState != state) {
 			StateFunction(layerMask, MK, "MK", 1f, "SM", "MK", "AU", SM, MK, AU);
@@ -369,7 +372,7 @@ public class ScaleStates : Functions {
 	}
 	
 	void AstronomicalUnit() {
-		transform.position = CalculatePosition (AU, positionProcessingScript.position, positioningScript.camPosition);
+		transform.position = CalculatePosition (AU, realPosition, positioningScript.camPosition);
 		layerMask = 10;
 		if (_cacheState != state) {
 			StateFunction(layerMask, AU, "AU", 1f, "MK", "AU", "LH", MK, AU, LH);
@@ -385,7 +388,7 @@ public class ScaleStates : Functions {
 	}
 	
 	void LightHour() {
-		transform.position = CalculatePosition (LH, positionProcessingScript.position, positioningScript.camPosition);
+		transform.position = CalculatePosition (LH, realPosition, positioningScript.camPosition);
 		layerMask = 11;
 		if (_cacheState != state) {
 			StateFunction(layerMask, LH, "LH", 1f, "AU", "LH", "Ld", AU, LH, Ld);
@@ -400,7 +403,7 @@ public class ScaleStates : Functions {
 	}
 	
 	void LightDay() {
-		transform.position = CalculatePosition (Ld, positionProcessingScript.position, positioningScript.camPosition);
+		transform.position = CalculatePosition (Ld, realPosition, positioningScript.camPosition);
 		layerMask = 12;
 		if (_cacheState != state) {
 			StateFunction(layerMask, Ld, "Ld", 1f, "LH", "Ld", "LY", LH, Ld, LY);
@@ -415,7 +418,7 @@ public class ScaleStates : Functions {
 	}
 
 	void LightYear() {
-		transform.position = CalculatePosition (LY, positionProcessingScript.position, positioningScript.camPosition);
+		transform.position = CalculatePosition (LY, realPosition, positioningScript.camPosition);
 		layerMask = 13;
 		if (_cacheState != state) {
 			StateFunction(layerMask, LY, "LY", 0f, "Ld", "LY", "PA", Ld, LY, PA);
@@ -430,7 +433,7 @@ public class ScaleStates : Functions {
 	}
 
 	void Parsec() {
-		transform.position = CalculatePosition (PA, positionProcessingScript.position, positioningScript.camPosition);
+		transform.position = CalculatePosition (PA, realPosition, positioningScript.camPosition);
 		layerMask = 14;
 		if (_cacheState != state) {
 			StateFunction(layerMask, PA, "PA", 0f, "LY", "PA", "LD", LY, PA, LD);
@@ -445,7 +448,7 @@ public class ScaleStates : Functions {
 	}
 
 	void LightDecade() {
-		transform.position = CalculatePosition (LD, positionProcessingScript.position, positioningScript.camPosition);
+		transform.position = CalculatePosition (LD, realPosition, positioningScript.camPosition);
 		layerMask = 15;
 		if (_cacheState != state) {
 			StateFunction(layerMask, LD, "LD", 0f, "PA", "LD", "LC", PA, LD, LC);
@@ -460,7 +463,7 @@ public class ScaleStates : Functions {
 	}
 
 	void LightCentury() {
-		transform.position = CalculatePosition (LC, positionProcessingScript.position, positioningScript.camPosition);
+		transform.position = CalculatePosition (LC, realPosition, positioningScript.camPosition);
 		layerMask = 16;
 		if (_cacheState != state) {
 			StateFunction(layerMask, LC, "LC", 0f, "LD", "LC", "LM", LD, LC, LM);
@@ -476,7 +479,7 @@ public class ScaleStates : Functions {
 
 
 	void LightMillenium() {
-		transform.position = CalculatePosition (LM, positionProcessingScript.position, positioningScript.camPosition);
+		transform.position = CalculatePosition (LM, realPosition, positioningScript.camPosition);
 		layerMask = 17;
 		if (_cacheState != state) {
 			StateFunction(layerMask, LM, "LM", 0f, "LC", "LM", "", LC, LM, 0d);

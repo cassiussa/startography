@@ -14,8 +14,6 @@ public class PlanetOrbitPathTrail : Functions {
 	Vector3d curPosition;
 	Vector3d cachedPosition;
 	List<Vector3> lineArray = new List<Vector3>();
-	string[] inputs;		// Array of strings of distance types
-	double[] measurements;	// Array of the measurements of the distance types
 	int layerMask = 8;
 	Dictionary<ScaleStates.State, double> scales = new Dictionary<ScaleStates.State, double>();	// Allows us to convert string as variable names
 
@@ -41,14 +39,11 @@ public class PlanetOrbitPathTrail : Functions {
 		scales.Add (ScaleStates.State.LightCentury, LC);
 		scales.Add (ScaleStates.State.LightMillenium, LM);
 
-		inputs = new string[] { "SM", "MK", "AU", "LH", "Ld", "LY", "PA", "LD", "LC", "LM" };
-		measurements = new double[] { SM, MK, AU, LH, Ld, LY, PA, LD, LC, LM };
-
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		positionProcessingScript.position.x += 100;					// **** FOR TESTING ONLY *** //
+		//positionProcessingScript.position.x += 100;					// **** FOR TESTING ONLY *** //
 		//curPosition = positionProcessingScript.position;			// This is a literal assignment.  Both are now the same item, not just equal to the same values
 		// Check to see if the object has gone farther than 20000k.  If so, update the LineRenderer
 		if (System.Math.Abs (v3dDistance(curPosition, cachedPosition)) >= 20000d) {
