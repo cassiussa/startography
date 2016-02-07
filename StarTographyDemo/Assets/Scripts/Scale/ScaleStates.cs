@@ -242,6 +242,8 @@ public class ScaleStates : Functions {
 			 */
 			planetOrbitPathTrailScript.positionProcessingScript = positionProcessingScript;
 			planetOrbitPathTrailScript.positioningScript = positioningScript;
+			planetOrbitPathTrailScript.scaleStatesScript = this;
+			//planetOrbitPathTrailScript.state = state;
 
 		}
 
