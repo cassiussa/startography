@@ -5,12 +5,12 @@ using System.Collections.Generic;
 public class PlanetOrbitPathTrail : Functions {
 	public LineRenderer lineRenderer;
 	public int lengthOfLineRenderer = 1;
-	public int lineSegments = 300;
 	public PositionProcessing positionProcessingScript;
 	public Transform planetTransform;
 	public ScaleStates scaleStatesScript;
 	//public State state;
 
+	int lineSegments = 300;
 	Vector3d startPosition;
 	Vector3d curPosition;
 	Vector3d cachedPosition;
@@ -22,7 +22,7 @@ public class PlanetOrbitPathTrail : Functions {
 
 	// Use this for initialization
 	void Start () {
-		lineRenderer.SetVertexCount(lengthOfLineRenderer);
+		lineRenderer.SetVertexCount(lineSegments);
 		curPosition = positionProcessingScript.position;							// Literally equal to each other - same Object
 		startPosition = new Vector3d(curPosition.x, curPosition.y, curPosition.z);
 		cachedPosition = new Vector3d(curPosition.x, curPosition.y, curPosition.z);
@@ -43,6 +43,11 @@ public class PlanetOrbitPathTrail : Functions {
 		scales.Add (ScaleStates.State.LightCentury, LD);
 		scales.Add (ScaleStates.State.LightMillenium, LC);
 
+		for(int i=0;i<lineSegments;i++) {
+			lineArray.Add (new Vector3(0,0,0));
+			lineRenderer.SetPosition(i,lineArray[i]);
+		}
+		Debug.Log ("lineArray.Count = " + lineArray.Count);
 	}
 	
 	// Update is called once per frame
@@ -56,14 +61,14 @@ public class PlanetOrbitPathTrail : Functions {
 		 * into localPosition data
 		 */
 		positionRelativeToOrigin = new Vector3d(
-			curPosition.x-startPosition.x,
-			curPosition.y-startPosition.y,
-			curPosition.z-startPosition.z);
+			curPosition.x-startPosition.x+camPosition.x,
+			curPosition.y-startPosition.y+camPosition.y,
+			curPosition.z-startPosition.z+camPosition.z);
 		scaledPosToOrigin = ScalePosDiff (scales[scaleStatesScript.state], positionRelativeToOrigin);
 
 		//positionProcessingScript.position.x += 100;					// **** FOR TESTING ONLY *** //
 		// Check to see if the object has gone farther than 20000k.  If so, update the LineRenderer
-		if (System.Math.Abs (v3dDistance(curPosition, cachedPosition)) >= 20000d) {
+		if (System.Math.Abs (v3dDistance(curPosition, cachedPosition)) >= 10000d) {
 			// We have the real position in space so lets get the localized Vector3 of where it should be
 			// CalculatePosition(double, Vector3d, Vector3d (camera));
 
@@ -96,6 +101,7 @@ public class PlanetOrbitPathTrail : Functions {
 			if(i == 0) {
 				lineRenderer.SetPosition(i, new Vector3(0,0,0));
 			} else {
+				//Debug.Log ("i = "+i);
 				lineRenderer.SetPosition(i, lineArray[i] - planetTransform.localPosition - scaledPosToOrigin);
 			}
 		}
