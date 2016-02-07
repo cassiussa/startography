@@ -167,8 +167,8 @@ public class ScaleStates : Functions {
 		}
 
 		if (objectDataScript.celestialBodyType == ObjectData.CelestialBodyType.Star) {
-			gameObject.AddComponent<StarColour>();													// Add the script that sets the colour of the star
-			StarColour starComponentScript = GetComponent<StarColour>();
+			StarColour starComponentScript = gameObject.AddComponent<StarColour>();													// Add the script that sets the colour of the star
+			//StarColour starComponentScript = GetComponent<StarColour>();
 			starComponentScript.sgtProminenceScript = meshes.GetComponent<SgtProminence>();
 			starComponentScript.sgtCoronaScript = meshes.GetComponent<SgtCorona>();
 			starComponentScript.meshes = meshes;													// Assign the mesh gameObject into the StarTemperatureColour.cs script
@@ -206,17 +206,41 @@ public class ScaleStates : Functions {
 		}
 
 		if (objectDataScript.celestialBodyType == ObjectData.CelestialBodyType.Planet) {			// Things we do if this of type Planet
+			/*
+			 * Add the LineRenderer Component and apply
+			 * the necessary initial settings
+			 */
 			GameObject lineRendererObject = new GameObject();										// Create a new empty gameObject to use for the Line Renderer
 			LineRenderer lineRenderer = lineRendererObject.AddComponent<LineRenderer>();			// Add the LineRenderer component, which will make the orbital path visible
 
 			lineRendererObject.transform.parent = transform;										// Assign the gameObject as a child of this object
+			lineRendererObject.transform.localPosition = new Vector3(0f,0f,0f);						// Set the position to the middle of the planet gameObject
+			lineRendererObject.transform.localRotation = new Quaternion(0f,0f,0f,0f);				// Set the local rotation to match the planet
 			lineRendererObject.name = gameObject.name+"__Orbit_Path";								// Name the Line Renderer orbital path gameObject
-			lineRenderer.material = new Material(Resources.Load("Material/PlanetOrbitPathTrail") as Material);	// Assign the default material
+			//lineRenderer.material = new Material(Resources.Load("Material/PlanetOrbitPathTrail") as Material);	// Assign the default material
+			lineRenderer.material = new Material(Shader.Find("Planet/PlanetOrbitPath"));
 			lineRenderer.castShadows = false;														// Don't case shadows as this is UI
 			lineRenderer.receiveShadows = false;													// No point in receiving shadows as this is UI
 			Color startColor = new Color(1f, 0.7647f, 0.294f, 1f);									// Start color of 255,195,75,255
 			Color endColor = new Color(1f, 0.7647f, 0.294f, 0f);									// End color of 255,195,75,0
 			lineRenderer.SetColors(startColor, endColor);											// Set the Start and End colours of the LineRenderer material
+			lineRenderer.SetWidth (0.1f,0.1f);															// Set the Start and End width of the line
+			lineRenderer.useWorldSpace = false;														// Set to local space
+
+			/*
+			 * Add the LineRenderer script to handle the
+			 * planet's orbital path visuals and positioning
+			 */
+			PlanetOrbitPathTrail planetOrbitPathTrailScript = lineRendererObject.AddComponent<PlanetOrbitPathTrail>();
+			planetOrbitPathTrailScript.lineRenderer = lineRenderer;
+
+			/*
+			 * We'll need to send the real position data, as opposed to the
+			 * local Vector3 position, over to the PlanetOrbitPathTrail script.
+			 * That's because it'll be used to check if we've gone far enough
+			 * to instantiate the next segment of the LineRenderer.
+			 */
+			planetOrbitPathTrailScript.positionProcessingScript = positionProcessingScript;
 
 		}
 
@@ -312,7 +336,7 @@ public class ScaleStates : Functions {
 	
 
 	void SubMillion() {																				// This State is heavily commented as each other state uses same conditions
-		CalculatePosition (SM, positionProcessingScript.position, positioningScript.camPosition);	// Calculate the relative position based on real position and scale of this State
+		transform.position = CalculatePosition (SM, positionProcessingScript.position, positioningScript.camPosition);	// Calculate the relative position based on real position and scale of this State
 		layerMask = 8;
 		if (_cacheState != state) {																	// Without this we get crazy bugs.  Don't know why.  It needs to be here for code efficiency anyways!
 			StateFunction(layerMask, SM, "SM", 1f, "", "SM", "MK", 0d, SM, MK);
@@ -327,7 +351,7 @@ public class ScaleStates : Functions {
 	}
 
 	void MillionKilometers() {
-		CalculatePosition (MK, positionProcessingScript.position, positioningScript.camPosition);
+		transform.position = CalculatePosition (MK, positionProcessingScript.position, positioningScript.camPosition);
 		layerMask = 9;
 		if (_cacheState != state) {
 			StateFunction(layerMask, MK, "MK", 1f, "SM", "MK", "AU", SM, MK, AU);
@@ -342,7 +366,7 @@ public class ScaleStates : Functions {
 	}
 	
 	void AstronomicalUnit() {
-		CalculatePosition (AU, positionProcessingScript.position, positioningScript.camPosition);
+		transform.position = CalculatePosition (AU, positionProcessingScript.position, positioningScript.camPosition);
 		layerMask = 10;
 		if (_cacheState != state) {
 			StateFunction(layerMask, AU, "AU", 1f, "MK", "AU", "LH", MK, AU, LH);
@@ -358,7 +382,7 @@ public class ScaleStates : Functions {
 	}
 	
 	void LightHour() {
-		CalculatePosition (LH, positionProcessingScript.position, positioningScript.camPosition);
+		transform.position = CalculatePosition (LH, positionProcessingScript.position, positioningScript.camPosition);
 		layerMask = 11;
 		if (_cacheState != state) {
 			StateFunction(layerMask, LH, "LH", 1f, "AU", "LH", "Ld", AU, LH, Ld);
@@ -373,7 +397,7 @@ public class ScaleStates : Functions {
 	}
 	
 	void LightDay() {
-		CalculatePosition (Ld, positionProcessingScript.position, positioningScript.camPosition);
+		transform.position = CalculatePosition (Ld, positionProcessingScript.position, positioningScript.camPosition);
 		layerMask = 12;
 		if (_cacheState != state) {
 			StateFunction(layerMask, Ld, "Ld", 1f, "LH", "Ld", "LY", LH, Ld, LY);
@@ -388,7 +412,7 @@ public class ScaleStates : Functions {
 	}
 
 	void LightYear() {
-		CalculatePosition (LY, positionProcessingScript.position, positioningScript.camPosition);
+		transform.position = CalculatePosition (LY, positionProcessingScript.position, positioningScript.camPosition);
 		layerMask = 13;
 		if (_cacheState != state) {
 			StateFunction(layerMask, LY, "LY", 0f, "Ld", "LY", "PA", Ld, LY, PA);
@@ -403,7 +427,7 @@ public class ScaleStates : Functions {
 	}
 
 	void Parsec() {
-		CalculatePosition (PA, positionProcessingScript.position, positioningScript.camPosition);
+		transform.position = CalculatePosition (PA, positionProcessingScript.position, positioningScript.camPosition);
 		layerMask = 14;
 		if (_cacheState != state) {
 			StateFunction(layerMask, PA, "PA", 0f, "LY", "PA", "LD", LY, PA, LD);
@@ -418,7 +442,7 @@ public class ScaleStates : Functions {
 	}
 
 	void LightDecade() {
-		CalculatePosition (LD, positionProcessingScript.position, positioningScript.camPosition);
+		transform.position = CalculatePosition (LD, positionProcessingScript.position, positioningScript.camPosition);
 		layerMask = 15;
 		if (_cacheState != state) {
 			StateFunction(layerMask, LD, "LD", 0f, "PA", "LD", "LC", PA, LD, LC);
@@ -433,7 +457,7 @@ public class ScaleStates : Functions {
 	}
 
 	void LightCentury() {
-		CalculatePosition (LC, positionProcessingScript.position, positioningScript.camPosition);
+		transform.position = CalculatePosition (LC, positionProcessingScript.position, positioningScript.camPosition);
 		layerMask = 16;
 		if (_cacheState != state) {
 			StateFunction(layerMask, LC, "LC", 0f, "LD", "LC", "LM", LD, LC, LM);
@@ -449,7 +473,7 @@ public class ScaleStates : Functions {
 
 
 	void LightMillenium() {
-		CalculatePosition (LM, positionProcessingScript.position, positioningScript.camPosition);
+		transform.position = CalculatePosition (LM, positionProcessingScript.position, positioningScript.camPosition);
 		layerMask = 17;
 		if (_cacheState != state) {
 			StateFunction(layerMask, LM, "LM", 0f, "LC", "LM", "", LC, LM, 0d);

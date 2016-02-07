@@ -256,8 +256,25 @@ public class Functions : Constants {
 
 
 
+	protected double v3dDistance(Vector3d first, Vector3d second) {
+		/*
+		 * Calculate the distance between two Vector3d positions
+		 */
+		double dx = first.x - second.x;
+		double dy = first.y - second.y;
+		double dz = first.z - second.z;
+		double distance;
 
-	protected void CalculatePosition(double value, Vector3d position, Vector3d camPosition) {
+		if (Math.Abs (dx) + Math.Abs (dy) + Math.Abs (dz) != 0d) {
+			distance = System.Math.Sqrt (dx * dx + dy * dy + dz * dz);
+		} else {
+			distance = 0d;
+		}
+		return distance;
+
+	}
+
+	protected Vector3 CalculatePosition(double value, Vector3d position, Vector3d camPosition) {
 		/*
 		 * Calculate the ratio of real position to fit within 10k unit limit
 		 * 
@@ -275,8 +292,10 @@ public class Functions : Constants {
 		float _y = (float)(((position.y + camPosition.y) / value) * maxUnits);
 		float _z = (float)(((position.z + camPosition.z) / value) * maxUnits);
 
-		transform.position = new Vector3 (_x, _y, _z);
+		Vector3 newPosition = new Vector3 (_x, _y, _z);
+		return newPosition;
 	}
+
 	public Vector3d camPosition = new Vector3d(0d,0d,0d);
 
 	
