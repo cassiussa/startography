@@ -241,6 +241,7 @@ public class ScaleStates : Functions {
 			 * to instantiate the next segment of the LineRenderer.
 			 */
 			planetOrbitPathTrailScript.positionProcessingScript = positionProcessingScript;
+			planetOrbitPathTrailScript.positioningScript = positioningScript;
 
 		}
 

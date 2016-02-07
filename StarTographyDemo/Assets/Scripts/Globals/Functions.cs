@@ -274,7 +274,7 @@ public class Functions : Constants {
 
 	}
 
-	protected Vector3 CalculatePosition(double value, Vector3d position, Vector3d camPosition) {
+	public Vector3 CalculatePosition(double value, Vector3d position, Vector3d camPosition) {
 		/*
 		 * Calculate the ratio of real position to fit within 10k unit limit
 		 * 
