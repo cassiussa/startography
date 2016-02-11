@@ -299,7 +299,7 @@ public class Functions : Constants {
 		return localizedPosition;
 	}
 
-	public Vector3 CalculatePosition(double value, Vector3d position, Vector3d camPosition) {
+	public Vector3 CalculatePosition(double value, Vector3d position, Vector3d camPos) {
 		/*
 		 * Calculate the ratio of real position to fit within 10k unit limit
 		 * 
@@ -315,15 +315,15 @@ public class Functions : Constants {
 		 * Assigns the position to the gameObject that the calling ScaleStates.cs script is attached to
 		*/
 
-		float _x = (float)(((position.x + camPosition.x) / value) * maxUnits);
-		float _y = (float)(((position.y + camPosition.y) / value) * maxUnits);
-		float _z = (float)(((position.z + camPosition.z) / value) * maxUnits);
+		float _x = (float)(((position.x + camPos.x) / value) * maxUnits);
+		float _y = (float)(((position.y + camPos.y) / value) * maxUnits);
+		float _z = (float)(((position.z + camPos.z) / value) * maxUnits);
 
 		Vector3 newPosition = new Vector3 (_x, _y, _z);
 		return newPosition;
 	}
 
-	public Vector3d camPosition = new Vector3d(0d,0d,0d);
+	public static Vector3d camPosition = new Vector3d(0d,0d,0d);
 
 	
 

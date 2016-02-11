@@ -185,7 +185,7 @@ public class StarLightScaleStates : Functions {
 	
 	
 	void SubMillion() {																				// This State is heavily commented as each other state uses same conditions
-		CalculatePosition (SM, positionProcessingScript.position, positioningScript.camPosition);	// Calculate the relative position based on real position and scale of this State
+		CalculatePosition (SM, positionProcessingScript.position, Functions.camPosition);	// Calculate the relative position based on real position and scale of this State
 		layerMask = 8;
 		if (_cacheState != state) {																	// Without this we get crazy bugs.  Don't know why.  It needs to be here for code efficiency anyways!						
 			_cacheState = state;
@@ -193,7 +193,7 @@ public class StarLightScaleStates : Functions {
 	}
 	
 	void MillionKilometers() {
-		CalculatePosition (MK, positionProcessingScript.position, positioningScript.camPosition);
+		CalculatePosition (MK, positionProcessingScript.position, Functions.camPosition);
 		layerMask = 9;
 		if (_cacheState != state) {
 			_cacheState = state;
@@ -201,7 +201,7 @@ public class StarLightScaleStates : Functions {
 	}
 	
 	void AstronomicalUnit() {
-		CalculatePosition (AU, positionProcessingScript.position, positioningScript.camPosition);
+		CalculatePosition (AU, positionProcessingScript.position, Functions.camPosition);
 		layerMask = 10;
 		if (_cacheState != state) {
 			_cacheState = state;
@@ -209,7 +209,7 @@ public class StarLightScaleStates : Functions {
 	}
 	
 	void LightHour() {
-		CalculatePosition (LH, positionProcessingScript.position, positioningScript.camPosition);
+		CalculatePosition (LH, positionProcessingScript.position, Functions.camPosition);
 		layerMask = 11;
 		if (_cacheState != state) {
 			_cacheState = state;
@@ -217,7 +217,7 @@ public class StarLightScaleStates : Functions {
 	}
 	
 	void LightDay() {
-		CalculatePosition (Ld, positionProcessingScript.position, positioningScript.camPosition);
+		CalculatePosition (Ld, positionProcessingScript.position, Functions.camPosition);
 		layerMask = 12;
 		if (_cacheState != state) {
 			_cacheState = state;
@@ -225,7 +225,7 @@ public class StarLightScaleStates : Functions {
 	}
 	
 	void LightYear() {
-		CalculatePosition (LY, positionProcessingScript.position, positioningScript.camPosition);
+		CalculatePosition (LY, positionProcessingScript.position, Functions.camPosition);
 		layerMask = 13;
 		if (_cacheState != state) {
 			_cacheState = state;
@@ -233,7 +233,7 @@ public class StarLightScaleStates : Functions {
 	}
 	
 	void Parsec() {
-		CalculatePosition (PA, positionProcessingScript.position, positioningScript.camPosition);
+		CalculatePosition (PA, positionProcessingScript.position, Functions.camPosition);
 		layerMask = 14;
 		if (_cacheState != state) {
 			_cacheState = state;
@@ -241,7 +241,7 @@ public class StarLightScaleStates : Functions {
 	}
 	
 	void LightDecade() {
-		CalculatePosition (LD, positionProcessingScript.position, positioningScript.camPosition);
+		CalculatePosition (LD, positionProcessingScript.position, Functions.camPosition);
 		layerMask = 15;
 		if (_cacheState != state) {
 			_cacheState = state;
@@ -249,7 +249,7 @@ public class StarLightScaleStates : Functions {
 	}
 	
 	void LightCentury() {
-		CalculatePosition (LC, positionProcessingScript.position, positioningScript.camPosition);
+		CalculatePosition (LC, positionProcessingScript.position, Functions.camPosition);
 		layerMask = 16;
 		if (_cacheState != state) {
 			_cacheState = state;
@@ -258,7 +258,7 @@ public class StarLightScaleStates : Functions {
 	
 	
 	void LightMillenium() {
-		CalculatePosition (LM, positionProcessingScript.position, positioningScript.camPosition);
+		CalculatePosition (LM, positionProcessingScript.position, Functions.camPosition);
 		layerMask = 17;
 		if (_cacheState != state) {
 			_cacheState = state;

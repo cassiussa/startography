@@ -227,8 +227,8 @@ public class ScaleStates : Functions {
 			Color startColor = new Color(1f, 0.7647f, 0.294f, 1f);									// Start color of 255,195,75,255
 			Color endColor = new Color(1f, 0.7647f, 0.294f, 0f);									// End color of 255,195,75,0
 			lineRenderer.SetColors(startColor, endColor);											// Set the Start and End colours of the LineRenderer material
-			lineRenderer.SetWidth (0.025f,0.0f);															// Set the Start and End width of the line
-			lineRenderer.useWorldSpace = false;														// Set to local space
+			lineRenderer.SetWidth (0.025f,0.0f);													// Set the Start and End width of the line
+			lineRenderer.useWorldSpace = true;														// Set to world space
 
 			/*
 			 * Add the LineRenderer script to handle the
@@ -244,6 +244,7 @@ public class ScaleStates : Functions {
 			 * to instantiate the next segment of the LineRenderer.
 			 */
 			planetOrbitPathTrailScript.positionProcessingScript = positionProcessingScript;
+			planetOrbitPathTrailScript.positioningScript = positioningScript;
 			planetOrbitPathTrailScript.planetTransform = transform;
 			planetOrbitPathTrailScript.scaleStatesScript = this;
 			//planetOrbitPathTrailScript.state = state;
@@ -320,9 +321,9 @@ public class ScaleStates : Functions {
 		// I should leave it like this as it's faster processing than the Distance function
 		for (int i=0;i<inputsRevised.Length; i++) {
 			double thisMeasurement = System.Math.Abs(measurements[i]);						// Cache the value instead of calculating it for each comparison
-			if (thisMeasurement > System.Math.Abs(realPosition.x+positioningScript.camPosition.x) && 
-			    thisMeasurement > System.Math.Abs(realPosition.y+positioningScript.camPosition.y) && 
-			    thisMeasurement > System.Math.Abs(realPosition.z+positioningScript.camPosition.z)) {
+			if (thisMeasurement > System.Math.Abs(realPosition.x+Functions.camPosition.x) && 
+			    thisMeasurement > System.Math.Abs(realPosition.y+Functions.camPosition.y) && 
+			    thisMeasurement > System.Math.Abs(realPosition.z+Functions.camPosition.z)) {
 				thisScale = scales[inputsRevised[i]];										// inputsRevised[i-1] is a string that is a key for the scales dictionary
 				break;																		// Break the loop as soon as we've found the scale.  Continue with Update() function
 			}
@@ -342,7 +343,7 @@ public class ScaleStates : Functions {
 	
 
 	void SubMillion() {																				// This State is heavily commented as each other state uses same conditions
-		transform.position = CalculatePosition (SM, realPosition, positioningScript.camPosition);	// Calculate the relative position based on real position and scale of this State
+		transform.position = CalculatePosition (SM, realPosition, Functions.camPosition);	// Calculate the relative position based on real position and scale of this State
 		layerMask = 8;
 		if (_cacheState != state) {																	// Without this we get crazy bugs.  Don't know why.  It needs to be here for code efficiency anyways!
 			StateFunction(layerMask, SM, "SM", 1f, "", "SM", "MK", 0d, SM, MK);
@@ -357,7 +358,7 @@ public class ScaleStates : Functions {
 	}
 
 	void MillionKilometers() {
-		transform.position = CalculatePosition (MK, realPosition, positioningScript.camPosition);
+		transform.position = CalculatePosition (MK, realPosition, Functions.camPosition);
 		layerMask = 9;
 		if (_cacheState != state) {
 			StateFunction(layerMask, MK, "MK", 1f, "SM", "MK", "AU", SM, MK, AU);
@@ -372,7 +373,7 @@ public class ScaleStates : Functions {
 	}
 	
 	void AstronomicalUnit() {
-		transform.position = CalculatePosition (AU, realPosition, positioningScript.camPosition);
+		transform.position = CalculatePosition (AU, realPosition, Functions.camPosition);
 		layerMask = 10;
 		if (_cacheState != state) {
 			StateFunction(layerMask, AU, "AU", 1f, "MK", "AU", "LH", MK, AU, LH);
@@ -388,7 +389,7 @@ public class ScaleStates : Functions {
 	}
 	
 	void LightHour() {
-		transform.position = CalculatePosition (LH, realPosition, positioningScript.camPosition);
+		transform.position = CalculatePosition (LH, realPosition, Functions.camPosition);
 		layerMask = 11;
 		if (_cacheState != state) {
 			StateFunction(layerMask, LH, "LH", 1f, "AU", "LH", "Ld", AU, LH, Ld);
@@ -403,7 +404,7 @@ public class ScaleStates : Functions {
 	}
 	
 	void LightDay() {
-		transform.position = CalculatePosition (Ld, realPosition, positioningScript.camPosition);
+		transform.position = CalculatePosition (Ld, realPosition, Functions.camPosition);
 		layerMask = 12;
 		if (_cacheState != state) {
 			StateFunction(layerMask, Ld, "Ld", 1f, "LH", "Ld", "LY", LH, Ld, LY);
@@ -418,7 +419,7 @@ public class ScaleStates : Functions {
 	}
 
 	void LightYear() {
-		transform.position = CalculatePosition (LY, realPosition, positioningScript.camPosition);
+		transform.position = CalculatePosition (LY, realPosition, Functions.camPosition);
 		layerMask = 13;
 		if (_cacheState != state) {
 			StateFunction(layerMask, LY, "LY", 0f, "Ld", "LY", "PA", Ld, LY, PA);
@@ -433,7 +434,7 @@ public class ScaleStates : Functions {
 	}
 
 	void Parsec() {
-		transform.position = CalculatePosition (PA, realPosition, positioningScript.camPosition);
+		transform.position = CalculatePosition (PA, realPosition, Functions.camPosition);
 		layerMask = 14;
 		if (_cacheState != state) {
 			StateFunction(layerMask, PA, "PA", 0f, "LY", "PA", "LD", LY, PA, LD);
@@ -448,7 +449,7 @@ public class ScaleStates : Functions {
 	}
 
 	void LightDecade() {
-		transform.position = CalculatePosition (LD, realPosition, positioningScript.camPosition);
+		transform.position = CalculatePosition (LD, realPosition, Functions.camPosition);
 		layerMask = 15;
 		if (_cacheState != state) {
 			StateFunction(layerMask, LD, "LD", 0f, "PA", "LD", "LC", PA, LD, LC);
@@ -463,7 +464,7 @@ public class ScaleStates : Functions {
 	}
 
 	void LightCentury() {
-		transform.position = CalculatePosition (LC, realPosition, positioningScript.camPosition);
+		transform.position = CalculatePosition (LC, realPosition, Functions.camPosition);
 		layerMask = 16;
 		if (_cacheState != state) {
 			StateFunction(layerMask, LC, "LC", 0f, "LD", "LC", "LM", LD, LC, LM);
@@ -479,7 +480,7 @@ public class ScaleStates : Functions {
 
 
 	void LightMillenium() {
-		transform.position = CalculatePosition (LM, realPosition, positioningScript.camPosition);
+		transform.position = CalculatePosition (LM, realPosition, Functions.camPosition);
 		layerMask = 17;
 		if (_cacheState != state) {
 			StateFunction(layerMask, LM, "LM", 0f, "LC", "LM", "", LC, LM, 0d);
