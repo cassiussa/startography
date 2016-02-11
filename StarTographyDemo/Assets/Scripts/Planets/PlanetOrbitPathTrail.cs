@@ -13,7 +13,7 @@ public class PlanetOrbitPathTrail : Functions {
 	Vector3 scaledPosition;
 	Vector3d cachedPosition;
 	Vector3d originPosition;
-	List<Vector3> lineArray = new List<Vector3>();
+	List<Vector3d> lineArray = new List<Vector3d>();
 	int layerMask = 8;
 	Dictionary<ScaleStates.State, double> scales = new Dictionary<ScaleStates.State, double>();	// Allows us to convert string as variable names
 
@@ -67,17 +67,20 @@ public class PlanetOrbitPathTrail : Functions {
 		//positionProcessingScript.position.x += 100;					// **** FOR TESTING ONLY *** //
 		// Check to see if the object has gone farther than 20000k.  If so, update the LineRenderer
 		if (System.Math.Abs (v3dDistance(positionProcessingScript.position, cachedPosition)) >= 10000d) {
-			// We have the real position in space so lets get the localized Vector3 of where it should be
-			// CalculatePosition(double, Vector3d, Vector3d (camera));
-			scaledPosition = CalculatePosition(thisScaleSize, positionProcessingScript.position, camPosition);
+			/*
+			 * Insert scaledPosition into index 0 then insert the transform's position.
+			 * NOTE:  We MUST use a new Vector3d here because positionProcessingScript.position
+			 * is an Object, not as value
+			 */
+			lineArray.Insert(0, new Vector3d(
+				positionProcessingScript.position.x,
+				positionProcessingScript.position.y,
+				positionProcessingScript.position.z));
 
-			// Insert scaledPosition into index 0 then insert the transform's position
-			lineArray.Insert(0, planetTransform.position);
-
-			//Debug.Log ("lineArray.Count = "+lineArray.Count+", lineSegments = "+lineSegments);
 			if(lineArray.Count >= lineSegments) lineArray.RemoveAt(lineArray.Count-1);					
 			lineRenderer.SetVertexCount(lineArray.Count);
 
+			Debug.Log ("something");
 			// Set the cachedPosition to the current position so we can start the conditional again
 			cachedPosition = new Vector3d(
 				positionProcessingScript.position.x,
@@ -92,10 +95,12 @@ public class PlanetOrbitPathTrail : Functions {
 		 * this planet started at the beginning.
 		 */
 		for(int i=0;i<lineArray.Count;i++) {
-			lineRenderer.SetPosition(i, lineArray[i]);
+			if(i == 0) {
+				scaledPosition = planetTransform.position;
+			} else {
+				scaledPosition = CalculatePosition(thisScaleSize, lineArray[i], camPosition);
+			}
+			lineRenderer.SetPosition(i, scaledPosition);
 		}
-
-		//Debug.Log ("camPosition = " + V3dToV3(camPosition));
-		lineRenderer.SetPosition (0, planetTransform.position);
 	}
 }
