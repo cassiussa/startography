@@ -30,7 +30,7 @@ public class Positioning : Functions {
 	float zAcceleration = 0f;					// How fast will object reach a maximum speed 
 	float xAcceleration = 0f;					// How fast will object reach a maximum speed 
 
-	Vector3d thisPosition = new Vector3d (0d, 0d, 0d);
+	//Vector3d thisPosition = new Vector3d (0d, 0d, 0d);
 	[HideInInspector]
 	public double holdTimeMin = 30d;
 	[HideInInspector]
@@ -94,10 +94,13 @@ public class Positioning : Functions {
 			holdTime = 0f;																			// reset the holdTime variable as no movement on the gamepad was detected
 		}
 
-		camPosition = new Vector3d (																// Create the new double position of where the camera would be if the universe didn't move around it
+		camPosition.x = camPosition.x + (cacheMovement.transform.position.x);
+		camPosition.y = camPosition.y + (cacheMovement.transform.position.y);
+		camPosition.z = camPosition.z + (cacheMovement.transform.position.z);
+		//Debug.Log ("camPosition = "+V3dToV3(camPosition));
+		/*camPosition = new Vector3d (																// Create the new double position of where the camera would be if the universe didn't move around it
 			camPosition.x + (cacheMovement.transform.position.x),
 			camPosition.y + (cacheMovement.transform.position.y), 
-			camPosition.z + (cacheMovement.transform.position.z));
-
+			camPosition.z + (cacheMovement.transform.position.z));*/
 	}
 }

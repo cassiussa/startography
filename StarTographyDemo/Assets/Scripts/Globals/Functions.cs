@@ -256,14 +256,58 @@ public class Functions : Constants {
 
 
 
+	protected double v3dDistance(Vector3d first, Vector3d second) {
+		/*
+		 * Calculate the distance between two Vector3d positions
+		 */
+		double dx = first.x - second.x;
+		double dy = first.y - second.y;
+		double dz = first.z - second.z;
+		double distance;
 
-	protected void CalculatePosition(double value, Vector3d position, Vector3d camPosition) {
+		if (Math.Abs (dx) + Math.Abs (dy) + Math.Abs (dz) != 0d) {
+			distance = System.Math.Sqrt (dx * dx + dy * dy + dz * dz);
+		} else {
+			distance = 0d;
+		}
+		return distance;
+
+	}
+
+	public Vector3 ScalePosDiff(double value, Vector3d position) {
+		/*
+		 * Calculate the position in real Vector3 space, based on the ScaleState supplied in
+		 * the 'value' variable.
+		 * 
+		 * Parameters
+		 * ----------
+		 * value : The distance value of the scale State (ex: 100000 for MK)
+		 *		- supplied by the PlanetOrbitPathTrail.cs script
+		 * firstPosition : A Vector3d value of the real position of any point in space based on the scale (value)
+		 * 
+		 * Actions
+		 * -------
+		 * Returns a Vector3 coordinate position of where the point in space would be within the 
+		 * supplied Scalestate (value).
+		*/
+		
+		float _x = (float)( (position.x / value) * maxUnits );
+		float _y = (float)( (position.y / value) * maxUnits );
+		float _z = (float)( (position.z / value) * maxUnits );
+		
+		Vector3 localizedPosition = new Vector3 (_x, _y, _z);
+		return localizedPosition;
+	}
+
+	public Vector3 CalculatePosition(double value, Vector3d position, Vector3d camPos) {
 		/*
 		 * Calculate the ratio of real position to fit within 10k unit limit
 		 * 
 		 * Parameters
 		 * ----------
-		 * value : The distance value of the scale State (ex: 100000 for MK) - supplied by the ScaleStates.cs script
+		 * value : The distance value of the scale State (ex: 100000 for MK)
+		 *		- supplied by the ScaleStates.cs script
+		 *		- supplied by the PlanetOrbitPathTrail.cs script
 		 * position : A Vector3d value of the real position of the object
 		 * 
 		 * Actions
@@ -271,13 +315,15 @@ public class Functions : Constants {
 		 * Assigns the position to the gameObject that the calling ScaleStates.cs script is attached to
 		*/
 
-		float _x = (float)(((position.x + camPosition.x) / value) * maxUnits);
-		float _y = (float)(((position.y + camPosition.y) / value) * maxUnits);
-		float _z = (float)(((position.z + camPosition.z) / value) * maxUnits);
+		float _x = (float)(((position.x + camPos.x) / value) * maxUnits);
+		float _y = (float)(((position.y + camPos.y) / value) * maxUnits);
+		float _z = (float)(((position.z + camPos.z) / value) * maxUnits);
 
-		transform.position = new Vector3 (_x, _y, _z);
+		Vector3 newPosition = new Vector3 (_x, _y, _z);
+		return newPosition;
 	}
-	public Vector3d camPosition = new Vector3d(0d,0d,0d);
+
+	public static Vector3d camPosition = new Vector3d(0d,0d,0d);
 
 	
 

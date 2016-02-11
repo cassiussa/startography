@@ -7,7 +7,7 @@ Material:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: PlanetOrbitPathTrail
-  m_Shader: {fileID: 4800000, guid: 5d2c657aba22a44f08efddc695a337bc, type: 3}
+  m_Shader: {fileID: 4800000, guid: 214f3abb5d6744d3883f80dedbf5d612, type: 3}
   m_ShaderKeywords: []
   m_CustomRenderQueue: -1
   m_SavedProperties:
@@ -50,6 +50,10 @@ Material:
         first:
           name: _EmissionLM
         second: 0
+      data:
+        first:
+          name: _InvFade
+        second: 1
     m_Colors:
       data:
         first:
