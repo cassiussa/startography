@@ -188,6 +188,29 @@ public class Functions : Constants {
 		return result;
 	}
 
+	protected double SolsToKilos(double solarUnits) {					// Calculates the amount of kilograms a star is based on its solar unit measurement
+		double result = massConstantSolar * solarUnits;
+		return result;
+	}
+
+	protected double AvgOrbitRad(double m, double t) {
+		/*
+		 * Get the average orbit radius
+		 * 
+		 * Parameters
+		 * ----------
+		 * m(ass) : in kilograms.  If you need in solar units, multiple my massConstantSolar first
+		 * t(ime) : in seconds.  If you nead in years, multiple by earth years
+		 * 
+		 * Returns
+		 * -------
+		 * double : the average distance from host star in meters
+		*/
+		double result = System.Math.Pow( ((G * m * (t*t)) / (4d*(PI*PI)) ), 1d/3d );
+
+		return result;
+	}
+
 	public class Vector3d {
 		/*
 		 * Create a new Type.  Vector3 double.
