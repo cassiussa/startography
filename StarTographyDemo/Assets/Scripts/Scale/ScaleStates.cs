@@ -17,7 +17,7 @@ public class ScaleStates : Functions {
 		LightCentury, 
 		LightMillenium
 	}
-
+	
 	public State state = State.Initialize;
 	State _prevState;
 	State _cacheState;
@@ -59,12 +59,15 @@ public class ScaleStates : Functions {
 	Vector3d realPosition;								// We'll assign the positionProcessingScript.position Vector3d.  Both are same item as they're of type Object
 	Positioning positioningScript;
 
+	[HideInInspector]
 	public GameObject meshes;
 	Scaling meshesScalingScript;
 
 	ObjectData objectDataScript;
 
+	[HideInInspector]
 	public GameObject[] distanceMarkerScaleObjects;
+	[HideInInspector]
 	public DistanceMarkerScaleStates[] distanceMarkerScaleScripts;
 
 	[HideInInspector]
@@ -234,6 +237,7 @@ public class ScaleStates : Functions {
 			 * Add the LineRenderer script to handle the
 			 * planet's orbital path visuals and positioning
 			 */
+			lineRendererObject.SetActive (false);													// Set as inactive.  Otherwise Awake function on lineRendererObject happens before we set its variables, just below
 			PlanetOrbitPathTrail planetOrbitPathTrailScript = lineRendererObject.AddComponent<PlanetOrbitPathTrail>();
 			planetOrbitPathTrailScript.lineRenderer = lineRenderer;
 
@@ -247,8 +251,8 @@ public class ScaleStates : Functions {
 			planetOrbitPathTrailScript.positioningScript = positioningScript;
 			planetOrbitPathTrailScript.planetTransform = transform;
 			planetOrbitPathTrailScript.scaleStatesScript = this;
-			//planetOrbitPathTrailScript.state = state;
-
+			lineRendererObject.SetActive (true);													// Activate the object now that we've set its variables and Awake() can proceed without issue
+			
 			ParentStar parentStarScript = gameObject.AddComponent<ParentStar>();					// It's a planet so lets add the ParentStar script so we can do some calculations
 			parentStarScript.parentStar = objectDataScript.parentStar;								// Assign the gameObject variable.  This is temporary
 			parentStarScript.starObjectDataScript = objectDataScript.parentStar.GetComponent<ObjectData>();

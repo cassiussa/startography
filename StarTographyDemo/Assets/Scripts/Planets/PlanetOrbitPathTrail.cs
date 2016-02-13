@@ -21,14 +21,12 @@ public class PlanetOrbitPathTrail : Functions {
 	
 
 	// Use this for initialization
-	void Start () {
-		//lineRenderer.SetVertexCount(lineSegments);
+	void Awake () {
 		cachedPosition = new Vector3d(
 			positionProcessingScript.position.x,
 			positionProcessingScript.position.y,
 			positionProcessingScript.position.z);
 
-		// Note that below, 'camPosition' is a global variable
 		lineRenderer.SetVertexCount(1);
 
 		scales.Add (ScaleStates.State.Initialize, SM);
@@ -43,14 +41,11 @@ public class PlanetOrbitPathTrail : Functions {
 		scales.Add (ScaleStates.State.LightCentury, LC);
 		scales.Add (ScaleStates.State.LightMillenium, LM);
 
-		//Debug.Log ("lineArray.Count = " + lineArray.Count);
-
 		originPosition = new Vector3d(
 			positionProcessingScript.position.x,
 			positionProcessingScript.position.y,
 			positionProcessingScript.position.z);
 
-		//Debug.Log ("originPosition = " + V3dToV3 (originPosition));
 	}
 	
 	// Update is called once per frame
@@ -83,7 +78,6 @@ public class PlanetOrbitPathTrail : Functions {
 			if(lineArray.Count >= lineSegments) lineArray.RemoveAt(lineArray.Count-1);					
 			lineRenderer.SetVertexCount(lineArray.Count);
 
-			Debug.Log ("something");
 			// Set the cachedPosition to the current position so we can start the conditional again
 			cachedPosition = new Vector3d(
 				positionProcessingScript.position.x,
