@@ -3,26 +3,32 @@ using System.Collections;
 
 public class ParentStar : Functions {
 
-	public GameObject parentStar;
-	public ObjectData starObjectDataScript;
+	//public GameObject parentStarObject;																		// Assigned by the ScaleStates.cs script
+	public ObjectData planetObjectDataScript;																	// Assigned by the ScaleStates.cs script
+	public ObjectData starObjectDataScript;																// Assigned by the ScaleStates.cs script
 	public double avgOrbitRadius;
-	public double orbitCircumference;
-	public double orbitTrailLength;
+	public double orbitCircumference = 0d;
+	public double orbitTrailLength = 0d;
 	public PlanetOrbitPathTrail planetOrbitPathTrailScript;
 
-	double solarMass;
-	double julianYear;
+	//[HideInInspector]
+	public double solarMass;
+	//[HideInInspector]
+	public double orbitalPeriod;
 
 	// Use this for initialization
-	void Start () {
-		solarMass = 2.7d;													// Temporary - in solar mass units
-		julianYear = 0.91517192982456d;										// Temporary - years in earth year units 1 year = 365.25 days
-		// Calculate the average radius of the orbit of this planet.
-		avgOrbitRadius = AvgOrbitRad (SolsToKilos (solarMass), JulianYearToSeconds (julianYear));
-		orbitCircumference = 2d * avgOrbitRadius * PI;						// Circumference = radius X pi
-		orbitTrailLength = orbitCircumference / 2d;							// The orbit trail length is half the length of the circumference
-		if (orbitTrailLength != 0 && planetOrbitPathTrailScript) {
-			planetOrbitPathTrailScript.segmentLength = orbitTrailLength / planetOrbitPathTrailScript.lineSegments / 1000;
+	void Awake () {
+			//solarMass = starObjectDataScript.mass;															// Get the mass of the parent star from the parent star's ObjectData.cs script
+		//orbitalPeriod = planetObjectDataScript.orbitalPeriod;													// Temporary - years in earth year units 1 year = 365.25 days
+		if (solarMass != 0 && orbitalPeriod != 0) {
+			// Calculate the average radius of the orbit of this planet, in kilometers
+			avgOrbitRadius = AvgOrbitRad (SolsToKilos (solarMass), JulianYearToSeconds (orbitalPeriod)) / 1000;	// In Kilometers
+			orbitCircumference = (2d * avgOrbitRadius * PI);												// (Kilometers) Circumference = radius X pi
+			orbitTrailLength = orbitCircumference / 2d;														// The orbit trail length is half the length of the circumference
+			planetOrbitPathTrailScript.segmentLength = orbitTrailLength / planetOrbitPathTrailScript.lineSegments;
+		} else {
+			Debug.LogError ("Somehow we got a 0 division. solarMass: "+solarMass+", orbitalPeriod: "+orbitalPeriod+" "+gameObject.name,gameObject);
+			return;
 		}
 	}
 

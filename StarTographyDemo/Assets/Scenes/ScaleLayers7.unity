@@ -718,7 +718,6 @@ GameObject:
   - 114: {fileID: 82396087}
   - 114: {fileID: 82396083}
   - 114: {fileID: 82396082}
-  - 114: {fileID: 82396084}
   m_Layer: 8
   m_Name: Earth
   m_TagString: Untagged
@@ -757,22 +756,6 @@ MonoBehaviour:
   distanceMarkerScaleScripts: []
   allChildren: []
   starGlow: {fileID: 0}
---- !u!114 &82396084
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 82396081}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c2736b3d439a9495285d39a19ed5171a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  state: 1
-  valForAB: 0
-  valForA: 0
-  valForC: 0
-  controllable: 0
 --- !u!4 &82396086
 Transform:
   m_ObjectHideFlags: 0
@@ -806,9 +789,12 @@ MonoBehaviour:
     x: 6371
     y: 6371
     z: 6371
+  mass: 0
+  orbitalPeriod: 1
+  parentStarMass: 0
   temperature: 0
   luminosity: 0
-  parentStar: {fileID: 1678269746}
+  parentStarObject: {fileID: 1678269746}
 --- !u!1 &87615222
 GameObject:
   m_ObjectHideFlags: 0
@@ -2225,9 +2211,12 @@ MonoBehaviour:
     x: 24622
     y: 24622
     z: 24622
+  mass: 0
+  orbitalPeriod: 0
+  parentStarMass: 0
   temperature: 0
   luminosity: 0
-  parentStar: {fileID: 0}
+  parentStarObject: {fileID: 0}
 --- !u!1001 &410760430
 Prefab:
   m_ObjectHideFlags: 0
@@ -5998,9 +5987,12 @@ MonoBehaviour:
     x: 5396264244
     y: 5396264244
     z: 5396264244
+  mass: 0
+  orbitalPeriod: 0
+  parentStarMass: 0
   temperature: 0
   luminosity: 0
-  parentStar: {fileID: 0}
+  parentStarObject: {fileID: 0}
 --- !u!114 &964901399
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6742,9 +6734,12 @@ MonoBehaviour:
     x: 3389.5
     y: 3389.5
     z: 3389.5
+  mass: 0
+  orbitalPeriod: 0
+  parentStarMass: 0
   temperature: 0
   luminosity: 0
-  parentStar: {fileID: 0}
+  parentStarObject: {fileID: 0}
 --- !u!114 &1094652975
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6927,9 +6922,12 @@ MonoBehaviour:
     x: 25362
     y: 25362
     z: 25362
+  mass: 0
+  orbitalPeriod: 0
+  parentStarMass: 0
   temperature: 0
   luminosity: 0
-  parentStar: {fileID: 0}
+  parentStarObject: {fileID: 0}
 --- !u!1 &1139012510
 GameObject:
   m_ObjectHideFlags: 0
@@ -8302,9 +8300,12 @@ MonoBehaviour:
     x: 1737.5
     y: 1737.5
     z: 1737.5
+  mass: 0
+  orbitalPeriod: 0
+  parentStarMass: 0
   temperature: 0
   luminosity: 0
-  parentStar: {fileID: 0}
+  parentStarObject: {fileID: 0}
 --- !u!1 &1313427993
 GameObject:
   m_ObjectHideFlags: 0
@@ -10011,9 +10012,12 @@ MonoBehaviour:
     x: 695508
     y: 695508
     z: 695508
+  mass: 1
+  orbitalPeriod: 0
+  parentStarMass: 0
   temperature: 1
   luminosity: 0
-  parentStar: {fileID: 0}
+  parentStarObject: {fileID: 0}
 --- !u!1001 &1679310305
 Prefab:
   m_ObjectHideFlags: 0
@@ -10241,9 +10245,12 @@ MonoBehaviour:
     x: 918070.56
     y: 918070.56
     z: 918070.56
+  mass: 0
+  orbitalPeriod: 0
+  parentStarMass: 0
   temperature: 2
   luminosity: 0
-  parentStar: {fileID: 0}
+  parentStarObject: {fileID: 0}
 --- !u!1 &1697420567
 GameObject:
   m_ObjectHideFlags: 0
@@ -10366,9 +10373,12 @@ MonoBehaviour:
     x: 58232
     y: 58232
     z: 58232
+  mass: 0
+  orbitalPeriod: 0
+  parentStarMass: 0
   temperature: 0
   luminosity: 0
-  parentStar: {fileID: 0}
+  parentStarObject: {fileID: 0}
 --- !u!1 &1709940507
 GameObject:
   m_ObjectHideFlags: 0
@@ -11039,9 +11049,12 @@ MonoBehaviour:
     x: 69911
     y: 69911
     z: 69911
+  mass: 0
+  orbitalPeriod: 0
+  parentStarMass: 0
   temperature: 0
   luminosity: 0
-  parentStar: {fileID: 0}
+  parentStarObject: {fileID: 0}
 --- !u!114 &1886891873
 MonoBehaviour:
   m_ObjectHideFlags: 0

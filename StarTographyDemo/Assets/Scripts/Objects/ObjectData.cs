@@ -14,14 +14,14 @@ public class ObjectData : Functions {
 	StarLightScaleStates starLightScaleStatesScript;
 
 	public CelestialBodyType celestialBodyType;
-
 	public String3d coordinates;
 	public String3d radius;
-
+	public float mass;										// Measured in Jupiter Units
+	public float orbitalPeriod;								// Measured in earth days
+	public float parentStarMass;							// Measured in Solar Units
 	public float temperature;
 	public float luminosity;		// This shouldn' be visible.  Used to set amount of glow on a star
-
-	public GameObject parentStar;
+	public GameObject parentStarObject;
 
 	void Awake() {
 		Vector3d vRadius = S3dToV3d (radius);
@@ -43,6 +43,9 @@ public class ObjectData : Functions {
 			}
 
 			luminosity = Mathf.Pow(RadToSunRad((float)vRadius.x),2) * Mathf.Pow(TempToSunTemp(temperature),4);
+		} else if (celestialBodyType == CelestialBodyType.Planet) {
+			ObjectData objectDataParentStarScript = parentStarObject.GetComponent<ObjectData>();
+			parentStarMass = objectDataParentStarScript.mass;
 		}
 
 

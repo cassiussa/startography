@@ -251,12 +251,24 @@ public class ScaleStates : Functions {
 			planetOrbitPathTrailScript.positioningScript = positioningScript;
 			planetOrbitPathTrailScript.planetTransform = transform;
 			planetOrbitPathTrailScript.scaleStatesScript = this;
-			lineRendererObject.SetActive (true);													// Activate the object now that we've set its variables and Awake() can proceed without issue
-			
+
 			ParentStar parentStarScript = gameObject.AddComponent<ParentStar>();					// It's a planet so lets add the ParentStar script so we can do some calculations
-			parentStarScript.parentStar = objectDataScript.parentStar;								// Assign the gameObject variable.  This is temporary
-			parentStarScript.starObjectDataScript = objectDataScript.parentStar.GetComponent<ObjectData>();
+			//parentStarScript.parentStarObject = objectDataScript.parentStarObject;					// Assign the gameObject of the parent star to this planet into this planet's ObjectData.cs script
+			parentStarScript.planetObjectDataScript = GetComponent<ObjectData>();	// Add the ObjectData.cs script of this planet into the ParentStar.cs script
+
+			/*
+			 * Get the ObjectData script that's stored in the Parent Star's gameObject, 
+			 * which itself has an ObjectData script with the value we're looking for
+			*/
+			Debug.LogError ("a");
+			ObjectData objectDataParentStarScript = objectDataScript.parentStarObject.GetComponent<ObjectData>();
+			parentStarScript.starObjectDataScript = objectDataParentStarScript;
 			parentStarScript.planetOrbitPathTrailScript = planetOrbitPathTrailScript;
+			parentStarScript.solarMass = objectDataParentStarScript.mass;
+			parentStarScript.orbitalPeriod = objectDataScript.orbitalPeriod;
+			Debug.LogError ("b");
+			lineRendererObject.SetActive (true);													// Activate the object now that we've set its variables and Awake() can proceed without issue
+			Debug.LogError ("c");
 		}
 
 		// Create a list of all the child objects in this gameObject
