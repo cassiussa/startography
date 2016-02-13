@@ -23,6 +23,8 @@ public class ObjectData : Functions {
 	public float temperature;
 	public float luminosity;		// This shouldn' be visible.  Used to set amount of glow on a star
 
+	public GameObject parentStar;
+
 	void Awake() {
 		Vector3d vRadius = S3dToV3d (radius);
 

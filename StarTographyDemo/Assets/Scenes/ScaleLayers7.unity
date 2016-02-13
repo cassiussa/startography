@@ -791,6 +791,7 @@ MonoBehaviour:
     z: 6371
   temperature: 0
   luminosity: 0
+  parentStar: {fileID: 1678269746}
 --- !u!1 &87615222
 GameObject:
   m_ObjectHideFlags: 0
@@ -2209,6 +2210,7 @@ MonoBehaviour:
     z: 24622
   temperature: 0
   luminosity: 0
+  parentStar: {fileID: 0}
 --- !u!1001 &410760430
 Prefab:
   m_ObjectHideFlags: 0
@@ -5981,6 +5983,7 @@ MonoBehaviour:
     z: 5396264244
   temperature: 0
   luminosity: 0
+  parentStar: {fileID: 0}
 --- !u!114 &964901399
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6724,6 +6727,7 @@ MonoBehaviour:
     z: 3389.5
   temperature: 0
   luminosity: 0
+  parentStar: {fileID: 0}
 --- !u!114 &1094652975
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6908,6 +6912,7 @@ MonoBehaviour:
     z: 25362
   temperature: 0
   luminosity: 0
+  parentStar: {fileID: 0}
 --- !u!1 &1139012510
 GameObject:
   m_ObjectHideFlags: 0
@@ -8282,6 +8287,7 @@ MonoBehaviour:
     z: 1737.5
   temperature: 0
   luminosity: 0
+  parentStar: {fileID: 0}
 --- !u!1 &1313427993
 GameObject:
   m_ObjectHideFlags: 0
@@ -9990,6 +9996,7 @@ MonoBehaviour:
     z: 695508
   temperature: 1
   luminosity: 0
+  parentStar: {fileID: 0}
 --- !u!1001 &1679310305
 Prefab:
   m_ObjectHideFlags: 0
@@ -10219,6 +10226,7 @@ MonoBehaviour:
     z: 918070.56
   temperature: 2
   luminosity: 0
+  parentStar: {fileID: 0}
 --- !u!1 &1697420567
 GameObject:
   m_ObjectHideFlags: 0
@@ -10343,6 +10351,7 @@ MonoBehaviour:
     z: 58232
   temperature: 0
   luminosity: 0
+  parentStar: {fileID: 0}
 --- !u!1 &1709940507
 GameObject:
   m_ObjectHideFlags: 0
@@ -11015,6 +11024,7 @@ MonoBehaviour:
     z: 69911
   temperature: 0
   luminosity: 0
+  parentStar: {fileID: 0}
 --- !u!114 &1886891873
 MonoBehaviour:
   m_ObjectHideFlags: 0

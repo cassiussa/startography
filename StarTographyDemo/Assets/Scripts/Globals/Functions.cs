@@ -193,6 +193,11 @@ public class Functions : Constants {
 		return result;
 	}
 
+	protected double JulianYearToSeconds(double years) {				// Convert input years into Julian Year (in seconds)
+		double result = julianYear * years;
+		return result;
+	}
+
 	protected double AvgOrbitRad(double m, double t) {
 		/*
 		 * Get the average orbit radius
@@ -207,7 +212,6 @@ public class Functions : Constants {
 		 * double : the average distance from host star in meters
 		*/
 		double result = System.Math.Pow( ((G * m * (t*t)) / (4d*(PI*PI)) ), 1d/3d );
-
 		return result;
 	}
 
