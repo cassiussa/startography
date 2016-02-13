@@ -252,6 +252,7 @@ public class ScaleStates : Functions {
 			ParentStar parentStarScript = gameObject.AddComponent<ParentStar>();					// It's a planet so lets add the ParentStar script so we can do some calculations
 			parentStarScript.parentStar = objectDataScript.parentStar;								// Assign the gameObject variable.  This is temporary
 			parentStarScript.starObjectDataScript = objectDataScript.parentStar.GetComponent<ObjectData>();
+			parentStarScript.planetOrbitPathTrailScript = planetOrbitPathTrailScript;
 		}
 
 		// Create a list of all the child objects in this gameObject

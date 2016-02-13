@@ -8,14 +8,17 @@ public class PlanetOrbitPathTrail : Functions {
 	public Positioning positioningScript;
 	public Transform planetTransform;
 	public ScaleStates scaleStatesScript;
+	[HideInInspector]
+	public int lineSegments = 10000;
+	public double segmentLength;											// This is received from the ParentStar.cs script
 
-	int lineSegments = 50;
 	Vector3 scaledPosition;
 	Vector3d cachedPosition;
 	Vector3d originPosition;
 	List<Vector3d> lineArray = new List<Vector3d>();
 	int layerMask = 8;
 	Dictionary<ScaleStates.State, double> scales = new Dictionary<ScaleStates.State, double>();	// Allows us to convert string as variable names
+	
 
 	// Use this for initialization
 	void Start () {
@@ -66,7 +69,7 @@ public class PlanetOrbitPathTrail : Functions {
 		if (planetTransform.gameObject.name == "Earth")
 		//positionProcessingScript.position.x += 100;					// **** FOR TESTING ONLY *** //
 		// Check to see if the object has gone farther than 20000k.  If so, update the LineRenderer
-		if (System.Math.Abs (v3dDistance(positionProcessingScript.position, cachedPosition)) >= 10000d) {
+		if (System.Math.Abs (v3dDistance(positionProcessingScript.position, cachedPosition)) >= segmentLength) {
 			/*
 			 * Insert scaledPosition into index 0 then insert the transform's position.
 			 * NOTE:  We MUST use a new Vector3d here because positionProcessingScript.position
