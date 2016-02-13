@@ -10,7 +10,7 @@ public class PositionProcessing : Positioning {
 	 */
 
 	ObjectData objectDataScript;								// The script that we get initial telemetry from
-	public Vector3d position;
+	public Vector3d position = new Vector3d(0d,0d,0d);			// We need to be sure to assign a value as multiple external scripts rely on it
 
 	float random;
 	void Awake() {

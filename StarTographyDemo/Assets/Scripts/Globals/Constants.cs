@@ -11,6 +11,9 @@ public class Constants : MonoBehaviour {
 	protected double massConstantJupiter = 1898130000000000000000000000d;	// In kilograms
 	protected double massConstantEarth = 5972190000000000000000000d;		// In Kilograms
 
+	protected double G = 0.00000000006673889d;								// Gravitational Constant - meters, kilograms, seconds
+	protected double julianYear = 31557600;									// Seconds in a Julian year (365.25 days)
+
 	protected double maxUnits = 10000d;				// The maximum number of distance, in units, that something can go
 
 	// Predefine these as it may cache or keep them in memory instead of assigning on each function call

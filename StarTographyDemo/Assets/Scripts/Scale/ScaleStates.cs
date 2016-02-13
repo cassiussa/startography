@@ -17,7 +17,7 @@ public class ScaleStates : Functions {
 		LightCentury, 
 		LightMillenium
 	}
-
+	
 	public State state = State.Initialize;
 	State _prevState;
 	State _cacheState;
@@ -59,12 +59,15 @@ public class ScaleStates : Functions {
 	Vector3d realPosition;								// We'll assign the positionProcessingScript.position Vector3d.  Both are same item as they're of type Object
 	Positioning positioningScript;
 
+	[HideInInspector]
 	public GameObject meshes;
 	Scaling meshesScalingScript;
 
 	ObjectData objectDataScript;
 
+	[HideInInspector]
 	public GameObject[] distanceMarkerScaleObjects;
+	[HideInInspector]
 	public DistanceMarkerScaleStates[] distanceMarkerScaleScripts;
 
 	[HideInInspector]
@@ -234,6 +237,7 @@ public class ScaleStates : Functions {
 			 * Add the LineRenderer script to handle the
 			 * planet's orbital path visuals and positioning
 			 */
+			lineRendererObject.SetActive (false);													// Set as inactive.  Otherwise Awake function on lineRendererObject happens before we set its variables, just below
 			PlanetOrbitPathTrail planetOrbitPathTrailScript = lineRendererObject.AddComponent<PlanetOrbitPathTrail>();
 			planetOrbitPathTrailScript.lineRenderer = lineRenderer;
 
@@ -247,8 +251,20 @@ public class ScaleStates : Functions {
 			planetOrbitPathTrailScript.positioningScript = positioningScript;
 			planetOrbitPathTrailScript.planetTransform = transform;
 			planetOrbitPathTrailScript.scaleStatesScript = this;
-			//planetOrbitPathTrailScript.state = state;
 
+			ParentStar parentStarScript = gameObject.AddComponent<ParentStar>();					// It's a planet so lets add the ParentStar script so we can do some calculations
+			parentStarScript.planetObjectDataScript = GetComponent<ObjectData>();	// Add the ObjectData.cs script of this planet into the ParentStar.cs script
+
+			/*
+			 * Get the ObjectData script that's stored in the Parent Star's gameObject, 
+			 * which itself has an ObjectData script with the value we're looking for
+			*/
+			ObjectData objectDataParentStarScript = objectDataScript.parentStarObject.GetComponent<ObjectData>();
+			parentStarScript.starObjectDataScript = objectDataParentStarScript;
+			parentStarScript.planetOrbitPathTrailScript = planetOrbitPathTrailScript;
+			parentStarScript.solarMass = objectDataParentStarScript.mass;
+			parentStarScript.orbitalPeriod = objectDataScript.orbitalPeriod;
+			lineRendererObject.SetActive (true);													// Activate the object now that we've set its variables and Awake() can proceed without issue
 		}
 
 		// Create a list of all the child objects in this gameObject
