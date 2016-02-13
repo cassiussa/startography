@@ -8,6 +8,8 @@ public class ParentStar : Functions {
 	public double solarMass;
 	public double julianYear;
 	public double avgOrbitRadius;
+	public double orbitCircumference;
+	public double orbitTrailLength;
 
 	// Use this for initialization
 	void Awake () {
@@ -17,6 +19,8 @@ public class ParentStar : Functions {
 		solarMass = 2.7d;													// Temporary
 		julianYear = 326.03d;
 		avgOrbitRadius = AvgOrbitRad (SolsToKilos (solarMass), JulianYearToSeconds (julianYear));
+		orbitCircumference = (2d * avgOrbitRadius * PI) / 2;
+		orbitTrailLength = orbitCircumference / 2d;
 	}
 
 	void Update() {
