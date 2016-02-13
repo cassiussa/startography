@@ -1,8 +1,6 @@
-﻿using UnityEngine;
+﻿using UnityEditor;
+using UnityEngine;
 using System.Collections;
-
-
-
 
 public class ObjectData : Functions {
 	public enum CelestialBodyType {

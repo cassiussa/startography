@@ -718,6 +718,7 @@ GameObject:
   - 114: {fileID: 82396087}
   - 114: {fileID: 82396083}
   - 114: {fileID: 82396082}
+  - 114: {fileID: 82396084}
   m_Layer: 8
   m_Name: Earth
   m_TagString: Untagged
@@ -756,6 +757,22 @@ MonoBehaviour:
   distanceMarkerScaleScripts: []
   allChildren: []
   starGlow: {fileID: 0}
+--- !u!114 &82396084
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 82396081}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2736b3d439a9495285d39a19ed5171a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  state: 1
+  valForAB: 0
+  valForA: 0
+  valForC: 0
+  controllable: 0
 --- !u!4 &82396086
 Transform:
   m_ObjectHideFlags: 0
