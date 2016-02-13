@@ -3,21 +3,24 @@ using System.Collections;
 
 public class ParentStar : Functions {
 
-	//public GameObject parentStarObject;																		// Assigned by the ScaleStates.cs script
-	public ObjectData planetObjectDataScript;																	// Assigned by the ScaleStates.cs script
+	//public GameObject parentStarObject;																// Assigned by the ScaleStates.cs script
+	[HideInInspector]
+	public ObjectData planetObjectDataScript;															// Assigned by the ScaleStates.cs script
+	[HideInInspector]
 	public ObjectData starObjectDataScript;																// Assigned by the ScaleStates.cs script
 	public double avgOrbitRadius;
 	public double orbitCircumference = 0d;
 	public double orbitTrailLength = 0d;
+	[HideInInspector]
 	public PlanetOrbitPathTrail planetOrbitPathTrailScript;
 
-	//[HideInInspector]
+	[HideInInspector]
 	public double solarMass;
-	//[HideInInspector]
+	[HideInInspector]
 	public double orbitalPeriod;
 
 	// Use this for initialization
-	void Awake () {
+	void Start () {
 			//solarMass = starObjectDataScript.mass;															// Get the mass of the parent star from the parent star's ObjectData.cs script
 		//orbitalPeriod = planetObjectDataScript.orbitalPeriod;													// Temporary - years in earth year units 1 year = 365.25 days
 		if (solarMass != 0 && orbitalPeriod != 0) {

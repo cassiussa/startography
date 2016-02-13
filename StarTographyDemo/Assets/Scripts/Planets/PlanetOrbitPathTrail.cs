@@ -46,6 +46,19 @@ public class PlanetOrbitPathTrail : Functions {
 			positionProcessingScript.position.y,
 			positionProcessingScript.position.z);
 
+		lineArray.Insert(0, new Vector3d(
+			positionProcessingScript.position.x,
+			positionProcessingScript.position.y,
+			positionProcessingScript.position.z));
+		
+		if(lineArray.Count >= lineSegments) lineArray.RemoveAt(lineArray.Count-1);					
+		lineRenderer.SetVertexCount(lineArray.Count);
+		
+		// Set the cachedPosition to the current position so we can start the conditional again
+		cachedPosition = new Vector3d(
+			positionProcessingScript.position.x,
+			positionProcessingScript.position.y,
+			positionProcessingScript.position.z);	// Get the real position from the planet's PositionProcessing script
 	}
 	
 	// Update is called once per frame
