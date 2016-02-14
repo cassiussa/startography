@@ -74,7 +74,7 @@ public class PlanetOrbitPathTrail : Functions {
 		 * and once a threshold is breached update the LineRenderer
 		 * positions array.
 		 */
-		if (planetTransform.gameObject.name == "Earth")
+		//if (planetTransform.gameObject.name == "Earth")
 		//positionProcessingScript.position.x += 100;					// **** FOR TESTING ONLY *** //
 		// Check to see if the object has gone farther than 20000k.  If so, update the LineRenderer
 		if (System.Math.Abs (v3dDistance(positionProcessingScript.position, cachedPosition)) >= segmentLength) {

@@ -238,7 +238,7 @@ public class ScaleStates : Functions {
 			Color startColor = new Color(1f, 0.7647f, 0.294f, 1f);									// Start color of 255,195,75,255
 			Color endColor = new Color(1f, 0.7647f, 0.294f, 0f);									// End color of 255,195,75,0
 			lineRenderer.SetColors(startColor, endColor);											// Set the Start and End colours of the LineRenderer material
-			lineRenderer.SetWidth (0.025f,0.0f);													// Set the Start and End width of the line
+			lineRenderer.SetWidth (25f,0.0f);													// Set the Start and End width of the line
 			lineRenderer.useWorldSpace = true;														// Set to world space
 
 			/*
