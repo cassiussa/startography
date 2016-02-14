@@ -211,6 +211,14 @@ public class ScaleStates : Functions {
 			distanceMarkerScaleObjects [3].name = distanceMarkerScaleObjects [3].name+" LY";
 		}
 
+		// If this is a star, prepare the Solar System Sphere gameObject positioning
+		if (objectDataScript.celestialBodyType == ObjectData.CelestialBodyType.Star) {
+			ObjectData objectDataSphereScript = objectDataScript.solarSystemSphere.GetComponent<ObjectData>();	// This is the ObjectData script on the Sphere gameObject
+			objectDataSphereScript.parentStarObject = gameObject;									// Assign this star into the solar Sphere
+			objectDataSphereScript.coordinates = objectDataScript.coordinates;						// Assign the same coordinates as the host star to the solar system's Sphere
+			PositionProcessing positionProcessingSphereScript = objectDataScript.solarSystemSphere.GetComponent<PositionProcessing>();
+		}
+
 		if (objectDataScript.celestialBodyType == ObjectData.CelestialBodyType.Planet) {			// Things we do if this of type Planet
 			/*
 			 * Add the LineRenderer Component and apply

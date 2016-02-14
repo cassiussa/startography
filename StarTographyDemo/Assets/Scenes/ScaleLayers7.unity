@@ -795,6 +795,7 @@ MonoBehaviour:
   temperature: 0
   luminosity: 0
   parentStarObject: {fileID: 1678269746}
+  solarSystemSphere: {fileID: 0}
 --- !u!1 &87615222
 GameObject:
   m_ObjectHideFlags: 0
@@ -1440,8 +1441,8 @@ MonoBehaviour:
   OuterRadius: 2
   PlaneCount: 20
   Detail: 50
-  FadeEdge: 0
-  FadePower: 2
+  FadeEdge: 1
+  FadePower: 5
   ClipNear: 1
   ClipPower: 2
   ObserverOffset: .00999999978
@@ -2078,7 +2079,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: df42500788d1c2f4d96e5db4ff3c2c5d, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: df42500788d1c2f4d96e5db4ff3c2c5d, type: 3}
       propertyPath: m_Name
@@ -2217,6 +2218,7 @@ MonoBehaviour:
   temperature: 0
   luminosity: 0
   parentStarObject: {fileID: 0}
+  solarSystemSphere: {fileID: 0}
 --- !u!1001 &410760430
 Prefab:
   m_ObjectHideFlags: 0
@@ -5871,6 +5873,14 @@ Prefab:
       propertyPath: InnerPower
       value: .600000024
       objectReference: {fileID: 0}
+    - target: {fileID: 11454194, guid: 1f72ba190792d4c0682867112ec7ab83, type: 2}
+      propertyPath: FadeEdge
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11454194, guid: 1f72ba190792d4c0682867112ec7ab83, type: 2}
+      propertyPath: FadePower
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 11443368, guid: 1f72ba190792d4c0682867112ec7ab83, type: 2}
     - {fileID: 11443366, guid: 1f72ba190792d4c0682867112ec7ab83, type: 2}
@@ -5955,7 +5965,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &964901397
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5978,11 +5988,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c7a4498cd9e848a486fc890cbfad0d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  celestialBodyType: 2
+  celestialBodyType: 3
   coordinates:
     x: 0
     y: 0
-    z: 0
+    z: 1500000
   radius:
     x: 5396264244
     y: 5396264244
@@ -5993,6 +6003,7 @@ MonoBehaviour:
   temperature: 0
   luminosity: 0
   parentStarObject: {fileID: 0}
+  solarSystemSphere: {fileID: 0}
 --- !u!114 &964901399
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6740,6 +6751,7 @@ MonoBehaviour:
   temperature: 0
   luminosity: 0
   parentStarObject: {fileID: 0}
+  solarSystemSphere: {fileID: 0}
 --- !u!114 &1094652975
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6928,6 +6940,7 @@ MonoBehaviour:
   temperature: 0
   luminosity: 0
   parentStarObject: {fileID: 0}
+  solarSystemSphere: {fileID: 0}
 --- !u!1 &1139012510
 GameObject:
   m_ObjectHideFlags: 0
@@ -8306,6 +8319,7 @@ MonoBehaviour:
   temperature: 0
   luminosity: 0
   parentStarObject: {fileID: 0}
+  solarSystemSphere: {fileID: 0}
 --- !u!1 &1313427993
 GameObject:
   m_ObjectHideFlags: 0
@@ -10006,8 +10020,8 @@ MonoBehaviour:
   celestialBodyType: 1
   coordinates:
     x: 0
-    y: -30000000
-    z: -10000000
+    y: 0
+    z: 1500000
   radius:
     x: 695508
     y: 695508
@@ -10018,6 +10032,7 @@ MonoBehaviour:
   temperature: 1
   luminosity: 0
   parentStarObject: {fileID: 0}
+  solarSystemSphere: {fileID: 964901396}
 --- !u!1001 &1679310305
 Prefab:
   m_ObjectHideFlags: 0
@@ -10251,6 +10266,7 @@ MonoBehaviour:
   temperature: 2
   luminosity: 0
   parentStarObject: {fileID: 0}
+  solarSystemSphere: {fileID: 0}
 --- !u!1 &1697420567
 GameObject:
   m_ObjectHideFlags: 0
@@ -10379,6 +10395,7 @@ MonoBehaviour:
   temperature: 0
   luminosity: 0
   parentStarObject: {fileID: 0}
+  solarSystemSphere: {fileID: 0}
 --- !u!1 &1709940507
 GameObject:
   m_ObjectHideFlags: 0
@@ -11055,6 +11072,7 @@ MonoBehaviour:
   temperature: 0
   luminosity: 0
   parentStarObject: {fileID: 0}
+  solarSystemSphere: {fileID: 0}
 --- !u!114 &1886891873
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12626,7 +12644,7 @@ Camera:
     height: 1
   near clip plane: .00999999978
   far clip plane: 1e+08
-  field of view: 38.5
+  field of view: 60
   orthographic: 0
   orthographic size: 5
   m_Depth: 3
