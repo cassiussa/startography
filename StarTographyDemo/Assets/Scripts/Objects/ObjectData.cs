@@ -7,6 +7,7 @@ public class ObjectData : Functions {
 		Planet,
 		Star,
 		StarLight,
+		SolarSystemSphere,
 		UserInterface,
 		DistanceMarker
 	}
@@ -22,6 +23,7 @@ public class ObjectData : Functions {
 	public float temperature;
 	public float luminosity;		// This shouldn' be visible.  Used to set amount of glow on a star
 	public GameObject parentStarObject;
+	public GameObject solarSystemSphere;
 
 	void Awake() {
 		Vector3d vRadius = S3dToV3d (radius);
