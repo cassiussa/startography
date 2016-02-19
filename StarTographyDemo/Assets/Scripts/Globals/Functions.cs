@@ -253,6 +253,18 @@ public class Functions : Constants {
 	}
 
 	/*
+	 * a : distance (usually from star)
+	 */
+	protected double orbitDistance(double M, double e, double a) {
+		double K = PI/180.0;
+		double E = Anomaly (M, e);
+		double x = a * (Math.Cos (E) - e);
+		double y = a * Math.Sqrt(1 - e*e) * Math.Sin(E);
+		Debug.Log ("x = " + x + ", y = " + y);
+		double result = Math.Sqrt ( (x*x) + (y*y) );
+		return result;
+	}
+	/*
 	 * M : Mean Anomaly
 	 * e : Eccentricity 0 < e < 1
 	 */
