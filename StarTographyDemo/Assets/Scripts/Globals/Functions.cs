@@ -216,37 +216,63 @@ public class Functions : Constants {
 	 * 
 	 * Parameters
 	 * ----------
-	 * M : Mean Anomoly 
+	 * M : Mean Anomaly 
 	 * e : Eccentricity 0 < e < 1
 	 * 
 	 * Returns
 	 * -------
 	 * double : an eccentric anomoly based on multiple interations
+	 * note: This function is used by the TrueAnomaly(), EccentricAnomaly(), and possibley other functions 
 	 * 
 	 */
-	protected double EccentricAnomaly(double M, double e) {
-		double K = PI/180.0;
+	private double Anomaly(double M, double e) {
+		double K = PI / 180.0;
 		int maxIterations = 10;												// 10 iterations should be enough
 		int i = 0;
-
+		
 		double E;
 		double F;
 		M = M / 360.0;														// Get the propotion of full orbit
-
-		M = 2.0 * PI * (M - Math.Floor(M));
+		
+		M = 2.0 * PI * (M - Math.Floor (M));
 		if (e < 0.8)														// Shortcut if eccentricity is small
 			E = M;
 		else
 			E = PI;
-
-		F = E - e * Math.Sin(M) - M;
+		
+		F = E - e * Math.Sin (M) - M;
 		while ((Math.Abs(F) > 0.000001) && (i<maxIterations)) {				// Only iterate while we're outside of the accuracy threshold
-			E = E - F / (1.0 - e * Math.Cos(E));
-			F = E - e * Math.Sin(E) - M;
+			E = E - F / (1.0 - e * Math.Cos (E));
+			F = E - e * Math.Sin (E) - M;
 			i++;
 		}
 		if (i == maxIterations)
 			Debug.LogError ("Hit the maximum number of iterations.  May want to consider revising this", gameObject);
+
+		return E;
+	}
+
+	/*
+	 * M : Mean Anomaly
+	 * e : Eccentricity 0 < e < 1
+	 */
+	protected double TrueAnomaly(double M, double e) {
+		double K = PI/180.0;
+		double E = Anomaly (M, e);
+		double S = Math.Sin(E);
+		double C = Math.Cos(E);
+		double fak = Math.Sqrt(1.0 - e * e);
+		double result = Math.Atan2(fak * S, C - e) / K;
+		return result;
+	}
+	
+	/*
+	 * M : Mean Anomaly 
+	 * e : Eccentricity 0 < e < 1
+	 */
+	protected double EccentricAnomaly(double M, double e) {
+		double K = PI/180.0;
+		double E = Anomaly (M, e);
 
 		double result = E / K;
 		return result;
