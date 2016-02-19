@@ -10,6 +10,7 @@ public class ObjectDataEditor : Editor {
 		coordinates,
 		radius,
 		mass,
+		tilt,
 		orbitalPeriod,
 		parentStarMass,
 		temperature,
@@ -23,6 +24,7 @@ public class ObjectDataEditor : Editor {
 		coordinates = serializedObject.FindProperty ("coordinates");
 		radius = serializedObject.FindProperty ("radius");
 		mass = serializedObject.FindProperty ("mass");
+		tilt = serializedObject.FindProperty ("tilt");
 		orbitalPeriod = serializedObject.FindProperty ("orbitalPeriod");
 		parentStarMass = serializedObject.FindProperty ("parentStarMass");
 		temperature = serializedObject.FindProperty ("temperature");   
@@ -41,6 +43,7 @@ public class ObjectDataEditor : Editor {
 			EditorGUILayout.PropertyField(coordinates, new GUIContent("coordinates"), true);			// True boolean is to allow array
 			EditorGUILayout.PropertyField(radius, new GUIContent("radius"), true);
 			EditorGUILayout.PropertyField(mass, new GUIContent("mass"));
+			EditorGUILayout.PropertyField(tilt, new GUIContent("tilt"));
 			EditorGUILayout.PropertyField(orbitalPeriod, new GUIContent("orbitalPeriod"));
 			EditorGUILayout.PropertyField(parentStarMass, new GUIContent("parentStarMass"));
 			EditorGUILayout.PropertyField(parentStarObject, new GUIContent("parentStarObject") );

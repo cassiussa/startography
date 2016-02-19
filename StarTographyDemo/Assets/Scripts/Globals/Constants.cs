@@ -3,6 +3,7 @@ using System.Collections;
 
 public class Constants : MonoBehaviour {
 	protected double PI = 3.14159265358979323846d;
+	protected double oneEightyOverPI = 57.29577951308232d;					// 180/PI - so it doesn't need to be calculated
 	protected double radiusConstantSolar = 695508d;							// In kilometers
 	protected double radiusTemperatureSolar = 5777d;						// The effective temperature of the sun, in Kelvin
 	protected double radiusConstantEarth = 6371d;							// In kilometers
@@ -12,7 +13,7 @@ public class Constants : MonoBehaviour {
 	protected double massConstantEarth = 5972190000000000000000000d;		// In Kilograms
 
 	protected double G = 0.00000000006673889d;								// Gravitational Constant - meters, kilograms, seconds
-	protected double julianYear = 31557600;									// Seconds in a Julian year (365.25 days)
+	protected double julianYear = 31557600;//31558196.0153664				// Seconds in a Julian year (365.25 days) or 365.256898326 days
 
 	protected double maxUnits = 10000d;				// The maximum number of distance, in units, that something can go
 

@@ -343,7 +343,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: df42500788d1c2f4d96e5db4ff3c2c5d, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: df42500788d1c2f4d96e5db4ff3c2c5d, type: 3}
       propertyPath: m_Name
@@ -863,6 +863,7 @@ MonoBehaviour:
     x: 6371
     y: 6371
     z: 6371
+  tilt: 23.4405994
   mass: 0
   orbitalPeriod: 1
   parentStarMass: 0
@@ -1809,7 +1810,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &289372811
 Transform:
   m_ObjectHideFlags: 0
@@ -1874,6 +1875,7 @@ MonoBehaviour:
     x: 2439.7
     y: 2439.7
     z: 2439.7
+  tilt: 0
   mass: 0
   orbitalPeriod: .24093087
   parentStarMass: 0
@@ -2168,7 +2170,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: df42500788d1c2f4d96e5db4ff3c2c5d, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: df42500788d1c2f4d96e5db4ff3c2c5d, type: 3}
       propertyPath: m_Name
@@ -2375,6 +2377,7 @@ MonoBehaviour:
     x: 24622
     y: 24622
     z: 24622
+  tilt: 0
   mass: 0
   orbitalPeriod: 0
   parentStarMass: 0
@@ -3205,7 +3208,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &489738578
 Transform:
   m_ObjectHideFlags: 0
@@ -3270,6 +3273,7 @@ MonoBehaviour:
     x: 6051.8
     y: 6051.8
     z: 6051.8
+  tilt: 0
   mass: 0
   orbitalPeriod: .616016448
   parentStarMass: 0
@@ -6249,6 +6253,7 @@ MonoBehaviour:
     x: 5396264244
     y: 5396264244
     z: 5396264244
+  tilt: 0
   mass: 0
   orbitalPeriod: 0
   parentStarMass: 0
@@ -6391,7 +6396,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: df42500788d1c2f4d96e5db4ff3c2c5d, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: df42500788d1c2f4d96e5db4ff3c2c5d, type: 3}
       propertyPath: m_Name
@@ -6465,7 +6470,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: df42500788d1c2f4d96e5db4ff3c2c5d, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: df42500788d1c2f4d96e5db4ff3c2c5d, type: 3}
       propertyPath: m_Name
@@ -7050,7 +7055,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1094652974
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7071,6 +7076,7 @@ MonoBehaviour:
     x: 3389.5
     y: 3389.5
     z: 3389.5
+  tilt: 0
   mass: 0
   orbitalPeriod: 1.88090348
   parentStarMass: 0
@@ -7260,6 +7266,7 @@ MonoBehaviour:
     x: 25362
     y: 25362
     z: 25362
+  tilt: 0
   mass: 0
   orbitalPeriod: 0
   parentStarMass: 0
@@ -8639,6 +8646,7 @@ MonoBehaviour:
     x: 1737.5
     y: 1737.5
     z: 1737.5
+  tilt: 0
   mass: 0
   orbitalPeriod: 0
   parentStarMass: 0
@@ -10408,6 +10416,7 @@ MonoBehaviour:
     x: 695508
     y: 695508
     z: 695508
+  tilt: 0
   mass: 1
   orbitalPeriod: 0
   parentStarMass: 0
@@ -10642,6 +10651,7 @@ MonoBehaviour:
     x: 918070.56
     y: 918070.56
     z: 918070.56
+  tilt: 0
   mass: 0
   orbitalPeriod: 0
   parentStarMass: 0
@@ -10762,7 +10772,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1705622332
 Transform:
   m_ObjectHideFlags: 0
@@ -10827,6 +10837,7 @@ MonoBehaviour:
     x: 58232
     y: 58232
     z: 58232
+  tilt: 0
   mass: 0
   orbitalPeriod: 29
   parentStarMass: 0
@@ -11099,7 +11110,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: df42500788d1c2f4d96e5db4ff3c2c5d, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 100000, guid: df42500788d1c2f4d96e5db4ff3c2c5d, type: 3}
       propertyPath: m_Name
@@ -11483,7 +11494,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1886891872
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11504,6 +11515,7 @@ MonoBehaviour:
     x: 69911
     y: 69911
     z: 69911
+  tilt: 0
   mass: 0
   orbitalPeriod: 12
   parentStarMass: 0

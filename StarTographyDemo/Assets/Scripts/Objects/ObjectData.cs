@@ -17,6 +17,7 @@ public class ObjectData : Functions {
 	public CelestialBodyType celestialBodyType;
 	public String3d coordinates;
 	public String3d radius;
+	public float tilt;										// Angle of tilt in degrees
 	public float mass;										// Measured in Jupiter Units
 	public float orbitalPeriod;								// Measured in earth days
 	public float parentStarMass;							// Measured in Solar Units

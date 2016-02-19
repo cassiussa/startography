@@ -198,6 +198,78 @@ public class Functions : Constants {
 		return result;
 	}
 
+	protected double NormalizedDegrees(double degrees) {
+		double result = degrees - System.Math.Floor(degrees/360.0)*360.0;		// Convert an angle to wrap within 360 degrees.  Ex: 370 degrees = 10 degrees
+		return result;
+	}
+
+	// Calculates the number of days since the J2000.0
+	protected double DayNumber(int yyyy, int mm, int dd, int hrs, int mins, int sec, float ms) {	// ms = microseconds (7 digits)
+		float fullDays = 367 * yyyy - (7 * ( yyyy + (int)((mm + 9)/12) ) )/4 + (275 * mm)/9 + dd - 730530;
+		double days = fullDays+((hrs+mins+sec+ms)/24);
+		return days;
+	}
+
+
+	/*
+	 * Get the Eccentric Anomoly
+	 * 
+	 * Parameters
+	 * ----------
+	 * M : Mean Anomoly 
+	 * e : Eccentricity 0 < e < 1
+	 * 
+	 * Returns
+	 * -------
+	 * double : an eccentric anomoly based on multiple interations
+	 * 
+	 */
+	protected double EccentricAnomaly(double M, double e) {
+		double K = PI/180.0;
+		int maxIterations = 10;												// 10 iterations should be enough
+		int i = 0;
+
+		double E;
+		double F;
+		M = M / 360.0;														// Get the propotion of full orbit
+
+		M = 2.0 * PI * (M - Math.Floor(M));
+		if (e < 0.8)														// Shortcut if eccentricity is small
+			E = M;
+		else
+			E = PI;
+
+		F = E - e * Math.Sin(M) - M;
+		while ((Math.Abs(F) > 0.000001) && (i<maxIterations)) {				// Only iterate while we're outside of the accuracy threshold
+			E = E - F / (1.0 - e * Math.Cos(E));
+			F = E - e * Math.Sin(E) - M;
+			i++;
+		}
+		if (i == maxIterations)
+			Debug.LogError ("Hit the maximum number of iterations.  May want to consider revising this", gameObject);
+
+		double result = E / K;
+		return result;
+		/*
+		double E0 = M + (180/PI) * e * Math.Sin(M) * (1 + e * Math.Cos(M));
+		Debug.Log ("E0 = " + E0);
+		double E1 = 0d;
+		for (int i=0; i<10; i++) {
+			E1 = E0 - (E0 - (180/PI) * e * Math.Sin(E0) - M) / (1 - e * Math.Cos(E0)) ;
+			Debug.Log ("iteartion # "+i);
+			Debug.Log ("E0 = "+E0+", E1 = "+E1);
+			/*if(Math.Abs(E0 - E1) <= 0.05 ) {
+				E0 = E1;
+				break;
+			} else {
+				E0 = E1;
+			}
+
+		}
+		return E1;
+		*/
+	}
+
 	protected double AvgOrbitRad(double m, double t) {
 		/*
 		 * Get the average orbit radius
