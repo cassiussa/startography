@@ -86,9 +86,20 @@ public class ScaleStates : Functions {
 	#endregion
 	
 	void Awake() {
-		if (gameObject.name == "Earth")
+		if (gameObject.name == "Earth") {
 //			Debug.LogError ("EccentricAnomaly = " + EccentricAnomaly (0.5235988, 0.00001) );
-			Debug.LogError ("EccentricAnomaly = " + EccentricAnomaly (69.5153, 0.205633)+". TrueAnomaly = "+TrueAnomaly(69.5153, 0.205633)+", orbitDistance = "+orbitDistance(69.5153, 0.205633,0.387098) );
+			double M = 266.0954;
+			double e = 0.054900;
+			double a = 60.2666;
+			double N = 312.7381;
+			double w = 95.7454;
+			double i = 5.1454;
+			double r = OrbitDistance (M, e, a);
+			double v = TrueAnomaly (M, e);
+			Vector3d hrc = HelioRectCoords (r,v, N, w, i);
+			Debug.LogError ("EccentricAnomaly = " + EccentricAnomaly (M, e)+ ", v = " + v + ", r = "+ r + ", Coords = (" + hrc.x+", "+hrc.y+", "+hrc.z+")");
+
+		}
 		// A list of strings we can perform conditionals on and then assign a state
 		scales.Add ("SM", State.SubMillion);
 		scales.Add ("MK", State.MillionKilometers);

@@ -253,16 +253,45 @@ public class Functions : Constants {
 	}
 
 	/*
-	 * a : distance (usually from star)
+	 * Get the Heliocentric rectangular coordinates along the orbital plane
+	 * 
+	 * Parameters
+	 * ----------
+	 * 
+	 * r : radius - heliocentric distance
+	 * v : true anomaly
+	 * N : Longitude of Ascending Node
+	 * w : Angle of ascending node to the perihelion along the orbit
+	 * i : inclination
+	 * 
+	 * Returns
+	 * -------
+	 * Vector3d : the x,y,z rectangular coordinates of the position in orbit
 	 */
-	protected double orbitDistance(double M, double e, double a) {
+	protected Vector3d HelioRectCoords(double r, double v, double N, double w, double i) {
+
+		Vector3d result;
+		double xeclip = r * ( (Math.Cos (N) * Math.Cos (w + v)) - (Math.Sin (N) * Math.Cos (i) * Math.Sin (w + v)) );
+		double yeclip = r * (Math.Sin (N) * Math.Cos (v + w) + Math.Cos (N) * Math.Sin (v + w) * Math.Cos (i));
+		double zeclip = r * Math.Sin (v + w) * Math.Sin (i);
+		result = new Vector3d (xeclip, yeclip, zeclip);
+		double safs = 5.40406 * ( (Math.Cos(100.464) * Math.Cos(20.020+144.637)) - (Math.Sin(100.464) * Math.Cos(1.303) * Math.Sin(20.020+144.637)) );
+		Debug.Log (safs);
+		Debug.Log ("xeclip = " + xeclip);
+		return result;
+	}
+
+	/*
+	 * a : mean distance (usually from star)
+	 */
+	protected double OrbitDistance(double M, double e, double a) {
 		double K = PI/180.0;
 		double E = Anomaly (M, e);
 		double x = a * (Math.Cos (E) - e);
 		double y = a * Math.Sqrt(1 - e*e) * Math.Sin(E);
 		Debug.Log ("x = " + x + ", y = " + y);
-		double result = Math.Sqrt ( (x*x) + (y*y) );
-		return result;
+		double r = Math.Sqrt ( (x*x) + (y*y) );
+		return r;
 	}
 	/*
 	 * M : Mean Anomaly
@@ -271,8 +300,8 @@ public class Functions : Constants {
 	protected double TrueAnomaly(double M, double e) {
 		double K = PI/180.0;
 		double E = Anomaly (M, e);
-		double result = NormalizedDegrees(Math.Atan2(Math.Sqrt(1.0 - e * e) * Math.Sin(E), Math.Cos(E) - e) / K);
-		return result;
+		double v = NormalizedDegrees(Math.Atan2(Math.Sqrt(1.0 - e * e) * Math.Sin(E), Math.Cos(E) - e) / K);
+		return v;
 	}
 	
 	/*
