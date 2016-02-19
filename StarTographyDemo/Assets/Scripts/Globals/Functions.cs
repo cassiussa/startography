@@ -259,10 +259,7 @@ public class Functions : Constants {
 	protected double TrueAnomaly(double M, double e) {
 		double K = PI/180.0;
 		double E = Anomaly (M, e);
-		double S = Math.Sin(E);
-		double C = Math.Cos(E);
-		double fak = Math.Sqrt(1.0 - e * e);
-		double result = Math.Atan2(fak * S, C - e) / K;
+		double result = NormalizedDegrees(Math.Atan2(Math.Sqrt(1.0 - e * e) * Math.Sin(E), Math.Cos(E) - e) / K);
 		return result;
 	}
 	
