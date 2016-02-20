@@ -9,7 +9,7 @@ public class PlanetOrbitPathTrail : Functions {
 	public Transform planetTransform;
 	public ScaleStates scaleStatesScript;
 	[HideInInspector]
-	public int lineSegments = 10000;
+	public int lineSegments = 900;
 	public double segmentLength;											// This is received from the ParentStar.cs script
 
 	Vector3 scaledPosition;

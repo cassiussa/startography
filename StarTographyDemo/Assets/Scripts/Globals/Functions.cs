@@ -269,7 +269,6 @@ public class Functions : Constants {
 	 * Vector3d : the x,y,z rectangular coordinates of the position in orbit
 	 */
 	protected Vector3d HelioRectCoords(double r, double v, double N, double w, double i) {
-
 		Vector3d result;
 		double vw = Deg2Rad (v + w);
 		N = Deg2Rad (N);
@@ -282,10 +281,7 @@ public class Functions : Constants {
 		double xhelio = r * ( (cosN * cosVW) - (sinN * cosI * sinVW) );
 		double yhelio = r * (sinN * cosVW + cosN * sinVW * cosI);
 		double zhelio = r * sinVW * Math.Sin (i);
-		result = new Vector3d (xhelio, yhelio, zhelio);
-		//double safs = 5.40406 * ( (Math.Cos(100.464) * Math.Cos(20.020+144.637)) - (Math.Sin(100.464) * Math.Cos(1.303) * Math.Sin(20.020+144.637)) );
-		//Debug.Log (safs);
-		//Debug.Log ("xeclip = " + xhelio);
+		result = new Vector3d (yhelio, zhelio, xhelio);	// These have purposefully been re-arranged due to Unity3d's strange xyz assignments
 		return result;
 	}
 
@@ -301,10 +297,10 @@ public class Functions : Constants {
 		double E = Anomaly (M, e);
 		double x = a * (Math.Cos (E) - e);
 		double y = a * Math.Sqrt(1 - e*e) * Math.Sin(E);
-		Debug.Log ("x = " + x + ", y = " + y);
 		double r = Math.Sqrt ( (x*x) + (y*y) );
 		return r;
 	}
+
 	/*
 	 * M : Mean Anomaly
 	 * e : Eccentricity 0 < e < 1

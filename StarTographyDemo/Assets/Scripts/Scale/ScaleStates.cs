@@ -84,21 +84,35 @@ public class ScaleStates : Functions {
 		get { return _prevState; }
 	}
 	#endregion
-	
+
+
+	Vector3d hrc = new Vector3d (0d, 0d, 0d);
+		double P = 365.256898326d;						// Orbital period
+		double n = 0d;//360/P;						// Daily motion = 360_deg / P = degrees/day
+		double t = 0.0;						// Epoch, ex the J2000.0 Julian Day Number
+		//double T = 0.0;						// Time at perihelion, based on epoch
+		//double M = 0.0;						// M = n * (t - T)  =  (t - T) * 360_deg / P
+		double T = 0d;
+
+		double M = 69.5153;					// Mean anomaly
+		double e = 0.205633;				// Eccentricity
+		double a = 0;//AU;//0.387098;				// Mean distance, or semi-major axis
+		double N = 48.2163;					// Longitude of Ascending Node
+		double w = 29.0882;					// The angle from the Ascending node to the Perihelion, along the orbit
+		double i = 7.0045;					// Inclination, i.e. the "tilt" of the orbit relative to the ecliptic
+		double r = 0;	// Heliocentric distance: the planet's distance from the Sun
+		double v = 0d;		// True anomaly: the angle from perihelion to the planet, as seen from the Sun
+
 	void Awake() {
 		if (gameObject.name == "Earth") {
-//			Debug.LogError ("EccentricAnomaly = " + EccentricAnomaly (0.5235988, 0.00001) );
-			double M = 69.5153;
-			double e = 0.205633;
-			double a = 0.387098;
-			double N = 48.2163;
-			double w = 29.0882;
-			double i = 7.0045;
-			double r = OrbitDistance (M, e, a);
-			double v = TrueAnomaly (M, e);
-			Vector3d hrc = HelioRectCoords (r,v, N, w, i);
-			Debug.LogError ("EccentricAnomaly = " + EccentricAnomaly (M, e)+ ", v = " + v + ", r = "+ r + ", Coords = (" + hrc.x+", "+hrc.y+", "+hrc.z+")");
-
+			n = 360/P;
+			a = AU;
+			t = DayNumber (2000, 01, 01, 00, 00, 0, 0);
+			T = DayNumber (2016, 01, 02, 22, 49, 0, 0);
+			M = n * (t - T);
+			r = OrbitDistance (M, e, a);
+			v = TrueAnomaly (M, e);
+			hrc = HelioRectCoords (r, v, N, w, i);
 		}
 		// A list of strings we can perform conditionals on and then assign a state
 		scales.Add ("SM", State.SubMillion);
@@ -148,6 +162,16 @@ public class ScaleStates : Functions {
 		 * layer.
 		 */
 		objectDataScript = GetComponent<ObjectData> ();
+
+		/************************************
+		 * this next conditional is temporary
+		 ************************************/
+		if (objectDataScript.celestialBodyType == ObjectData.CelestialBodyType.Planet) {			// Things we do if this of type Planet
+			//objectDataScript.coordinates = new String3d (hrc.x.ToString (), hrc.y.ToString (), hrc.z.ToString ());
+			positionProcessingScript.position.x = hrc.x;
+			positionProcessingScript.position.y = hrc.y;
+			positionProcessingScript.position.z = hrc.z;
+		}
 
 		starLight = GetComponent<Light> ();															// Add the Light component if there is one
 		if (objectDataScript.celestialBodyType == ObjectData.CelestialBodyType.Star) {
@@ -344,6 +368,21 @@ public class ScaleStates : Functions {
 
 	
 	void Update() {
+
+		if (gameObject.name == "Earth") {
+			T += (Time.deltaTime*10);
+			Debug.Log ("T = "+T);
+			M = n * (t - T);
+			r = OrbitDistance (M, e, a);
+			v = TrueAnomaly (M, e);
+			hrc = HelioRectCoords (r, v, N, w, i);
+		}
+		if (objectDataScript.celestialBodyType == ObjectData.CelestialBodyType.Planet) {			// Things we do if this of type Planet
+			//objectDataScript.coordinates = new String3d (hrc.x.ToString (), hrc.y.ToString (), hrc.z.ToString ());
+			positionProcessingScript.position.x = hrc.x+1500000;
+			positionProcessingScript.position.y = hrc.y;
+			positionProcessingScript.position.z = hrc.z;
+		}
 
 		/* 
 		 * Count down instead of up because the vast majority of objects will 
