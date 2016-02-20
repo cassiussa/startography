@@ -271,14 +271,26 @@ public class Functions : Constants {
 	protected Vector3d HelioRectCoords(double r, double v, double N, double w, double i) {
 
 		Vector3d result;
-		double xeclip = r * ( (Math.Cos (N) * Math.Cos (w + v)) - (Math.Sin (N) * Math.Cos (i) * Math.Sin (w + v)) );
-		double yeclip = r * (Math.Sin (N) * Math.Cos (v + w) + Math.Cos (N) * Math.Sin (v + w) * Math.Cos (i));
-		double zeclip = r * Math.Sin (v + w) * Math.Sin (i);
-		result = new Vector3d (xeclip, yeclip, zeclip);
-		double safs = 5.40406 * ( (Math.Cos(100.464) * Math.Cos(20.020+144.637)) - (Math.Sin(100.464) * Math.Cos(1.303) * Math.Sin(20.020+144.637)) );
-		Debug.Log (safs);
-		Debug.Log ("xeclip = " + xeclip);
+		double vw = Deg2Rad (v + w);
+		N = Deg2Rad (N);
+		i = Deg2Rad (i);
+		double cosN = Math.Cos (N);
+		double sinN = Math.Sin (N);
+		double sinVW = Math.Sin (vw);
+		double cosVW = Math.Cos (vw);
+		double cosI = Math.Cos (i);
+		double xhelio = r * ( (cosN * cosVW) - (sinN * cosI * sinVW) );
+		double yhelio = r * (sinN * cosVW + cosN * sinVW * cosI);
+		double zhelio = r * sinVW * Math.Sin (i);
+		result = new Vector3d (xhelio, yhelio, zhelio);
+		//double safs = 5.40406 * ( (Math.Cos(100.464) * Math.Cos(20.020+144.637)) - (Math.Sin(100.464) * Math.Cos(1.303) * Math.Sin(20.020+144.637)) );
+		//Debug.Log (safs);
+		//Debug.Log ("xeclip = " + xhelio);
 		return result;
+	}
+
+	protected double Deg2Rad(double angle) {
+		return PI * angle / 180.0;
 	}
 
 	/*

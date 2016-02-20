@@ -88,12 +88,12 @@ public class ScaleStates : Functions {
 	void Awake() {
 		if (gameObject.name == "Earth") {
 //			Debug.LogError ("EccentricAnomaly = " + EccentricAnomaly (0.5235988, 0.00001) );
-			double M = 266.0954;
-			double e = 0.054900;
-			double a = 60.2666;
-			double N = 312.7381;
-			double w = 95.7454;
-			double i = 5.1454;
+			double M = 69.5153;
+			double e = 0.205633;
+			double a = 0.387098;
+			double N = 48.2163;
+			double w = 29.0882;
+			double i = 7.0045;
 			double r = OrbitDistance (M, e, a);
 			double v = TrueAnomaly (M, e);
 			Vector3d hrc = HelioRectCoords (r,v, N, w, i);
@@ -234,6 +234,7 @@ public class ScaleStates : Functions {
 		}
 
 		if (objectDataScript.celestialBodyType == ObjectData.CelestialBodyType.Planet) {			// Things we do if this of type Planet
+			MeshTilt(objectDataScript.tilt);
 			/*
 			 * Add the LineRenderer Component and apply
 			 * the necessary initial settings
@@ -616,6 +617,12 @@ public class ScaleStates : Functions {
 		 * are local so that they all become the same size
 		 */
 		meshesScalingScript.maxScale = (float)(236/newLocalScale.x);
+	}
+
+	private void MeshTilt(float tilt) {
+		if (meshes) {
+			meshes.transform.localRotation = Quaternion.Euler(tilt,meshes.transform.localRotation.y,meshes.transform.localRotation.z);
+		}
 	}
 
 	/*
