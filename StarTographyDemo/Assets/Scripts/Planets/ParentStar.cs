@@ -25,7 +25,7 @@ public class ParentStar : Functions {
 		//orbitalPeriod = planetObjectDataScript.orbitalPeriod;													// Temporary - years in earth year units 1 year = 365.25 days
 		if (solarMass != 0 && orbitalPeriod != 0) {
 			// Calculate the average radius of the orbit of this planet, in kilometers
-			avgOrbitRadius = AvgOrbitRad (SolsToKilos (solarMass), JulianYearToSeconds (orbitalPeriod)) / 1000;	// In Kilometers
+			avgOrbitRadius = AvgOrbitRadius (SolsToKilos (solarMass), JulianYearToSeconds (orbitalPeriod)) / 1000;	// In Kilometers
 			orbitCircumference = (2d * avgOrbitRadius * PI);												// (Kilometers) Circumference = radius X pi
 			orbitTrailLength = orbitCircumference / 2d;														// The orbit trail length is half the length of the circumference
 			planetOrbitPathTrailScript.segmentLength = orbitTrailLength / planetOrbitPathTrailScript.lineSegments;

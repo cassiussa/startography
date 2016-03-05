@@ -34,5 +34,6 @@ public class PositionProcessing : Positioning {
 			//Debug.Log ("position = Vector3d(" + position.x+","+position.y+","+position.z+")");
 			position.x += 100;
 		}*/
+		if(gameObject.name == "Earth")Debug.Log ("position = (" + position.x + "," + position.y + "," + position.z + ")");
 	}
 }

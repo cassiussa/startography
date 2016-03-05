@@ -342,13 +342,13 @@ public class Functions : Constants {
 		*/
 	}
 
-	protected double AvgOrbitRad(double m, double t) {
+	protected double AvgOrbitRadius(double m, double t) {
 		/*
 		 * Get the average orbit radius
 		 * 
 		 * Parameters
 		 * ----------
-		 * m(ass) : in kilograms.  If you need in solar units, multiple my massConstantSolar first
+		 * m(ass) : in kilograms.  If you need in solar units, multiple by 'massConstantSolar' first
 		 * t(ime) : in seconds.  If you nead in years, multiple by earth years
 		 * 
 		 * Returns
