@@ -106,8 +106,8 @@ public class ScaleStates : Functions {
 	void Awake() {
 		if (gameObject.name == "Earth") {
 			n = 360/P;
-			a = AU;
-			t = DayNumber (2000, 01, 01, 00, 00, 0, 0);
+			a = AU*0.9833039;
+			t = DayNumber (1999, 12, 31, 24, 00, 0, 0);
 			T = DayNumber (2016, 01, 02, 22, 49, 0, 0);
 			M = n * (t - T);
 			r = OrbitDistance (M, e, a);
@@ -371,7 +371,7 @@ public class ScaleStates : Functions {
 
 		if (gameObject.name == "Earth") {
 			T += (Time.deltaTime*10);
-			Debug.Log ("T = "+T);
+			//Debug.Log ("T = "+T);
 			M = n * (t - T);
 			r = OrbitDistance (M, e, a);
 			v = TrueAnomaly (M, e);

@@ -112,11 +112,13 @@ public class SolarSystemStates : MonoBehaviour {
 
 			if(child.gameObject.GetComponent<TrailRenderer>() && child.gameObject.name != "Sphere") {
 				lineRenderers.Add(child.gameObject.GetComponent<TrailRenderer>());
-				var newTrailRenderer = new Color(child.gameObject.GetComponent<TrailRenderer>().material.color.r,
+				/*if(child.gameObject.GetComponent<TrailRenderer>().material) {
+					var newTrailRenderer = new Color(child.gameObject.GetComponent<TrailRenderer>().material.color.r,
 				                       child.gameObject.GetComponent<TrailRenderer>().material.color.g,
 				                       child.gameObject.GetComponent<TrailRenderer>().material.color.b,
 				                       colour.a);
-				child.gameObject.GetComponent<TrailRenderer>().material.color = newTrailRenderer;
+					child.gameObject.GetComponent<TrailRenderer>().material.color = newTrailRenderer;
+				}*/
 			}
 
 			if(child.gameObject.GetComponent<GUIText>() && child.gameObject.name != "Sphere") {
@@ -207,8 +209,8 @@ public class SolarSystemStates : MonoBehaviour {
 			colour = Color.Lerp (colourInvisible, colourVisible, alphaCounter);
 
 			foreach (Renderer render in lineRenderers) {
-				var newTrailRenderer = new Color (render.material.color.r, render.material.color.g, render.material.color.b, colour.a);
-				render.material.color = newTrailRenderer;								// Assign a standardized material to the circles
+				//var newTrailRenderer = new Color (render.material.color.r, render.material.color.g, render.material.color.b, colour.a);
+				//render.material.color = newTrailRenderer;								// Assign a standardized material to the circles
 			}
 
 			foreach(GUIText guiText in guiTexts) {
