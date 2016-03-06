@@ -37,6 +37,8 @@ public class Positioning : Functions {
 	public double holdTimeMax = 300d;
 
 	double holdTime = 0;
+	double upHoldTime = 0;
+	double downHoldTime = 0;
 	bool timeSet = false;
 
 	GameObject cacheMovement;
@@ -45,6 +47,7 @@ public class Positioning : Functions {
 		holdTimeMin = 300d;
 		holdTimeMax = 3000d;
 		cacheMovement = new GameObject();
+		cacheMovement.name = "cacheMovement";
 	}
 	
 	void Update () {
@@ -72,9 +75,12 @@ public class Positioning : Functions {
 
 		float turnVertical = Input.GetAxis ("TurnVertical");										// Get the up/down input from the right analog stick
 		float turnHorizontal = Input.GetAxis ("TurnHorizontal");									// Get the left/right input from the right analog stick
+		bool moveUp = Input.GetButton ("Up");														// Get true when the left digital pad's Up position is pressed
+		bool moveDown = Input.GetButton ("Down");													// Get true when the left digital pad's Down position is pressed
+		bool rotateRight = Input.GetButton ("Right");
+		bool rotateLeft = Input.GetButton ("Left");
 		transform.Rotate(Vector3.up, turnHorizontal * Time.deltaTime * 20);							// Assign the up/down rotation to the camera itself
 		transform.Rotate(Vector3.right, turnVertical * Time.deltaTime * 20);						// Assign the left/right rotation to the camera itself
-
 
 
 		cacheMovement.transform.position = Vector3.zero;											// Reset the cached gameObject's Vector3 position to 0,0,0
@@ -94,13 +100,34 @@ public class Positioning : Functions {
 			holdTime = 0f;																			// reset the holdTime variable as no movement on the gamepad was detected
 		}
 
-		camPosition.x = camPosition.x + (cacheMovement.transform.position.x);
-		camPosition.y = camPosition.y + (cacheMovement.transform.position.y);
-		camPosition.z = camPosition.z + (cacheMovement.transform.position.z);
-		//Debug.Log ("camPosition = "+V3dToV3(camPosition));
-		/*camPosition = new Vector3d (																// Create the new double position of where the camera would be if the universe didn't move around it
-			camPosition.x + (cacheMovement.transform.position.x),
-			camPosition.y + (cacheMovement.transform.position.y), 
-			camPosition.z + (cacheMovement.transform.position.z));*/
+		if (moveUp == true) {
+			downHoldTime = 0;
+			upHoldTime += Time.deltaTime * upHoldTime;
+			upHoldTime = Mathf.Clamp ((float)upHoldTime, (float)holdTimeMin, (float)holdTimeMax);
+			cacheMovement.transform.Translate (Vector3.down * (float)upHoldTime);
+		} else if (moveDown == true) {
+			upHoldTime = 0;
+			downHoldTime += Time.deltaTime * downHoldTime;
+			downHoldTime = Mathf.Clamp ((float)downHoldTime, (float)holdTimeMin, (float)holdTimeMax);
+			cacheMovement.transform.Translate (Vector3.up * (float)downHoldTime);
+		} else if (rotateRight == true) {
+			transform.Rotate(Vector3.back, Time.deltaTime * 20);
+			upHoldTime = 0;
+			downHoldTime = 0;
+		} else if (rotateLeft == true) {
+			transform.Rotate(Vector3.forward, Time.deltaTime * 20);
+			upHoldTime = 0;
+			downHoldTime = 0;
+		} else {
+			upHoldTime = 0;
+			downHoldTime = 0;
+		}
+
+		camPosition.x += (cacheMovement.transform.position.x);										// Apply the distance that the caching gameObject moved to the camera
+		camPosition.y += (cacheMovement.transform.position.y);
+		camPosition.z += (cacheMovement.transform.position.z);
+
+		cacheMovement.transform.position = new Vector3 (0, 0, 0);									// Reset position of caching gameObject
+		cacheMovement.transform.rotation = new Quaternion (0, 0, 0, 0);								// Reset rotation of caching gameObject
 	}
 }

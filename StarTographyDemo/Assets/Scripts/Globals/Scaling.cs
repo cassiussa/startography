@@ -16,7 +16,7 @@ public class Scaling : Functions {
 	// Update is called once per frame
 	void Update () {
 
-		if (Input.GetButton ("Larger")) {
+		/*if (Input.GetButton ("Larger")) {
 			largerTime += Time.deltaTime;
 			smallerTime = 0f;
 			UpdateScale(largerTime);
@@ -27,7 +27,7 @@ public class Scaling : Functions {
 		} else {
 			largerTime = 0f;
 			smallerTime = 0f;
-		}
+		}*/
 
 	}
 
