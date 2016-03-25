@@ -84,6 +84,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 15598129}
   - 114: {fileID: 15598130}
+  - 114: {fileID: 15598131}
   m_Layer: 0
   m_Name: Globals
   m_TagString: Untagged
@@ -112,6 +113,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a9d2fb9f1e4ed4b34a81b965ce56ea3c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &15598131
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 15598128}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 15386b5d453cb4e27a3e9b2e536f9a7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &23024966
@@ -830,6 +842,7 @@ MonoBehaviour:
   distanceMarkerScaleScripts: []
   allChildren: []
   starGlow: {fileID: 0}
+  parentStarObjectDataScript: {fileID: 0}
 --- !u!4 &82396086
 Transform:
   m_ObjectHideFlags: 0
@@ -1855,6 +1868,7 @@ MonoBehaviour:
   distanceMarkerScaleScripts: []
   allChildren: []
   starGlow: {fileID: 0}
+  parentStarObjectDataScript: {fileID: 0}
 --- !u!114 &289372814
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2357,6 +2371,7 @@ MonoBehaviour:
   distanceMarkerScaleScripts: []
   allChildren: []
   starGlow: {fileID: 0}
+  parentStarObjectDataScript: {fileID: 0}
 --- !u!114 &403842784
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3253,6 +3268,7 @@ MonoBehaviour:
   distanceMarkerScaleScripts: []
   allChildren: []
   starGlow: {fileID: 0}
+  parentStarObjectDataScript: {fileID: 0}
 --- !u!114 &489738581
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6292,6 +6308,7 @@ MonoBehaviour:
   distanceMarkerScaleScripts: []
   allChildren: []
   starGlow: {fileID: 0}
+  parentStarObjectDataScript: {fileID: 0}
 --- !u!23 &964901401
 Renderer:
   m_ObjectHideFlags: 0
@@ -7115,6 +7132,7 @@ MonoBehaviour:
   distanceMarkerScaleScripts: []
   allChildren: []
   starGlow: {fileID: 0}
+  parentStarObjectDataScript: {fileID: 0}
 --- !u!4 &1094652979
 Transform:
   m_ObjectHideFlags: 0
@@ -7246,6 +7264,7 @@ MonoBehaviour:
   distanceMarkerScaleScripts: []
   allChildren: []
   starGlow: {fileID: 0}
+  parentStarObjectDataScript: {fileID: 0}
 --- !u!114 &1132309942
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8613,6 +8632,7 @@ MonoBehaviour:
   distanceMarkerScaleScripts: []
   allChildren: []
   starGlow: {fileID: 0}
+  parentStarObjectDataScript: {fileID: 0}
 --- !u!4 &1312816700
 Transform:
   m_ObjectHideFlags: 0
@@ -10396,6 +10416,7 @@ MonoBehaviour:
   distanceMarkerScaleScripts: []
   allChildren: []
   starGlow: {fileID: 0}
+  parentStarObjectDataScript: {fileID: 0}
 --- !u!114 &1678269750
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10631,6 +10652,7 @@ MonoBehaviour:
   distanceMarkerScaleScripts: []
   allChildren: []
   starGlow: {fileID: 0}
+  parentStarObjectDataScript: {fileID: 0}
 --- !u!114 &1685911729
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10817,6 +10839,7 @@ MonoBehaviour:
   distanceMarkerScaleScripts: []
   allChildren: []
   starGlow: {fileID: 0}
+  parentStarObjectDataScript: {fileID: 0}
 --- !u!114 &1705622336
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11554,6 +11577,7 @@ MonoBehaviour:
   distanceMarkerScaleScripts: []
   allChildren: []
   starGlow: {fileID: 0}
+  parentStarObjectDataScript: {fileID: 0}
 --- !u!4 &1886891877
 Transform:
   m_ObjectHideFlags: 0

@@ -1,6 +1,7 @@
 ﻿//using UnityEditor;
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class ObjectData : Functions {
 	public enum CelestialBodyType {
@@ -11,6 +12,9 @@ public class ObjectData : Functions {
 		UserInterface,
 		DistanceMarker
 	}
+
+	Items itemsScript;
+
 	ScaleStates scaleStatesScript;
 	StarLightScaleStates starLightScaleStatesScript;
 
@@ -65,5 +69,13 @@ public class ObjectData : Functions {
 			starLightScaleStatesScript.thisLocalScale.z *= 2;
 		}
 
+
+		// Send required items to the Item script attached to the Global GameObject
+		itemsScript = GameObject.Find ("/Globals").GetComponent<Items> ();
+		if (celestialBodyType == CelestialBodyType.Star) {
+			itemsScript.stars.Add (new Star (gameObject.name, this, scaleStatesScript));
+		} else if (celestialBodyType == CelestialBodyType.Planet) {
+			itemsScript.planets.Add (new Planet (gameObject.name, this, scaleStatesScript));
+		}
 	}
 }
