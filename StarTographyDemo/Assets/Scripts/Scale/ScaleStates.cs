@@ -74,7 +74,10 @@ public class ScaleStates : Functions {
 	public List<GameObject> allChildren = new List<GameObject>();
 	[HideInInspector]
 	public Transform starGlow;
+	[HideInInspector]
 	public ObjectData parentStarObjectDataScript;
+	[HideInInspector]
+	public PlanetOrbitPathTrail planetOrbitPathTrailScript;		// Made public because it must be pulled by the RegisterItem.cs script
 
 	#region Basic Getters/Setters
 	public State CurrentState {
@@ -253,7 +256,7 @@ public class ScaleStates : Functions {
 		// If this is a star, prepare the Solar System Sphere gameObject positioning
 		if (objectDataScript.celestialBodyType == ObjectData.CelestialBodyType.Star) {
 			ObjectData objectDataSphereScript = objectDataScript.solarSystemSphere.GetComponent<ObjectData>();	// This is the ObjectData script on the Sphere gameObject
-			objectDataSphereScript.parentStarObject = gameObject;									// Assign this star into the solar Sphere
+			objectDataSphereScript.parentObject = gameObject;									// Assign this star into the solar Sphere
 			objectDataSphereScript.coordinates = objectDataScript.coordinates;						// Assign the same coordinates as the host star to the solar system's Sphere
 			PositionProcessing positionProcessingSphereScript = objectDataScript.solarSystemSphere.GetComponent<PositionProcessing>();
 		}
@@ -286,7 +289,7 @@ public class ScaleStates : Functions {
 			 * planet's orbital path visuals and positioning
 			 */
 			lineRendererObject.SetActive (false);													// Set as inactive.  Otherwise Awake function on lineRendererObject happens before we set its variables, just below
-			PlanetOrbitPathTrail planetOrbitPathTrailScript = lineRendererObject.AddComponent<PlanetOrbitPathTrail>();
+			planetOrbitPathTrailScript = lineRendererObject.AddComponent<PlanetOrbitPathTrail>();
 			planetOrbitPathTrailScript.lineRenderer = lineRenderer;
 
 			/*
@@ -307,7 +310,7 @@ public class ScaleStates : Functions {
 			 * Get the ObjectData script that's stored in the Parent Star's gameObject, 
 			 * which itself has an ObjectData script with the value we're looking for
 			*/
-			ObjectData objectDataParentStarScript = objectDataScript.parentStarObject.GetComponent<ObjectData>();
+			ObjectData objectDataParentStarScript = objectDataScript.parentObject.GetComponent<ObjectData>();
 			parentStarScript.starObjectDataScript = objectDataParentStarScript;
 			parentStarScript.planetOrbitPathTrailScript = planetOrbitPathTrailScript;
 			parentStarScript.solarMass = objectDataParentStarScript.mass;
@@ -323,6 +326,13 @@ public class ScaleStates : Functions {
 			//Debug.LogError ("adding = " + _child.name,_child);
 		}
 
+
+		// Lastly, add the RegisterItem script so that we can add this objects details into the globally-available Items.cs script
+		if (objectDataScript.celestialBodyType == ObjectData.CelestialBodyType.Star ||
+		    objectDataScript.celestialBodyType == ObjectData.CelestialBodyType.Planet ||
+			objectDataScript.celestialBodyType == ObjectData.CelestialBodyType.Moon) {
+			gameObject.AddComponent<RegisterItem>();
+		}
 
 	}
 	

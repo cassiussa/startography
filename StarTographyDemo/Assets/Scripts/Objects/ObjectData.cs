@@ -10,10 +10,9 @@ public class ObjectData : Functions {
 		StarLight,
 		SolarSystemSphere,
 		UserInterface,
-		DistanceMarker
+		DistanceMarker,
+		Moon
 	}
-
-	Items itemsScript;
 
 	ScaleStates scaleStatesScript;
 	StarLightScaleStates starLightScaleStatesScript;
@@ -22,12 +21,12 @@ public class ObjectData : Functions {
 	public String3d coordinates;
 	public String3d radius;
 	public float tilt;										// Angle of tilt in degrees
-	public float mass;										// Measured in Jupiter Units
+	public double mass;										// Measured in Jupiter Units
 	public float orbitalPeriod;								// Measured in earth days
-	public float parentStarMass;							// Measured in Solar Units
+	public double parentMass;								// The mass of the parent (ex: planet if this is a moon, or star if this is a planet)
 	public float temperature;
 	public float luminosity;		// This shouldn' be visible.  Used to set amount of glow on a star
-	public GameObject parentStarObject;
+	public GameObject parentObject;
 	public GameObject solarSystemSphere;
 
 	void Awake() {
@@ -50,10 +49,19 @@ public class ObjectData : Functions {
 			}
 
 			luminosity = Mathf.Pow(RadToSunRad((float)vRadius.x),2) * Mathf.Pow(TempToSunTemp(temperature),4);
+			mass *= massConstantSolar;										// Assign the mass in kilograms
+
 		} else if (celestialBodyType == CelestialBodyType.Planet) {
-			ObjectData parentStarObjectDataScript = parentStarObject.GetComponent<ObjectData>();
+			mass *= massConstantEarth;										// Assign the mass in kilograms
+			ObjectData parentStarObjectDataScript = parentObject.GetComponent<ObjectData>();
 			scaleStatesScript.parentStarObjectDataScript = parentStarObjectDataScript;
-			parentStarMass = parentStarObjectDataScript.mass;
+			parentMass = parentStarObjectDataScript.mass * massConstantSolar;	// Assign the mass in kilograms
+
+		} else if (celestialBodyType == CelestialBodyType.Moon) {
+			mass *= massConstantEarth;										// Assign the mass in kilograms
+			ObjectData parentPlanetObjectDataScript = parentObject.GetComponent<ObjectData>();
+			scaleStatesScript.parentStarObjectDataScript = parentPlanetObjectDataScript;
+			parentMass = parentPlanetObjectDataScript.mass * massConstantEarth;	// Assign the mass in kilograms
 		}
 
 
@@ -69,13 +77,5 @@ public class ObjectData : Functions {
 			starLightScaleStatesScript.thisLocalScale.z *= 2;
 		}
 
-
-		// Send required items to the Item script attached to the Global GameObject
-		itemsScript = GameObject.Find ("/Globals").GetComponent<Items> ();
-		if (celestialBodyType == CelestialBodyType.Star) {
-			itemsScript.stars.Add (new Star (gameObject.name, this, scaleStatesScript));
-		} else if (celestialBodyType == CelestialBodyType.Planet) {
-			itemsScript.planets.Add (new Planet (gameObject.name, this, scaleStatesScript));
-		}
 	}
 }

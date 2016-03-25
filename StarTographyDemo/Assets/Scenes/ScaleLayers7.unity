@@ -843,6 +843,7 @@ MonoBehaviour:
   allChildren: []
   starGlow: {fileID: 0}
   parentStarObjectDataScript: {fileID: 0}
+  planetOrbitPathTrailScript: {fileID: 0}
 --- !u!4 &82396086
 Transform:
   m_ObjectHideFlags: 0
@@ -855,7 +856,7 @@ Transform:
   m_Children:
   - {fileID: 1144068268}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 18
 --- !u!114 &82396087
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -877,12 +878,12 @@ MonoBehaviour:
     y: 6371
     z: 6371
   tilt: 23.4405994
-  mass: 0
+  mass: 1
   orbitalPeriod: 1
-  parentStarMass: 0
+  parentMass: 0
   temperature: 0
   luminosity: 0
-  parentStarObject: {fileID: 1678269746}
+  parentObject: {fileID: 1678269746}
   solarSystemSphere: {fileID: 0}
 --- !u!1 &87615222
 GameObject:
@@ -1869,6 +1870,7 @@ MonoBehaviour:
   allChildren: []
   starGlow: {fileID: 0}
   parentStarObjectDataScript: {fileID: 0}
+  planetOrbitPathTrailScript: {fileID: 0}
 --- !u!114 &289372814
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1892,10 +1894,10 @@ MonoBehaviour:
   tilt: 0
   mass: 0
   orbitalPeriod: .24093087
-  parentStarMass: 0
+  parentMass: 0
   temperature: 0
   luminosity: 0
-  parentStarObject: {fileID: 1678269746}
+  parentObject: {fileID: 0}
   solarSystemSphere: {fileID: 0}
 --- !u!1 &294396437
 GameObject:
@@ -2339,7 +2341,7 @@ Transform:
   m_Children:
   - {fileID: 1539658450}
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 11
 --- !u!114 &403842782
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2372,6 +2374,7 @@ MonoBehaviour:
   allChildren: []
   starGlow: {fileID: 0}
   parentStarObjectDataScript: {fileID: 0}
+  planetOrbitPathTrailScript: {fileID: 0}
 --- !u!114 &403842784
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2395,10 +2398,10 @@ MonoBehaviour:
   tilt: 0
   mass: 0
   orbitalPeriod: 0
-  parentStarMass: 0
+  parentMass: 0
   temperature: 0
   luminosity: 0
-  parentStarObject: {fileID: 0}
+  parentObject: {fileID: 0}
   solarSystemSphere: {fileID: 0}
 --- !u!1001 &410760430
 Prefab:
@@ -3269,6 +3272,7 @@ MonoBehaviour:
   allChildren: []
   starGlow: {fileID: 0}
   parentStarObjectDataScript: {fileID: 0}
+  planetOrbitPathTrailScript: {fileID: 0}
 --- !u!114 &489738581
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3292,10 +3296,10 @@ MonoBehaviour:
   tilt: 0
   mass: 0
   orbitalPeriod: .616016448
-  parentStarMass: 0
+  parentMass: 0
   temperature: 0
   luminosity: 0
-  parentStarObject: {fileID: 1678269746}
+  parentObject: {fileID: 0}
   solarSystemSphere: {fileID: 0}
 --- !u!1 &493148970
 GameObject:
@@ -4084,7 +4088,7 @@ Transform:
   m_Children:
   - {fileID: 1254014101}
   m_Father: {fileID: 0}
-  m_RootOrder: 15
+  m_RootOrder: 14
 --- !u!114 &648525928
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6272,10 +6276,10 @@ MonoBehaviour:
   tilt: 0
   mass: 0
   orbitalPeriod: 0
-  parentStarMass: 0
+  parentMass: 0
   temperature: 0
   luminosity: 0
-  parentStarObject: {fileID: 0}
+  parentObject: {fileID: 0}
   solarSystemSphere: {fileID: 0}
 --- !u!114 &964901399
 MonoBehaviour:
@@ -6309,6 +6313,7 @@ MonoBehaviour:
   allChildren: []
   starGlow: {fileID: 0}
   parentStarObjectDataScript: {fileID: 0}
+  planetOrbitPathTrailScript: {fileID: 0}
 --- !u!23 &964901401
 Renderer:
   m_ObjectHideFlags: 0
@@ -6351,7 +6356,7 @@ Transform:
   - {fileID: 659638059}
   - {fileID: 568167156}
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 12
 --- !u!1001 &980876179
 Prefab:
   m_ObjectHideFlags: 0
@@ -7096,10 +7101,10 @@ MonoBehaviour:
   tilt: 0
   mass: 0
   orbitalPeriod: 1.88090348
-  parentStarMass: 0
+  parentMass: 0
   temperature: 0
   luminosity: 0
-  parentStarObject: {fileID: 1678269746}
+  parentObject: {fileID: 0}
   solarSystemSphere: {fileID: 0}
 --- !u!114 &1094652975
 MonoBehaviour:
@@ -7133,6 +7138,7 @@ MonoBehaviour:
   allChildren: []
   starGlow: {fileID: 0}
   parentStarObjectDataScript: {fileID: 0}
+  planetOrbitPathTrailScript: {fileID: 0}
 --- !u!4 &1094652979
 Transform:
   m_ObjectHideFlags: 0
@@ -7232,7 +7238,7 @@ Transform:
   m_Children:
   - {fileID: 964169763}
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 10
 --- !u!114 &1132309940
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7265,6 +7271,7 @@ MonoBehaviour:
   allChildren: []
   starGlow: {fileID: 0}
   parentStarObjectDataScript: {fileID: 0}
+  planetOrbitPathTrailScript: {fileID: 0}
 --- !u!114 &1132309942
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7288,10 +7295,10 @@ MonoBehaviour:
   tilt: 0
   mass: 0
   orbitalPeriod: 0
-  parentStarMass: 0
+  parentMass: 0
   temperature: 0
   luminosity: 0
-  parentStarObject: {fileID: 0}
+  parentObject: {fileID: 0}
   solarSystemSphere: {fileID: 0}
 --- !u!1 &1139012510
 GameObject:
@@ -8135,7 +8142,7 @@ Transform:
   - {fileID: 458836808}
   - {fileID: 1709940511}
   m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_RootOrder: 13
 --- !u!114 &1249998373
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8633,6 +8640,7 @@ MonoBehaviour:
   allChildren: []
   starGlow: {fileID: 0}
   parentStarObjectDataScript: {fileID: 0}
+  planetOrbitPathTrailScript: {fileID: 0}
 --- !u!4 &1312816700
 Transform:
   m_ObjectHideFlags: 0
@@ -8669,10 +8677,10 @@ MonoBehaviour:
   tilt: 0
   mass: 0
   orbitalPeriod: 0
-  parentStarMass: 0
+  parentMass: 0
   temperature: 0
   luminosity: 0
-  parentStarObject: {fileID: 0}
+  parentObject: {fileID: 0}
   solarSystemSphere: {fileID: 0}
 --- !u!1 &1313427993
 GameObject:
@@ -9386,6 +9394,62 @@ MonoBehaviour:
     e33: 1
   DeltaPosition: {x: 0, y: 0, z: 0}
   Velocity: {x: 0, y: 0, z: 0}
+--- !u!1 &1435069105
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1435069108}
+  - 33: {fileID: 1435069107}
+  - 23: {fileID: 1435069106}
+  m_Layer: 0
+  m_Name: Mesh
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!23 &1435069106
+Renderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1435069105}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_LightmapIndex: 255
+  m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
+  m_Materials:
+  - {fileID: 2100000, guid: 9fce22f4e1bd5499dbbf752d91906df7, type: 2}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 0
+  m_LightProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+--- !u!33 &1435069107
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1435069105}
+  m_Mesh: {fileID: 4300000, guid: df42500788d1c2f4d96e5db4ff3c2c5d, type: 3}
+--- !u!4 &1435069108
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1435069105}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1607097535}
+  m_RootOrder: 0
 --- !u!1 &1453802415
 GameObject:
   m_ObjectHideFlags: 0
@@ -9891,6 +9955,98 @@ Transform:
   m_Children: []
   m_Father: {fileID: 236689846}
   m_RootOrder: 10
+--- !u!1 &1607097534
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 100000, guid: df42500788d1c2f4d96e5db4ff3c2c5d, type: 3}
+  m_PrefabInternal: {fileID: 1880563934}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1607097535}
+  - 114: {fileID: 1607097538}
+  - 114: {fileID: 1607097537}
+  - 114: {fileID: 1607097536}
+  m_Layer: 8
+  m_Name: Moon
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1607097535
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 400000, guid: df42500788d1c2f4d96e5db4ff3c2c5d, type: 3}
+  m_PrefabInternal: {fileID: 1880563934}
+  m_GameObject: {fileID: 1607097534}
+  m_LocalRotation: {x: .70710659, y: 0, z: 0, w: -.707106948}
+  m_LocalPosition: {x: 0, y: 0, z: -72.9000015}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1435069108}
+  m_Father: {fileID: 0}
+  m_RootOrder: 17
+--- !u!114 &1607097536
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1607097534}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4920418b18074fc0bdba723f9501f2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  holdTimeMin: 300
+  holdTimeMax: 300000
+--- !u!114 &1607097537
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1607097534}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c60940f22cc6a40e8a66c8ab7460f205, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  state: 0
+  thisScale: 0
+  meshes: {fileID: 0}
+  distanceMarkerScaleObjects: []
+  distanceMarkerScaleScripts: []
+  allChildren: []
+  starGlow: {fileID: 0}
+  parentStarObjectDataScript: {fileID: 0}
+  planetOrbitPathTrailScript: {fileID: 0}
+--- !u!114 &1607097538
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1607097534}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c7a4498cd9e848a486fc890cbfad0d9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  celestialBodyType: 6
+  coordinates:
+    x: 0
+    y: 0
+    z: 149598262
+  radius:
+    x: 6371
+    y: 6371
+    z: 6371
+  tilt: 23.4405994
+  mass: .11999999731779099
+  orbitalPeriod: 1
+  parentMass: 0
+  temperature: 0
+  luminosity: 0
+  parentObject: {fileID: 82396081}
+  solarSystemSphere: {fileID: 0}
 --- !u!1 &1610358626
 GameObject:
   m_ObjectHideFlags: 0
@@ -10417,6 +10573,7 @@ MonoBehaviour:
   allChildren: []
   starGlow: {fileID: 0}
   parentStarObjectDataScript: {fileID: 0}
+  planetOrbitPathTrailScript: {fileID: 0}
 --- !u!114 &1678269750
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10440,10 +10597,10 @@ MonoBehaviour:
   tilt: 0
   mass: 1
   orbitalPeriod: 0
-  parentStarMass: 0
+  parentMass: 0
   temperature: 1
   luminosity: 0
-  parentStarObject: {fileID: 0}
+  parentObject: {fileID: 0}
   solarSystemSphere: {fileID: 964901396}
 --- !u!1001 &1679310305
 Prefab:
@@ -10620,7 +10777,7 @@ Transform:
   - {fileID: 2034115578}
   - {fileID: 1697420568}
   m_Father: {fileID: 0}
-  m_RootOrder: 17
+  m_RootOrder: 15
 --- !u!114 &1685911727
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10653,6 +10810,7 @@ MonoBehaviour:
   allChildren: []
   starGlow: {fileID: 0}
   parentStarObjectDataScript: {fileID: 0}
+  planetOrbitPathTrailScript: {fileID: 0}
 --- !u!114 &1685911729
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10676,10 +10834,10 @@ MonoBehaviour:
   tilt: 0
   mass: 0
   orbitalPeriod: 0
-  parentStarMass: 0
+  parentMass: 0
   temperature: 2
   luminosity: 0
-  parentStarObject: {fileID: 0}
+  parentObject: {fileID: 0}
   solarSystemSphere: {fileID: 0}
 --- !u!1 &1697420567
 GameObject:
@@ -10807,7 +10965,7 @@ Transform:
   m_Children:
   - {fileID: 1307173961}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 9
 --- !u!114 &1705622334
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10840,6 +10998,7 @@ MonoBehaviour:
   allChildren: []
   starGlow: {fileID: 0}
   parentStarObjectDataScript: {fileID: 0}
+  planetOrbitPathTrailScript: {fileID: 0}
 --- !u!114 &1705622336
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10863,10 +11022,10 @@ MonoBehaviour:
   tilt: 0
   mass: 0
   orbitalPeriod: 29
-  parentStarMass: 0
+  parentMass: 0
   temperature: 0
   luminosity: 0
-  parentStarObject: {fileID: 1678269746}
+  parentObject: {fileID: 0}
   solarSystemSphere: {fileID: 0}
 --- !u!1 &1709940507
 GameObject:
@@ -11500,6 +11659,80 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1254014101}
   m_RootOrder: 6
+--- !u!1001 &1880563934
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 400000, guid: df42500788d1c2f4d96e5db4ff3c2c5d, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: df42500788d1c2f4d96e5db4ff3c2c5d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: df42500788d1c2f4d96e5db4ff3c2c5d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -72.9000015
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: df42500788d1c2f4d96e5db4ff3c2c5d, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: .70710659
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: df42500788d1c2f4d96e5db4ff3c2c5d, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: df42500788d1c2f4d96e5db4ff3c2c5d, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: df42500788d1c2f4d96e5db4ff3c2c5d, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: -.707106948
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: df42500788d1c2f4d96e5db4ff3c2c5d, type: 3}
+      propertyPath: m_RootOrder
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 2300000, guid: df42500788d1c2f4d96e5db4ff3c2c5d, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 8b51016d4dfbf3140a6da2cb70907fed, type: 2}
+    - target: {fileID: 400000, guid: df42500788d1c2f4d96e5db4ff3c2c5d, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: df42500788d1c2f4d96e5db4ff3c2c5d, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: df42500788d1c2f4d96e5db4ff3c2c5d, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: df42500788d1c2f4d96e5db4ff3c2c5d, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: df42500788d1c2f4d96e5db4ff3c2c5d, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: df42500788d1c2f4d96e5db4ff3c2c5d, type: 3}
+      propertyPath: m_Name
+      value: Moon
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 3300000, guid: df42500788d1c2f4d96e5db4ff3c2c5d, type: 3}
+    - {fileID: 2300000, guid: df42500788d1c2f4d96e5db4ff3c2c5d, type: 3}
+  m_ParentPrefab: {fileID: 100100000, guid: df42500788d1c2f4d96e5db4ff3c2c5d, type: 3}
+  m_RootGameObject: {fileID: 1607097534}
+  m_IsPrefabParent: 0
+  m_IsExploded: 1
 --- !u!1 &1886891871
 GameObject:
   m_ObjectHideFlags: 0
@@ -11541,10 +11774,10 @@ MonoBehaviour:
   tilt: 0
   mass: 0
   orbitalPeriod: 12
-  parentStarMass: 0
+  parentMass: 0
   temperature: 0
   luminosity: 0
-  parentStarObject: {fileID: 1678269746}
+  parentObject: {fileID: 0}
   solarSystemSphere: {fileID: 0}
 --- !u!114 &1886891873
 MonoBehaviour:
@@ -11578,6 +11811,7 @@ MonoBehaviour:
   allChildren: []
   starGlow: {fileID: 0}
   parentStarObjectDataScript: {fileID: 0}
+  planetOrbitPathTrailScript: {fileID: 0}
 --- !u!4 &1886891877
 Transform:
   m_ObjectHideFlags: 0
@@ -11590,7 +11824,7 @@ Transform:
   m_Children:
   - {fileID: 1453802416}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 8
 --- !u!1 &1896026142
 GameObject:
   m_ObjectHideFlags: 0
@@ -13231,7 +13465,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: df42500788d1c2f4d96e5db4ff3c2c5d, type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 18
       objectReference: {fileID: 0}
     - target: {fileID: 2300000, guid: df42500788d1c2f4d96e5db4ff3c2c5d, type: 3}
       propertyPath: m_Materials.Array.data[0]
