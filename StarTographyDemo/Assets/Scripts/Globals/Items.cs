@@ -84,7 +84,7 @@ public class Items : MonoBehaviour {
 			Debug.Log ("Star name is " + stars [i].name);
 		}
 		for (i=0; i<planets.Count; i++) {
-			Debug.LogError ("Planet name is " + planets [i].name+" and my star's name is "+planets[i].parentStar.name+", path trail: "+planets[i].planetOrbitPathTrailScript);
+			Debug.Log ("Planet name is " + planets [i].name+" and my star's name is "+planets[i].parentStar.name+", path trail: "+planets[i].planetOrbitPathTrailScript);
 		}
 	}
 	
