@@ -47,8 +47,9 @@ public class ObjectData : Functions {
 
 			luminosity = Mathf.Pow(RadToSunRad((float)vRadius.x),2) * Mathf.Pow(TempToSunTemp(temperature),4);
 		} else if (celestialBodyType == CelestialBodyType.Planet) {
-			ObjectData objectDataParentStarScript = parentStarObject.GetComponent<ObjectData>();
-			parentStarMass = objectDataParentStarScript.mass;
+			ObjectData parentStarObjectDataScript = parentStarObject.GetComponent<ObjectData>();
+			scaleStatesScript.parentStarObjectDataScript = parentStarObjectDataScript;
+			parentStarMass = parentStarObjectDataScript.mass;
 		}
 
 

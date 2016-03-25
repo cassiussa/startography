@@ -27,13 +27,6 @@ public class PositionProcessing : Positioning {
 
 	// I don't know why, but this update needs to be here or stuff breaks
 	void Update () {
-		/*if(objectDataScript.celestialBodyType != ObjectData.CelestialBodyType.Star &&
-		   objectDataScript.celestialBodyType != ObjectData.CelestialBodyType.StarLight &&
-		   objectDataScript.celestialBodyType != ObjectData.CelestialBodyType.UserInterface &&
-		   objectDataScript.celestialBodyType != ObjectData.CelestialBodyType.DistanceMarker) {
-			//Debug.Log ("position = Vector3d(" + position.x+","+position.y+","+position.z+")");
-			position.x += 100;
-		}*/
-		//if(gameObject.name == "Earth")Debug.Log ("position = (" + position.x + "," + position.y + "," + position.z + ")");
+		
 	}
 }

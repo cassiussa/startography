@@ -74,6 +74,7 @@ public class ScaleStates : Functions {
 	public List<GameObject> allChildren = new List<GameObject>();
 	[HideInInspector]
 	public Transform starGlow;
+	public ObjectData parentStarObjectDataScript;
 
 	#region Basic Getters/Setters
 	public State CurrentState {
@@ -87,28 +88,28 @@ public class ScaleStates : Functions {
 
 
 	Vector3d hrc = new Vector3d (0d, 0d, 0d);
-		double P = 365.256898326d;						// Orbital period
-		double n = 0d;//360/P;						// Daily motion = 360_deg / P = degrees/day
-		double t = 0.0;						// Epoch, ex the J2000.0 Julian Day Number
-		//double T = 0.0;						// Time at perihelion, based on epoch
-		//double M = 0.0;						// M = n * (t - T)  =  (t - T) * 360_deg / P
-		double T = 0d;
+	double P = 365.256898326d;						// Orbital period
+	double n = 0d;//360/P;						// Daily motion = 360_deg / P = degrees/day
+	double t = 0.0;						// Epoch, ex the J2000.0 Julian Day Number
+	//double T = 0.0;						// Time at perihelion, based on epoch
+	//double M = 0.0;						// M = n * (t - T)  =  (t - T) * 360_deg / P
+	double T = 0d;
 
-		double M = 69.5153;					// Mean anomaly
-		double e = 0.205633;				// Eccentricity
-		double a = 0;//AU;//0.387098;				// Mean distance, or semi-major axis
-		double N = 48.2163;					// Longitude of Ascending Node
-		double w = 29.0882;					// The angle from the Ascending node to the Perihelion, along the orbit
-		double i = 7.0045;					// Inclination, i.e. the "tilt" of the orbit relative to the ecliptic
-		double r = 0;	// Heliocentric distance: the planet's distance from the Sun
-		double v = 0d;		// True anomaly: the angle from perihelion to the planet, as seen from the Sun
+	double M = 321.9965;					// Mean anomaly
+	double e = 0.093396;				// Eccentricity
+	double a = 1.523688d;//AU;//0.387098;				// Mean distance, or semi-major axis
+	double N = 49.4826;					// Longitude of Ascending Node
+	double w = 286.3978;					// The angle from the Ascending node to the Perihelion, along the orbit
+	double i = 1.8498;					// Inclination, i.e. the "tilt" of the orbit relative to the ecliptic
+	double r = 0;	// Heliocentric distance: the planet's distance from the Sun
+	double v = 0d;		// True anomaly: the angle from perihelion to the planet, as seen from the Sun
 
 	void Awake() {
 		if (gameObject.name == "Earth") {
 			n = 360/P;
-			a = AU*0.9833039;
+			a = a*AU;
 			t = DayNumber (1999, 12, 31, 24, 00, 0, 0);
-			T = DayNumber (2016, 01, 02, 22, 49, 0, 0);
+			T = DayNumber (1990, 04, 19, 00, 00, 0, 0);
 			M = n * (t - T);
 			r = OrbitDistance (M, e, a);
 			v = TrueAnomaly (M, e);
@@ -371,15 +372,19 @@ public class ScaleStates : Functions {
 
 		if (gameObject.name == "Earth") {
 			T += (Time.deltaTime*10);
-			//Debug.Log ("T = "+T);
 			M = n * (t - T);
 			r = OrbitDistance (M, e, a);
 			v = TrueAnomaly (M, e);
 			hrc = HelioRectCoords (r, v, N, w, i);
+			// We need to get the Star's position script so that we can get it's 'position' Vector3d to add to this planet's orbit position
+			Vector3d starPos = S3dToV3d(parentStarObjectDataScript.coordinates);
+			hrc.x += starPos.x;
+			hrc.y += starPos.y;
+			hrc.z += starPos.z;
+			objectDataScript.coordinates = new String3d (starPos.x.ToString (), starPos.y.ToString (), starPos.z.ToString ());
 		}
 		if (objectDataScript.celestialBodyType == ObjectData.CelestialBodyType.Planet) {			// Things we do if this of type Planet
-			//objectDataScript.coordinates = new String3d (hrc.x.ToString (), hrc.y.ToString (), hrc.z.ToString ());
-			positionProcessingScript.position.x = hrc.x+1500000;
+			positionProcessingScript.position.x = hrc.x;
 			positionProcessingScript.position.y = hrc.y;
 			positionProcessingScript.position.z = hrc.z;
 		}
