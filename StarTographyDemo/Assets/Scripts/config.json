@@ -1,36 +1,80 @@
 {
-	"id" : 1,
-	"hostStarName" : "11 Com",
-	"rightAscension" : "12h20m43.03s",
-	"declination" : "+17d47m34.3s",
-	"distance" : "110.62",
-	"opticalMagnitude" : "4.740",
-	"temperature" : "4742",
-	"stellarMass" : "2.7",
-	"stellarRadius" : "19",
-	"dateLastUpdate" : "2014-05-14",
-	"planet" : [
+
+	"star" : [
 		{
-			"name" : "b",
-			"status" : false,
-			"numPlanetsInSystem" : 1,
-			"orbitalPeriod" : "326.03",
-			"semiMajorAxis" : "1.29",
-			"eccentricity" : "0.231",
-			"inclination" : "",
-			"planetMass" : "19.4",
-			"planetRadius" : ""
+			"id" : 1,
+			"name" : "11 Com",
+			"rightAscension" : "12h20m43.03s",
+			"declination" : "+17d47m34.3s",
+			"distance" : "110.62",
+			"opticalMagnitude" : "4.740",
+			"temperature" : "4742",
+			"stellarMass" : "2.7",
+			"stellarRadius" : "19",
+			"dateLastUpdate" : "2014-05-14",
+			"planets" : [
+				{
+					"name" : "b",
+					"status" : false,
+					"numPlanetsInSystem" : 1,
+					"orbitalPeriod" : "326.03",
+					"semiMajorAxis" : "1.29",
+					"eccentricity" : "0.231",
+					"inclination" : "",
+					"planetMass" : "19.4",
+					"planetRadius" : ""
+				},
+				{
+					"name" : "c",
+					"status" : true,
+					"numPlanetsInSystem" : 1,
+					"orbitalPeriod" : "516.22",
+					"semiMajorAxis" : "1.54",
+					"eccentricity" : "0.08",
+					"inclination" : "",
+					"planetMass" : "10.5",
+					"planetRadius" : ""
+				}
+			]
 		},
+
 		{
-			"name" : "c",
-			"status" : true,
-			"numPlanetsInSystem" : 1,
-			"orbitalPeriod" : "516.22",
-			"semiMajorAxis" : "1.54",
-			"eccentricity" : "0.08",
-			"inclination" : "",
-			"planetMass" : "10.5",
-			"planetRadius" : ""
+			"id" : 2,
+			"name" : "11 Com",
+			"rightAscension" : "12h20m43.03s",
+			"declination" : "+17d47m34.3s",
+			"distance" : "110.62",
+			"opticalMagnitude" : "4.740",
+			"temperature" : "4742",
+			"stellarMass" : "2.7",
+			"stellarRadius" : "19",
+			"dateLastUpdate" : "2014-05-14",
+			"planets" : [
+				{
+					"name" : "b",
+					"status" : false,
+					"numPlanetsInSystem" : 1,
+					"orbitalPeriod" : "326.03",
+					"semiMajorAxis" : "1.29",
+					"eccentricity" : "0.231",
+					"inclination" : "",
+					"planetMass" : "19.4",
+					"planetRadius" : ""
+				},
+				{
+					"name" : "c",
+					"status" : true,
+					"numPlanetsInSystem" : 1,
+					"orbitalPeriod" : "516.22",
+					"semiMajorAxis" : "1.54",
+					"eccentricity" : "0.08",
+					"inclination" : "",
+					"planetMass" : "10.5",
+					"planetRadius" : ""
+				}
+			]
 		}
 	]
+
+
 }
