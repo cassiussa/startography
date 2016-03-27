@@ -1,7 +1,7 @@
 ﻿using UnityEditor;
 using UnityEngine;
 
-[CustomEditor(typeof(ObjectData)), CanEditMultipleObjects]
+/*[CustomEditor(typeof(ObjectData)), CanEditMultipleObjects]
 public class ObjectDataEditor : Editor {
 
 	// create a list of new serialized items.  These can be named anything, but have been named same as variables in ObjectData.cs for simplicity
@@ -81,4 +81,4 @@ public class ObjectDataEditor : Editor {
 		
 		serializedObject.ApplyModifiedProperties ();
 	}
-}
+}*/
