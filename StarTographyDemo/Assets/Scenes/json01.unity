@@ -114,15 +114,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3f8e1bd7ad7a46d78633b465e51e32b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  star:
-    id: 0
-    hostStarName: host star name
-    rightAscension: 
-    declination: 
-    distance: 0
-    opticalMagnitude: 0
-    temperature: 0
-    stellarMass: 0
-    stellarRadius: 0
-    dateLastUpdate: 
-    planet: []
+  celestialBodies:
+    star: []

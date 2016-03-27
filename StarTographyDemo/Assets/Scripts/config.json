@@ -6,37 +6,86 @@
 			"name" : "11 Com",
 			"rightAscension" : "12h20m43.03s",
 			"declination" : "+17d47m34.3s",
-			"distance" : "110.62",
-			"opticalMagnitude" : "4.740",
-			"temperature" : "4742",
-			"stellarMass" : "2.7",
-			"stellarRadius" : "19",
+			"distance" : 110.62,
+			"opticalMagnitude" : 4.740,
+			"temperature" : 4742,
+			"stellarMass" : 2.7,
+			"stellarRadius" : 19,
 			"dateLastUpdate" : "2014-05-14",
 			"planets" : [
 				{
 					"name" : "b",
 					"status" : false,
 					"numPlanetsInSystem" : 1,
-					"orbitalPeriod" : "326.03",
-					"semiMajorAxis" : "1.29",
-					"eccentricity" : "0.231",
-					"inclination" : "",
-					"planetMass" : "19.4",
-					"planetRadius" : ""
+					"orbitalPeriod" : 326.03,
+					"semiMajorAxis" : 1.29,
+					"eccentricity" : 0.231,
+					"inclination" : 0.1,
+					"planetMass" : 19.4,
+					"planetRadius" : 1.1,
+					"moons" : [
+						{
+							"name" : "IO",
+							"status" : false,
+							"numMoonsInSystem" : 1,
+							"orbitPeriod" : 12.1,
+							"semiMajorAxis" : 1.1,
+							"eccentricity" : 0.5,
+							"inclination" : 0,
+							"moonMass" : 1.1,
+							"moonRadius" : 1.1
+						},
+						{
+							"name" : "Callisto",
+							"status" : false,
+							"numMoonsInSystem" : 1,
+							"orbitPeriod" : 12.1,
+							"semiMajorAxis" : 1.1,
+							"eccentricity" : 0.5,
+							"inclination" : 0.0,
+							"moonMass" : 1.1,
+							"moonRadius" : 1.1
+						}
+					]
 				},
 				{
 					"name" : "c",
 					"status" : true,
 					"numPlanetsInSystem" : 1,
-					"orbitalPeriod" : "516.22",
-					"semiMajorAxis" : "1.54",
-					"eccentricity" : "0.08",
-					"inclination" : "",
+					"orbitalPeriod" : 516.22,
+					"semiMajorAxis" : 1.54,
+					"eccentricity" : 0.08,
+					"inclination" : 0.0,
 					"planetMass" : "10.5",
-					"planetRadius" : ""
+					"planetRadius" : "",
+					"moons" : [
+						{
+							"name" : "IO",
+							"status" : false,
+							"numMoonsInSystem" : 1,
+							"orbitPeriod" : 12.1,
+							"semiMajorAxis" : 1.1,
+							"eccentricity" : 0.5,
+							"inclination" : 1.1,
+							"moonMass" : 1.1,
+							"moonRadius" : 1.1
+						},
+						{
+							"name" : "Callisto",
+							"status" : false,
+							"numMoonsInSystem" : 1,
+							"orbitPeriod" : 12.1,
+							"semiMajorAxis" : 1.1,
+							"eccentricity" : 0.5,
+							"inclination" : 2.1,
+							"moonMass" : 1.1,
+							"moonRadius" : 3.1
+						}
+					]
 				}
 			]
 		},
+
 
 		{
 			"id" : 2,
@@ -54,26 +103,78 @@
 					"name" : "b",
 					"status" : false,
 					"numPlanetsInSystem" : 1,
-					"orbitalPeriod" : "326.03",
-					"semiMajorAxis" : "1.29",
-					"eccentricity" : "0.231",
-					"inclination" : "",
-					"planetMass" : "19.4",
-					"planetRadius" : ""
+					"orbitalPeriod" : 326.03,
+					"semiMajorAxis" : 1.29,
+					"eccentricity" : 0.231,
+					"inclination" : 1.1,
+					"planetMass" : 19.4,
+					"planetRadius" : 2.1,
+					"moons" : [
+						{
+							"name" : "IO",
+							"status" : false,
+							"numMoonsInSystem" : 1,
+							"orbitPeriod" : 12.1,
+							"semiMajorAxis" : 1.1,
+							"eccentricity" : 0.5,
+							"inclination" : 2.1,
+							"moonMass" : 1.1,
+							"moonRadius" : 4.1
+						},
+						{
+							"name" : "Callisto",
+							"status" : false,
+							"numMoonsInSystem" : 1,
+							"orbitPeriod" : 12.1,
+							"semiMajorAxis" : 1.1,
+							"eccentricity" : 0.5,
+							"inclination" : 0.1,
+							"moonMass" : 1.1,
+							"moonRadius" : 5.1
+						}
+					]
 				},
 				{
 					"name" : "c",
 					"status" : true,
 					"numPlanetsInSystem" : 1,
-					"orbitalPeriod" : "516.22",
-					"semiMajorAxis" : "1.54",
-					"eccentricity" : "0.08",
-					"inclination" : "",
-					"planetMass" : "10.5",
-					"planetRadius" : ""
+					"orbitalPeriod" : 516.22,
+					"semiMajorAxis" : 1.54,
+					"eccentricity" : 0.08,
+					"inclination" : 3.1,
+					"planetMass" : 10.5,
+					"planetRadius" : 12,
+					"moons" : [
+						{
+							"name" : "IO",
+							"status" : false,
+							"numMoonsInSystem" : 1,
+							"orbitPeriod" : 12.1,
+							"semiMajorAxis" : 1.1,
+							"eccentricity" : 0.5,
+							"inclination" : 3,
+							"moonMass" : 1.1,
+							"moonRadius" : 2.2
+						},
+						{
+							"name" : "Callisto",
+							"status" : false,
+							"numMoonsInSystem" : 1,
+							"orbitPeriod" : 12.1,
+							"semiMajorAxis" : 1.1,
+							"eccentricity" : 0.5,
+							"inclination" : 3.3,
+							"moonMass" : 1.1,
+							"moonRadius" : 1.1
+						}
+					]
 				}
 			]
 		}
+
+
+
+
 	]
 
 
