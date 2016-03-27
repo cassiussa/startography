@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class Star {
+/*public class Star {
 	public string name;
 	public ObjectData objectDataScript;
 	public ScaleStates scaleStatesScript;
@@ -19,9 +19,9 @@ public class Star {
 		objectDataScript = xobjectDataScript;
 		scaleStatesScript = xscaleStatesScript;
 	}
-}
+}*/
 
-public class Planet {
+/*public class Planet {
 	public string name;
 	public GameObject parentStar;
 	public ObjectData objectDataScript;
@@ -44,7 +44,7 @@ public class Planet {
 		parentStar = xparentStar;
 		planetOrbitPathTrailScript = xplanetOrbitPathTrailScript;
 	}
-}
+}*/
 
 public class Moon {
 	public string name;
@@ -74,18 +74,18 @@ public class Moon {
 public class Items : MonoBehaviour {
 
 	public List<Star> stars = new List<Star>();
-	public List<Planet> planets = new List<Planet>();
+	//public List<Planet> planets = new List<Planet>();
 	public List<Moon> moons = new List<Moon>();
 
 	// Use this for initialization
 	void Start () {
 		int i = 0;
 		for (i=0; i<stars.Count; i++) {
-			Debug.Log ("Star name is " + stars [i].name);
+			//Debug.Log ("Star name is " + stars [i].name);
 		}
-		for (i=0; i<planets.Count; i++) {
+		/*for (i=0; i<planets.Count; i++) {
 			Debug.Log ("Planet name is " + planets [i].name+" and my star's name is "+planets[i].parentStar.name+", path trail: "+planets[i].planetOrbitPathTrailScript);
-		}
+		}*/
 	}
 	
 	// Update is called once per frame

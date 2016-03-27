@@ -23,9 +23,9 @@ public class RegisterItem : Functions {
 		// Send required items to the Item script attached to the Global GameObject
 		itemsScript = GameObject.Find ("/Globals").GetComponent<Items> ();
 		if (objectDataScript.celestialBodyType == ObjectData.CelestialBodyType.Star) {
-			itemsScript.stars.Add (new Star (gameObject.name, objectDataScript, scaleStatesScript));
+//			itemsScript.stars.Add (new Star (gameObject.name, objectDataScript, scaleStatesScript));
 		} else if (objectDataScript.celestialBodyType == ObjectData.CelestialBodyType.Planet) {
-			itemsScript.planets.Add (new Planet (gameObject.name, objectDataScript, scaleStatesScript, objectDataScript.parentObject, scaleStatesScript.planetOrbitPathTrailScript));
+			//itemsScript.planets.Add (new Planet (gameObject.name, objectDataScript, scaleStatesScript, objectDataScript.parentObject, scaleStatesScript.planetOrbitPathTrailScript));
 		} else if (objectDataScript.celestialBodyType == ObjectData.CelestialBodyType.Moon) {
 			itemsScript.moons.Add (new Moon (gameObject.name, objectDataScript, scaleStatesScript, objectDataScript.parentObject));
 		}
