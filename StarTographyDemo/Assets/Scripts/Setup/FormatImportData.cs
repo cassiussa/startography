@@ -30,7 +30,24 @@ public class FormatImportData : MonoBehaviour {
 	private void Start () {
 		string json = File.ReadAllText(Path.Combine(Application.dataPath, "Scripts/config.json"));
 		this.celestialBodies = (CelestialBodies)JSONSerialize.Deserialize(typeof(CelestialBodies), json);
-		//Debug.Log (celestialBodies);
+
+		/*
+		 * Examples of how we can directly access items
+		 * within the multi-dimensional array in order to
+		 * use them.
+		 * 
+		 * EXAMPLE USAGES
+		 * int a = 0;
+		 * int b = 1;
+		 * int c = 0;
+		 * 
+		 * The type of a moon's "orbitalPeriod" variable is Float
+		 * float something = celestialBodies.star[a].planets[b].moons[c].orbitalPeriod;
+		 * 
+		 * The type of a star's "rightAscension" variable is String
+		 * string _ra = celestialBodies.star[a].rightAscension;
+		 */
+		Debug.Log (celestialBodies.star[0].rightAscension);
 
 	}
 
@@ -51,34 +68,34 @@ public class CelestialBodies {
 public class Star {
 	[HideInInspector]
 	[JSONItem("name", typeof(string))]
-	public string name;
+	public string name = null;
 
 	[JSONItem("id",typeof(int))]
 	public int id = 0;
 	
 	[JSONItem("rightAscension", typeof(string))]
-	public string rightAscension;
+	public string rightAscension = null;
 	
 	[JSONItem("declination", typeof(string))]
-	public string declination;
+	public string declination = null;
 	
 	[JSONItem("distance", typeof(float))]
-	public float distance;
+	public float distance = 0f;
 	
 	[JSONItem("opticalMagnitude", typeof(float))]
-	public float opticalMagnitude;
+	public float opticalMagnitude = 0f;
 	
 	[JSONItem("temperature", typeof(float))]
-	public float temperature;
+	public float temperature = 0f;
 	
 	[JSONItem("stellarMass", typeof(float))]
-	public float stellarMass;
+	public float stellarMass = 0f;
 	
 	[JSONItem("stellarRadius", typeof(float))]
-	public float stellarRadius;
+	public float stellarRadius = 0f;
 	
 	[JSONItem("dateLastUpdate", typeof(string))]
-	public string dateLastUpdate;
+	public string dateLastUpdate = null;
 
 	/*
 	 * Create an array of type Planet.  This will
@@ -99,25 +116,25 @@ public class Planet {
 	public bool status = true;
 	
 	[JSONItem("numPlanetsInSystem", typeof(int))]
-	public int numPlanetsInSystem;
+	public int numPlanetsInSystem = 0;
 	
 	[JSONItem("orbitalPeriod", typeof(float))]
-	public float orbitalPeriod;
+	public float orbitalPeriod = 0f;
 	
 	[JSONItem("semiMajorAxis", typeof(float))]
-	public float semiMajorAxis;
+	public float semiMajorAxis = 0f;
 	
 	[JSONItem("eccentricity", typeof(float))]
-	public float eccentricity;
+	public float eccentricity = 0f;
 	
 	[JSONItem("inclination", typeof(float))]
-	public float inclination;
+	public float inclination = 0f;
 	
 	[JSONItem("planetMass", typeof(float))]
-	public float planetMass;
+	public float planetMass = 0f;
 	
 	[JSONItem("planetRadius", typeof(float))]
-	public float planetRadius;
+	public float planetRadius = 0f;
 
 	/*
 	 * Create an array of type Moon.  This will
@@ -139,24 +156,24 @@ public class Moon {
 	public bool status = true;
 	
 	[JSONItem("numMoonsInSystem", typeof(int))]
-	public int numMoonsInSystem;
+	public int numMoonsInSystem = 0;
 	
 	[JSONItem("orbitalPeriod", typeof(float))]
-	public float orbitalPeriod;
+	public float orbitalPeriod = 0f;
 	
 	[JSONItem("semiMajorAxis", typeof(float))]
-	public float semiMajorAxis;
+	public float semiMajorAxis = 0f;
 	
 	[JSONItem("eccentricity", typeof(float))]
-	public float eccentricity;
+	public float eccentricity = 0f;
 	
 	[JSONItem("inclination", typeof(float))]
-	public float inclination;
+	public float inclination = 0f;
 	
 	[JSONItem("moonMass", typeof(float))]
-	public float moonMass;
+	public float moonMass = 0f;
 	
 	[JSONItem("moonRadius", typeof(float))]
-	public float moonRadius;
+	public float moonRadius = 0f;
 	
 }

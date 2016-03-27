@@ -25,26 +25,26 @@
 					"planetRadius" : 1.1,
 					"moons" : [
 						{
-							"name" : "IO",
+							"name" : "Titan",
 							"status" : false,
 							"numMoonsInSystem" : 1,
-							"orbitPeriod" : 12.1,
-							"semiMajorAxis" : 1.1,
-							"eccentricity" : 0.5,
-							"inclination" : 0,
-							"moonMass" : 1.1,
-							"moonRadius" : 1.1
+							"orbitalPeriod" : 516.221,
+							"semiMajorAxis" : 1.2,
+							"eccentricity" : 0.2,
+							"inclination" : 00.2,
+							"moonMass" : 1.2,
+							"moonRadius" : 1.2
 						},
 						{
-							"name" : "Callisto",
+							"name" : "Dues",
 							"status" : false,
 							"numMoonsInSystem" : 1,
-							"orbitPeriod" : 12.1,
-							"semiMajorAxis" : 1.1,
-							"eccentricity" : 0.5,
-							"inclination" : 0.0,
-							"moonMass" : 1.1,
-							"moonRadius" : 1.1
+							"orbitalPeriod" : 516.229,
+							"semiMajorAxis" : 1.3,
+							"eccentricity" : 0.53,
+							"inclination" : 0.03,
+							"moonMass" : 1.13,
+							"moonRadius" : 1.13
 						}
 					]
 				},
@@ -52,34 +52,34 @@
 					"name" : "c",
 					"status" : true,
 					"numPlanetsInSystem" : 1,
-					"orbitalPeriod" : 516.22,
+					"orbitalPeriod" : 516.228,
 					"semiMajorAxis" : 1.54,
 					"eccentricity" : 0.08,
 					"inclination" : 0.0,
-					"planetMass" : "10.5",
+					"planetMass" : 10.5,
 					"planetRadius" : "",
 					"moons" : [
 						{
 							"name" : "IO",
 							"status" : false,
 							"numMoonsInSystem" : 1,
-							"orbitPeriod" : 12.1,
+							"orbitalPeriod" : 516.227,
 							"semiMajorAxis" : 1.1,
-							"eccentricity" : 0.5,
-							"inclination" : 1.1,
-							"moonMass" : 1.1,
-							"moonRadius" : 1.1
+							"eccentricity" : 0.54,
+							"inclination" : 1.14,
+							"moonMass" : 1.14,
+							"moonRadius" : 1.14
 						},
 						{
 							"name" : "Callisto",
 							"status" : false,
 							"numMoonsInSystem" : 1,
-							"orbitPeriod" : 12.1,
-							"semiMajorAxis" : 1.1,
-							"eccentricity" : 0.5,
-							"inclination" : 2.1,
-							"moonMass" : 1.1,
-							"moonRadius" : 3.1
+							"orbitalPeriod" : 516.226,
+							"semiMajorAxis" : 1.15,
+							"eccentricity" : 0.55,
+							"inclination" : 2.15,
+							"moonMass" : 1.15,
+							"moonRadius" : 3.15
 						}
 					]
 				}
@@ -92,11 +92,11 @@
 			"name" : "11 Com",
 			"rightAscension" : "12h20m43.03s",
 			"declination" : "+17d47m34.3s",
-			"distance" : "110.62",
-			"opticalMagnitude" : "4.740",
-			"temperature" : "4742",
-			"stellarMass" : "2.7",
-			"stellarRadius" : "19",
+			"distance" : 110.62,
+			"opticalMagnitude" : 4.740,
+			"temperature" : 4742,
+			"stellarMass" : 2.7,
+			"stellarRadius" : 19.1,
 			"dateLastUpdate" : "2014-05-14",
 			"planets" : [
 				{
@@ -111,26 +111,26 @@
 					"planetRadius" : 2.1,
 					"moons" : [
 						{
-							"name" : "IO",
+							"name" : "Ganymede",
 							"status" : false,
 							"numMoonsInSystem" : 1,
-							"orbitPeriod" : 12.1,
-							"semiMajorAxis" : 1.1,
-							"eccentricity" : 0.5,
-							"inclination" : 2.1,
-							"moonMass" : 1.1,
-							"moonRadius" : 4.1
+							"orbitalPeriod" : 516.225,
+							"semiMajorAxis" : 1.16,
+							"eccentricity" : 0.56,
+							"inclination" : 2.16,
+							"moonMass" : 1.16,
+							"moonRadius" : 4.16
 						},
 						{
-							"name" : "Callisto",
+							"name" : "Charon",
 							"status" : false,
 							"numMoonsInSystem" : 1,
-							"orbitPeriod" : 12.1,
-							"semiMajorAxis" : 1.1,
-							"eccentricity" : 0.5,
-							"inclination" : 0.1,
-							"moonMass" : 1.1,
-							"moonRadius" : 5.1
+							"orbitalPeriod" : 516.224,
+							"semiMajorAxis" : 1.17,
+							"eccentricity" : 0.57,
+							"inclination" : 0.17,
+							"moonMass" : 1.17,
+							"moonRadius" : 5.17
 						}
 					]
 				},
@@ -146,26 +146,26 @@
 					"planetRadius" : 12,
 					"moons" : [
 						{
-							"name" : "IO",
+							"name" : "Phoebos",
 							"status" : false,
 							"numMoonsInSystem" : 1,
-							"orbitPeriod" : 12.1,
-							"semiMajorAxis" : 1.1,
-							"eccentricity" : 0.5,
-							"inclination" : 3,
-							"moonMass" : 1.1,
-							"moonRadius" : 2.2
+							"orbitalPeriod" : 516.21,
+							"semiMajorAxis" : 1.18,
+							"eccentricity" : 0.58,
+							"inclination" : 38,
+							"moonMass" : 1.18,
+							"moonRadius" : 2.28
 						},
 						{
-							"name" : "Callisto",
+							"name" : "Daemos",
 							"status" : false,
 							"numMoonsInSystem" : 1,
-							"orbitPeriod" : 12.1,
-							"semiMajorAxis" : 1.1,
-							"eccentricity" : 0.5,
-							"inclination" : 3.3,
-							"moonMass" : 1.1,
-							"moonRadius" : 1.1
+							"orbitalPeriod" : 516.23,
+							"semiMajorAxis" : 1.19,
+							"eccentricity" : 0.59,
+							"inclination" : 3.39,
+							"moonMass" : 1.19,
+							"moonRadius" : 1.19
 						}
 					]
 				}
