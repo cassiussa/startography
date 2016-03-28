@@ -47,22 +47,43 @@ public class FormatImportData : MonoBehaviour {
 		 * The type of a star's "rightAscension" variable is String
 		 * string _ra = celestialBodies.star[a].rightAscension;
 		 */
-		Debug.Log (celestialBodies.star[0].rightAscension);
 
 
-		for(int s=0;s<celestialBodies.star.Length;s++) {
-			celestialBodies.star[s].gameObject = new GameObject();
-			celestialBodies.star[s].gameObject.name = "Star_"+celestialBodies.star[s].name;
-			for(int p=0;p<celestialBodies.star[s].planets.Length;p++) {
-				celestialBodies.star[s].planets[p].gameObject = new GameObject();
-				celestialBodies.star[s].planets[p].gameObject.name = "Planet_"+celestialBodies.star[s].planets[p].name;
+		/*
+		 * Iterate through all the Stars in the JSON file and create their
+		 * gameObjects, add their components, etc
+		 *
+		 * sIndex - Star Index
+		 */
+		for(int sIndex=0;sIndex<celestialBodies.star.Length;sIndex++) {
+			celestialBodies.star[sIndex].gameObject = new GameObject();
+			celestialBodies.star[sIndex].gameObject.name = "Star "+celestialBodies.star[sIndex].name;
 
-				for(int m=0;m<celestialBodies.star[s].planets[p].moons.Length;m++) {
-					celestialBodies.star[s].planets[p].moons[m].gameObject = new GameObject();
-					celestialBodies.star[s].planets[p].moons[m].gameObject.name = "Moon_"+celestialBodies.star[s].planets[p].moons[m].name;
+			celestialBodies.star[sIndex].Empty = celestialBodies.star[sIndex].gameObject.AddComponent<Empty>();
+			celestialBodies.star[sIndex].Empty.number = 10f;
+
+			/*
+			 * Iterate through all the Planets in the JSON file and create their
+			 * gameObjects, add their components, etc
+			 *
+			 * pIndex - Planet Index
+			 */
+			for(int pIndex=0;pIndex<celestialBodies.star[sIndex].planets.Length;pIndex++) {
+				celestialBodies.star[sIndex].planets[pIndex].gameObject = new GameObject();
+				celestialBodies.star[sIndex].planets[pIndex].gameObject.name = "Star "+celestialBodies.star[sIndex].name+", Planet "+celestialBodies.star[sIndex].planets[pIndex].name;
+
+				/*
+				 * Iterate through all the Moons in the JSON file and create their
+				 * gameObjects, add their components, etc
+				 *
+				 * mIndex - Moon Index
+				 */
+				for(int mIndex=0;mIndex<celestialBodies.star[sIndex].planets[pIndex].moons.Length;mIndex++) {
+					celestialBodies.star[sIndex].planets[pIndex].moons[mIndex].gameObject = new GameObject();
+					celestialBodies.star[sIndex].planets[pIndex].moons[mIndex].gameObject.name = "Star "+celestialBodies.star[sIndex].name+", Planet "+celestialBodies.star[sIndex].planets[pIndex].name+", Moon "+celestialBodies.star[sIndex].planets[pIndex].moons[mIndex].name;
 				}
 			}
-			print (celestialBodies.star[s].name);
+
 		}
 
 	}
@@ -91,6 +112,8 @@ public class Star {
 	
 	// The gameObject that we'll instantiate for this star
 	public GameObject gameObject = null;
+	public Empty Empty = null;
+	public string bah = "asfaas";
 	
 	[JSONItem("rightAscension", typeof(string))]
 	public string rightAscension = null;
