@@ -85,7 +85,7 @@ GameObject:
   - 4: {fileID: 15598129}
   - 114: {fileID: 15598130}
   m_Layer: 0
-  m_Name: Globals
+  m_Name: Import Data
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -53,34 +53,57 @@ public class FormatImportData : MonoBehaviour {
 		 * Iterate through all the Stars in the JSON file and create their
 		 * gameObjects, add their components, etc
 		 *
-		 * sIndex - Star Index
+		 * sIndex : Star Index
 		 */
 		for(int sIndex=0;sIndex<celestialBodies.star.Length;sIndex++) {
+			/* 
+			 * Add a new GameObject to represent this specific star.  We can then go
+			 * ahead and add mesh, scripts, variables and other items to it as needed
+			 */
 			celestialBodies.star[sIndex].gameObject = new GameObject();
+			celestialBodies.star[sIndex].gameObject.SetActive (false);
 			celestialBodies.star[sIndex].gameObject.name = "Star "+celestialBodies.star[sIndex].name;
 
-			celestialBodies.star[sIndex].Empty = celestialBodies.star[sIndex].gameObject.AddComponent<Empty>();
-			celestialBodies.star[sIndex].Empty.number = 10f;
+			/* 
+			 * Add the CelestialBodyBuilder.cs script as it will take over on building the objects.
+			 * We'll need to tell the CelestialBodyBuilder.cs script what type of body this is first
+			 */
+			celestialBodies.star[sIndex].CelestialBodyBuilder = celestialBodies.star[sIndex].gameObject.AddComponent<CelestialBodyBuilder>();
+			//celestialBodies.star[sIndex].CelestialBodyBuilder.enabled = false;
+			celestialBodies.star[sIndex].CelestialBodyBuilder.celestialBodyType = CelestialBodyBuilder.CelestialBodyType.Star;
 
 			/*
 			 * Iterate through all the Planets in the JSON file and create their
 			 * gameObjects, add their components, etc
 			 *
-			 * pIndex - Planet Index
+			 * pIndex : Planet Index
 			 */
 			for(int pIndex=0;pIndex<celestialBodies.star[sIndex].planets.Length;pIndex++) {
 				celestialBodies.star[sIndex].planets[pIndex].gameObject = new GameObject();
+				celestialBodies.star[sIndex].planets[pIndex].gameObject.SetActive (false);
 				celestialBodies.star[sIndex].planets[pIndex].gameObject.name = "Star "+celestialBodies.star[sIndex].name+", Planet "+celestialBodies.star[sIndex].planets[pIndex].name;
 
+				celestialBodies.star[sIndex].planets[pIndex].CelestialBodyBuilder = celestialBodies.star[sIndex].planets[pIndex].gameObject.AddComponent<CelestialBodyBuilder>();
+				//celestialBodies.star[sIndex].planets[pIndex].CelestialBodyBuilder.enabled = false;
+				celestialBodies.star[sIndex].planets[pIndex].CelestialBodyBuilder.celestialBodyType = CelestialBodyBuilder.CelestialBodyType.Planet;
 				/*
 				 * Iterate through all the Moons in the JSON file and create their
 				 * gameObjects, add their components, etc
 				 *
-				 * mIndex - Moon Index
+				 * mIndex : Moon Index
 				 */
 				for(int mIndex=0;mIndex<celestialBodies.star[sIndex].planets[pIndex].moons.Length;mIndex++) {
 					celestialBodies.star[sIndex].planets[pIndex].moons[mIndex].gameObject = new GameObject();
+					celestialBodies.star[sIndex].planets[pIndex].moons[mIndex].gameObject.SetActive (false);
 					celestialBodies.star[sIndex].planets[pIndex].moons[mIndex].gameObject.name = "Star "+celestialBodies.star[sIndex].name+", Planet "+celestialBodies.star[sIndex].planets[pIndex].name+", Moon "+celestialBodies.star[sIndex].planets[pIndex].moons[mIndex].name;
+
+					/*
+					 * Explanation:
+					 * celestial bodies > this star > this star, this planet > this star, this planet, this moon's CelestialBodyBuilder.cs script
+					 */
+					celestialBodies.star[sIndex].planets[pIndex].moons[mIndex].CelestialBodyBuilder = celestialBodies.star[sIndex].planets[pIndex].moons[mIndex].gameObject.AddComponent<CelestialBodyBuilder>();
+					//celestialBodies.star[sIndex].planets[pIndex].moons[mIndex].CelestialBodyBuilder.enabled = false;
+					celestialBodies.star[sIndex].planets[pIndex].moons[mIndex].CelestialBodyBuilder.celestialBodyType = CelestialBodyBuilder.CelestialBodyType.Moon;
 				}
 			}
 
@@ -109,11 +132,6 @@ public class Star {
 
 	[JSONItem("id",typeof(int))]
 	public int id = 0;
-	
-	// The gameObject that we'll instantiate for this star
-	public GameObject gameObject = null;
-	public Empty Empty = null;
-	public string bah = "asfaas";
 	
 	[JSONItem("rightAscension", typeof(string))]
 	public string rightAscension = null;
@@ -146,6 +164,10 @@ public class Star {
 	 */
 	[JSONArray("planets", typeof(Planet))]
 	public Planet[] planets;
+
+	// The gameObject that we'll instantiate for this star
+	public GameObject gameObject = null;
+	public CelestialBodyBuilder CelestialBodyBuilder = null;
 }
 
 [System.Serializable]
@@ -154,9 +176,6 @@ public class Planet {
 	[JSONItem("name", typeof(string))]
 	public string name = null;
 
-	// The gameObject that we'll instantiate for this planet
-	public GameObject gameObject = null;
-	
 	[JSONItem("status", typeof(bool))]
 	public bool status = true;
 	
@@ -188,6 +207,10 @@ public class Planet {
 	 */
 	[JSONArray("moons", typeof(Moon))]
 	public Moon[] moons;
+
+	// The gameObject that we'll instantiate for this planet
+	public GameObject gameObject = null;
+	public CelestialBodyBuilder CelestialBodyBuilder = null;
 	
 }
 
@@ -197,9 +220,6 @@ public class Moon {
 	[JSONItem("name", typeof(string))]
 	public string name = null;
 
-	// The gameObject that we'll instantiate for this moon
-	public GameObject gameObject = null;
-	
 	[JSONItem("status", typeof(bool))]
 	public bool status = true;
 	
@@ -223,5 +243,8 @@ public class Moon {
 	
 	[JSONItem("moonRadius", typeof(float))]
 	public float moonRadius = 0f;
-	
+
+	// The gameObject that we'll instantiate for this moon
+	public GameObject gameObject = null;
+	public CelestialBodyBuilder CelestialBodyBuilder = null;
 }
