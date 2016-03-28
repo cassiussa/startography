@@ -49,6 +49,22 @@ public class FormatImportData : MonoBehaviour {
 		 */
 		Debug.Log (celestialBodies.star[0].rightAscension);
 
+
+		for(int s=0;s<celestialBodies.star.Length;s++) {
+			celestialBodies.star[s].gameObject = new GameObject();
+			celestialBodies.star[s].gameObject.name = "Star_"+celestialBodies.star[s].name;
+			for(int p=0;p<celestialBodies.star[s].planets.Length;p++) {
+				celestialBodies.star[s].planets[p].gameObject = new GameObject();
+				celestialBodies.star[s].planets[p].gameObject.name = "Planet_"+celestialBodies.star[s].planets[p].name;
+
+				for(int m=0;m<celestialBodies.star[s].planets[p].moons.Length;m++) {
+					celestialBodies.star[s].planets[p].moons[m].gameObject = new GameObject();
+					celestialBodies.star[s].planets[p].moons[m].gameObject.name = "Moon_"+celestialBodies.star[s].planets[p].moons[m].name;
+				}
+			}
+			print (celestialBodies.star[s].name);
+		}
+
 	}
 
 }
@@ -72,6 +88,9 @@ public class Star {
 
 	[JSONItem("id",typeof(int))]
 	public int id = 0;
+	
+	// The gameObject that we'll instantiate for this star
+	public GameObject gameObject = null;
 	
 	[JSONItem("rightAscension", typeof(string))]
 	public string rightAscension = null;
@@ -111,6 +130,9 @@ public class Planet {
 	[HideInInspector]
 	[JSONItem("name", typeof(string))]
 	public string name = null;
+
+	// The gameObject that we'll instantiate for this planet
+	public GameObject gameObject = null;
 	
 	[JSONItem("status", typeof(bool))]
 	public bool status = true;
@@ -151,6 +173,9 @@ public class Moon {
 	[HideInInspector]
 	[JSONItem("name", typeof(string))]
 	public string name = null;
+
+	// The gameObject that we'll instantiate for this moon
+	public GameObject gameObject = null;
 	
 	[JSONItem("status", typeof(bool))]
 	public bool status = true;
