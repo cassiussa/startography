@@ -30,6 +30,7 @@ public class CelestialBodyBuilder : MonoBehaviour {
 	public double stellarMass;
 	public double stellarRadius;
 	public string dateLastUpdate;
+	public GameObject[] planets;
 
 	// Planet Variables
 	public int numPlanetsInSystem;
@@ -39,6 +40,7 @@ public class CelestialBodyBuilder : MonoBehaviour {
 	public float inclination;
 	public double planetMass;
 	public float planetRadius;
+	public GameObject[] moons;
 
 	// Moon Variables
 	public int numMoonsInSystem;

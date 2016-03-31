@@ -17,6 +17,8 @@ public class CelestialBodyBuilderEditor : Editor {
 		stellarMass,
 		stellarRadius,
 		dateLastUpdate,
+		planets,
+		moons,
 
 		numPlanetsInSystem,
 		orbitalPeriod,
@@ -44,6 +46,8 @@ public class CelestialBodyBuilderEditor : Editor {
 		stellarMass = serializedObject.FindProperty ("stellarMass");
 		stellarRadius = serializedObject.FindProperty ("stellarRadius");
 		dateLastUpdate = serializedObject.FindProperty ("dateLastUpdate");
+		planets = serializedObject.FindProperty ("planets");
+		moons = serializedObject.FindProperty ("moons");
 
 		// Planet variable serialization
 		numPlanetsInSystem = serializedObject.FindProperty ("numPlanetsInSystem");
@@ -76,6 +80,8 @@ public class CelestialBodyBuilderEditor : Editor {
 			EditorGUILayout.PropertyField(stellarMass, new GUIContent("stellarMass"), true);
 			EditorGUILayout.PropertyField(stellarRadius, new GUIContent("stellarRadius"), true);
 			EditorGUILayout.PropertyField(dateLastUpdate, new GUIContent("dateLastUpdate"), true);
+			EditorGUILayout.PropertyField(planets, new GUIContent("planets"), true);
+			EditorGUILayout.PropertyField(moons, new GUIContent("moons"), true);
 			break;
 
 		case CelestialBodyBuilder.CelestialBodyType.Planet:
@@ -87,6 +93,7 @@ public class CelestialBodyBuilderEditor : Editor {
 			EditorGUILayout.PropertyField(inclination, new GUIContent("inclination"), true);
 			EditorGUILayout.PropertyField(planetMass, new GUIContent("planetMass"), true);
 			EditorGUILayout.PropertyField(planetRadius, new GUIContent("planetRadius"), true);
+			EditorGUILayout.PropertyField(moons, new GUIContent("moons"), true);
 			break;
 
 		case CelestialBodyBuilder.CelestialBodyType.Moon:

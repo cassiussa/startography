@@ -83,6 +83,16 @@ public class FormatImportData : MonoBehaviour {
 			celestialBodies.star[sIndex].CelestialBodyBuilder.stellarRadius = celestialBodies.star[sIndex].stellarRadius;
 			celestialBodies.star[sIndex].CelestialBodyBuilder.dateLastUpdate = celestialBodies.star[sIndex].dateLastUpdate;
 
+			// Get the number of planets orbiting this star
+			celestialBodies.star[sIndex].CelestialBodyBuilder.planets = new GameObject[celestialBodies.star[sIndex].planets.Length];
+			// Iterate over this star's planets so that we can count the total moons for the star
+			int starMoonCount = 0;
+			for(int pInd=0;pInd<celestialBodies.star[sIndex].planets.Length;pInd++) {
+				starMoonCount += celestialBodies.star[sIndex].planets[pInd].moons.Length;
+				celestialBodies.star[sIndex].CelestialBodyBuilder.moons = new GameObject[starMoonCount];
+			}
+			starMoonCount = 0;
+
 			/*
 			 * Iterate through all the Planets in the JSON file and create their
 			 * gameObjects, add their components, etc
@@ -107,6 +117,10 @@ public class FormatImportData : MonoBehaviour {
 				celestialBodies.star[sIndex].planets[pIndex].CelestialBodyBuilder.inclination = celestialBodies.star[sIndex].planets[pIndex].inclination;
 				celestialBodies.star[sIndex].planets[pIndex].CelestialBodyBuilder.planetMass = celestialBodies.star[sIndex].planets[pIndex].planetMass;
 				celestialBodies.star[sIndex].planets[pIndex].CelestialBodyBuilder.planetRadius = celestialBodies.star[sIndex].planets[pIndex].planetRadius;
+
+				// Add this planet to the 'planets' array within the CelestrialBodyBuilder.cs script attached to this planet's parent star
+				celestialBodies.star[sIndex].CelestialBodyBuilder.planets[pIndex] = celestialBodies.star[sIndex].planets[pIndex].gameObject;
+
 
 
 				/*
@@ -137,6 +151,9 @@ public class FormatImportData : MonoBehaviour {
 					celestialBodies.star[sIndex].planets[pIndex].moons[mIndex].CelestialBodyBuilder.inclination = celestialBodies.star[sIndex].planets[pIndex].moons[mIndex].inclination;
 					celestialBodies.star[sIndex].planets[pIndex].moons[mIndex].CelestialBodyBuilder.moonMass = celestialBodies.star[sIndex].planets[pIndex].moons[mIndex].moonMass;
 					celestialBodies.star[sIndex].planets[pIndex].moons[mIndex].CelestialBodyBuilder.moonRadius = celestialBodies.star[sIndex].planets[pIndex].moons[mIndex].moonRadius;
+
+					celestialBodies.star[sIndex].CelestialBodyBuilder.moons[starMoonCount] = celestialBodies.star[sIndex].planets[pIndex].moons[mIndex].gameObject;
+					starMoonCount++;
 				}
 			}
 
