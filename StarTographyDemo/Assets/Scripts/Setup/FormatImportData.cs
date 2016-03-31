@@ -72,6 +72,17 @@ public class FormatImportData : MonoBehaviour {
 			//celestialBodies.star[sIndex].CelestialBodyBuilder.enabled = false;
 			celestialBodies.star[sIndex].CelestialBodyBuilder.celestialBodyType = CelestialBodyBuilder.CelestialBodyType.Star;
 
+			// Send the variable data to each star's CelestialBodyBuilder.cs script
+			celestialBodies.star[sIndex].CelestialBodyBuilder.name = celestialBodies.star[sIndex].name;
+			celestialBodies.star[sIndex].CelestialBodyBuilder.rightAscension = celestialBodies.star[sIndex].rightAscension;
+			celestialBodies.star[sIndex].CelestialBodyBuilder.declination = celestialBodies.star[sIndex].declination;
+			celestialBodies.star[sIndex].CelestialBodyBuilder.distance = celestialBodies.star[sIndex].distance;
+			celestialBodies.star[sIndex].CelestialBodyBuilder.opticalMagnitude = celestialBodies.star[sIndex].opticalMagnitude;
+			celestialBodies.star[sIndex].CelestialBodyBuilder.temperature = celestialBodies.star[sIndex].temperature;
+			celestialBodies.star[sIndex].CelestialBodyBuilder.stellarMass = celestialBodies.star[sIndex].stellarMass;
+			celestialBodies.star[sIndex].CelestialBodyBuilder.stellarRadius = celestialBodies.star[sIndex].stellarRadius;
+			celestialBodies.star[sIndex].CelestialBodyBuilder.dateLastUpdate = celestialBodies.star[sIndex].dateLastUpdate;
+
 			/*
 			 * Iterate through all the Planets in the JSON file and create their
 			 * gameObjects, add their components, etc
@@ -86,6 +97,18 @@ public class FormatImportData : MonoBehaviour {
 				celestialBodies.star[sIndex].planets[pIndex].CelestialBodyBuilder = celestialBodies.star[sIndex].planets[pIndex].gameObject.AddComponent<CelestialBodyBuilder>();
 				//celestialBodies.star[sIndex].planets[pIndex].CelestialBodyBuilder.enabled = false;
 				celestialBodies.star[sIndex].planets[pIndex].CelestialBodyBuilder.celestialBodyType = CelestialBodyBuilder.CelestialBodyType.Planet;
+
+				// Send the variable data to each planets's CelestialBodyBuilder.cs scripts
+				celestialBodies.star[sIndex].planets[pIndex].CelestialBodyBuilder.name = celestialBodies.star[sIndex].planets[pIndex].name;
+				celestialBodies.star[sIndex].planets[pIndex].CelestialBodyBuilder.numPlanetsInSystem = celestialBodies.star[sIndex].planets[pIndex].numPlanetsInSystem;
+				celestialBodies.star[sIndex].planets[pIndex].CelestialBodyBuilder.orbitalPeriod = celestialBodies.star[sIndex].planets[pIndex].orbitalPeriod;
+				celestialBodies.star[sIndex].planets[pIndex].CelestialBodyBuilder.semiMajorAxis = celestialBodies.star[sIndex].planets[pIndex].semiMajorAxis;
+				celestialBodies.star[sIndex].planets[pIndex].CelestialBodyBuilder.eccentricity = celestialBodies.star[sIndex].planets[pIndex].eccentricity;
+				celestialBodies.star[sIndex].planets[pIndex].CelestialBodyBuilder.inclination = celestialBodies.star[sIndex].planets[pIndex].inclination;
+				celestialBodies.star[sIndex].planets[pIndex].CelestialBodyBuilder.planetMass = celestialBodies.star[sIndex].planets[pIndex].planetMass;
+				celestialBodies.star[sIndex].planets[pIndex].CelestialBodyBuilder.planetRadius = celestialBodies.star[sIndex].planets[pIndex].planetRadius;
+
+
 				/*
 				 * Iterate through all the Moons in the JSON file and create their
 				 * gameObjects, add their components, etc
@@ -104,6 +127,16 @@ public class FormatImportData : MonoBehaviour {
 					celestialBodies.star[sIndex].planets[pIndex].moons[mIndex].CelestialBodyBuilder = celestialBodies.star[sIndex].planets[pIndex].moons[mIndex].gameObject.AddComponent<CelestialBodyBuilder>();
 					//celestialBodies.star[sIndex].planets[pIndex].moons[mIndex].CelestialBodyBuilder.enabled = false;
 					celestialBodies.star[sIndex].planets[pIndex].moons[mIndex].CelestialBodyBuilder.celestialBodyType = CelestialBodyBuilder.CelestialBodyType.Moon;
+
+					// Send the variable data to each moon's CelestialBodyBuilder.cs scripts
+					celestialBodies.star[sIndex].planets[pIndex].moons[mIndex].CelestialBodyBuilder.name = celestialBodies.star[sIndex].planets[pIndex].moons[mIndex].name;
+					celestialBodies.star[sIndex].planets[pIndex].moons[mIndex].CelestialBodyBuilder.numMoonsInSystem = celestialBodies.star[sIndex].planets[pIndex].moons[mIndex].numMoonsInSystem;
+					celestialBodies.star[sIndex].planets[pIndex].moons[mIndex].CelestialBodyBuilder.orbitalPeriod = celestialBodies.star[sIndex].planets[pIndex].moons[mIndex].orbitalPeriod;
+					celestialBodies.star[sIndex].planets[pIndex].moons[mIndex].CelestialBodyBuilder.semiMajorAxis = celestialBodies.star[sIndex].planets[pIndex].moons[mIndex].semiMajorAxis;
+					celestialBodies.star[sIndex].planets[pIndex].moons[mIndex].CelestialBodyBuilder.eccentricity = celestialBodies.star[sIndex].planets[pIndex].moons[mIndex].eccentricity;
+					celestialBodies.star[sIndex].planets[pIndex].moons[mIndex].CelestialBodyBuilder.inclination = celestialBodies.star[sIndex].planets[pIndex].moons[mIndex].inclination;
+					celestialBodies.star[sIndex].planets[pIndex].moons[mIndex].CelestialBodyBuilder.moonMass = celestialBodies.star[sIndex].planets[pIndex].moons[mIndex].moonMass;
+					celestialBodies.star[sIndex].planets[pIndex].moons[mIndex].CelestialBodyBuilder.moonRadius = celestialBodies.star[sIndex].planets[pIndex].moons[mIndex].moonRadius;
 				}
 			}
 

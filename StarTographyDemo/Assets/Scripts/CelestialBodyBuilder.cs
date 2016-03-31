@@ -7,6 +7,7 @@
  */
 
 using UnityEngine;
+using System;
 using System.Collections;
 
 public class CelestialBodyBuilder : MonoBehaviour {
@@ -18,6 +19,31 @@ public class CelestialBodyBuilder : MonoBehaviour {
 	}
 
 	public CelestialBodyType celestialBodyType;
+	public string name;
+
+	// Star Variables
+	public string rightAscension;
+	public string declination;
+	public double distance;
+	public float opticalMagnitude;
+	public float temperature;
+	public double stellarMass;
+	public double stellarRadius;
+	public string dateLastUpdate;
+
+	// Planet Variables
+	public int numPlanetsInSystem;
+	public float orbitalPeriod;
+	public float semiMajorAxis;
+	public float eccentricity;
+	public float inclination;
+	public double planetMass;
+	public float planetRadius;
+
+	// Moon Variables
+	public int numMoonsInSystem;
+	public float moonMass;
+	public float moonRadius;
 
 	/* 
 	 * We need to use Start() and not Awake().  The reason for this
