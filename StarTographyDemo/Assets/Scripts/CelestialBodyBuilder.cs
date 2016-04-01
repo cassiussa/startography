@@ -66,7 +66,29 @@ public class CelestialBodyBuilder : MonoBehaviour {
 	 * started instead of started as each is loaded individually
 	 */
 	void Awake () {
-		Debug.LogError (celestialBodyType, gameObject);
+		//Debug.LogError (celestialBodyType, gameObject);
+
+		/*
+		 * The below instantiations are temporary until I can figure
+		 * out a way to instantiate them via the Editor options
+		 */
+		GameObject mesh = new GameObject("Mesh");
+		mesh.transform.parent = gameObject.transform;
+		GameObject localColliders = new GameObject ("LocalColliders");
+		localColliders.transform.parent = gameObject.transform;
+		GameObject A = new GameObject ("A");
+		GameObject B = new GameObject ("B");
+		GameObject C = new GameObject ("C");
+		GameObject D = new GameObject ("D");
+		A.transform.parent = localColliders.transform;
+		B.transform.parent = localColliders.transform;
+		C.transform.parent = localColliders.transform;
+		D.transform.parent = localColliders.transform;
+		if(celestialBodyType != CelestialBodyType.Star) {
+			GameObject trail = new GameObject ("Trail");
+			trail.transform.parent = gameObject.transform;
+		}
+
 	}
 	
 	// Update is called once per frame

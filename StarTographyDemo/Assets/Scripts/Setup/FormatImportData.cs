@@ -174,9 +174,17 @@ public class FormatImportData : MonoBehaviour {
 
 					// Assign this moon into the parent star's 'moons' array.
 					celestialBodies.star[sIndex].planets[pIndex].CelestialBodyBuilder.moons[mIndex] = celestialBodies.star[sIndex].planets[pIndex].moons[mIndex].gameObject;
+
+					// Temporary until I figure out how to get the gameObjects instantiating on enum selection
+					celestialBodies.star[sIndex].planets[pIndex].moons[mIndex].gameObject.SetActive (true);
 				}
+
+				// Temporary until I figure out how to get the gameObjects instantiating on enum selection
+				celestialBodies.star[sIndex].planets[pIndex].gameObject.SetActive (true);
 			}
 
+			// Temporary until I figure out how to get the gameObjects instantiating on enum selection
+			celestialBodies.star[sIndex].gameObject.SetActive (true);
 		}
 
 	}
