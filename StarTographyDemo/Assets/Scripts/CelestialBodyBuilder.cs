@@ -40,6 +40,8 @@ public class CelestialBodyBuilder : MonoBehaviour {
 	public float inclination;
 	public double planetMass;
 	public float planetRadius;
+	public GameObject star;
+	public GameObject planet;
 	public GameObject[] moons;
 
 	// Moon Variables

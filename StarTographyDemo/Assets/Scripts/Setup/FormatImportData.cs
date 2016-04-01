@@ -127,6 +127,9 @@ public class FormatImportData : MonoBehaviour {
 				celestialBodies.star[sIndex].planets[pIndex].CelestialBodyBuilder.planetMass = celestialBodies.star[sIndex].planets[pIndex].planetMass;
 				celestialBodies.star[sIndex].planets[pIndex].CelestialBodyBuilder.planetRadius = celestialBodies.star[sIndex].planets[pIndex].planetRadius;
 
+				// Assign the parent star into the 'star' variable of this planet
+				celestialBodies.star[sIndex].planets[pIndex].CelestialBodyBuilder.star = celestialBodies.star[sIndex].gameObject;
+
 				// Add this planet to the 'planets' array within the CelestrialBodyBuilder.cs script attached to this planet's parent star
 				celestialBodies.star[sIndex].CelestialBodyBuilder.planets[pIndex] = celestialBodies.star[sIndex].planets[pIndex].gameObject;
 
@@ -161,6 +164,10 @@ public class FormatImportData : MonoBehaviour {
 					celestialBodies.star[sIndex].planets[pIndex].moons[mIndex].CelestialBodyBuilder.inclination = celestialBodies.star[sIndex].planets[pIndex].moons[mIndex].inclination;
 					celestialBodies.star[sIndex].planets[pIndex].moons[mIndex].CelestialBodyBuilder.moonMass = celestialBodies.star[sIndex].planets[pIndex].moons[mIndex].moonMass;
 					celestialBodies.star[sIndex].planets[pIndex].moons[mIndex].CelestialBodyBuilder.moonRadius = celestialBodies.star[sIndex].planets[pIndex].moons[mIndex].moonRadius;
+
+					// Assign the parent star into the 'star' variable of this moon
+					celestialBodies.star[sIndex].planets[pIndex].moons[mIndex].CelestialBodyBuilder.star = celestialBodies.star[sIndex].gameObject;
+					celestialBodies.star[sIndex].planets[pIndex].moons[mIndex].CelestialBodyBuilder.planet = celestialBodies.star[sIndex].planets[pIndex].gameObject;
 
 					celestialBodies.star[sIndex].CelestialBodyBuilder.moons[starMoonCount] = celestialBodies.star[sIndex].planets[pIndex].moons[mIndex].gameObject;
 					starMoonCount++;

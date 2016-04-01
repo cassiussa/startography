@@ -17,6 +17,8 @@ public class CelestialBodyBuilderEditor : Editor {
 		stellarMass,
 		stellarRadius,
 		dateLastUpdate,
+		star,
+		planet,
 		planets,
 		moons,
 
@@ -46,6 +48,8 @@ public class CelestialBodyBuilderEditor : Editor {
 		stellarMass = serializedObject.FindProperty ("stellarMass");
 		stellarRadius = serializedObject.FindProperty ("stellarRadius");
 		dateLastUpdate = serializedObject.FindProperty ("dateLastUpdate");
+		star = serializedObject.FindProperty ("star");
+		planet = serializedObject.FindProperty ("planet");
 		planets = serializedObject.FindProperty ("planets");
 		moons = serializedObject.FindProperty ("moons");
 
@@ -93,6 +97,7 @@ public class CelestialBodyBuilderEditor : Editor {
 			EditorGUILayout.PropertyField(inclination, new GUIContent("inclination"), true);
 			EditorGUILayout.PropertyField(planetMass, new GUIContent("planetMass"), true);
 			EditorGUILayout.PropertyField(planetRadius, new GUIContent("planetRadius"), true);
+			EditorGUILayout.PropertyField(star, new GUIContent("star"), true);
 			EditorGUILayout.PropertyField(moons, new GUIContent("moons"), true);
 			break;
 
@@ -105,6 +110,8 @@ public class CelestialBodyBuilderEditor : Editor {
 			EditorGUILayout.PropertyField(inclination, new GUIContent("inclination"), true);
 			EditorGUILayout.PropertyField(moonMass, new GUIContent("moonMass"), true);
 			EditorGUILayout.PropertyField(moonRadius, new GUIContent("moonRadius"), true);
+			EditorGUILayout.PropertyField(star, new GUIContent("star"), true);
+			EditorGUILayout.PropertyField(planet, new GUIContent("planet"), true);
 
 			//EditorGUILayout.PropertyField(coordinates, new GUIContent("coordinates"), true);			// True boolean is to allow array
 			//EditorGUILayout.PropertyField(radius, new GUIContent("radius"), true);
