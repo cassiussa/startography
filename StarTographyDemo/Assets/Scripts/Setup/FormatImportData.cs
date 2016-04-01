@@ -87,11 +87,20 @@ public class FormatImportData : MonoBehaviour {
 			celestialBodies.star[sIndex].CelestialBodyBuilder.planets = new GameObject[celestialBodies.star[sIndex].planets.Length];
 			// Iterate over this star's planets so that we can count the total moons for the star
 			int starMoonCount = 0;
+			// Iterate through each child planet of this star
 			for(int pInd=0;pInd<celestialBodies.star[sIndex].planets.Length;pInd++) {
+				// Add the length of the 'moons' array to the starMoonCount variable
 				starMoonCount += celestialBodies.star[sIndex].planets[pInd].moons.Length;
+				/* 
+				 * Create a new array with the length of starMoonCount which adds 
+				 * all moons for each planet iteration so we get the total moons around 
+				 * all planets in this star system.
+				 */
 				celestialBodies.star[sIndex].CelestialBodyBuilder.moons = new GameObject[starMoonCount];
 			}
+			// Reset the starMoonCount variable
 			starMoonCount = 0;
+
 
 			/*
 			 * Iterate through all the Planets in the JSON file and create their
@@ -121,7 +130,8 @@ public class FormatImportData : MonoBehaviour {
 				// Add this planet to the 'planets' array within the CelestrialBodyBuilder.cs script attached to this planet's parent star
 				celestialBodies.star[sIndex].CelestialBodyBuilder.planets[pIndex] = celestialBodies.star[sIndex].planets[pIndex].gameObject;
 
-
+				int planetMoonCount = celestialBodies.star[sIndex].planets[pIndex].moons.Length;
+				celestialBodies.star[sIndex].planets[pIndex].CelestialBodyBuilder.moons = new GameObject[planetMoonCount];
 
 				/*
 				 * Iterate through all the Moons in the JSON file and create their
@@ -154,6 +164,9 @@ public class FormatImportData : MonoBehaviour {
 
 					celestialBodies.star[sIndex].CelestialBodyBuilder.moons[starMoonCount] = celestialBodies.star[sIndex].planets[pIndex].moons[mIndex].gameObject;
 					starMoonCount++;
+
+					// Assign this moon into the parent star's 'moons' array.
+					celestialBodies.star[sIndex].planets[pIndex].CelestialBodyBuilder.moons[mIndex] = celestialBodies.star[sIndex].planets[pIndex].moons[mIndex].gameObject;
 				}
 			}
 
