@@ -10,7 +10,7 @@ using UnityEngine;
 using System;
 using System.Collections;
 
-public class CelestialBodyBuilder : MonoBehaviour {
+public class CelestialBodyBuilder : Functions {
 
 	public enum CelestialBodyType {
 		Star,
@@ -42,13 +42,12 @@ public class CelestialBodyBuilder : MonoBehaviour {
 	public float inclination;
 	public double planetMass;
 	public float planetRadius;
-	[Space(20)]
+	//[Space(20)]
 	[Header("Parent star")]
 	public GameObject star;
 	[Space(20)]
 	[Header("Parent planet")]
 	public GameObject planet;
-	[Space(20)]
 	[Header("Child moons")]
 	public GameObject[] moons;
 
@@ -56,6 +55,10 @@ public class CelestialBodyBuilder : MonoBehaviour {
 	public int numMoonsInSystem;
 	public float moonMass;
 	public float moonRadius;
+
+	public Vector3d coordinates;	// The starting position in meters of this celestial body
+	public Vector3d radius;		// This measurement is in meters as opposed to relative solar, jupiter, or earth radii
+	public float luminosity;
 
 
 	/* 
@@ -107,6 +110,8 @@ public class CelestialBodyBuilder : MonoBehaviour {
 			GameObject trail = new GameObject ("Trail");
 			trail.transform.parent = gameObject.transform;
 		} else {
+			GameObject solarSystemSphere = new GameObject("Solar System Sphere");
+			solarSystemSphere.transform.parent = transform.parent;
 			for(int localCols=5;localCols<15;localCols++) {
 				GameObject go2 = new GameObject("LocalCollider"+localCols.ToString());
 				go2.transform.parent = localColliders.transform;

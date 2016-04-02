@@ -32,7 +32,11 @@ public class CelestialBodyBuilderEditor : Editor {
 
 		numMoonsInSystem,
 		moonMass,
-		moonRadius
+		moonRadius,
+
+		coordinates,
+		radius,
+		luminosity
 		;
 	
 	void OnEnable () {
@@ -68,6 +72,10 @@ public class CelestialBodyBuilderEditor : Editor {
 		moonMass = serializedObject.FindProperty ("moonMass");
 		moonRadius = serializedObject.FindProperty ("moonRadius");
 
+		coordinates = serializedObject.FindProperty ("coordinates");
+		radius = serializedObject.FindProperty ("radius");
+		luminosity = serializedObject.FindProperty ("luminosity");
+
 	}
 	
 	public override void OnInspectorGUI() {
@@ -86,6 +94,11 @@ public class CelestialBodyBuilderEditor : Editor {
 			EditorGUILayout.PropertyField(stellarMass, new GUIContent("stellarMass"), true);
 			EditorGUILayout.PropertyField(stellarRadius, new GUIContent("stellarRadius"), true);
 			EditorGUILayout.PropertyField(dateLastUpdate, new GUIContent("dateLastUpdate"), true);
+
+			EditorGUILayout.PropertyField(coordinates, new GUIContent("coordinates"), true);
+			EditorGUILayout.PropertyField(radius, new GUIContent("radius"), true);
+			EditorGUILayout.PropertyField(luminosity, new GUIContent("luminosity"), true);
+
 			EditorGUILayout.PropertyField(planets, new GUIContent("planets"), true);
 			EditorGUILayout.PropertyField(moons, new GUIContent("moons"), true);
 			break;
@@ -99,6 +112,10 @@ public class CelestialBodyBuilderEditor : Editor {
 			EditorGUILayout.PropertyField(inclination, new GUIContent("inclination"), true);
 			EditorGUILayout.PropertyField(planetMass, new GUIContent("planetMass"), true);
 			EditorGUILayout.PropertyField(planetRadius, new GUIContent("planetRadius"), true);
+
+			EditorGUILayout.PropertyField(coordinates, new GUIContent("coordinates"), true);
+			EditorGUILayout.PropertyField(radius, new GUIContent("radius"), true);
+
 			EditorGUILayout.PropertyField(star, new GUIContent("star"), true);
 			EditorGUILayout.PropertyField(moons, new GUIContent("moons"), true);
 			break;
@@ -112,6 +129,10 @@ public class CelestialBodyBuilderEditor : Editor {
 			EditorGUILayout.PropertyField(inclination, new GUIContent("inclination"), true);
 			EditorGUILayout.PropertyField(moonMass, new GUIContent("moonMass"), true);
 			EditorGUILayout.PropertyField(moonRadius, new GUIContent("moonRadius"), true);
+
+			EditorGUILayout.PropertyField(coordinates, new GUIContent("coordinates"), true);
+			EditorGUILayout.PropertyField(radius, new GUIContent("radius"), true);
+
 			EditorGUILayout.PropertyField(star, new GUIContent("star"), true);
 			EditorGUILayout.PropertyField(planet, new GUIContent("planet"), true);
 
