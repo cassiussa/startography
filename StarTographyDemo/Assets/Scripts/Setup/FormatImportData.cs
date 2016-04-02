@@ -62,7 +62,7 @@ public class FormatImportData : MonoBehaviour {
 			 */
 			celestialBodies.star[sIndex].gameObject = new GameObject();
 			celestialBodies.star[sIndex].gameObject.SetActive (false);
-			celestialBodies.star[sIndex].gameObject.name = "Star "+celestialBodies.star[sIndex].name;
+			celestialBodies.star[sIndex].gameObject.name = "[STAR] "+celestialBodies.star[sIndex].name;
 
 			/* 
 			 * Add the CelestialBodyBuilder.cs script as it will take over on building the objects.
@@ -111,7 +111,7 @@ public class FormatImportData : MonoBehaviour {
 			for(int pIndex=0;pIndex<celestialBodies.star[sIndex].planets.Length;pIndex++) {
 				celestialBodies.star[sIndex].planets[pIndex].gameObject = new GameObject();
 				celestialBodies.star[sIndex].planets[pIndex].gameObject.SetActive (false);
-				celestialBodies.star[sIndex].planets[pIndex].gameObject.name = "Star "+celestialBodies.star[sIndex].name+", Planet "+celestialBodies.star[sIndex].planets[pIndex].name;
+				celestialBodies.star[sIndex].planets[pIndex].gameObject.name = "[STAR] "+celestialBodies.star[sIndex].name+" [PLANET] "+celestialBodies.star[sIndex].planets[pIndex].name;
 
 				celestialBodies.star[sIndex].planets[pIndex].CelestialBodyBuilder = celestialBodies.star[sIndex].planets[pIndex].gameObject.AddComponent<CelestialBodyBuilder>();
 				//celestialBodies.star[sIndex].planets[pIndex].CelestialBodyBuilder.enabled = false;
@@ -145,7 +145,7 @@ public class FormatImportData : MonoBehaviour {
 				for(int mIndex=0;mIndex<celestialBodies.star[sIndex].planets[pIndex].moons.Length;mIndex++) {
 					celestialBodies.star[sIndex].planets[pIndex].moons[mIndex].gameObject = new GameObject();
 					celestialBodies.star[sIndex].planets[pIndex].moons[mIndex].gameObject.SetActive (false);
-					celestialBodies.star[sIndex].planets[pIndex].moons[mIndex].gameObject.name = "Star "+celestialBodies.star[sIndex].name+", Planet "+celestialBodies.star[sIndex].planets[pIndex].name+", Moon "+celestialBodies.star[sIndex].planets[pIndex].moons[mIndex].name;
+					celestialBodies.star[sIndex].planets[pIndex].moons[mIndex].gameObject.name = "[STAR] "+celestialBodies.star[sIndex].name+" [PLANET] "+celestialBodies.star[sIndex].planets[pIndex].name+" [MOON] "+celestialBodies.star[sIndex].planets[pIndex].moons[mIndex].name;
 
 					/*
 					 * Explanation:

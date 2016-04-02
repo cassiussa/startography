@@ -91,13 +91,16 @@ public class CelestialBodyBuilder : MonoBehaviour {
 		localColliders.transform.parent = transform;
 		localColliders.AddComponent<Rigidbody> ();
 		localColliders.rigidbody.useGravity = false;
+		localColliders.rigidbody.isKinematic = true;
 
-		float colliderRadius = 10000;
+		float colliderRadius = 0.1f;
 		for(int localCols1=1;localCols1<5;localCols1++) {
 			GameObject go1 = new GameObject("LocalCollider"+localCols1.ToString());
 			go1.transform.parent = localColliders.transform;
 			go1.AddComponent<SphereCollider>();
 			go1.collider.isTrigger = true;
+			go1.GetComponent<SphereCollider>().radius = colliderRadius;
+			colliderRadius *= 10;
 		}
 
 		if (celestialBodyType != CelestialBodyType.Star) {
@@ -105,15 +108,19 @@ public class CelestialBodyBuilder : MonoBehaviour {
 			trail.transform.parent = gameObject.transform;
 		} else {
 			for(int localCols=5;localCols<15;localCols++) {
-				GameObject go = new GameObject("LocalCollider"+localCols.ToString());
-				go.transform.parent = localColliders.transform;
+				GameObject go2 = new GameObject("LocalCollider"+localCols.ToString());
+				go2.transform.parent = localColliders.transform;
+				go2.AddComponent<SphereCollider>();
+				go2.collider.isTrigger = true;
+				go2.GetComponent<SphereCollider>().radius = colliderRadius;
+				colliderRadius *= 10;
 			}
 
 
-			GameObject markerAU = new GameObject (gameObject.name+" Marker AU");
-			GameObject markerLightHour = new GameObject (gameObject.name+" Marker Light Hour");
-			GameObject markerLightDay = new GameObject (gameObject.name+" Marker Light Day");
-			GameObject markerLightYear = new GameObject (gameObject.name+" Marker Light Year");
+			GameObject markerAU = new GameObject (gameObject.name+" [MARKER] AU");
+			GameObject markerLightHour = new GameObject (gameObject.name+" [MARKER] Light Hour");
+			GameObject markerLightDay = new GameObject (gameObject.name+" [MARKER] Light Day");
+			GameObject markerLightYear = new GameObject (gameObject.name+" [MARKER] Light Year");
 			markerAU.transform.parent = transform;
 			markerLightHour.transform.parent = transform;
 			markerLightDay.transform.parent = transform;
