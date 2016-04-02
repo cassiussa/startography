@@ -73,7 +73,7 @@ public class FormatImportData : MonoBehaviour {
 			celestialBodies.star[sIndex].CelestialBodyBuilder.celestialBodyType = CelestialBodyBuilder.CelestialBodyType.Star;
 
 			// Send the variable data to each star's CelestialBodyBuilder.cs script
-			celestialBodies.star[sIndex].CelestialBodyBuilder.name = celestialBodies.star[sIndex].name;
+			celestialBodies.star[sIndex].CelestialBodyBuilder.bodyName = celestialBodies.star[sIndex].name;
 			celestialBodies.star[sIndex].CelestialBodyBuilder.rightAscension = celestialBodies.star[sIndex].rightAscension;
 			celestialBodies.star[sIndex].CelestialBodyBuilder.declination = celestialBodies.star[sIndex].declination;
 			celestialBodies.star[sIndex].CelestialBodyBuilder.distance = celestialBodies.star[sIndex].distance;
@@ -118,7 +118,7 @@ public class FormatImportData : MonoBehaviour {
 				celestialBodies.star[sIndex].planets[pIndex].CelestialBodyBuilder.celestialBodyType = CelestialBodyBuilder.CelestialBodyType.Planet;
 
 				// Send the variable data to each planets's CelestialBodyBuilder.cs scripts
-				celestialBodies.star[sIndex].planets[pIndex].CelestialBodyBuilder.name = celestialBodies.star[sIndex].planets[pIndex].name;
+				celestialBodies.star[sIndex].planets[pIndex].CelestialBodyBuilder.bodyName = celestialBodies.star[sIndex].planets[pIndex].name;
 				celestialBodies.star[sIndex].planets[pIndex].CelestialBodyBuilder.numPlanetsInSystem = celestialBodies.star[sIndex].planets[pIndex].numPlanetsInSystem;
 				celestialBodies.star[sIndex].planets[pIndex].CelestialBodyBuilder.orbitalPeriod = celestialBodies.star[sIndex].planets[pIndex].orbitalPeriod;
 				celestialBodies.star[sIndex].planets[pIndex].CelestialBodyBuilder.semiMajorAxis = celestialBodies.star[sIndex].planets[pIndex].semiMajorAxis;
@@ -156,7 +156,7 @@ public class FormatImportData : MonoBehaviour {
 					celestialBodies.star[sIndex].planets[pIndex].moons[mIndex].CelestialBodyBuilder.celestialBodyType = CelestialBodyBuilder.CelestialBodyType.Moon;
 
 					// Send the variable data to each moon's CelestialBodyBuilder.cs scripts
-					celestialBodies.star[sIndex].planets[pIndex].moons[mIndex].CelestialBodyBuilder.name = celestialBodies.star[sIndex].planets[pIndex].moons[mIndex].name;
+					celestialBodies.star[sIndex].planets[pIndex].moons[mIndex].CelestialBodyBuilder.bodyName = celestialBodies.star[sIndex].planets[pIndex].moons[mIndex].name;
 					celestialBodies.star[sIndex].planets[pIndex].moons[mIndex].CelestialBodyBuilder.numMoonsInSystem = celestialBodies.star[sIndex].planets[pIndex].moons[mIndex].numMoonsInSystem;
 					celestialBodies.star[sIndex].planets[pIndex].moons[mIndex].CelestialBodyBuilder.orbitalPeriod = celestialBodies.star[sIndex].planets[pIndex].moons[mIndex].orbitalPeriod;
 					celestialBodies.star[sIndex].planets[pIndex].moons[mIndex].CelestialBodyBuilder.semiMajorAxis = celestialBodies.star[sIndex].planets[pIndex].moons[mIndex].semiMajorAxis;

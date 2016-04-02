@@ -19,7 +19,7 @@ public class CelestialBodyBuilder : MonoBehaviour {
 	}
 
 	public CelestialBodyType celestialBodyType;
-	public string name;
+	public string bodyName;
 
 	// Star Variables
 	public string rightAscension;
@@ -30,8 +30,10 @@ public class CelestialBodyBuilder : MonoBehaviour {
 	public double stellarMass;
 	public double stellarRadius;
 	public string dateLastUpdate;
+	[Space(20)]
+	[Header("Child planets")]
 	public GameObject[] planets;
-
+	
 	// Planet Variables
 	public int numPlanetsInSystem;
 	public float orbitalPeriod;
@@ -40,14 +42,21 @@ public class CelestialBodyBuilder : MonoBehaviour {
 	public float inclination;
 	public double planetMass;
 	public float planetRadius;
+	[Space(20)]
+	[Header("Parent star")]
 	public GameObject star;
+	[Space(20)]
+	[Header("Parent planet")]
 	public GameObject planet;
+	[Space(20)]
+	[Header("Child moons")]
 	public GameObject[] moons;
 
 	// Moon Variables
 	public int numMoonsInSystem;
 	public float moonMass;
 	public float moonRadius;
+
 
 	/* 
 	 * We need to use Start() and not Awake().  The reason for this
@@ -73,26 +82,45 @@ public class CelestialBodyBuilder : MonoBehaviour {
 		 * out a way to instantiate them via the Editor options
 		 */
 		GameObject mesh = new GameObject("Mesh");
-		mesh.transform.parent = gameObject.transform;
+		mesh.transform.parent = transform;
+		GameObject starGlow = new GameObject ("StarGlow");
+		starGlow.transform.parent = transform;
+		GameObject starGlowMain = new GameObject ("StarGlowMain");
+		starGlowMain.transform.parent = starGlow.transform;
 		GameObject localColliders = new GameObject ("LocalColliders");
-		localColliders.transform.parent = gameObject.transform;
-		GameObject A = new GameObject ("A");
-		GameObject B = new GameObject ("B");
-		GameObject C = new GameObject ("C");
-		GameObject D = new GameObject ("D");
-		A.transform.parent = localColliders.transform;
-		B.transform.parent = localColliders.transform;
-		C.transform.parent = localColliders.transform;
-		D.transform.parent = localColliders.transform;
-		if(celestialBodyType != CelestialBodyType.Star) {
+		localColliders.transform.parent = transform;
+		localColliders.AddComponent<Rigidbody> ();
+		localColliders.rigidbody.useGravity = false;
+
+		float colliderRadius = 10000;
+		for(int localCols1=1;localCols1<5;localCols1++) {
+			GameObject go1 = new GameObject("LocalCollider"+localCols1.ToString());
+			go1.transform.parent = localColliders.transform;
+			go1.AddComponent<SphereCollider>();
+			go1.collider.isTrigger = true;
+		}
+
+		if (celestialBodyType != CelestialBodyType.Star) {
 			GameObject trail = new GameObject ("Trail");
 			trail.transform.parent = gameObject.transform;
+		} else {
+			for(int localCols=5;localCols<15;localCols++) {
+				GameObject go = new GameObject("LocalCollider"+localCols.ToString());
+				go.transform.parent = localColliders.transform;
+			}
+
+
+			GameObject markerAU = new GameObject (gameObject.name+" Marker AU");
+			GameObject markerLightHour = new GameObject (gameObject.name+" Marker Light Hour");
+			GameObject markerLightDay = new GameObject (gameObject.name+" Marker Light Day");
+			GameObject markerLightYear = new GameObject (gameObject.name+" Marker Light Year");
+			markerAU.transform.parent = transform;
+			markerLightHour.transform.parent = transform;
+			markerLightDay.transform.parent = transform;
+			markerLightYear.transform.parent = transform;
 		}
 
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+
 }
+

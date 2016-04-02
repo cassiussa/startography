@@ -7,7 +7,7 @@ public class CelestialBodyBuilderEditor : Editor {
 	// create a list of new serialized items.  These can be named anything, but have been named same as variables in ObjectData.cs for simplicity
 	public SerializedProperty 
 		celestialBodyType,
-		name,
+		bodyName,
 
 		rightAscension,
 		declination,
@@ -36,9 +36,10 @@ public class CelestialBodyBuilderEditor : Editor {
 		;
 	
 	void OnEnable () {
+
 		// Setup the SerializedProperties
 		celestialBodyType = serializedObject.FindProperty("celestialBodyType");	// Assign the celestialBodyType variable into this variable by finding it in the ObjectData.cs script
-		name = serializedObject.FindProperty ("name");
+		bodyName = serializedObject.FindProperty ("bodyName");
 		// Star variable serialization
 		rightAscension = serializedObject.FindProperty ("rightAscension");
 		declination = serializedObject.FindProperty ("declination");
@@ -66,6 +67,7 @@ public class CelestialBodyBuilderEditor : Editor {
 		numMoonsInSystem = serializedObject.FindProperty ("numMoonsInSystem");
 		moonMass = serializedObject.FindProperty ("moonMass");
 		moonRadius = serializedObject.FindProperty ("moonRadius");
+
 	}
 	
 	public override void OnInspectorGUI() {
@@ -75,7 +77,7 @@ public class CelestialBodyBuilderEditor : Editor {
 		
 		switch(states) {
 		case CelestialBodyBuilder.CelestialBodyType.Star:
-			EditorGUILayout.PropertyField(name, new GUIContent("name"), true);
+			EditorGUILayout.PropertyField(bodyName, new GUIContent("bodyName"), true);
 			EditorGUILayout.PropertyField(rightAscension, new GUIContent("rightAscension"), true);		// True boolean is to allow array
 			EditorGUILayout.PropertyField(declination, new GUIContent("declination"), true);
 			EditorGUILayout.PropertyField(distance, new GUIContent("distance"), true);
@@ -89,7 +91,7 @@ public class CelestialBodyBuilderEditor : Editor {
 			break;
 
 		case CelestialBodyBuilder.CelestialBodyType.Planet:
-			EditorGUILayout.PropertyField(name, new GUIContent("name"), true);
+			EditorGUILayout.PropertyField(bodyName, new GUIContent("bodyName"), true);
 			EditorGUILayout.PropertyField(numPlanetsInSystem, new GUIContent("numPlanetsInSystem"), true);
 			EditorGUILayout.PropertyField(orbitalPeriod, new GUIContent("orbitalPeriod"), true);
 			EditorGUILayout.PropertyField(semiMajorAxis, new GUIContent("semiMajorAxis"), true);
@@ -102,7 +104,7 @@ public class CelestialBodyBuilderEditor : Editor {
 			break;
 
 		case CelestialBodyBuilder.CelestialBodyType.Moon:
-			EditorGUILayout.PropertyField(name, new GUIContent("name"), true);
+			EditorGUILayout.PropertyField(bodyName, new GUIContent("bodyName"), true);
 			EditorGUILayout.PropertyField(numMoonsInSystem, new GUIContent("numMoonsInSystem"), true);
 			EditorGUILayout.PropertyField(orbitalPeriod, new GUIContent("orbitalPeriod"), true);
 			EditorGUILayout.PropertyField(semiMajorAxis, new GUIContent("semiMajorAxis"), true);
@@ -119,5 +121,57 @@ public class CelestialBodyBuilderEditor : Editor {
 		}
 		
 		serializedObject.ApplyModifiedProperties ();
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+public class PrimativeSpawner : MonoBehaviour {
+	
+	// Active primative choice
+	public UnityEngine.PrimitiveType primativeChoice;
+	public UnityEngine.GameObject someGO;
+	
+	
+	// Spawn a primative based on the enum choice
+	public void CreateChosenPrimative() {
+		// Check what's currently active
+		// Commented out the original code
+		//GameObject newPrimative = GameObject.CreatePrimitive(primativeChoice);
+		GameObject newPrimative = new GameObject ("testing");
+	}
+}
+
+// We can use a custom  inspector  for this
+[CustomEditor(typeof(PrimativeSpawner))]
+public class PrimativeSpawnerInspector : Editor {
+	// Keep track of our current object being  inspected
+	public PrimativeSpawner spawner;
+	
+	// Replace the given inspector gui
+	public override void OnInspectorGUI() {
+		// Draw the given inspector
+		this.DrawDefaultInspector();
+		
+		// Check that it's been initialized
+		if (spawner == null)
+			spawner = this.serializedObject.targetObject as PrimativeSpawner;
+		
+		// Simple Button
+		if (GUILayout.Button("Spawn Primative"))
+			spawner.CreateChosenPrimative();
 	}
 }
