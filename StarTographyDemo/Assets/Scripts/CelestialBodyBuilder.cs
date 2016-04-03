@@ -57,8 +57,8 @@ public class CelestialBodyBuilder : MonoBehaviour {
 	public float moonMass;
 	public float moonRadius;
 
-	public Function.Vector3d coordinates;	// The starting position in meters of this celestial body
-	public Function.Vector3d radius;		// This measurement is in meters as opposed to relative solar, jupiter, or earth radii
+	public Function.Vector3d coordinates = new Function.Vector3d(0,0,0);	// The starting position in meters of this celestial body
+	public Function.Vector3d radius = new Function.Vector3d(0,0,0);		// This measurement is in meters as opposed to relative solar, jupiter, or earth radii
 	public float luminosity;
 
 
@@ -135,5 +135,10 @@ public class CelestialBodyBuilder : MonoBehaviour {
 
 	}
 
+	void Update() {
+		if (coordinates.x != 0) {
+			Debug.LogError (coordinates.x);
+		}
+	}
 }
 
