@@ -111,8 +111,20 @@ public class CelestialBodyBuilder : MonoBehaviour {
 			GameObject trail = new GameObject ("Trail");
 			trail.transform.parent = gameObject.transform;
 		} else {
-			GameObject solarSystemSphere = new GameObject("Solar System Sphere");
-			solarSystemSphere.transform.parent = transform.parent;
+			for(int solSphere=0;solSphere<2;solSphere++) {
+				GameObject solarSystemSphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);	// Create a sphere primitive
+				Destroy(solarSystemSphere.collider); 												// Remove the collider that is automatically added when we create the primitive
+				solarSystemSphere.name = "Solar System Sphere Outer";								// Name the GameObject
+				solarSystemSphere.transform.parent = transform;										// Set the parent to the Star
+				Material solMat = Resources.Load("Material/CelestialSphere") as Material;			// Get the CelestialSphere material from the 'Resources' folder
+				solarSystemSphere.renderer.material = solMat;										// Assign the material to the Material variable
+				if(solSphere == 1) {																// Check if this is the 2nd sphere so we can reverse its normals
+					solarSystemSphere.name = "Solar System Sphere Inner";							// Name the GameObject
+					solarSystemSphere.AddComponent<ReverseNormals>();								// Reverse the normals to point inwards
+				}
+			}
+
+
 			for(int localCols=5;localCols<15;localCols++) {
 				GameObject go2 = new GameObject("LocalCollider"+localCols.ToString());
 				go2.transform.parent = localColliders.transform;
