@@ -101,7 +101,7 @@ public class CelestialBodyBuilder : MonoBehaviour {
 
 		if (celestialBodyType != CelestialBodyType.Star) {
 			if(bodyName == "Earth") {
-				Material earthMaterial = Resources.Load("Material/Earth") as Material;	// Get the CelestialSphere material from the 'Resources' folder
+				Material earthMaterial = Resources.Load("Material/Earth 1") as Material;	// Get the CelestialSphere material from the 'Resources' folder
 				mesh.renderer.material = new Material(earthMaterial);
 				print ("It's earth");
 			}
