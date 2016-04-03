@@ -87,11 +87,7 @@ public class CelestialBodyBuilder : MonoBehaviour {
 		 */
 		GameObject mesh = MakeSphereMesh("Mesh", transform, false);
 
-		GameObject starGlow = new GameObject ("StarGlow");
-		starGlow.transform.parent = transform;
-		GameObject starGlowMain = new GameObject ("StarGlowMain");
-		starGlowMain.transform.parent = starGlow.transform;
-		GameObject localColliders = new GameObject ("LocalColliders");
+		GameObject localColliders = new GameObject ("Local Colliders");
 		localColliders.transform.parent = transform;
 		localColliders.AddComponent<Rigidbody> ();
 		localColliders.rigidbody.useGravity = false;
@@ -99,32 +95,46 @@ public class CelestialBodyBuilder : MonoBehaviour {
 
 		float colliderRadius = 1f;
 		for(int localCols1=1;localCols1<5;localCols1++) {
-			GameObject go1 = MakeSphereCollider("LocalCollider"+localCols1.ToString(), localColliders.transform, colliderRadius, true);
+			GameObject go1 = MakeSphereCollider("Local Collider "+localCols1.ToString(), localColliders.transform, colliderRadius, true);
 			colliderRadius *= 10;
 		}
 
 		if (celestialBodyType != CelestialBodyType.Star) {
+			if(bodyName == "Earth") {
+				Material earthMaterial = Resources.Load("Material/Earth") as Material;	// Get the CelestialSphere material from the 'Resources' folder
+				mesh.renderer.material = new Material(earthMaterial);
+				print ("It's earth");
+			}
 			GameObject trail = new GameObject ("Trail");
 			trail.transform.parent = gameObject.transform;
-		} else {
+		} else {																				// This is a star so do Star type instantiations
+			GameObject starGlow = new GameObject ("Star Glow");
+			starGlow.transform.parent = transform;
+
+			GameObject starGlowMain = new GameObject ("Main Star Glow");
+			starGlowMain.transform.parent = starGlow.transform;
+
+			GameObject solarSystemSphere = new GameObject ("Solar System Sphere");
+			solarSystemSphere.transform.parent = transform;
+
 			/*
 			 * Make the Solar Sphere for this star
 			 * and assign the necessary scripts, positions,
 			 * rotations, etc
 			 */
 			for(int solSphere=0;solSphere<4;solSphere++) {
-				GameObject solarSystemSphere = MakeSphereMesh("Solar System Sphere Outer", transform, false);
+				GameObject thisSolarSystemSphere = MakeSphereMesh("Solar System Sphere Outer", solarSystemSphere.transform, false);
 				Material celestialSphereMaterial = Resources.Load("Material/CelestialSphere") as Material;	// Get the CelestialSphere material from the 'Resources' folder
-				solarSystemSphere.renderer.material = new Material(celestialSphereMaterial);		// Assign the material to the Material variable
+				thisSolarSystemSphere.renderer.material = new Material(celestialSphereMaterial);	// Assign the material to the Material variable
 				if(solSphere == 1 || solSphere == 3) {												// Check if this is the 2nd or 4th sphere so we can reverse its normals
-					solarSystemSphere.name = "Solar System Sphere Inner";							// Name the GameObject
-					solarSystemSphere.AddComponent<ReverseNormals>();								// Reverse the normals to point inwards
+					thisSolarSystemSphere.name = "Solar System Sphere Inner";						// Name the GameObject
+					thisSolarSystemSphere.AddComponent<ReverseNormals>();							// Reverse the normals to point inwards
 				}
 			}
 
 
 			for(int localCols=5;localCols<15;localCols++) {
-				GameObject go2 = MakeSphereCollider("LocalCollider"+localCols.ToString(), localColliders.transform, colliderRadius, true);
+				GameObject go2 = MakeSphereCollider("Local Collider "+localCols.ToString(), localColliders.transform, colliderRadius, true);
 				colliderRadius *= 10;
 			}
 
