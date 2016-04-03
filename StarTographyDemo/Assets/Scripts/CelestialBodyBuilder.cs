@@ -9,8 +9,9 @@
 using UnityEngine;
 using System;
 using System.Collections;
+using Functions;
 
-public class CelestialBodyBuilder : Functions {
+public class CelestialBodyBuilder : MonoBehaviour {
 
 	public enum CelestialBodyType {
 		Star,
@@ -56,8 +57,8 @@ public class CelestialBodyBuilder : Functions {
 	public float moonMass;
 	public float moonRadius;
 
-	public Vector3d coordinates;	// The starting position in meters of this celestial body
-	public Vector3d radius;		// This measurement is in meters as opposed to relative solar, jupiter, or earth radii
+	public Function.Vector3d coordinates;	// The starting position in meters of this celestial body
+	public Function.Vector3d radius;		// This measurement is in meters as opposed to relative solar, jupiter, or earth radii
 	public float luminosity;
 
 

@@ -23,8 +23,9 @@ using System.Collections;
 using System.Text;
 using System.IO;
 using JSON;
+using Functions;
 
-public class FormatImportData : Functions {
+public class FormatImportData : MonoBehaviour {
 	[SerializeField] private CelestialBodies celestialBodies = null;
 
 	private void Start () {
