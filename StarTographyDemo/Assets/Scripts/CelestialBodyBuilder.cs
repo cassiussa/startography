@@ -85,8 +85,8 @@ public class CelestialBodyBuilder : MonoBehaviour {
 		 * The below instantiations are temporary until I can figure
 		 * out a way to instantiate them via the Editor options
 		 */
-		GameObject mesh = new GameObject("Mesh");
-		mesh.transform.parent = transform;
+		GameObject mesh = MakeSphereMesh("Mesh", transform, false);
+
 		GameObject starGlow = new GameObject ("StarGlow");
 		starGlow.transform.parent = transform;
 		GameObject starGlowMain = new GameObject ("StarGlowMain");
@@ -97,13 +97,9 @@ public class CelestialBodyBuilder : MonoBehaviour {
 		localColliders.rigidbody.useGravity = false;
 		localColliders.rigidbody.isKinematic = true;
 
-		float colliderRadius = 0.1f;
+		float colliderRadius = 1f;
 		for(int localCols1=1;localCols1<5;localCols1++) {
-			GameObject go1 = new GameObject("LocalCollider"+localCols1.ToString());
-			go1.transform.parent = localColliders.transform;
-			go1.AddComponent<SphereCollider>();
-			go1.collider.isTrigger = true;
-			go1.GetComponent<SphereCollider>().radius = colliderRadius;
+			GameObject go1 = MakeSphereCollider("LocalCollider"+localCols1.ToString(), localColliders.transform, colliderRadius, true);
 			colliderRadius *= 10;
 		}
 
@@ -111,14 +107,16 @@ public class CelestialBodyBuilder : MonoBehaviour {
 			GameObject trail = new GameObject ("Trail");
 			trail.transform.parent = gameObject.transform;
 		} else {
-			for(int solSphere=0;solSphere<2;solSphere++) {
-				GameObject solarSystemSphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);	// Create a sphere primitive
-				Destroy(solarSystemSphere.collider); 												// Remove the collider that is automatically added when we create the primitive
-				solarSystemSphere.name = "Solar System Sphere Outer";								// Name the GameObject
-				solarSystemSphere.transform.parent = transform;										// Set the parent to the Star
-				Material solMat = Resources.Load("Material/CelestialSphere") as Material;			// Get the CelestialSphere material from the 'Resources' folder
-				solarSystemSphere.renderer.material = solMat;										// Assign the material to the Material variable
-				if(solSphere == 1) {																// Check if this is the 2nd sphere so we can reverse its normals
+			/*
+			 * Make the Solar Sphere for this star
+			 * and assign the necessary scripts, positions,
+			 * rotations, etc
+			 */
+			for(int solSphere=0;solSphere<4;solSphere++) {
+				GameObject solarSystemSphere = MakeSphereMesh("Solar System Sphere Outer", transform, false);
+				Material celestialSphereMaterial = Resources.Load("Material/CelestialSphere") as Material;	// Get the CelestialSphere material from the 'Resources' folder
+				solarSystemSphere.renderer.material = new Material(celestialSphereMaterial);		// Assign the material to the Material variable
+				if(solSphere == 1 || solSphere == 3) {												// Check if this is the 2nd or 4th sphere so we can reverse its normals
 					solarSystemSphere.name = "Solar System Sphere Inner";							// Name the GameObject
 					solarSystemSphere.AddComponent<ReverseNormals>();								// Reverse the normals to point inwards
 				}
@@ -126,11 +124,7 @@ public class CelestialBodyBuilder : MonoBehaviour {
 
 
 			for(int localCols=5;localCols<15;localCols++) {
-				GameObject go2 = new GameObject("LocalCollider"+localCols.ToString());
-				go2.transform.parent = localColliders.transform;
-				go2.AddComponent<SphereCollider>();
-				go2.collider.isTrigger = true;
-				go2.GetComponent<SphereCollider>().radius = colliderRadius;
+				GameObject go2 = MakeSphereCollider("LocalCollider"+localCols.ToString(), localColliders.transform, colliderRadius, true);
 				colliderRadius *= 10;
 			}
 
@@ -147,6 +141,28 @@ public class CelestialBodyBuilder : MonoBehaviour {
 
 	}
 
+	public GameObject MakeSphereCollider(string name, Transform parent, float radius, bool isTrigger) {
+		GameObject go = new GameObject(name);
+		go.transform.parent = parent;
+		go.AddComponent<SphereCollider>();
+		go.collider.isTrigger = isTrigger;
+		go.GetComponent<SphereCollider>().radius = radius;
+		return go.gameObject;
+	}
+	public GameObject MakeSphereMesh(string name, Transform parent, bool hasCollider) {
+		GameObject mesh = GameObject.CreatePrimitive(PrimitiveType.Sphere);				// Create a sphere primitive
+		if(hasCollider == false)														// Check if this gameObject should have a collider or not
+			Destroy (mesh.collider);													// Remove the collider that is automatically added when we create the primitive
+		mesh.name = name;																// Name the gameObject
+		mesh.transform.parent = parent;													// Assign the parent of this GameObject
+		Mesh meshSphere = (Mesh)Resources.Load("Mesh/Planet-10000-kms",typeof(Mesh));	// Get the pre-made mesh
+		mesh.GetComponent<MeshFilter>().mesh = meshSphere;								// Assign the mesh from Resources to the gameObject
+		Quaternion newRot = new Quaternion();											// Set up a temporary Quaternion to build the new rotation
+		newRot.eulerAngles = new Vector3(-90,0,0);										// Reset the rotation as this was from Blender
+		mesh.transform.localRotation = newRot;											// Set the rotation of the star
+		return mesh.gameObject;															// Send the gameObject return
+	}
+	
 	void Update() {
 		if (coordinates.x != 0) {
 			Debug.LogError (coordinates.x);
