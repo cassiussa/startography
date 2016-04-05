@@ -57,8 +57,8 @@ public class CelestialBodyBuilder : MonoBehaviour {
 	public float moonMass;
 	public float moonRadius;
 
-	public Function.Vector3d coordinates = new Function.Vector3d(0,0,0);	// The starting position in meters of this celestial body
-	public Function.Vector3d radius = new Function.Vector3d(0,0,0);		// This measurement is in meters as opposed to relative solar, jupiter, or earth radii
+	public Vector3d coordinates = new Vector3d(0,0,0);	// The starting position in meters of this celestial body
+	public Vector3d radius = new Vector3d(0,0,0);		// This measurement is in meters as opposed to relative solar, jupiter, or earth radii
 	public float luminosity;
 
 
@@ -172,11 +172,16 @@ public class CelestialBodyBuilder : MonoBehaviour {
 		mesh.transform.localRotation = newRot;											// Set the rotation of the star
 		return mesh.gameObject;															// Send the gameObject return
 	}
-	
+
+	public Vector3d vec = new Vector3d(1,1,1);
 	void Update() {
 		if (coordinates.x != 0) {
 			Debug.LogError (coordinates.x);
 		}
+
+		//vec = vec + new Vector3d (2, 2, 2);
+		//print (vec.x+","+vec.y+","+vec.z);
+		// We can now add two Vector3d values together more easily.
 	}
 }
 

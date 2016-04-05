@@ -11,6 +11,48 @@ using Globals;
  * and other things
  */
 namespace Functions {
+
+	[System.Serializable]
+	public struct Vector3d {
+		/*
+			 * Create a new Type.  Vector3 double.
+			 * 
+			 * Parameters
+			 * ----------
+			 * x : x coordinate double
+			 * y : y coordinate double
+			 * z : z coordinate double
+			 * 
+			 * Returns
+			 * -------
+			 * Coordinates : x,y,z - all doubles
+			 * Stores a Vector that contains doubles instead of floats for higher accuracy
+			*/
+		public double x;
+		public double y;
+		public double z;
+		
+		public Vector3d(double xc, double yc, double zc) {
+			x = xc;
+			y = yc;
+			z = zc;
+		}
+		
+		public Vector3d(Vector3d v3d) {
+			x = v3d.x;
+			y = v3d.y;
+			z = v3d.z;
+		}
+		
+		public static Vector3d operator +(Vector3d first, Vector3d second) {
+			return new Vector3d(first.x + second.x, first.y + second.y, first.z + second.z);
+		}
+		
+		
+	}
+
+
+
 	public class Function : MonoBehaviour {
 
 		void Start() {
@@ -361,40 +403,7 @@ namespace Functions {
 			return result;
 		}
 		
-		[System.Serializable]
-		public class Vector3d {
-			/*
-			 * Create a new Type.  Vector3 double.
-			 * 
-			 * Parameters
-			 * ----------
-			 * x : x coordinate double
-			 * y : y coordinate double
-			 * z : z coordinate double
-			 * 
-			 * Returns
-			 * -------
-			 * Coordinates : x,y,z - all doubles
-			 * Stores a Vector that contains doubles instead of floats for higher accuracy
-			*/
-			public double x;
-			public double y;
-			public double z;
 
-			// Constructor
-			public Vector3d() {
-				x = 0;
-				y = 0;
-				z = 0;
-			}
-
-			public Vector3d(double xc, double yc, double zc) {
-				x = xc;
-				y = yc;
-				z = zc;
-			}
-		}
-		
 
 		// Make these variables, when public, available in the inspector
 		[System.Serializable]
