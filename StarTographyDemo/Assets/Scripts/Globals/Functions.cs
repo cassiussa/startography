@@ -47,12 +47,129 @@ namespace Functions {
 		public static Vector3d operator +(Vector3d first, Vector3d second) {
 			return new Vector3d(first.x + second.x, first.y + second.y, first.z + second.z);
 		}
+
+		public static Vector3d operator -(Vector3d first, Vector3d second) {
+			return new Vector3d(first.x - second.x, first.y - second.y, first.z - second.z);
+		}
+
+		// Multiply by a Vector3d
+		public static Vector3d operator *(Vector3d first, Vector3d second) {
+			return new Vector3d(first.x * second.x, first.y * second.y, first.z * second.z);
+		}
 		
+		// Multiply by a scalar
+		public static Vector3d operator *(double scalar, Vector3d vector3d) {
+			return new Vector3d(scalar * vector3d.x, scalar * vector3d.y, scalar * vector3d.z);
+		}
 		
+		// Multiply by a scalar
+		public static Vector3d operator *(Vector3d vector3d, double scalar) {
+			return new Vector3d(scalar * vector3d.x, scalar * vector3d.y, scalar * vector3d.z);
+		}
+
+		// Divide by a Vector3d
+		public static Vector3d operator /(Vector3d first, Vector3d second) {
+			return new Vector3d(first.x / second.x, first.y / second.y, first.z / second.z);
+		}
+		
+		// Divide by a scalar
+		public static Vector3d operator /(double scalar, Vector3d vector3d) {
+			return new Vector3d(scalar / vector3d.x, scalar / vector3d.y, scalar / vector3d.z);
+		}
+		
+		// Divide by a scalar
+		public static Vector3d operator /(Vector3d vector3d, double scalar) {
+			return new Vector3d(scalar / vector3d.x, scalar / vector3d.y, scalar / vector3d.z);
+		}
+
+		// Distance between two Vector3d
+		public static double Distance(Vector3d first, Vector3d second) {
+			Vector3d difference = new Vector3d(second - first);
+			Vector3d squared = new Vector3d (difference * difference);
+			double result = System.Math.Sqrt(squared.x+squared.y+squared.z);
+			return result;
+		}
+
+		// Comparison of two Vector3d (this checks their values instead of checking if it's literally the same variable/item
+		public static bool operator ==(Vector3d first, Vector3d second) {
+			return (first.x == second.x && first.y == second.y && first.z == second.z);
+		}
+
+		// Comparison of two Vector3d (this checks their values instead of checking if it's literally the same variable/item
+		public static bool operator !=(Vector3d first, Vector3d second) {
+			return (first.x != second.x || first.y != second.y || first.z != second.z);
+		}
+
+		public static Vector3d Empty() {
+			return new Vector3d(0,0,0);
+		}
+
+		public static Vector3d Zero() {
+			return new Vector3d(0,0,0);
+		}
+
+		public double Length() {
+			return System.Math.Sqrt(x*x + y*y + z*z);
+		}
+
+		public Vector3 toV3() {
+			Vector3 result = new Vector3( (float)x, (float)y, (float)z );
+			return result;
+		}
+
+		public void Normalize() {
+			double length = this.Length();
+			if (length != 0) {
+				x /= length;
+				y /= length;
+				z /= length;
+			}
+		}
+
+		public static double Dot(Vector3d first, Vector3d second) {
+			return first.x * second.x + first.y * second.y + first.z * second.z;
+		}
+
+		// The parameter 'amount' is clamped to the range [0, 1].
+		public static Vector3d Lerp(Vector3d first, Vector3d second, double amount) {
+			return new Vector3d(first.x * (1.0 - amount) + second.x * amount, first.y * (1.0 - amount) + second.y * amount, first.z * (1.0 - amount) + second.z * amount);
+		}
+
+		public static Vector3d Midpoint(Vector3d first, Vector3d second) {
+			//Vector3d halved = new Vector3d((first.x * 0.5) + (second.x * 0.5), (first.y * 0.5) + (second.y * 0.5), (first.z * 0.5) + (second.z * 0.5));
+			Vector3d halved = new Vector3d((first.x + second.x) / 2, (first.y + second.y) / 2, (first.z + second.z) / 2);
+			halved.Normalize();
+			return halved;
+		}
+
+		// The parameter 'amount' is clamped to the range [0, 1].
+		public static Vector3d Slerp(Vector3d first, Vector3d second, double amount) {
+			double dot = Dot(first, second);
+			while (dot < .98) {
+				Vector3d middle = Midpoint(first, second);
+				if (amount > 0.5) {
+					first = middle;
+					amount -= 0.5;
+					amount *= 2;
+				} else {
+					second = middle;
+					amount *= 2;
+				}
+				dot = Dot(first, second);
+			}
+			
+			Vector3d cur = Lerp(first, second, amount);
+			cur.Normalize();
+			return cur;
+		}
+
+
+
+
 	}
 
 
-
+		
 	public class Function : MonoBehaviour {
 
 		void Start() {
@@ -194,11 +311,6 @@ namespace Functions {
 			double dist = 2.0d*System.Math.Asin( System.Math.Sqrt( System.Math.Pow(System.Math.Sin(lattitude/2.0d), 2d) + System.Math.Cos(dec1*Global.PI/180d)*System.Math.Cos(dec2*Global.PI/180d)*System.Math.Pow(System.Math.Sin(longitude/2.0d),2d) ) );
 			
 			double result = dist/Global.PI*180d;
-			return result;
-		}
-		
-		protected Vector3 V3dToV3(Vector3d vector) {
-			Vector3 result = new Vector3( (float)vector.x, (float)vector.y, (float)vector.z );
 			return result;
 		}
 		
@@ -437,25 +549,6 @@ namespace Functions {
 			public String3d() { x = "0"; y = "0"; z = "0"; }
 		}
 
-
-
-		protected double v3dDistance(Vector3d first, Vector3d second) {
-			/*
-			 * Calculate the distance between two Vector3d positions
-			 */
-			double dx = first.x - second.x;
-			double dy = first.y - second.y;
-			double dz = first.z - second.z;
-			double distance;
-
-			if (Math.Abs (dx) + Math.Abs (dy) + Math.Abs (dz) != 0d) {
-				distance = System.Math.Sqrt (dx * dx + dy * dy + dz * dz);
-			} else {
-				distance = 0d;
-			}
-			return distance;
-
-		}
 
 		public Vector3 ScalePosDiff(double value, Vector3d position) {
 			/*
