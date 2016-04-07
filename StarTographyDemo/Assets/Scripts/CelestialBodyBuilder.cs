@@ -173,13 +173,13 @@ public class CelestialBodyBuilder : MonoBehaviour {
 		return mesh.gameObject;															// Send the gameObject return
 	}
 
-	public Vector3d vec = new Vector3d(0,0,0);
+	public Vector3d vec = new Vector3d(10,20,30);
 	public Vector3d vec2 = new Vector3d(4,4,4);
 	void Update() {
 		if (coordinates.x != 0) {
 			Debug.LogError (coordinates.x);
 		}
-		print (Vector3d.Distance(vec, vec2));
+		print (vec.Scale(0.5).x);
 		// We can now add two Vector3d values together more easily.
 	}
 }
