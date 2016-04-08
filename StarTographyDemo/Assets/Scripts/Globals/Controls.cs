@@ -34,7 +34,7 @@ public class Controls : MonoBehaviour {
 		} else {
 			speed = 10000000;
 		}
-		if (enableScroll == true) {
+		if (enableScroll) {
 			double timeSpeed = Input.GetAxis ("Mouse ScrollWheel") * speed;
 			timeSpeed *= Time.deltaTime;
 			//simulationSpeed.simulationSpeed = Mathf.Clamp (simulationSpeed.simulationSpeed + timeSpeed, 1, 30000000);

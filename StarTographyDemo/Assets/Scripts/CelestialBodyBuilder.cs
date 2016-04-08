@@ -32,6 +32,9 @@ public class CelestialBodyBuilder : MonoBehaviour {
 	public double stellarRadius;
 	public string dateLastUpdate;
 	[Space(20)]
+	[Header("Child Bodies")]
+	public GameObject[] bodies;
+	[Space(20)]
 	[Header("Child planets")]
 	public GameObject[] planets;
 	
@@ -81,6 +84,8 @@ public class CelestialBodyBuilder : MonoBehaviour {
 	void Awake () {
 		//Debug.LogError (celestialBodyType, gameObject);
 
+		gameObject.AddComponent<Position> ();						// The position data for this celestial gameObject
+
 		/*
 		 * The below instantiations are temporary until I can figure
 		 * out a way to instantiate them via the Editor options
@@ -99,7 +104,10 @@ public class CelestialBodyBuilder : MonoBehaviour {
 			colliderRadius *= 10;
 		}
 
+		// If the celestial object is something other than a Star
 		if (celestialBodyType != CelestialBodyType.Star) {
+			// Update the parent Star's positions array
+			//star.GetComponent<>();
 			if(bodyName == "Earth") {
 				Material earthMaterial = Resources.Load("Material/Earth 1") as Material;	// Get the CelestialSphere material from the 'Resources' folder
 				mesh.renderer.material = new Material(earthMaterial);
@@ -161,7 +169,7 @@ public class CelestialBodyBuilder : MonoBehaviour {
 	}
 	public GameObject MakeSphereMesh(string name, Transform parent, bool hasCollider) {
 		GameObject mesh = GameObject.CreatePrimitive(PrimitiveType.Sphere);				// Create a sphere primitive
-		if(hasCollider == false)														// Check if this gameObject should have a collider or not
+		if(!hasCollider)																// Check if this gameObject should have a collider or not
 			Destroy (mesh.collider);													// Remove the collider that is automatically added when we create the primitive
 		mesh.name = name;																// Name the gameObject
 		mesh.transform.parent = parent;													// Assign the parent of this GameObject
@@ -179,7 +187,7 @@ public class CelestialBodyBuilder : MonoBehaviour {
 		if (coordinates.x != 0) {
 			Debug.LogError (coordinates.x);
 		}
-		print (vec.Scale(0.5).x);
+		//print (vec.Scale(0.5).x);
 		// We can now add two Vector3d values together more easily.
 	}
 }

@@ -100,6 +100,7 @@ namespace Functions {
 			return (first.x != second.x || first.y != second.y || first.z != second.z);
 		}
 
+
 		// Reset the Vector3d variable to zeros
 		public static Vector3d Empty() {
 			return new Vector3d(0,0,0);

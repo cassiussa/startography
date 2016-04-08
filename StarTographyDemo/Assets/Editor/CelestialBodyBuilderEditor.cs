@@ -19,6 +19,7 @@ public class CelestialBodyBuilderEditor : Editor {
 		dateLastUpdate,
 		star,
 		planet,
+		bodies,
 		planets,
 		moons,
 
@@ -55,6 +56,7 @@ public class CelestialBodyBuilderEditor : Editor {
 		dateLastUpdate = serializedObject.FindProperty ("dateLastUpdate");
 		star = serializedObject.FindProperty ("star");
 		planet = serializedObject.FindProperty ("planet");
+		bodies = serializedObject.FindProperty ("bodies");
 		planets = serializedObject.FindProperty ("planets");
 		moons = serializedObject.FindProperty ("moons");
 
@@ -99,6 +101,7 @@ public class CelestialBodyBuilderEditor : Editor {
 			EditorGUILayout.PropertyField(radius, new GUIContent("radius"), true);
 			EditorGUILayout.PropertyField(luminosity, new GUIContent("luminosity"), true);
 
+			EditorGUILayout.PropertyField(bodies, new GUIContent("bodies"), true);
 			EditorGUILayout.PropertyField(planets, new GUIContent("planets"), true);
 			EditorGUILayout.PropertyField(moons, new GUIContent("moons"), true);
 			break;

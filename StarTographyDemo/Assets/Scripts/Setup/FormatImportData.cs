@@ -184,6 +184,29 @@ public class FormatImportData : MonoBehaviour {
 				celestialBodies.star[sIndex].planets[pIndex].gameObject.SetActive (true);
 			}
 
+
+			/* 
+			 * Add all the planets and moons of this system into an array attached to the parent Star.
+			 * This will be sent to the camera when the current Star system is the active (closest) one
+			 * so that the camera can then iterate over each item, one per Update() to see which is the
+			 * closest to the sun.  Calculating their distance is expensive, so we want to streamline
+			 * the process
+			 */
+			// Get the size of the array based on the number of Planets plus the number of Moons in this star system
+			int bodyArraySize = celestialBodies.star[sIndex].CelestialBodyBuilder.planets.Length + celestialBodies.star[sIndex].CelestialBodyBuilder.moons.Length;
+			// Create the array at the appropriate index size
+			celestialBodies.star[sIndex].CelestialBodyBuilder.bodies = new GameObject[bodyArraySize];
+			// Iterate over each of the planets and add them individually intot he new array
+			for(int planetIndex = 0; planetIndex < celestialBodies.star[sIndex].CelestialBodyBuilder.planets.Length; planetIndex++) {
+				celestialBodies.star[sIndex].CelestialBodyBuilder.bodies[planetIndex] = celestialBodies.star[sIndex].CelestialBodyBuilder.planets[planetIndex];
+			}
+			// Add the first moon into the index after the last planet
+			int planetIndexSize = celestialBodies.star[sIndex].CelestialBodyBuilder.planets.Length;
+			for(int moonIndex = 0; moonIndex < celestialBodies.star[sIndex].CelestialBodyBuilder.moons.Length; moonIndex++) {
+				celestialBodies.star[sIndex].CelestialBodyBuilder.bodies[planetIndexSize+moonIndex] = celestialBodies.star[sIndex].CelestialBodyBuilder.moons[moonIndex];
+			}
+
+
 			// Temporary until I figure out how to get the gameObjects instantiating on enum selection
 			celestialBodies.star[sIndex].gameObject.SetActive (true);
 		}
