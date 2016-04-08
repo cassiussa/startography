@@ -11,7 +11,7 @@ using Globals;
  * and other things
  */
 namespace Functions {
-
+	
 	[System.Serializable]
 	public struct Vector3d {
 		/*
@@ -191,6 +191,20 @@ namespace Functions {
 
 		
 	public class Function : MonoBehaviour {
+
+		public static GameObject MakeSphereMesh(string name, Transform parent, bool hasCollider) {
+			GameObject mesh = GameObject.CreatePrimitive(PrimitiveType.Sphere);				// Create a sphere primitive
+			if(!hasCollider)																// Check if this gameObject should have a collider or not
+				Destroy (mesh.collider);													// Remove the collider that is automatically added when we create the primitive
+			mesh.name = name;																// Name the gameObject
+			mesh.transform.parent = parent;													// Assign the parent of this GameObject
+			Mesh meshSphere = (Mesh)Resources.Load("Mesh/Planet-10000-kms",typeof(Mesh));	// Get the pre-made mesh
+			mesh.GetComponent<MeshFilter>().mesh = meshSphere;								// Assign the mesh from Resources to the gameObject
+			Quaternion newRot = new Quaternion();											// Set up a temporary Quaternion to build the new rotation
+			newRot.eulerAngles = new Vector3(-90,0,0);										// Reset the rotation as this was from Blender
+			mesh.transform.localRotation = newRot;											// Set the rotation of the star
+			return mesh.gameObject;															// Send the gameObject return
+		}
 
 		void Start() {
 			ConvertDistanceStart();

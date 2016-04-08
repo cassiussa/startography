@@ -95,7 +95,7 @@ public class CelestialBodyBuilder : MonoBehaviour {
 		 * The below instantiations are temporary until I can figure
 		 * out a way to instantiate them via the Editor options
 		 */
-		GameObject mesh = MakeSphereMesh("Mesh", transform, false);
+		GameObject mesh = Function.MakeSphereMesh("Mesh", transform, false);
 
 
 		// If the celestial object is something other than a Star
@@ -142,7 +142,7 @@ public class CelestialBodyBuilder : MonoBehaviour {
 			 * rotations, etc
 			 */
 			for(int solSphere=0;solSphere<4;solSphere++) {
-				GameObject thisSolarSystemSphere = MakeSphereMesh("Solar System Sphere Outer", solarSystemSphere.transform, false);
+				GameObject thisSolarSystemSphere = Function.MakeSphereMesh("Solar System Sphere Outer", solarSystemSphere.transform, false);
 				Material celestialSphereMaterial = Resources.Load("Material/CelestialSphere") as Material;	// Get the CelestialSphere material from the 'Resources' folder
 				thisSolarSystemSphere.renderer.material = new Material(celestialSphereMaterial);	// Assign the material to the Material variable
 				if(solSphere == 1 || solSphere == 3) {												// Check if this is the 2nd or 4th sphere so we can reverse its normals
@@ -178,19 +178,7 @@ public class CelestialBodyBuilder : MonoBehaviour {
 		go.GetComponent<SphereCollider>().radius = radius;
 		return go.gameObject;
 	}
-	public GameObject MakeSphereMesh(string name, Transform parent, bool hasCollider) {
-		GameObject mesh = GameObject.CreatePrimitive(PrimitiveType.Sphere);				// Create a sphere primitive
-		if(!hasCollider)																// Check if this gameObject should have a collider or not
-			Destroy (mesh.collider);													// Remove the collider that is automatically added when we create the primitive
-		mesh.name = name;																// Name the gameObject
-		mesh.transform.parent = parent;													// Assign the parent of this GameObject
-		Mesh meshSphere = (Mesh)Resources.Load("Mesh/Planet-10000-kms",typeof(Mesh));	// Get the pre-made mesh
-		mesh.GetComponent<MeshFilter>().mesh = meshSphere;								// Assign the mesh from Resources to the gameObject
-		Quaternion newRot = new Quaternion();											// Set up a temporary Quaternion to build the new rotation
-		newRot.eulerAngles = new Vector3(-90,0,0);										// Reset the rotation as this was from Blender
-		mesh.transform.localRotation = newRot;											// Set the rotation of the star
-		return mesh.gameObject;															// Send the gameObject return
-	}
+
 
 	public Vector3d vec = new Vector3d(10,20,30);
 	public Vector3d vec2 = new Vector3d(4,4,4);

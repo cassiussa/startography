@@ -26,6 +26,7 @@ public class BuildCamera : MonoBehaviour {
 			// Set the clear flags to clear on all layers except for the farthest camera downt he layer list
 			if(i == 10) {
 				cam.clearFlags = CameraClearFlags.Skybox;			// this is the farthest camera so set the Skybox
+				cam.backgroundColor = new Color(0,0,0);
 			} else {
 				cam.clearFlags = CameraClearFlags.Depth;			// Make sure we can see past this camera's maximum distance
 			}
