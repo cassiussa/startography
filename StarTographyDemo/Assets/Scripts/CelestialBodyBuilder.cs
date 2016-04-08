@@ -92,30 +92,35 @@ public class CelestialBodyBuilder : MonoBehaviour {
 		 */
 		GameObject mesh = MakeSphereMesh("Mesh", transform, false);
 
-		GameObject localColliders = new GameObject ("Local Colliders");
-		localColliders.transform.parent = transform;
-		localColliders.AddComponent<Rigidbody> ();
-		localColliders.rigidbody.useGravity = false;
-		localColliders.rigidbody.isKinematic = true;
-
-		float colliderRadius = 1f;
-		for(int localCols1=1;localCols1<5;localCols1++) {
-			GameObject go1 = MakeSphereCollider("Local Collider "+localCols1.ToString(), localColliders.transform, colliderRadius, true);
-			colliderRadius *= 10;
-		}
 
 		// If the celestial object is something other than a Star
 		if (celestialBodyType != CelestialBodyType.Star) {
-			// Update the parent Star's positions array
-			//star.GetComponent<>();
+			/* 
+			 * Create a new collider gameObject that doesn't have a trigger. This
+			 * will be used to make sure that the viewer doesn't end up inside
+			 * a celestial body
+			 */
+			GameObject go1 = MakeSphereCollider("Local Hard Collider", transform, 0.75f, false);
+
 			if(bodyName == "Earth") {
-				Material earthMaterial = Resources.Load("Material/Earth 1") as Material;	// Get the CelestialSphere material from the 'Resources' folder
+				Material earthMaterial = Resources.Load("Material/Earth 1") as Material;		// Get the CelestialSphere material from the 'Resources' folder
 				mesh.renderer.material = new Material(earthMaterial);
 				print ("It's earth");
 			}
 			GameObject trail = new GameObject ("Trail");
 			trail.transform.parent = gameObject.transform;
 		} else {																				// This is a star so do Star type instantiations
+			/*
+			 * DistanceArrays are attached to Stars.  It holds onto the local solar
+			 * system's last known celestial body positions
+			 */
+			gameObject.AddComponent<DistanceArrays> ();
+
+			GameObject localColliders = new GameObject ("Local Colliders");						// Create the star's collider parent
+			localColliders.transform.parent = transform;
+			localColliders.AddComponent<Rigidbody> ();											// Add the rigidbody to the collider parent
+			localColliders.rigidbody.useGravity = false;										// We don't want to use gravity
+			localColliders.rigidbody.isKinematic = true;										// Set it as Kinematic
 			GameObject starGlow = new GameObject ("Star Glow");
 			starGlow.transform.parent = transform;
 
@@ -140,8 +145,8 @@ public class CelestialBodyBuilder : MonoBehaviour {
 				}
 			}
 
-
-			for(int localCols=5;localCols<15;localCols++) {
+			float colliderRadius = 1f;
+			for(int localCols=0;localCols<15;localCols++) {
 				GameObject go2 = MakeSphereCollider("Local Collider "+localCols.ToString(), localColliders.transform, colliderRadius, true);
 				colliderRadius *= 10;
 			}
