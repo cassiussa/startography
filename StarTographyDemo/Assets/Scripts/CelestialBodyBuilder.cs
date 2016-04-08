@@ -34,6 +34,9 @@ public class CelestialBodyBuilder : MonoBehaviour {
 	[Space(20)]
 	[Header("Child Bodies")]
 	public GameObject[] bodies;
+	public Position[] positionScripts;
+	public Vector3d[] realPositions;
+	public Vector3d[] relativePositions;
 	[Space(20)]
 	[Header("Child planets")]
 	public GameObject[] planets;
@@ -84,7 +87,7 @@ public class CelestialBodyBuilder : MonoBehaviour {
 	void Awake () {
 		//Debug.LogError (celestialBodyType, gameObject);
 
-		gameObject.AddComponent<Position> ();						// The position data for this celestial gameObject
+		//gameObject.AddComponent<Position> ();						// The position data for this celestial gameObject
 
 		/*
 		 * The below instantiations are temporary until I can figure

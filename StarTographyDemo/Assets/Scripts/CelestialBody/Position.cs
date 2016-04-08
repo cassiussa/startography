@@ -17,8 +17,9 @@ public class Position : MonoBehaviour {
 	 * realPosition and relativePosition have the same values (though not
 	 * literally the same variable reference) at the start of the simulation
 	 */
-	public Vector3d realPosition;
-	public Vector3d relativePosition;
+	public Vector3d realPosition = new Vector3d(1,0,0);
+	public Vector3d relativePosition = new Vector3d(2,0,0);
+	Vector3d cachedRelativePosition = new Vector3d(3,0,0);
 
 	void Awake() {
 		/*
@@ -26,16 +27,18 @@ public class Position : MonoBehaviour {
 		 * so that we can immediately calculate the closest planet or moon, if that
 		 * applies
 		 */
-		relativePosition = new Vector3d(realPosition);
+		//relativePosition = realPosition;
+		//relativePosition = new Vector3d(realPosition);
+		//cachedRelativePosition = new Vector3d (relativePosition);
 	}
 
 	// Use this for initialization
 	void Start () {
-	
+
 	}
 	
 	// Update is called once per frame
 	void Update () {
-	
+		
 	}
 }

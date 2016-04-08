@@ -196,14 +196,22 @@ public class FormatImportData : MonoBehaviour {
 			int bodyArraySize = celestialBodies.star[sIndex].CelestialBodyBuilder.planets.Length + celestialBodies.star[sIndex].CelestialBodyBuilder.moons.Length;
 			// Create the array at the appropriate index size
 			celestialBodies.star[sIndex].CelestialBodyBuilder.bodies = new GameObject[bodyArraySize];
-			// Iterate over each of the planets and add them individually intot he new array
+			celestialBodies.star[sIndex].CelestialBodyBuilder.positionScripts = new Position[bodyArraySize];
+			celestialBodies.star[sIndex].CelestialBodyBuilder.realPositions = new Vector3d[bodyArraySize];
+			celestialBodies.star[sIndex].CelestialBodyBuilder.relativePositions = new Vector3d[bodyArraySize];
+			// Iterate over each of the planets and add them individually into the new array
 			for(int planetIndex = 0; planetIndex < celestialBodies.star[sIndex].CelestialBodyBuilder.planets.Length; planetIndex++) {
 				celestialBodies.star[sIndex].CelestialBodyBuilder.bodies[planetIndex] = celestialBodies.star[sIndex].CelestialBodyBuilder.planets[planetIndex];
+				celestialBodies.star[sIndex].CelestialBodyBuilder.positionScripts[planetIndex] = celestialBodies.star[sIndex].CelestialBodyBuilder.planets[planetIndex].gameObject.AddComponent<Position>();
+				celestialBodies.star[sIndex].CelestialBodyBuilder.realPositions[planetIndex] = celestialBodies.star[sIndex].CelestialBodyBuilder.planets[planetIndex].gameObject.GetComponent<Position>().realPosition;
+				celestialBodies.star[sIndex].CelestialBodyBuilder.relativePositions[planetIndex] = celestialBodies.star[sIndex].CelestialBodyBuilder.planets[planetIndex].gameObject.GetComponent<Position>().relativePosition;
+
 			}
 			// Add the first moon into the index after the last planet
 			int planetIndexSize = celestialBodies.star[sIndex].CelestialBodyBuilder.planets.Length;
 			for(int moonIndex = 0; moonIndex < celestialBodies.star[sIndex].CelestialBodyBuilder.moons.Length; moonIndex++) {
 				celestialBodies.star[sIndex].CelestialBodyBuilder.bodies[planetIndexSize+moonIndex] = celestialBodies.star[sIndex].CelestialBodyBuilder.moons[moonIndex];
+				celestialBodies.star[sIndex].CelestialBodyBuilder.positionScripts[planetIndexSize+moonIndex] = celestialBodies.star[sIndex].CelestialBodyBuilder.moons[moonIndex].gameObject.AddComponent<Position>();
 			}
 
 
