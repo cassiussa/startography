@@ -85,6 +85,8 @@ public class CelestialBodyBuilder : MonoBehaviour {
 	 * started instead of started as each is loaded individually
 	 */
 	void Awake () {
+		if(gameObject.name == "[STAR] Sun [PLANET] Mercury")
+		Debug.LogError ("CelestialBodyBuilder.cs Awake()"+gameObject.name);
 		//Debug.LogError (celestialBodyType, gameObject);
 
 		//gameObject.AddComponent<Position> ();						// The position data for this celestial gameObject
@@ -118,6 +120,7 @@ public class CelestialBodyBuilder : MonoBehaviour {
 			 * system's last known celestial body positions
 			 */
 			gameObject.AddComponent<DistanceArrays> ();
+			gameObject.AddComponent<Position> ();
 
 			GameObject localColliders = new GameObject ("Local Colliders");						// Create the star's collider parent
 			localColliders.transform.parent = transform;

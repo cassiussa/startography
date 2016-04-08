@@ -20,6 +20,8 @@ public class DistanceArrays : MonoBehaviour {
 	public Vector3d[] relativePositions;
 
 	void Awake() {
+		if(gameObject.name == "[STAR] Sun")
+		Debug.LogError ("DistanceArrays Awake()");
 		// Literal assignations
 		bodies = gameObject.GetComponent<CelestialBodyBuilder> ().bodies;
 		positionScripts = gameObject.GetComponent<CelestialBodyBuilder> ().positionScripts;

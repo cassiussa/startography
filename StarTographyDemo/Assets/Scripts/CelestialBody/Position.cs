@@ -17,19 +17,26 @@ public class Position : MonoBehaviour {
 	 * realPosition and relativePosition have the same values (though not
 	 * literally the same variable reference) at the start of the simulation
 	 */
-	public Vector3d realPosition = new Vector3d(1,0,0);
-	public Vector3d relativePosition = new Vector3d(2,0,0);
-	Vector3d cachedRelativePosition = new Vector3d(3,0,0);
+	public Vector3d realPosition;
+	public Vector3d relativePosition;
+	Vector3d cachedRelativePosition;
 
 	void Awake() {
+		if(gameObject.name == "[STAR] Sun [PLANET] Mercury")
+		Debug.LogError ("Position Awake() "+gameObject.name);
 		/*
 		 * Set the initial value of the relativePostion variable to be the same values
 		 * so that we can immediately calculate the closest planet or moon, if that
 		 * applies
 		 */
 		//relativePosition = realPosition;
-		//relativePosition = new Vector3d(realPosition);
-		//cachedRelativePosition = new Vector3d (relativePosition);
+
+		// Lets generate some random positions for now so that we can use them to iterate over
+		// and put together the code for determining the closest
+		relativePosition = new Vector3d((double)Random.Range(-10000.0f, 10000.0f), (double)Random.Range(-10000.0f, 10000.0f), (double)Random.Range(-10000.0f, 10000.0f));
+
+			//cachedRelativePosition = new Vector3d (relativePosition);
+		//Debug.LogError ("C " + realPosition.x);
 	}
 
 	// Use this for initialization
