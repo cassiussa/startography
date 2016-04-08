@@ -13,17 +13,20 @@ public class BuildCamera : MonoBehaviour {
 
 			// Cache the Camera component since we have a few things to do with it
 			Camera cam = camera.AddComponent<Camera>();
-			cam.farClipPlane = 10000f;
-			cam.nearClipPlane = 0.1f;
-			cam.depth = i;
+			cam.farClipPlane = 10000f;								// Set the camera's maximimum viewable distance
+			cam.nearClipPlane = 0.1f;								// Set the camera's near clip plane
+			cam.depth = 11-i;										// Set the camera's depth of field
+			cam.fieldOfView = 60f;									// Set the camera's field of view
+			cam.gameObject.layer = i+7;								// Assigns this camera the appropriate layer
 
 			// Set the clear flags to clear on all layers except for the farthest camera downt he layer list
 			if(i == 10) {
-				cam.clearFlags = CameraClearFlags.Nothing;
+				cam.clearFlags = CameraClearFlags.Skybox;			// this is the farthest camera so set the Skybox
 			} else {
-				cam.clearFlags = CameraClearFlags.Depth;
+				cam.clearFlags = CameraClearFlags.Depth;			// Make sure we can see past this camera's maximum distance
 			}
 
+			// Add some default Components to the camera
 			camera.AddComponent("FlareLayer");
 			camera.AddComponent<GUILayer>();
 		}
