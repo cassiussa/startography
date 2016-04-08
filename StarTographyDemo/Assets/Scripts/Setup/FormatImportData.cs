@@ -38,6 +38,7 @@ public class FormatImportData : MonoBehaviour {
 		 * build the camera
 		 */
 		gameObject.AddComponent<BuildCamera> ();
+		gameObject.AddComponent<BuildGalaxy> ();
 		/*
 		 * Examples of how we can directly access items
 		 * within the multi-dimensional array in order to

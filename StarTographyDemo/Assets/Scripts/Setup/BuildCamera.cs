@@ -6,7 +6,10 @@ public class BuildCamera : MonoBehaviour {
 	// Use this for initialization
 	void Awake () {
 		GameObject cameras = new GameObject ("Cameras");
+		cameras.AddComponent<Rigidbody> ();							// Add the rigidbody to the Camera
+		cameras.AddComponent<SphereCollider> ();					// Assign a SphereCollider
 		cameras.AddComponent<AudioListener> ();
+		cameras.tag = "MainCamera";
 		for(int i=1;i<=10;i++) {
 			GameObject camera = new GameObject("Camera Layer "+i);
 			camera.transform.parent = cameras.transform;
@@ -18,6 +21,7 @@ public class BuildCamera : MonoBehaviour {
 			cam.depth = 11-i;										// Set the camera's depth of field
 			cam.fieldOfView = 60f;									// Set the camera's field of view
 			cam.gameObject.layer = i+7;								// Assigns this camera the appropriate layer
+			cam.tag = "MainCamera";
 
 			// Set the clear flags to clear on all layers except for the farthest camera downt he layer list
 			if(i == 10) {
@@ -31,9 +35,5 @@ public class BuildCamera : MonoBehaviour {
 			camera.AddComponent<GUILayer>();
 		}
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+
 }
