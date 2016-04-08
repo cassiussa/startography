@@ -35,6 +35,10 @@ public class FormatImportData : MonoBehaviour {
 		this.celestialBodies = (CelestialBodies)JSONSerialize.Deserialize(typeof(CelestialBodies), json);
 
 		/*
+		 * build the camera
+		 */
+		gameObject.AddComponent<BuildCamera> ();
+		/*
 		 * Examples of how we can directly access items
 		 * within the multi-dimensional array in order to
 		 * use them.
@@ -240,7 +244,7 @@ public class FormatImportData : MonoBehaviour {
 
 			// Keep this here until I figure out how to make the literal connections between the
 			// DistanceArray.cs's value for realPosition and the Position.cs value for realPosition
-			celestialBodies.star[sIndex].CelestialBodyBuilder.positionScripts[sIndex] = celestialBodies.star[sIndex].gameObject.AddComponent<Position>();
+			//celestialBodies.star[sIndex].CelestialBodyBuilder.positionScripts[sIndex] = celestialBodies.star[sIndex].gameObject.AddComponent<Position>();
 			// Temporary until I figure out how to get the gameObjects instantiating on enum selection
 			celestialBodies.star[sIndex].gameObject.SetActive (true);
 		}
