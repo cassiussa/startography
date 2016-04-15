@@ -21,16 +21,42 @@ public class BuildDistanceMarkers : MonoBehaviour {
 		markerDistance.Add (gameObject.name + " [MARKER] Light Year", 9460730472600d);
 
 		foreach (KeyValuePair<string, double> marker in markerDistance) {
-			GameObject mark = GameObject.CreatePrimitive(PrimitiveType.Plane);				// Create a plane primitive
-			mark.name = marker.Key;															// Create the name for the Distance Marker's gameObject
-			mark.transform.parent = transform;												// Assign the parent transform
+			GameObject markerParent = new GameObject(marker.Key);							// Create the name for the Distance Marker's gameObject
+			markerParent.transform.parent = transform;
+
+			GameObject mark = GameObject.CreatePrimitive(PrimitiveType.Cube);				// Create a plane primitive
+			mark.name = "Mesh";																// Create the name for the Distance Marker's gameObject
+			mark.transform.parent = markerParent.transform;									// Assign the parent transform
 			Destroy (mark.collider);														// Remove the collider that is automatically added when we create the primitive
 			Quaternion newRot = new Quaternion();											// Set up a temporary Quaternion to build the new rotation
 			newRot.eulerAngles = new Vector3(0,0,0);										// Reset the rotation as this was from Blender
 			mark.transform.localRotation = newRot;											// Set the rotation of the star
-			Vector3d scale = new Vector3d(marker.Value, 1, marker.Value);					// Scale the Distance Marker based on its expected scale size
 
-			mark.transform.localScale = new Vector3(2,1,2);									// This is temporary assignment of scale
+
+			/*
+			 * The below scale value should actually be sent to another script
+			 * which can then look after it each Update() in the event that there's
+			 * a scale state change
+			 */
+			double markerValue = marker.Value;												// Cache the size of the distance marker
+			Vector3d scale = new Vector3d(markerValue, 1, markerValue);						// Scale the Distance Marker based on its expected scale size
+
+			mark.transform.localScale = new Vector3(2f,0.001f,2f);									// This is temporary assignment of scale
+
+			DistanceMarkerState distanceMarkerStateScript = mark.AddComponent<DistanceMarkerState>();
+			distanceMarkerStateScript.distanceMarkerSize = markerValue;						// Assign the value of the distance marker into a variable in the relevant States script
+
+
+			/*
+			 * We also need to build up the sphere colliders to determine when
+			 * this distance marker will fade either in or out and when it will
+			 * be active or inactive
+			 */
+			GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);				// Create a plane primitive
+			sphere.transform.parent = markerParent.transform;
+			markerParent.AddComponent<Rigidbody>();													// Add the rigidbody to this collider parent
+			markerParent.rigidbody.useGravity = false;												// We don't want to use gravity
+			markerParent.rigidbody.isKinematic = true;												// Set it as Kinematic
 		}
 
 		Destroy (this);

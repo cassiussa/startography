@@ -31,7 +31,7 @@ public class DistanceArrays : MonoBehaviour {
 		for(int i=0;i<positionScripts.Length;i++) {
 			positionScripts[i].realPosition = realPositions[i];				// Assign them into the same variable reference
 			positionScripts[i].relativePosition = relativePositions[i];		// Assign them into the same variable reference
-			Debug.Log ("It is "+ReferenceEquals(positionScripts[i].relativePosition,relativePositions[i])+" that we're using references instead of values");
+			//Debug.Log ("It is "+ReferenceEquals(positionScripts[i].relativePosition,relativePositions[i])+" that we're using references instead of values");
 		}
 
 	}
