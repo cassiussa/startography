@@ -224,8 +224,12 @@ public class FormatImportData : MonoBehaviour {
 				/*
 				 * The variable being assigned from below doesn't even exist yet.
 				 * It is still null by this point.  Trace back
-				 * (celestialBodies.star[sIndex].CelestialBodyBuilder.positionScripts[planetIndex].realPosition)
+				 * celestialBodies.star[sIndex].CelestialBodyBuilder.positionScripts[planetIndex] variable is
+				 * setup but it's .realPosition variable is not
+				 * celestialBodies.star[sIndex].CelestialBodyBuilder.positionScripts[planetIndex].realPosition
 				 */
+				Debug.LogError (celestialBodies.star[sIndex].CelestialBodyBuilder.positionScripts[planetIndex].realPosition.x);
+
 				celestialBodies.star[sIndex].CelestialBodyBuilder.realPositions[planetIndex] = 
 					celestialBodies.star[sIndex].CelestialBodyBuilder.positionScripts[planetIndex].realPosition;
 

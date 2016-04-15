@@ -17,8 +17,8 @@ public class Position : MonoBehaviour {
 	 * realPosition and relativePosition have the same values (though not
 	 * literally the same variable reference) at the start of the simulation
 	 */
-	public Vector3d realPosition;
-	public Vector3d relativePosition;
+	public Vector3d realPosition = new Vector3d(0,0,0);				// These must absolutely be set or we end up with a null variable that we try passing later but cant
+	public Vector3d relativePosition = new Vector3d(0,0,0);
 	Vector3d cachedRelativePosition;
 
 	void Awake() {
