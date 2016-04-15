@@ -13,6 +13,8 @@ public class BuildGalaxy : MonoBehaviour {
 			scale.transform.parent = scaleStates.transform;				// Set the parent/child relationship
 			scale.gameObject.layer = i+7;								// Assigns this Scale the appropriate layer
 		}
+
+		Destroy (this);
 	}
 
 }

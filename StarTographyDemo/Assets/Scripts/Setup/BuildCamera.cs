@@ -36,6 +36,8 @@ public class BuildCamera : MonoBehaviour {
 			camera.AddComponent("FlareLayer");
 			camera.AddComponent<GUILayer>();
 		}
+
+		Destroy (this);
 	}
 
 }

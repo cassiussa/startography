@@ -141,12 +141,6 @@ public class CelestialBodyBuilder : MonoBehaviour {
 		}
 
 	}
-
-
-
 	
-	void Update() {
-
-	}
 }
 

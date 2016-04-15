@@ -12,6 +12,9 @@ public class BuildUniverse : MonoBehaviour {
 		universe.AddComponent<ReverseNormals> ();								// Add the ReverseNormals.cs script as we'll be viewing this gameObject from the inside
 		Destroy(universe.GetComponent<SphereCollider> ());						// Remove the default SphereCollider that is included with the GameObject instantiation
 		universe.gameObject.layer = 17;											// Hard coded to the appropriate layer
+
+
+		Destroy (this);
 	}
 
 }
