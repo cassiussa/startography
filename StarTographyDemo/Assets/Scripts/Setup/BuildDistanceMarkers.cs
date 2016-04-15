@@ -23,6 +23,10 @@ public class BuildDistanceMarkers : MonoBehaviour {
 		foreach (KeyValuePair<string, double> marker in markerDistance) {
 			GameObject markerParent = new GameObject(marker.Key);							// Create the name for the Distance Marker's gameObject
 			markerParent.transform.parent = transform;
+			double markerValue = marker.Value;												// Cache the size of the distance marker
+			Vector3d scale = new Vector3d(markerValue, 1, markerValue);						// Scale the Distance Marker based on its expected scale size
+			DistanceMarkerState distanceMarkerStateScript = markerParent.AddComponent<DistanceMarkerState>();
+			distanceMarkerStateScript.distanceMarkerSize = markerValue;						// Assign the value of the distance marker into a variable in the relevant States script
 
 			GameObject mark = GameObject.CreatePrimitive(PrimitiveType.Cube);				// Create a plane primitive
 			mark.name = "Mesh";																// Create the name for the Distance Marker's gameObject
@@ -38,13 +42,10 @@ public class BuildDistanceMarkers : MonoBehaviour {
 			 * which can then look after it each Update() in the event that there's
 			 * a scale state change
 			 */
-			double markerValue = marker.Value;												// Cache the size of the distance marker
-			Vector3d scale = new Vector3d(markerValue, 1, markerValue);						// Scale the Distance Marker based on its expected scale size
 
-			mark.transform.localScale = new Vector3(2f,0.001f,2f);									// This is temporary assignment of scale
 
-			DistanceMarkerState distanceMarkerStateScript = mark.AddComponent<DistanceMarkerState>();
-			distanceMarkerStateScript.distanceMarkerSize = markerValue;						// Assign the value of the distance marker into a variable in the relevant States script
+			mark.transform.localScale = new Vector3(2f,0.001f,2f);							// This is temporary assignment of scale
+
 
 
 			/*
@@ -52,11 +53,12 @@ public class BuildDistanceMarkers : MonoBehaviour {
 			 * this distance marker will fade either in or out and when it will
 			 * be active or inactive
 			 */
-			GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);				// Create a plane primitive
+			GameObject sphere = new GameObject("Collider");									// Create a plane primitive
 			sphere.transform.parent = markerParent.transform;
-			markerParent.AddComponent<Rigidbody>();													// Add the rigidbody to this collider parent
-			markerParent.rigidbody.useGravity = false;												// We don't want to use gravity
-			markerParent.rigidbody.isKinematic = true;												// Set it as Kinematic
+			// Now that I think of it, I probably don't need the below rigidbody
+			markerParent.AddComponent<Rigidbody>();											// Add the rigidbody to this collider parent
+			markerParent.rigidbody.useGravity = false;										// We don't want to use gravity
+			markerParent.rigidbody.isKinematic = true;										// Set it as Kinematic
 		}
 
 		Destroy (this);
