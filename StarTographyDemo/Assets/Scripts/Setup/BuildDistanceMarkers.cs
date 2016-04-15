@@ -28,6 +28,8 @@ public class BuildDistanceMarkers : MonoBehaviour {
 			DistanceMarkerState distanceMarkerStateScript = markerParent.AddComponent<DistanceMarkerState>();
 			distanceMarkerStateScript.distanceMarkerSize = markerValue;						// Assign the value of the distance marker into a variable in the relevant States script
 
+
+
 			GameObject mark = GameObject.CreatePrimitive(PrimitiveType.Cube);				// Create a plane primitive
 			mark.name = "Mesh";																// Create the name for the Distance Marker's gameObject
 			mark.transform.parent = markerParent.transform;									// Assign the parent transform
@@ -53,12 +55,16 @@ public class BuildDistanceMarkers : MonoBehaviour {
 			 * this distance marker will fade either in or out and when it will
 			 * be active or inactive
 			 */
-			GameObject sphere = new GameObject("Collider");									// Create a plane primitive
-			sphere.transform.parent = markerParent.transform;
+			GameObject largeCollider = new GameObject("Large Collider");					// 
+			GameObject smallCollider = new GameObject("Small Collider");					// 
+			GameObject lineAlongEdge = new GameObject("Line Along Edge");					// 
+			largeCollider.transform.parent = markerParent.transform;
+			smallCollider.transform.parent = markerParent.transform;
+			lineAlongEdge.transform.parent = markerParent.transform;
 			// Now that I think of it, I probably don't need the below rigidbody
-			markerParent.AddComponent<Rigidbody>();											// Add the rigidbody to this collider parent
-			markerParent.rigidbody.useGravity = false;										// We don't want to use gravity
-			markerParent.rigidbody.isKinematic = true;										// Set it as Kinematic
+			//markerParent.AddComponent<Rigidbody>();											// Add the rigidbody to this collider parent
+			//markerParent.rigidbody.useGravity = false;										// We don't want to use gravity
+			//markerParent.rigidbody.isKinematic = true;										// Set it as Kinematic
 		}
 
 		Destroy (this);
