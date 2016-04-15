@@ -7,6 +7,7 @@ public class BuildCamera : MonoBehaviour {
 	void Awake () {
 		GameObject cameras = new GameObject ("Cameras");
 		cameras.AddComponent<Rigidbody> ();							// Add the rigidbody to the Camera
+		cameras.rigidbody.useGravity = false;						// Otherwise the camera's gonna start moving on it's own
 		cameras.AddComponent<SphereCollider> ();					// Assign a SphereCollider
 		cameras.AddComponent<AudioListener> ();
 		cameras.tag = "MainCamera";

@@ -17,43 +17,22 @@ public class DistanceArrays : MonoBehaviour {
 	public GameObject[] bodies;
 	public Position[] positionScripts;
 	public CelestialBodyBuilder[] celestialBodyBuilderScripts;
-	public Vector3d[] realPositions;					// Don't think I'll need this in here, but just in case
+	public Vector3d[] realPositions;										// Don't think I'll need this in here, but just in case
 	public Vector3d[] relativePositions;
-	public Vector3d some = new Vector3d(0,10,0);
-	public Vector3d thing;
 
 	void Awake() {
 		// Literal assignations
 		bodies = gameObject.GetComponent<CelestialBodyBuilder> ().bodies;
 		celestialBodyBuilderScripts = gameObject.GetComponent<CelestialBodyBuilder> ().celestialBodyBuilderScripts;
 		positionScripts = gameObject.GetComponent<CelestialBodyBuilder> ().positionScripts;
-		/*
-		 * NOTE: Significant problem is displayed here.
-		 * The realPositions array of variables in the CelestialBodyBuilder script is still null at this point
-		 */
 		realPositions = gameObject.GetComponent<CelestialBodyBuilder> ().realPositions;
 		relativePositions = gameObject.GetComponent<CelestialBodyBuilder> ().relativePositions;
 
 		for(int i=0;i<positionScripts.Length;i++) {
-			Debug.LogError (bodies[i],bodies[i]);
-			Debug.LogError (celestialBodyBuilderScripts[i],celestialBodyBuilderScripts[i].gameObject);
-			Debug.LogError (positionScripts[i],positionScripts[i].gameObject);
-			Debug.LogError (realPositions[i]);
-			Debug.LogError (relativePositions[i]);
-			positionScripts[i].relativePosition = relativePositions[i];
+			positionScripts[i].realPosition = realPositions[i];				// Assign them into the same variable reference
+			positionScripts[i].relativePosition = relativePositions[i];		// Assign them into the same variable reference
+			Debug.Log ("It is "+ReferenceEquals(positionScripts[i].relativePosition,relativePositions[i])+" that we're using references instead of values");
 		}
-
-		thing = some;
-		Debug.Log (ReferenceEquals(some,thing));
-
-		/*
-		 * The below is to test to make sure that the Vector3d variables
-		 * we're using in here are literally the same variables as those
-		 * found within the parent Star's array
-		 */
-		// works
-		//relativePositions[0].x = 22;
-
 
 	}
 }

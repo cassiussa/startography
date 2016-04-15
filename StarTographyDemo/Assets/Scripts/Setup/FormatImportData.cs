@@ -37,9 +37,9 @@ public class FormatImportData : MonoBehaviour {
 		/*
 		 * build the camera
 		 */
-		gameObject.AddComponent<BuildCamera> ();
-		gameObject.AddComponent<BuildGalaxy> ();
 		gameObject.AddComponent<BuildUniverse> ();
+		gameObject.AddComponent<BuildGalaxy> ();
+		gameObject.AddComponent<BuildCamera> ();
 		/*
 		 * Examples of how we can directly access items
 		 * within the multi-dimensional array in order to
@@ -221,15 +221,6 @@ public class FormatImportData : MonoBehaviour {
 				celestialBodies.star[sIndex].CelestialBodyBuilder.positionScripts[planetIndex] = 
 					celestialBodies.star[sIndex].CelestialBodyBuilder.planets[planetIndex].AddComponent<Position>();
 
-				/*
-				 * The variable being assigned from below doesn't even exist yet.
-				 * It is still null by this point.  Trace back
-				 * celestialBodies.star[sIndex].CelestialBodyBuilder.positionScripts[planetIndex] variable is
-				 * setup but it's .realPosition variable is not
-				 * celestialBodies.star[sIndex].CelestialBodyBuilder.positionScripts[planetIndex].realPosition
-				 */
-				Debug.LogError (celestialBodies.star[sIndex].CelestialBodyBuilder.positionScripts[planetIndex].realPosition.x);
-
 				celestialBodies.star[sIndex].CelestialBodyBuilder.realPositions[planetIndex] = 
 					celestialBodies.star[sIndex].CelestialBodyBuilder.positionScripts[planetIndex].realPosition;
 
@@ -259,7 +250,7 @@ public class FormatImportData : MonoBehaviour {
 
 			// Keep this here until I figure out how to make the literal connections between the
 			// DistanceArray.cs's value for realPosition and the Position.cs value for realPosition
-			//celestialBodies.star[sIndex].CelestialBodyBuilder.positionScripts[sIndex] = celestialBodies.star[sIndex].gameObject.AddComponent<Position>();
+			// celestialBodies.star[sIndex].CelestialBodyBuilder.positionScripts[sIndex] = celestialBodies.star[sIndex].gameObject.AddComponent<Position>();
 			// Temporary until I figure out how to get the gameObjects instantiating on enum selection
 			celestialBodies.star[sIndex].gameObject.SetActive (true);
 		}

@@ -128,7 +128,7 @@ public class CelestialBodyBuilderEditor : Editor {
 			EditorGUILayout.PropertyField(planetMass, new GUIContent("planetMass"), true);
 			EditorGUILayout.PropertyField(planetRadius, new GUIContent("planetRadius"), true);
 
-			EditorGUILayout.PropertyField(coordinates, new GUIContent("coordinates"), true);
+			//EditorGUILayout.PropertyField(coordinates, new GUIContent("coordinates"), true);
 			EditorGUILayout.PropertyField(radius, new GUIContent("radius"), true);
 
 			EditorGUILayout.PropertyField(star, new GUIContent("star"), true);
@@ -145,7 +145,7 @@ public class CelestialBodyBuilderEditor : Editor {
 			EditorGUILayout.PropertyField(moonMass, new GUIContent("moonMass"), true);
 			EditorGUILayout.PropertyField(moonRadius, new GUIContent("moonRadius"), true);
 
-			EditorGUILayout.PropertyField(coordinates, new GUIContent("coordinates"), true);
+			//EditorGUILayout.PropertyField(coordinates, new GUIContent("coordinates"), true);
 			EditorGUILayout.PropertyField(radius, new GUIContent("radius"), true);
 
 			EditorGUILayout.PropertyField(star, new GUIContent("star"), true);

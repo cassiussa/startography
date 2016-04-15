@@ -88,9 +88,6 @@ public class CelestialBodyBuilder : MonoBehaviour {
 	void Awake () {
 		if(gameObject.name == "[STAR] Sun [PLANET] Mercury")
 			coordinates = new Vector3d(10,11,12);
-		//Debug.LogError (celestialBodyType, gameObject);
-
-		//gameObject.AddComponent<Position> ();						// The position data for this celestial gameObject
 
 		/*
 		 * The below instantiations are temporary until I can figure
@@ -99,14 +96,17 @@ public class CelestialBodyBuilder : MonoBehaviour {
 		GameObject mesh = Function.MakeSphereMesh("Mesh", transform, false);
 
 
-		// If the celestial object is something other than a Star
+		/*
+		 * the celestial body is not a star, so do any functionality
+		 * or instantiatiuons that we may need.
+		 */
 		if (celestialBodyType != CelestialBodyType.Star) {
 			/* 
 			 * Create a new collider gameObject that doesn't have a trigger. This
 			 * will be used to make sure that the viewer doesn't end up inside
 			 * a celestial body
 			 */
-			GameObject go1 = MakeSphereCollider("Local Hard Collider", transform, 0.75f, false);
+			GameObject hardCollider = Function.MakeSphereCollider("Local Hard Collider", transform, 0.75f, false);
 
 			if(bodyName == "Earth") {
 				Material earthMaterial = Resources.Load("Material/Earth 1") as Material;		// Get the CelestialSphere material from the 'Resources' folder
@@ -115,80 +115,38 @@ public class CelestialBodyBuilder : MonoBehaviour {
 			}
 			GameObject trail = new GameObject ("Trail");
 			trail.transform.parent = gameObject.transform;
-		} else {																				// This is a star so do Star type instantiations
+
+
+
+		/* 
+		 * The celestial body is of type Star.  Do any functionality
+		 * or instantiations that we need that apply only to Stars
+		 */
+		} else {
 			/*
 			 * DistanceArrays are attached to Stars.  It holds onto the local solar
-			 * system's last known celestial body positions
+			 * system's last known celestial body positions.  The Position scripts
+			 * are attached to all celestial bodies.  It holds onto their real position
+			 * in space as well as their relative position to the camera.
 			 */
-			gameObject.AddComponent<DistanceArrays> ();
-			//gameObject.AddComponent<Position> ();
-
-			GameObject localColliders = new GameObject ("Local Colliders");						// Create the star's collider parent
-			localColliders.transform.parent = transform;
-			localColliders.AddComponent<Rigidbody> ();											// Add the rigidbody to the collider parent
-			localColliders.rigidbody.useGravity = false;										// We don't want to use gravity
-			localColliders.rigidbody.isKinematic = true;										// Set it as Kinematic
-			GameObject starGlow = new GameObject ("Star Glow");
-			starGlow.transform.parent = transform;
-
-			GameObject starGlowMain = new GameObject ("Main Star Glow");
-			starGlowMain.transform.parent = starGlow.transform;
-
-			GameObject solarSystemSphere = new GameObject ("Solar System Sphere");
-			solarSystemSphere.transform.parent = transform;
-
-			/*
-			 * Make the Solar Sphere for this star
-			 * and assign the necessary scripts, positions,
-			 * rotations, etc
-			 */
-			for(int solSphere=0;solSphere<4;solSphere++) {
-				GameObject thisSolarSystemSphere = Function.MakeSphereMesh("Solar System Sphere Outer", solarSystemSphere.transform, false);
-				Material celestialSphereMaterial = Resources.Load("Material/CelestialSphere") as Material;	// Get the CelestialSphere material from the 'Resources' folder
-				thisSolarSystemSphere.renderer.material = new Material(celestialSphereMaterial);	// Assign the material to the Material variable
-				if(solSphere == 1 || solSphere == 3) {												// Check if this is the 2nd or 4th sphere so we can reverse its normals
-					thisSolarSystemSphere.name = "Solar System Sphere Inner";						// Name the GameObject
-					thisSolarSystemSphere.AddComponent<ReverseNormals>();							// Reverse the normals to point inwards
-				}
-			}
-
-			float colliderRadius = 1f;
-			for(int localCols=0;localCols<15;localCols++) {
-				GameObject go2 = MakeSphereCollider("Local Collider "+localCols.ToString(), localColliders.transform, colliderRadius, true);
-				colliderRadius *= 10;
-			}
+			gameObject.AddComponent<DistanceArrays> ();										// Add the DistanceArrays script to this Star
+			Position positionScript = gameObject.AddComponent<Position> ();					// Add the Position.cs script to this Star
+			positionScript.realPosition = coordinates;										// Assign the coordinates for this star into the realPosition variable on the Position script for this star
+			gameObject.AddComponent<BuildStarColliders> ();									// Create colliders gameObjects, rigidbodies, and configs
+			gameObject.AddComponent<BuildSolarSystemSphere> ();								// Make the Solar Sphere for this star, assign the necessary scripts, positions, rotations, etc
+			gameObject.AddComponent<BuildDistanceMarkers> ();								// Create the Distance Marker gameObjects
+			gameObject.AddComponent<BuildStarGlow> ();
 
 
-			GameObject markerAU = new GameObject (gameObject.name+" [MARKER] AU");
-			GameObject markerLightHour = new GameObject (gameObject.name+" [MARKER] Light Hour");
-			GameObject markerLightDay = new GameObject (gameObject.name+" [MARKER] Light Day");
-			GameObject markerLightYear = new GameObject (gameObject.name+" [MARKER] Light Year");
-			markerAU.transform.parent = transform;
-			markerLightHour.transform.parent = transform;
-			markerLightDay.transform.parent = transform;
-			markerLightYear.transform.parent = transform;
 		}
 
 	}
 
-	public GameObject MakeSphereCollider(string name, Transform parent, float radius, bool isTrigger) {
-		GameObject go = new GameObject(name);
-		go.transform.parent = parent;
-		go.AddComponent<SphereCollider>();
-		go.collider.isTrigger = isTrigger;
-		go.GetComponent<SphereCollider>().radius = radius;
-		return go.gameObject;
-	}
 
 
-	public Vector3d vec = new Vector3d(10,20,30);
-	public Vector3d vec2 = new Vector3d(4,4,4);
+	
 	void Update() {
-		/*if (coordinates.x != 0) {
-			Debug.LogError (coordinates.x);
-		}*/
-		//print (vec.Scale(0.5).x);
-		// We can now add two Vector3d values together more easily.
+
 	}
 }
 
