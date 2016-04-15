@@ -25,8 +25,8 @@ public class BuildDistanceMarkers : MonoBehaviour {
 			markerParent.transform.parent = transform;
 			double markerValue = marker.Value;												// Cache the size of the distance marker
 			Vector3d scale = new Vector3d(markerValue, 1, markerValue);						// Scale the Distance Marker based on its expected scale size
-			DistanceMarkerState distanceMarkerStateScript = markerParent.AddComponent<DistanceMarkerState>();
-			distanceMarkerStateScript.distanceMarkerSize = markerValue;						// Assign the value of the distance marker into a variable in the relevant States script
+			DistanceMarkerStates distanceMarkerStatesScript = markerParent.AddComponent<DistanceMarkerStates>();
+			distanceMarkerStatesScript.distanceMarkerSize = markerValue;						// Assign the value of the distance marker into a variable in the relevant States script
 
 
 
