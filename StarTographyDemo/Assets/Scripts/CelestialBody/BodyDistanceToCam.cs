@@ -14,21 +14,21 @@ public class BodyDistanceToCam : MonoBehaviour {
 		activeStar = GameObject.Find ("[STAR] Sun");
 		relativePositions = activeStar.GetComponent<DistanceArrays> ().relativePositions;
 		// How many distances do we have to iterate through?
-		distances = new double[relativePositions.Length];
+		//distances = new double[relativePositions.Length];
 
 	}
 	
 	void Update () {
-		if (count == relativePositions.Length)			// Set up an iterator for the array so that we can perform one iteration per Update()
-			count = 0;
+		//if (count == relativePositions.Length)			// Set up an iterator for the array so that we can perform one iteration per Update()
+		//	count = 0;
 
 		// Calculate the distance of this array item to the camera
-		distances[count] = Vector3d.Distance(new Vector3d(0,0,0), relativePositions[count]);
+		//distances[count] = Vector3d.Distance(new Vector3d(0,0,0), relativePositions[count]);
 
 		// Check to see if it's a smaller distance than all the previous distances
-		if(distances[count] < lowest)
+		/*if(distances[count] < lowest)
 			lowest = distances[count];
-
+*/
 		count++;										// Iterate to the next item on the array if there are any.  Otherwise, it'll start from the beginning again
 	}
 }

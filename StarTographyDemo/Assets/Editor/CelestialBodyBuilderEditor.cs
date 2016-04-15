@@ -20,6 +20,7 @@ public class CelestialBodyBuilderEditor : Editor {
 		star,
 		planet,
 		bodies,
+		celestialBodyBuilderScripts,
 		positionScripts,
 		realPositions,
 		relativePositions,
@@ -60,6 +61,7 @@ public class CelestialBodyBuilderEditor : Editor {
 		star = serializedObject.FindProperty ("star");
 		planet = serializedObject.FindProperty ("planet");
 		bodies = serializedObject.FindProperty ("bodies");
+		celestialBodyBuilderScripts = serializedObject.FindProperty ("celestialBodyBuilderScripts");
 		positionScripts = serializedObject.FindProperty ("positionScripts");
 		realPositions = serializedObject.FindProperty ("realPositions");
 		relativePositions = serializedObject.FindProperty ("relativePositions");
@@ -108,6 +110,7 @@ public class CelestialBodyBuilderEditor : Editor {
 			EditorGUILayout.PropertyField(luminosity, new GUIContent("luminosity"), true);
 
 			EditorGUILayout.PropertyField(bodies, new GUIContent("bodies"), true);
+			EditorGUILayout.PropertyField(celestialBodyBuilderScripts, new GUIContent("celestialBodyBuilderScripts"), true);
 			EditorGUILayout.PropertyField(positionScripts, new GUIContent("positionScripts"), true);
 			EditorGUILayout.PropertyField(realPositions, new GUIContent("realPositions"), true);
 			EditorGUILayout.PropertyField(relativePositions, new GUIContent("relativePositions"), true);

@@ -22,8 +22,6 @@ public class Position : MonoBehaviour {
 	Vector3d cachedRelativePosition;
 
 	void Awake() {
-		if(gameObject.name == "[STAR] Sun [PLANET] Mercury")
-		Debug.LogError ("Position Awake() "+gameObject.name);
 		/*
 		 * Set the initial value of the relativePostion variable to be the same values
 		 * so that we can immediately calculate the closest planet or moon, if that
@@ -33,7 +31,7 @@ public class Position : MonoBehaviour {
 
 		// Lets generate some random positions for now so that we can use them to iterate over
 		// and put together the code for determining the closest
-		relativePosition = new Vector3d((double)Random.Range(-10000.0f, 10000.0f), (double)Random.Range(-10000.0f, 10000.0f), (double)Random.Range(-10000.0f, 10000.0f));
+		//relativePosition = new Vector3d((double)Random.Range(-10000.0f, 10000.0f), (double)Random.Range(-10000.0f, 10000.0f), (double)Random.Range(-10000.0f, 10000.0f));
 
 			//cachedRelativePosition = new Vector3d (relativePosition);
 		//Debug.LogError ("C " + realPosition.x);

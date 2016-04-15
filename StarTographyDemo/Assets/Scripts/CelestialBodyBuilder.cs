@@ -34,6 +34,7 @@ public class CelestialBodyBuilder : MonoBehaviour {
 	[Space(20)]
 	[Header("Child Bodies")]
 	public GameObject[] bodies;
+	public CelestialBodyBuilder[] celestialBodyBuilderScripts;
 	public Position[] positionScripts;
 	public Vector3d[] realPositions;
 	public Vector3d[] relativePositions;
@@ -62,7 +63,7 @@ public class CelestialBodyBuilder : MonoBehaviour {
 	public int numMoonsInSystem;
 	public float moonMass;
 	public float moonRadius;
-
+	
 	public Vector3d coordinates = new Vector3d(0,0,0);	// The starting position in meters of this celestial body
 	public Vector3d radius = new Vector3d(0,0,0);		// This measurement is in meters as opposed to relative solar, jupiter, or earth radii
 	public float luminosity;
@@ -86,7 +87,7 @@ public class CelestialBodyBuilder : MonoBehaviour {
 	 */
 	void Awake () {
 		if(gameObject.name == "[STAR] Sun [PLANET] Mercury")
-		Debug.LogError ("CelestialBodyBuilder.cs Awake()"+gameObject.name);
+			coordinates = new Vector3d(10,11,12);
 		//Debug.LogError (celestialBodyType, gameObject);
 
 		//gameObject.AddComponent<Position> ();						// The position data for this celestial gameObject
@@ -120,7 +121,7 @@ public class CelestialBodyBuilder : MonoBehaviour {
 			 * system's last known celestial body positions
 			 */
 			gameObject.AddComponent<DistanceArrays> ();
-			gameObject.AddComponent<Position> ();
+			//gameObject.AddComponent<Position> ();
 
 			GameObject localColliders = new GameObject ("Local Colliders");						// Create the star's collider parent
 			localColliders.transform.parent = transform;
@@ -183,9 +184,9 @@ public class CelestialBodyBuilder : MonoBehaviour {
 	public Vector3d vec = new Vector3d(10,20,30);
 	public Vector3d vec2 = new Vector3d(4,4,4);
 	void Update() {
-		if (coordinates.x != 0) {
+		/*if (coordinates.x != 0) {
 			Debug.LogError (coordinates.x);
-		}
+		}*/
 		//print (vec.Scale(0.5).x);
 		// We can now add two Vector3d values together more easily.
 	}
