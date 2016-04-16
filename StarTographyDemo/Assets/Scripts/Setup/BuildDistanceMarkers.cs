@@ -59,14 +59,6 @@ public class BuildDistanceMarkers : MonoBehaviour {
 			 * this distance marker will fade either in or out and when it will
 			 * be active or inactive
 			 */
-			GameObject largeCollider = new GameObject("Large Collider");
-			largeCollider.transform.parent = markerParent.transform;
-			largeCollider.AddComponent<BuildDistanceMarkerLargeCollider>();
-
-			GameObject smallCollider = new GameObject("Small Collider");
-			smallCollider.transform.parent = markerParent.transform;
-			smallCollider.AddComponent<BuildDistanceMarkerSmallCollider>();
-
 			GameObject lineAlongEdge = new GameObject("Line Along Edge");
 			lineAlongEdge.transform.parent = markerParent.transform;
 			lineAlongEdge.AddComponent<DistanceMarkerBorder>();
@@ -104,6 +96,19 @@ public class BuildDistanceMarkers : MonoBehaviour {
 				fadeDistanceMarkerScript.colour.b,
 				1f);
 			fadeDistanceMarkerScript.distanceLabel = labelGuiText;			// So that we can also fade the GUIText as well
+
+
+			/*
+			 * The following instantiations need to be done towards the end
+			 * because of variable assignment timing
+			 */
+			GameObject largeCollider = new GameObject("Large Collider");
+			largeCollider.transform.parent = markerParent.transform;
+			largeCollider.AddComponent<BuildDistanceMarkerLargeCollider>();
+			
+			GameObject smallCollider = new GameObject("Small Collider");
+			smallCollider.transform.parent = markerParent.transform;
+			smallCollider.AddComponent<BuildDistanceMarkerSmallCollider>();
 		}
 
 		Destroy (this);

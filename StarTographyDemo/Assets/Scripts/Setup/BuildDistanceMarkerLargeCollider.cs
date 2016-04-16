@@ -9,8 +9,9 @@ public class BuildDistanceMarkerLargeCollider : MonoBehaviour {
 		sphereCollider.isTrigger = true;
 		sphereCollider.radius = 60000;
 
+		gameObject.AddComponent<DistanceMarkerLargeCollider> ();
 
-		Destroy (this);
+		//Destroy (this);
 	}
 
 }
