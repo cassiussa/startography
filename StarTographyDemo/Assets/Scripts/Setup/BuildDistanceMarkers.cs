@@ -28,7 +28,6 @@ public class BuildDistanceMarkers : MonoBehaviour {
 			DistanceMarkerStates distanceMarkerStatesScript = markerParent.AddComponent<DistanceMarkerStates>();
 			distanceMarkerStatesScript.distanceMarkerSize = markerValue;						// Assign the value of the distance marker into a variable in the relevant States script
 
-			FadeDistanceMarker fadeDistanceMarkerScript = markerParent.AddComponent<FadeDistanceMarker>();
 
 
 			GameObject mark = GameObject.CreatePrimitive(PrimitiveType.Cube);				// Create a plane primitive
@@ -59,11 +58,14 @@ public class BuildDistanceMarkers : MonoBehaviour {
 			GameObject largeCollider = new GameObject("Large Collider");					// 
 			GameObject smallCollider = new GameObject("Small Collider");					// 
 			GameObject lineAlongEdge = new GameObject("Line Along Edge");					// 
+			GameObject label = new GameObject("Label");
 			largeCollider.transform.parent = markerParent.transform;
 			smallCollider.transform.parent = markerParent.transform;
 			lineAlongEdge.transform.parent = markerParent.transform;
+			label.transform.parent = markerParent.transform;
 			largeCollider.AddComponent<SphereCollider>();
 			smallCollider.AddComponent<SphereCollider>();
+			label.AddComponent<GUIText> ();
 			largeCollider.collider.isTrigger = true;
 			smallCollider.collider.isTrigger = true;
 			largeCollider.GetComponent<SphereCollider>().radius = 60000;
@@ -72,6 +74,12 @@ public class BuildDistanceMarkers : MonoBehaviour {
 			lineRenderer.SetWidth(21,21);
 			lineAlongEdge.AddComponent<DistanceMarkerBorder>();
 
+
+			// This relies on all the objects being instantiated, so it goes last
+			FadeDistanceMarker fadeDistanceMarkerScript = markerParent.AddComponent<FadeDistanceMarker>();
+			fadeDistanceMarkerScript.largeCollider = largeCollider;
+			fadeDistanceMarkerScript.smallCollider = smallCollider;
+			fadeDistanceMarkerScript.label = label;
 		}
 
 		Destroy (this);
