@@ -46,7 +46,7 @@ public class BuildDistanceMarkers : MonoBehaviour {
 			 */
 
 
-			mark.transform.localScale = new Vector3(2f,0.001f,2f);							// This is temporary assignment of scale
+			mark.transform.localScale = new Vector3(2f,0.0001f,2f);						// This is temporary assignment of scale
 
 
 
@@ -61,10 +61,13 @@ public class BuildDistanceMarkers : MonoBehaviour {
 			largeCollider.transform.parent = markerParent.transform;
 			smallCollider.transform.parent = markerParent.transform;
 			lineAlongEdge.transform.parent = markerParent.transform;
-			// Now that I think of it, I probably don't need the below rigidbody
-			//markerParent.AddComponent<Rigidbody>();											// Add the rigidbody to this collider parent
-			//markerParent.rigidbody.useGravity = false;										// We don't want to use gravity
-			//markerParent.rigidbody.isKinematic = true;										// Set it as Kinematic
+			largeCollider.AddComponent<SphereCollider>();
+			smallCollider.AddComponent<SphereCollider>();
+			largeCollider.collider.isTrigger = true;
+			smallCollider.collider.isTrigger = true;
+			largeCollider.GetComponent<SphereCollider>().radius = 60000;
+			smallCollider.GetComponent<SphereCollider>().radius = 5000;
+
 		}
 
 		Destroy (this);
