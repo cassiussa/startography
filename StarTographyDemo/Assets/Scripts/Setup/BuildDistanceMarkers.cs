@@ -67,6 +67,9 @@ public class BuildDistanceMarkers : MonoBehaviour {
 			smallCollider.collider.isTrigger = true;
 			largeCollider.GetComponent<SphereCollider>().radius = 60000;
 			smallCollider.GetComponent<SphereCollider>().radius = 5000;
+			LineRenderer lineRenderer = lineAlongEdge.AddComponent<LineRenderer>();
+			lineRenderer.SetWidth(21,21);
+			lineAlongEdge.AddComponent<DistanceMarkerBorder>();
 
 		}
 
