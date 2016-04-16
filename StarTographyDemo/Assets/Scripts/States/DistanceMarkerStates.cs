@@ -65,7 +65,7 @@ public class DistanceMarkerStates : MonoBehaviour {
 	}
 
 	void Inactive() {
-		print ("Inactive State");
+		//print ("Inactive State");
 		_cacheState = state;
 	}
 

@@ -2,10 +2,10 @@
 using System.Collections;
 
 public class FadeDistanceMarker : MonoBehaviour {
-	public Material mat;
-	public GameObject largeCollider;
-	public GameObject smallCollider;
-	public GameObject label;
+	//public Material mat;
+	//public GameObject largeCollider;
+	//public GameObject smallCollider;
+	//public GameObject label;
 	public Material labelMaterial;
 	public Renderer[] childRenderers;
 	
@@ -13,8 +13,8 @@ public class FadeDistanceMarker : MonoBehaviour {
 	public bool fadeIn = false;
 	private float alphaCounter = 0f;
 	public Color colour;
-	private Color colourInvisible;
-	private Color colourVisible;
+	public Color colourInvisible;
+	public Color colourVisible;
 	
 	public bool smallEntered = false;
 	public bool largeEntered = false;
@@ -46,38 +46,48 @@ public class FadeDistanceMarker : MonoBehaviour {
 				rendererIterator++;												// Increment the iteration counter
 			}
 		}
-		
-		//labelMaterial = label.GetComponent<GUIText> ().material;
-		colour = mat.color;
-		colourInvisible = new Color(colour.r, colour.g, colour.b , 0f);
-		colourVisible = new Color(colour.r, colour.g, colour.b , 1f);
 	}
-	
-	// Update is called once per frame
+
 	void Update () {
 		ChangeAlpha();
 	}
 	
 	void ChangeAlpha(){
 		if (gameObject.activeSelf == false) return;
-		// First check that we didn't entered both the ScaleSmallCollder and ScaleLargeCollider at the same time
+
+		/*
+		 * First check that we didn't entered both the 
+		 * ScaleSmallCollder and ScaleLargeCollider at the same time.
+		 * This can happen when we instantiate objects at the
+		 * beginning and the colliders are within each other.
+		 */
 		if (smallEntered == true && largeEntered == true) {
 			largeEntered = false;
 			fadeIn = false;
 			return;
 		}
-		if(fadeIn) alphaCounter += Time.deltaTime / fadeTime;
-		else alphaCounter -= Time.deltaTime / fadeTime;
-		if (alphaCounter != 0 && alphaCounter != 1) {
+
+		/*
+		 * Because we're always either adding to the alphaCounter during and after
+		 * fading in, or subtracting from alphaCounter during or after fading out,
+		 * this means it's always processing when active.  Therefore we should
+		 * probably deactivate this script when certain conditions are met.
+		 */
+		if(fadeIn) alphaCounter += Time.deltaTime / fadeTime;						// Either we're adding time to the variable
+		else alphaCounter -= Time.deltaTime / fadeTime;								// or we're subtracting time
+
+
+		if (alphaCounter < 0 || alphaCounter > 1) {
 			alphaCounter = Mathf.Clamp01 (alphaCounter);
-			colour = Color.Lerp (colourInvisible, colourVisible, alphaCounter);
+		} else if (alphaCounter != 0 && alphaCounter != 1) {
+			alphaCounter = Mathf.Clamp01 (alphaCounter);							// Clamp the range
+			colour = Color.Lerp (colourInvisible, colourVisible, alphaCounter);		// Lerp between the invisible colour and the fully opaque colour
 			
 			foreach (Renderer childMaterial in childRenderers) {
 				var newMat = new Color (childMaterial.material.color.r, childMaterial.material.color.g, childMaterial.material.color.b, colour.a);
 				childMaterial.material.color = newMat;								// Assign a standardized material to the circles
 			}
-			
-			labelMaterial.color = new Color (labelMaterial.color.r, labelMaterial.color.g, labelMaterial.color.b, colour.a);
+
 		}
 	}
 	

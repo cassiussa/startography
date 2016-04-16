@@ -30,14 +30,19 @@ public class BuildDistanceMarkers : MonoBehaviour {
 
 
 
-			GameObject mark = GameObject.CreatePrimitive(PrimitiveType.Cube);				// Create a plane primitive
-			mark.name = "Mesh";																// Create the name for the Distance Marker's gameObject
-			mark.transform.parent = markerParent.transform;									// Assign the parent transform
-			Destroy (mark.collider);														// Remove the collider that is automatically added when we create the primitive
+			GameObject mesh = GameObject.CreatePrimitive(PrimitiveType.Cube);				// Create a plane primitive
+			mesh.name = "Mesh";																// Create the name for the Distance Marker's gameObject
+			mesh.transform.parent = markerParent.transform;									// Assign the parent transform
+			Destroy (mesh.collider);														// Remove the collider that is automatically added when we create the primitive
 			Quaternion newRot = new Quaternion();											// Set up a temporary Quaternion to build the new rotation
 			newRot.eulerAngles = new Vector3(0,0,0);										// Reset the rotation as this was from Blender
-			mark.transform.localRotation = newRot;											// Set the rotation of the star
+			mesh.transform.localRotation = newRot;											// Set the rotation of the star
 
+
+			Renderer meshRenderer = mesh.GetComponent<Renderer>();
+			Material distanceMarkerMesh = new Material(Resources.Load("Material/DistanceMarkerMesh") as Material);
+			meshRenderer.material = distanceMarkerMesh;
+			meshRenderer.material.name = "Distance Marker Mesh Material";
 
 			/*
 			 * The below scale value should actually be sent to another script
@@ -46,7 +51,7 @@ public class BuildDistanceMarkers : MonoBehaviour {
 			 */
 
 
-			mark.transform.localScale = new Vector3(2f,0.0001f,2f);						// This is temporary assignment of scale
+			mesh.transform.localScale = new Vector3(2f,0.0001f,2f);						// This is temporary assignment of scale
 
 
 
@@ -72,24 +77,35 @@ public class BuildDistanceMarkers : MonoBehaviour {
 			smallCollider.GetComponent<SphereCollider>().radius = 5000;
 			LineRenderer lineRenderer = lineAlongEdge.AddComponent<LineRenderer>();
 			lineRenderer.SetWidth(21,21);
-			Material distanceMarkerCircle = new Material(Resources.Load("Material/DistanceMarkerCircle") as Material);
-			distanceMarkerCircle.name = "Distance Marker Line Renderer Material";
-			lineRenderer.material = distanceMarkerCircle;
+			Material distanceMarkerFlat = new Material(Resources.Load("Material/DistanceMarkerFlat") as Material);
+			distanceMarkerFlat.name = "Distance Marker Line Renderer Material";
+			lineRenderer.material = distanceMarkerFlat;
 			lineAlongEdge.AddComponent<DistanceMarkerBorder>();
 
 
 			// This relies on all the objects being instantiated, so it goes last
 			FadeDistanceMarker fadeDistanceMarkerScript = markerParent.AddComponent<FadeDistanceMarker>();
-			fadeDistanceMarkerScript.mat = distanceMarkerCircle;
-			fadeDistanceMarkerScript.largeCollider = largeCollider;
-			fadeDistanceMarkerScript.smallCollider = smallCollider;
-			fadeDistanceMarkerScript.label = label;
+			//fadeDistanceMarkerScript.mat = distanceMarkerFlat;
+			//fadeDistanceMarkerScript.largeCollider = largeCollider;
+			//fadeDistanceMarkerScript.smallCollider = smallCollider;
+			//fadeDistanceMarkerScript.label = label;
 			labelGuiText.font = Resources.Load("Fonts/PetitaMedium") as Font;
 			labelGuiText.material = new Material(labelGuiText.font.material);
 			labelGuiText.material.name = "Distance Marker Label Material";
 			labelGuiText.text = marker.Key;
 
 			fadeDistanceMarkerScript.labelMaterial = labelGuiText.material;
+			fadeDistanceMarkerScript.colour = distanceMarkerFlat.color;
+			fadeDistanceMarkerScript.colourInvisible = new Color(
+				fadeDistanceMarkerScript.colour.r,
+				fadeDistanceMarkerScript.colour.g,
+				fadeDistanceMarkerScript.colour.b,
+				0f);
+			fadeDistanceMarkerScript.colourVisible = new Color(
+				fadeDistanceMarkerScript.colour.r,
+				fadeDistanceMarkerScript.colour.g,
+				fadeDistanceMarkerScript.colour.b,
+				1f);
 		}
 
 		Destroy (this);
