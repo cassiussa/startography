@@ -44,13 +44,12 @@ public class BuildDistanceMarkers : MonoBehaviour {
 			meshRenderer.material = distanceMarkerMesh;
 			meshRenderer.material.name = "Distance Marker Mesh Material";
 
+
 			/*
 			 * The below scale value should actually be sent to another script
 			 * which can then look after it each Update() in the event that there's
 			 * a scale state change
 			 */
-
-
 			mesh.transform.localScale = new Vector3(2f,0.0001f,2f);						// This is temporary assignment of scale
 
 
@@ -60,35 +59,35 @@ public class BuildDistanceMarkers : MonoBehaviour {
 			 * this distance marker will fade either in or out and when it will
 			 * be active or inactive
 			 */
-			GameObject largeCollider = new GameObject("Large Collider");					// 
-			GameObject smallCollider = new GameObject("Small Collider");					// 
-			GameObject lineAlongEdge = new GameObject("Line Along Edge");					// 
-			GameObject label = new GameObject("Label");
+			GameObject largeCollider = new GameObject("Large Collider");
 			largeCollider.transform.parent = markerParent.transform;
+			largeCollider.AddComponent<BuildDistanceMarkerLargeCollider>();
+
+			GameObject smallCollider = new GameObject("Small Collider");
 			smallCollider.transform.parent = markerParent.transform;
+			smallCollider.AddComponent<BuildDistanceMarkerSmallCollider>();
+
+			GameObject lineAlongEdge = new GameObject("Line Along Edge");
 			lineAlongEdge.transform.parent = markerParent.transform;
+			lineAlongEdge.AddComponent<DistanceMarkerBorder>();
+
+			GameObject label = new GameObject("Label");
 			label.transform.parent = markerParent.transform;
-			largeCollider.AddComponent<SphereCollider>();
-			smallCollider.AddComponent<SphereCollider>();
+
 			GUIText labelGuiText = label.AddComponent<GUIText> ();
-			largeCollider.collider.isTrigger = true;
-			smallCollider.collider.isTrigger = true;
-			largeCollider.GetComponent<SphereCollider>().radius = 60000;
-			smallCollider.GetComponent<SphereCollider>().radius = 5000;
+
 			LineRenderer lineRenderer = lineAlongEdge.AddComponent<LineRenderer>();
 			lineRenderer.SetWidth(21,21);
 			Material distanceMarkerFlat = new Material(Resources.Load("Material/DistanceMarkerFlat") as Material);
 			distanceMarkerFlat.name = "Distance Marker Line Renderer Material";
 			lineRenderer.material = distanceMarkerFlat;
-			lineAlongEdge.AddComponent<DistanceMarkerBorder>();
+			//lineAlongEdge.AddComponent<DistanceMarkerBorder>();
 
 
 			// This relies on all the objects being instantiated, so it goes last
 			FadeDistanceMarker fadeDistanceMarkerScript = markerParent.AddComponent<FadeDistanceMarker>();
-			//fadeDistanceMarkerScript.mat = distanceMarkerFlat;
-			//fadeDistanceMarkerScript.largeCollider = largeCollider;
-			//fadeDistanceMarkerScript.smallCollider = smallCollider;
-			//fadeDistanceMarkerScript.label = label;
+
+
 			labelGuiText.font = Resources.Load("Fonts/PetitaMedium") as Font;
 			labelGuiText.material = new Material(labelGuiText.font.material);
 			labelGuiText.material.name = "Distance Marker Label Material";
