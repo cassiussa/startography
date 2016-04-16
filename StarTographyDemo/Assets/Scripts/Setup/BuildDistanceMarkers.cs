@@ -15,13 +15,13 @@ public class BuildDistanceMarkers : MonoBehaviour {
 		 */
 		// Create a Dictionary of the different Distance Markers and their distances
 		Dictionary<string, double> markerDistance = new Dictionary<string, double>();
-		markerDistance.Add (gameObject.name + " [MARKER] AU", 149597870.7d);
-		markerDistance.Add (gameObject.name + " [MARKER] Light Hour", 1079252848.8d);
-		markerDistance.Add (gameObject.name + " [MARKER] Light Day", 25902068371.2d);
-		markerDistance.Add (gameObject.name + " [MARKER] Light Year", 9460730472600d);
+		markerDistance.Add ("1 AU", 149597870.7d);
+		markerDistance.Add ("1 Light Hour", 1079252848.8d);
+		markerDistance.Add ("1 Light Day", 25902068371.2d);
+		markerDistance.Add ("1 Light Year", 9460730472600d);
 
 		foreach (KeyValuePair<string, double> marker in markerDistance) {
-			GameObject markerParent = new GameObject(marker.Key);							// Create the name for the Distance Marker's gameObject
+			GameObject markerParent = new GameObject(gameObject.name + " [MARKER] "+ marker.Key);							// Create the name for the Distance Marker's gameObject
 			markerParent.transform.parent = transform;
 			double markerValue = marker.Value;												// Cache the size of the distance marker
 			Vector3d scale = new Vector3d(markerValue, 1, markerValue);						// Scale the Distance Marker based on its expected scale size
@@ -65,21 +65,31 @@ public class BuildDistanceMarkers : MonoBehaviour {
 			label.transform.parent = markerParent.transform;
 			largeCollider.AddComponent<SphereCollider>();
 			smallCollider.AddComponent<SphereCollider>();
-			label.AddComponent<GUIText> ();
+			GUIText labelGuiText = label.AddComponent<GUIText> ();
 			largeCollider.collider.isTrigger = true;
 			smallCollider.collider.isTrigger = true;
 			largeCollider.GetComponent<SphereCollider>().radius = 60000;
 			smallCollider.GetComponent<SphereCollider>().radius = 5000;
 			LineRenderer lineRenderer = lineAlongEdge.AddComponent<LineRenderer>();
 			lineRenderer.SetWidth(21,21);
+			Material distanceMarkerCircle = new Material(Resources.Load("Material/DistanceMarkerCircle") as Material);
+			distanceMarkerCircle.name = "Distance Marker Line Renderer Material";
+			lineRenderer.material = distanceMarkerCircle;
 			lineAlongEdge.AddComponent<DistanceMarkerBorder>();
 
 
 			// This relies on all the objects being instantiated, so it goes last
 			FadeDistanceMarker fadeDistanceMarkerScript = markerParent.AddComponent<FadeDistanceMarker>();
+			fadeDistanceMarkerScript.mat = distanceMarkerCircle;
 			fadeDistanceMarkerScript.largeCollider = largeCollider;
 			fadeDistanceMarkerScript.smallCollider = smallCollider;
 			fadeDistanceMarkerScript.label = label;
+			labelGuiText.font = Resources.Load("Fonts/PetitaMedium") as Font;
+			labelGuiText.material = new Material(labelGuiText.font.material);
+			labelGuiText.material.name = "Distance Marker Label Material";
+			labelGuiText.text = marker.Key;
+
+			fadeDistanceMarkerScript.labelMaterial = labelGuiText.material;
 		}
 
 		Destroy (this);
