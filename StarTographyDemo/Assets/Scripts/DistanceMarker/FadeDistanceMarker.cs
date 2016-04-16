@@ -13,8 +13,11 @@ public class FadeDistanceMarker : MonoBehaviour {
 	public bool fadeIn = false;
 	private float alphaCounter = 0f;
 	public Color colour;
+	public Color guiColour;
 	public Color colourInvisible;
 	public Color colourVisible;
+
+	public GUIText distanceLabel;
 	
 	public bool smallEntered = false;
 	public bool largeEntered = false;
@@ -84,9 +87,12 @@ public class FadeDistanceMarker : MonoBehaviour {
 			colour = Color.Lerp (colourInvisible, colourVisible, alphaCounter);		// Lerp between the invisible colour and the fully opaque colour
 			
 			foreach (Renderer childMaterial in childRenderers) {
-				var newMat = new Color (childMaterial.material.color.r, childMaterial.material.color.g, childMaterial.material.color.b, colour.a);
+				Color newMat = new Color (childMaterial.material.color.r, childMaterial.material.color.g, childMaterial.material.color.b, colour.a);
 				childMaterial.material.color = newMat;								// Assign a standardized material to the circles
 			}
+			guiColour = new Color(labelMaterial.color.r, labelMaterial.color.g, labelMaterial.color.b, colour.a);
+			labelMaterial.color = guiColour;
+			distanceLabel.color = guiColour;										// This is needed to take care of fading the GUIText on the label
 
 		}
 	}

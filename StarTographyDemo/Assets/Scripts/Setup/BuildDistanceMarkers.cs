@@ -71,21 +71,17 @@ public class BuildDistanceMarkers : MonoBehaviour {
 			lineAlongEdge.transform.parent = markerParent.transform;
 			lineAlongEdge.AddComponent<DistanceMarkerBorder>();
 
-			GameObject label = new GameObject("Label");
+			GameObject label = new GameObject("Distance Label");
 			label.transform.parent = markerParent.transform;
 
-			GUIText labelGuiText = label.AddComponent<GUIText> ();
+			GUIText labelGuiText = label.AddComponent<GUIText>();
 
 			LineRenderer lineRenderer = lineAlongEdge.AddComponent<LineRenderer>();
 			lineRenderer.SetWidth(21,21);
 			Material distanceMarkerFlat = new Material(Resources.Load("Material/DistanceMarkerFlat") as Material);
 			distanceMarkerFlat.name = "Distance Marker Line Renderer Material";
 			lineRenderer.material = distanceMarkerFlat;
-			//lineAlongEdge.AddComponent<DistanceMarkerBorder>();
 
-
-			// This relies on all the objects being instantiated, so it goes last
-			FadeDistanceMarker fadeDistanceMarkerScript = markerParent.AddComponent<FadeDistanceMarker>();
 
 
 			labelGuiText.font = Resources.Load("Fonts/PetitaMedium") as Font;
@@ -93,6 +89,8 @@ public class BuildDistanceMarkers : MonoBehaviour {
 			labelGuiText.material.name = "Distance Marker Label Material";
 			labelGuiText.text = marker.Key;
 
+			// This relies on all the objects being instantiated, so it goes last
+			FadeDistanceMarker fadeDistanceMarkerScript = markerParent.AddComponent<FadeDistanceMarker>();
 			fadeDistanceMarkerScript.labelMaterial = labelGuiText.material;
 			fadeDistanceMarkerScript.colour = distanceMarkerFlat.color;
 			fadeDistanceMarkerScript.colourInvisible = new Color(
@@ -105,6 +103,7 @@ public class BuildDistanceMarkers : MonoBehaviour {
 				fadeDistanceMarkerScript.colour.g,
 				fadeDistanceMarkerScript.colour.b,
 				1f);
+			fadeDistanceMarkerScript.distanceLabel = labelGuiText;			// So that we can also fade the GUIText as well
 		}
 
 		Destroy (this);
