@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Functions;
+using Globals;
 
 public class BuildDistanceMarkers : MonoBehaviour {
 
@@ -15,19 +16,20 @@ public class BuildDistanceMarkers : MonoBehaviour {
 		 */
 		// Create a Dictionary of the different Distance Markers and their distances
 		Dictionary<string, double> markerDistance = new Dictionary<string, double>();
-		markerDistance.Add ("1 AU", 149597870.7d);
-		markerDistance.Add ("1 Light Hour", 1079252848.8d);
-		markerDistance.Add ("1 Light Day", 25902068371.2d);
-		markerDistance.Add ("1 Light Year", 9460730472600d);
-		markerDistance.Add ("1 Parsec", 30856740080213.256d);
+		markerDistance.Add ("1 AU", Global.AU);
+		markerDistance.Add ("1 Light Hour", Global.LH);
+		markerDistance.Add ("1 Light Day", Global.Ld);
+		markerDistance.Add ("1 Light Year", Global.LY);
+		markerDistance.Add ("1 Parsec", Global.PA);
 
 		foreach (KeyValuePair<string, double> marker in markerDistance) {
 			GameObject markerParent = new GameObject(gameObject.name + " [MARKER] "+ marker.Key);							// Create the name for the Distance Marker's gameObject
 			markerParent.transform.parent = transform;
+			markerParent.transform.localPosition = new Vector3(0f,0f,0f);					// Set the position to be equal to the Star's position
 			double markerValue = marker.Value;												// Cache the size of the distance marker
 			Vector3d scale = new Vector3d(markerValue, 1, markerValue);						// Scale the Distance Marker based on its expected scale size
 			DistanceMarkerStates distanceMarkerStatesScript = markerParent.AddComponent<DistanceMarkerStates>();
-			distanceMarkerStatesScript.distanceMarkerSize = markerValue;						// Assign the value of the distance marker into a variable in the relevant States script
+			distanceMarkerStatesScript.distanceMarkerSize = markerValue;					// Assign the value of the distance marker into a variable in the relevant States script
 
 
 
@@ -36,9 +38,9 @@ public class BuildDistanceMarkers : MonoBehaviour {
 			mesh.transform.parent = markerParent.transform;									// Assign the parent transform
 			Destroy (mesh.collider);														// Remove the collider that is automatically added when we create the primitive
 			Quaternion newRot = new Quaternion();											// Set up a temporary Quaternion to build the new rotation
-			newRot.eulerAngles = new Vector3(0,0,0);										// Reset the rotation as this was from Blender
+			newRot.eulerAngles = new Vector3(0f,0f,0f);										// Reset the rotation as this was from Blender
 			mesh.transform.localRotation = newRot;											// Set the rotation of the star
-
+			mesh.transform.localPosition = new Vector3(0f,0f,0f);							// Set the position of the mesh to be the same as the parent
 
 			Renderer meshRenderer = mesh.GetComponent<Renderer>();
 			Material distanceMarkerMesh = new Material(Resources.Load("Material/DistanceMarkerMesh") as Material);
