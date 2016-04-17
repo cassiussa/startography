@@ -16,7 +16,7 @@ public class DistanceMarkerBorder : MonoBehaviour {
 		lineRenderer.useWorldSpace = false;								// The Line Along Edge will need to move with the DistanceMarker
 
 		double distanceMarkerSize = transform.parent.gameObject.GetComponent<DistanceMarkerStates> ().distanceMarkerSize;
-		distanceMarkerSize *= 0.00001; // Temporary - until scales are functional
+		distanceMarkerSize *= 0.00001; // TODO: Temporary - until scales are functional.  See TODO in BuildDistanceMarkers.cs, BuildDistanceMarkerBorder.cs
 		xradius = distanceMarkerSize;
 		zradius = distanceMarkerSize;
 

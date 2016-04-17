@@ -58,7 +58,7 @@ public class BuildDistanceMarkers : MonoBehaviour {
 			mesh.transform.localScale = new Vector3(
 				((float)markerValue)*0.00001f*2f,
 				0.00001f,
-				((float)markerValue)*0.00001f*2f);	// This is temporary assignment of scale
+				((float)markerValue)*0.00001f*2f);	// TODO: This is temporary assignment of scale.  See TODO in DistanceMarkerBorder.cs, BuildDistanceMarkerBorder.cs
 
 
 
@@ -70,11 +70,6 @@ public class BuildDistanceMarkers : MonoBehaviour {
 			GameObject lineAlongEdge = new GameObject("Line Along Edge");
 			lineAlongEdge.transform.parent = markerParent.transform;
 			BuildDistanceMarkerBorder buildDistanceMarkerBorderScript = lineAlongEdge.AddComponent<BuildDistanceMarkerBorder>();
-			//DistanceMarkerBorder distanceMarkerBorderScript = lineAlongEdge.AddComponent<DistanceMarkerBorder>();
-
-
-
-
 
 
 			GameObject label = new GameObject("Distance Label");
@@ -117,7 +112,7 @@ public class BuildDistanceMarkers : MonoBehaviour {
 			smallCollider.AddComponent<BuildDistanceMarkerSmallCollider>();
 		}
 
-		Destroy (this);
+		//Destroy (this);
 	}
 
 }

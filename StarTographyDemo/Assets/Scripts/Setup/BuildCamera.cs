@@ -9,6 +9,7 @@ public class BuildCamera : MonoBehaviour {
 		cameras.AddComponent<Rigidbody> ();							// Add the rigidbody to the Camera
 		cameras.rigidbody.useGravity = false;						// Otherwise the camera's gonna start moving on it's own
 		cameras.AddComponent<SphereCollider> ();					// Assign a SphereCollider
+		cameras.collider.isTrigger = true;	// TODO: convert this over to isTrigger = false later.  Can't do it until layer's are ready
 		cameras.AddComponent<AudioListener> ();
 		cameras.tag = "MainCamera";
 		for(int i=1;i<=10;i++) {
