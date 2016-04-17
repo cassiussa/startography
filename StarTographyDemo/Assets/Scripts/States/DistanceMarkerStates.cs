@@ -9,6 +9,9 @@ public class DistanceMarkerStates : MonoBehaviour {
 	State _prevState;
 	State _cacheState;
 
+	public FadeDistanceMarker fadeDistanceMarkerScript;
+	public GameObject[] children = new GameObject[5];
+
 	#region Basic Getters/Setters
 	public State CurrentState {
 		get { return state; }
@@ -20,7 +23,7 @@ public class DistanceMarkerStates : MonoBehaviour {
 	#endregion
 
 	public double distanceMarkerSize;
-
+	
 
 	IEnumerator Start() {
 		while (true) {
@@ -53,12 +56,20 @@ public class DistanceMarkerStates : MonoBehaviour {
 	public void SetState(State newState) {
 		_prevState = state;
 		state = newState;
-		_cacheState = newState;
+		/* Uncomment the below line, "_cacheState = newState;", if we want to
+		 * perform state every Update(), then comment out all the "if(state != _cacheState)"
+		 * statements in the State functions below
+		 */
+		//_cacheState = newState;
 	}
 
 	void Active() {
 		if (state != _cacheState) {
-			Debug.LogError ("updated to Active state");
+			fadeDistanceMarkerScript.enabled = true;
+			foreach (GameObject child in children) {
+				child.SetActive(true);
+			}
+			print ("active state");
 			_cacheState = state;
 		}
 
@@ -66,17 +77,25 @@ public class DistanceMarkerStates : MonoBehaviour {
 
 	void Inactive() {
 		//print ("Inactive State");
+		fadeDistanceMarkerScript.enabled = false;
+		foreach (GameObject child in children) {
+			child.SetActive(false);
+		}
 		_cacheState = state;
 	}
 
 	void FadeIn() {
-
-		_cacheState = state;
+		if (state != _cacheState) {
+			print ("FadeIn state");
+			_cacheState = state;
+		}
 	}
 
 	void FadeOut() {
-
-		_cacheState = state;
+		if (state != _cacheState) {
+			print ("FadeOut state");
+			_cacheState = state;
+		}
 	}
 
 }

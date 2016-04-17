@@ -34,6 +34,7 @@ public class BuildDistanceMarkers : MonoBehaviour {
 
 
 			GameObject mesh = GameObject.CreatePrimitive(PrimitiveType.Cube);				// Create a plane primitive
+			distanceMarkerStatesScript.children[0] = mesh;
 			mesh.name = "Mesh";																// Create the name for the Distance Marker's gameObject
 			mesh.transform.parent = markerParent.transform;									// Assign the parent transform
 			Destroy (mesh.collider);														// Remove the collider that is automatically added when we create the primitive
@@ -68,11 +69,13 @@ public class BuildDistanceMarkers : MonoBehaviour {
 			 * be active or inactive
 			 */
 			GameObject lineAlongEdge = new GameObject("Line Along Edge");
+			distanceMarkerStatesScript.children[1] = lineAlongEdge;
 			lineAlongEdge.transform.parent = markerParent.transform;
 			BuildDistanceMarkerBorder buildDistanceMarkerBorderScript = lineAlongEdge.AddComponent<BuildDistanceMarkerBorder>();
 
 
 			GameObject label = new GameObject("Distance Label");
+			distanceMarkerStatesScript.children[2] = label;
 			label.transform.parent = markerParent.transform;
 			GUIText labelGuiText = label.AddComponent<GUIText>();
 
@@ -84,6 +87,8 @@ public class BuildDistanceMarkers : MonoBehaviour {
 
 			// This relies on all the objects being instantiated, so it goes last
 			FadeDistanceMarker fadeDistanceMarkerScript = markerParent.AddComponent<FadeDistanceMarker>();
+			distanceMarkerStatesScript.fadeDistanceMarkerScript = fadeDistanceMarkerScript; // Now we can send the value to DistanceMarkerStates
+
 			fadeDistanceMarkerScript.labelMaterial = labelGuiText.material;
 			fadeDistanceMarkerScript.colour = buildDistanceMarkerBorderScript.distanceMarkerFlat.color;
 			fadeDistanceMarkerScript.colourInvisible = new Color(
@@ -104,10 +109,12 @@ public class BuildDistanceMarkers : MonoBehaviour {
 			 * because of variable assignment timing
 			 */
 			GameObject largeCollider = new GameObject("Large Collider");
+			distanceMarkerStatesScript.children[3] = largeCollider;
 			largeCollider.transform.parent = markerParent.transform;
 			largeCollider.AddComponent<BuildDistanceMarkerLargeCollider>();
 			
 			GameObject smallCollider = new GameObject("Small Collider");
+			distanceMarkerStatesScript.children[4] = smallCollider;
 			smallCollider.transform.parent = markerParent.transform;
 			smallCollider.AddComponent<BuildDistanceMarkerSmallCollider>();
 		}

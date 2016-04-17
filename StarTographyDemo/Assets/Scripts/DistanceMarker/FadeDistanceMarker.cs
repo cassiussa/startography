@@ -2,16 +2,13 @@
 using System.Collections;
 
 public class FadeDistanceMarker : MonoBehaviour {
-	//public Material mat;
-	//public GameObject largeCollider;
-	//public GameObject smallCollider;
-	//public GameObject label;
 	public Material labelMaterial;
 	public Renderer[] childRenderers;
 	
 	public float fadeTime = 3.0f;
 	public bool fadeIn = false;
 	private float alphaCounter = 0f;
+	private float _cacheAlphaCounter = 0f;
 	public Color colour;
 	public Color guiColour;
 	public Color colourInvisible;
@@ -21,8 +18,9 @@ public class FadeDistanceMarker : MonoBehaviour {
 	
 	public bool smallEntered = false;
 	public bool largeEntered = false;
-	
-	// Use this for initialization
+
+	public DistanceMarkerStates distanceMarkerStates;
+
 	void Awake () {
 
 		/* 
@@ -49,6 +47,8 @@ public class FadeDistanceMarker : MonoBehaviour {
 				rendererIterator++;												// Increment the iteration counter
 			}
 		}
+
+		distanceMarkerStates = gameObject.GetComponent<DistanceMarkerStates> ();
 	}
 
 	void Update () {
@@ -76,13 +76,30 @@ public class FadeDistanceMarker : MonoBehaviour {
 		 * this means it's always processing when active.  Therefore we should
 		 * probably deactivate this script when certain conditions are met.
 		 */
-		if(fadeIn) alphaCounter += Time.deltaTime / fadeTime;						// Either we're adding time to the variable
-		else alphaCounter -= Time.deltaTime / fadeTime;								// or we're subtracting time
 
+		/* 
+		 * TODO: Come back to this later.  The script sends the Active state every Update() when not sending FadeIn or FadeOut States.
+		 * It needs to be changed to only send it when we first complete either a FadeIn or FadeOut.  For now, it doesn't matter
+		 * too much because the DistanceMarkerStates script checks that the state isn't the same as the last Update() anyways,
+		 * but not point processing what isn't getting used.
+		 */
+		if (fadeIn) {
+			_cacheAlphaCounter = alphaCounter;
+			alphaCounter += Time.deltaTime / fadeTime;						// Either we're adding time to the variable
+		} else {
+			_cacheAlphaCounter = alphaCounter;
+			alphaCounter -= Time.deltaTime / fadeTime;						// or we're subtracting time
+		}
 
 		if (alphaCounter < 0 || alphaCounter > 1) {
 			alphaCounter = Mathf.Clamp01 (alphaCounter);
+			distanceMarkerStates.SetState (DistanceMarkerStates.State.Active);
 		} else if (alphaCounter != 0 && alphaCounter != 1) {
+			if (_cacheAlphaCounter < alphaCounter) {
+				distanceMarkerStates.SetState (DistanceMarkerStates.State.FadeIn);
+			} else {
+				distanceMarkerStates.SetState (DistanceMarkerStates.State.FadeOut);
+			}
 			alphaCounter = Mathf.Clamp01 (alphaCounter);							// Clamp the range
 			colour = Color.Lerp (colourInvisible, colourVisible, alphaCounter);		// Lerp between the invisible colour and the fully opaque colour
 			
@@ -90,7 +107,7 @@ public class FadeDistanceMarker : MonoBehaviour {
 				Color newMat = new Color (childMaterial.material.color.r, childMaterial.material.color.g, childMaterial.material.color.b, colour.a);
 				childMaterial.material.color = newMat;								// Assign a standardized material to the circles
 			}
-			guiColour = new Color(labelMaterial.color.r, labelMaterial.color.g, labelMaterial.color.b, colour.a);
+			guiColour = new Color (labelMaterial.color.r, labelMaterial.color.g, labelMaterial.color.b, colour.a);
 			labelMaterial.color = guiColour;
 			distanceLabel.color = guiColour;										// This is needed to take care of fading the GUIText on the label
 
