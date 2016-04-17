@@ -23,10 +23,10 @@ namespace Globals {
 		public static double SM = 1d;						// SubMillion (the base size)
 		public static double MK = 1000000d;					// Million Kilometers
 		public static double AU = 149597870.7d;				// Astronomical Units
-		public static double LH = 1079252848.8d;			// Light Hours
-		public static double Ld = 25902068371.2d;				// Light Days
-		public static double LY = 9460730472600d;			// Light Years (Julian)
-		public static double PA = 30856740080213.256d;		// Parsecs
+		public static double LightHour = 1079252848.8d;			// Light Hours
+		public static double LightDay = 25902068371.2d;				// Light Days
+		public static double LightYear = 9460730472600d;			// Light Years (Julian)
+		public static double Parsec = 30856740080213.256d;		// Parsecs
 		public static double LD = 94607304725808d;			// Light Decades (Julian)
 		public static double LC = 946073047258080d;			// Light Centuries (Julian)
 		public static double LM = 9460730472580800d;		// Light Millenia (Julian)

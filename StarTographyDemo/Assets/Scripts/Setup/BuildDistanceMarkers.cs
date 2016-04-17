@@ -17,10 +17,10 @@ public class BuildDistanceMarkers : MonoBehaviour {
 		// Create a Dictionary of the different Distance Markers and their distances
 		Dictionary<string, double> markerDistance = new Dictionary<string, double>();
 		markerDistance.Add ("1 AU", Global.AU);
-		markerDistance.Add ("1 Light Hour", Global.LH);
-		markerDistance.Add ("1 Light Day", Global.Ld);
-		markerDistance.Add ("1 Light Year", Global.LY);
-		markerDistance.Add ("1 Parsec", Global.PA);
+		markerDistance.Add ("1 Light Hour", Global.LightHour);
+		markerDistance.Add ("1 Light Day", Global.LightDay);
+		markerDistance.Add ("1 Light Year", Global.LightYear);
+		markerDistance.Add ("1 Parsec", Global.Parsec);
 
 		foreach (KeyValuePair<string, double> marker in markerDistance) {
 			GameObject markerParent = new GameObject(gameObject.name + " [MARKER] "+ marker.Key);							// Create the name for the Distance Marker's gameObject
