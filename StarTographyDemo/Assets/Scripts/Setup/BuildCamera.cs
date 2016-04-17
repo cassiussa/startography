@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Globals;
 
 public class BuildCamera : MonoBehaviour {
 	
@@ -12,7 +13,8 @@ public class BuildCamera : MonoBehaviour {
 		cameras.collider.isTrigger = true;	// TODO: convert this over to isTrigger = false later.  Can't do it until layer's are ready
 		cameras.AddComponent<AudioListener> ();
 		cameras.tag = "MainCamera";
-		for(int i=1;i<=10;i++) {
+
+		for(int i=1;i<=Global.layerCount-7;i++) {
 			GameObject camera = new GameObject("Camera Layer "+i);
 			camera.transform.parent = cameras.transform;
 
@@ -20,25 +22,36 @@ public class BuildCamera : MonoBehaviour {
 			Camera cam = camera.AddComponent<Camera>();
 			cam.farClipPlane = 10000f;								// Set the camera's maximimum viewable distance
 			cam.nearClipPlane = 0.1f;								// Set the camera's near clip plane
-			cam.depth = 11-i;										// Set the camera's depth of field
+			cam.depth = Global.layerCount-i;										// Set the camera's depth of field
 			cam.fieldOfView = 60f;									// Set the camera's field of view
 			cam.gameObject.layer = i+7;								// Assigns this camera the appropriate layer
 			cam.tag = "MainCamera";
 
-			/*
-			 * We only want a layer to be able to interact in the Physics
-			 * engine with other objects on the same layer.  Here, we create
-			 * the Physics engine's layer matrix.
-			 */
-			for(int a=0;a<=17;a++) {
+
+			for(int a=0;a<=Global.layerCount;a++) {
 				if(a != i+7) {
+					/*
+					 * We only want a layer to be able to interact in the Physics
+					 * engine with other objects on the same layer.  Here, we create
+					 * the Physics engine's layer matrix.
+					 */
 					Physics.IgnoreLayerCollision(a,i+7,true);
+				
+					/*
+					 * Handle what is enabled on the camera's culling mask, which
+					 * is what determines what is visible to any given camera and
+					 * what is not visible to it.
+					 */
+					cam.cullingMask &= ~(1 << a);
 				}
 			}
 
 
+
+
+
 			// Set the clear flags to clear on all layers except for the farthest camera downt he layer list
-			if(i == 10) {
+			if(i == Global.layerCount) {
 				cam.clearFlags = CameraClearFlags.Skybox;			// this is the farthest camera so set the Skybox
 				cam.backgroundColor = new Color(0,0,0);
 			} else {
@@ -50,7 +63,7 @@ public class BuildCamera : MonoBehaviour {
 			camera.AddComponent<GUILayer>();
 		}
 
-		Destroy (this);
+		//Destroy (this);
 	}
 
 }
