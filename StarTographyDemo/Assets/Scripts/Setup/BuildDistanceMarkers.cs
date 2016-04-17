@@ -19,6 +19,7 @@ public class BuildDistanceMarkers : MonoBehaviour {
 		markerDistance.Add ("1 Light Hour", 1079252848.8d);
 		markerDistance.Add ("1 Light Day", 25902068371.2d);
 		markerDistance.Add ("1 Light Year", 9460730472600d);
+		markerDistance.Add ("1 Parsec", 30856740080213.256d);
 
 		foreach (KeyValuePair<string, double> marker in markerDistance) {
 			GameObject markerParent = new GameObject(gameObject.name + " [MARKER] "+ marker.Key);							// Create the name for the Distance Marker's gameObject

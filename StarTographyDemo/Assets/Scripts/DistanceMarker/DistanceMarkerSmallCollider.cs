@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class DistanceMarkerLargeCollider : MonoBehaviour {
+public class DistanceMarkerSmallCollider : MonoBehaviour {
 	
 	public FadeDistanceMarker fadeDistanceMarkerScript;
 	Color colour;
@@ -17,19 +17,19 @@ public class DistanceMarkerLargeCollider : MonoBehaviour {
 		 */
 		fadeDistanceMarkerScript = transform.parent.gameObject.GetComponent<FadeDistanceMarker> ();
 	}
-	
+
 	void OnTriggerEnter(Collider other) {
 		if (other.gameObject.tag == "MainCamera") {
-			fadeDistanceMarkerScript.fadeIn = true;
-			fadeDistanceMarkerScript.largeEntered = true;
+			fadeDistanceMarkerScript.fadeIn = false;
+			fadeDistanceMarkerScript.smallEntered = true;
 		}
 	}
 	
 	
 	void OnTriggerExit(Collider other) {
 		if (other.gameObject.tag == "MainCamera") {
-			fadeDistanceMarkerScript.fadeIn = false;
-			fadeDistanceMarkerScript.largeEntered = false;
+			fadeDistanceMarkerScript.fadeIn = true;
+			fadeDistanceMarkerScript.smallEntered = false;
 		}
 	}
 }
