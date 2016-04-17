@@ -43,6 +43,8 @@ public class BuildDistanceMarkers : MonoBehaviour {
 			mesh.transform.localPosition = new Vector3(0f,0f,0f);							// Set the position of the mesh to be the same as the parent
 
 			Renderer meshRenderer = mesh.GetComponent<Renderer>();
+			meshRenderer.castShadows = false;
+			meshRenderer.receiveShadows = false;
 			Material distanceMarkerMesh = new Material(Resources.Load("Material/DistanceMarkerMesh") as Material);
 			meshRenderer.material = distanceMarkerMesh;
 			meshRenderer.material.name = "Distance Marker Mesh Material";
@@ -64,19 +66,17 @@ public class BuildDistanceMarkers : MonoBehaviour {
 			 */
 			GameObject lineAlongEdge = new GameObject("Line Along Edge");
 			lineAlongEdge.transform.parent = markerParent.transform;
-			lineAlongEdge.AddComponent<DistanceMarkerBorder>();
+			BuildDistanceMarkerBorder buildDistanceMarkerBorderScript = lineAlongEdge.AddComponent<BuildDistanceMarkerBorder>();
+			//DistanceMarkerBorder distanceMarkerBorderScript = lineAlongEdge.AddComponent<DistanceMarkerBorder>();
+
+
+
+
+
 
 			GameObject label = new GameObject("Distance Label");
 			label.transform.parent = markerParent.transform;
-
 			GUIText labelGuiText = label.AddComponent<GUIText>();
-
-			LineRenderer lineRenderer = lineAlongEdge.AddComponent<LineRenderer>();
-			lineRenderer.SetWidth(21,21);
-			Material distanceMarkerFlat = new Material(Resources.Load("Material/DistanceMarkerFlat") as Material);
-			distanceMarkerFlat.name = "Distance Marker Line Renderer Material";
-			lineRenderer.material = distanceMarkerFlat;
-
 
 
 			labelGuiText.font = Resources.Load("Fonts/PetitaMedium") as Font;
@@ -87,7 +87,7 @@ public class BuildDistanceMarkers : MonoBehaviour {
 			// This relies on all the objects being instantiated, so it goes last
 			FadeDistanceMarker fadeDistanceMarkerScript = markerParent.AddComponent<FadeDistanceMarker>();
 			fadeDistanceMarkerScript.labelMaterial = labelGuiText.material;
-			fadeDistanceMarkerScript.colour = distanceMarkerFlat.color;
+			fadeDistanceMarkerScript.colour = buildDistanceMarkerBorderScript.distanceMarkerFlat.color;
 			fadeDistanceMarkerScript.colourInvisible = new Color(
 				fadeDistanceMarkerScript.colour.r,
 				fadeDistanceMarkerScript.colour.g,
