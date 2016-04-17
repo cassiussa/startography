@@ -55,7 +55,10 @@ public class BuildDistanceMarkers : MonoBehaviour {
 			 * which can then look after it each Update() in the event that there's
 			 * a scale state change
 			 */
-			mesh.transform.localScale = new Vector3(2f,0.0001f,2f);						// This is temporary assignment of scale
+			mesh.transform.localScale = new Vector3(
+				((float)markerValue)*0.00001f*2f,
+				0.00001f,
+				((float)markerValue)*0.00001f*2f);	// This is temporary assignment of scale
 
 
 
