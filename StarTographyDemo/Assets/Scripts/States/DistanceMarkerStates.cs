@@ -77,10 +77,12 @@ public class DistanceMarkerStates : MonoBehaviour {
 
 	void Inactive() {
 		//print ("Inactive State");
-		fadeDistanceMarkerScript.enabled = false;
+
+		// TODO: Can't get into this state because the FadeDistanceMarker script sends us to Active state every frame we're not in FadeIn or FadeOut states
 		foreach (GameObject child in children) {
 			child.SetActive(false);
 		}
+		fadeDistanceMarkerScript.enabled = false;
 		_cacheState = state;
 	}
 

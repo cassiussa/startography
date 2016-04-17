@@ -25,6 +25,18 @@ public class BuildCamera : MonoBehaviour {
 			cam.gameObject.layer = i+7;								// Assigns this camera the appropriate layer
 			cam.tag = "MainCamera";
 
+			/*
+			 * We only want a layer to be able to interact in the Physics
+			 * engine with other objects on the same layer.  Here, we create
+			 * the Physics engine's layer matrix.
+			 */
+			for(int a=0;a<=17;a++) {
+				if(a != i+7) {
+					Physics.IgnoreLayerCollision(a,i+7,true);
+				}
+			}
+
+
 			// Set the clear flags to clear on all layers except for the farthest camera downt he layer list
 			if(i == 10) {
 				cam.clearFlags = CameraClearFlags.Skybox;			// this is the farthest camera so set the Skybox
