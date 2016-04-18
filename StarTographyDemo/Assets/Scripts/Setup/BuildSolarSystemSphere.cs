@@ -18,6 +18,7 @@ public class BuildSolarSystemSphere : MonoBehaviour {
 			GameObject thisSolarSystemSphere = Function.MakeSphereMesh("Solar System Sphere Outer", solarSystemSphere.transform, false);
 			Material celestialSphereMaterial = Resources.Load("Material/CelestialSphere") as Material;	// Get the CelestialSphere material from the 'Resources' folder
 			thisSolarSystemSphere.renderer.material = new Material(celestialSphereMaterial);			// Assign the material to the Material variable
+			thisSolarSystemSphere.transform.localScale = new Vector3(10000000000,10000000000,10000000000); // TODO: Fix this later
 			if(solSphere == 1 || solSphere == 3) {														// Check if this is the 2nd or 4th sphere so we can reverse its normals
 				thisSolarSystemSphere.name = "Solar System Sphere Inner";								// Name the GameObject
 				thisSolarSystemSphere.AddComponent<ReverseNormals>();									// Reverse the normals to point inwards
