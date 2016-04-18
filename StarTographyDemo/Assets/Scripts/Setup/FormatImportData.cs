@@ -207,6 +207,7 @@ public class FormatImportData : MonoBehaviour {
 			celestialBodies.star[sIndex].CelestialBodyBuilder.bodies = new GameObject[bodyArraySize];
 			celestialBodies.star[sIndex].CelestialBodyBuilder.celestialBodyBuilderScripts = new CelestialBodyBuilder[bodyArraySize];
 			celestialBodies.star[sIndex].CelestialBodyBuilder.positionScripts = new Position[bodyArraySize];
+			celestialBodies.star[sIndex].CelestialBodyBuilder.scaleStatesScripts = new ScaleStates[bodyArraySize+sIndex];
 			celestialBodies.star[sIndex].CelestialBodyBuilder.realPositions = new Vector3d[bodyArraySize];
 			celestialBodies.star[sIndex].CelestialBodyBuilder.relativePositions = new Vector3d[bodyArraySize];
 
@@ -220,6 +221,9 @@ public class FormatImportData : MonoBehaviour {
 
 				celestialBodies.star[sIndex].CelestialBodyBuilder.positionScripts[planetIndex] = 
 					celestialBodies.star[sIndex].CelestialBodyBuilder.planets[planetIndex].AddComponent<Position>();
+
+				celestialBodies.star[sIndex].CelestialBodyBuilder.scaleStatesScripts[planetIndex] = 
+					celestialBodies.star[sIndex].CelestialBodyBuilder.planets[planetIndex].AddComponent<ScaleStates>();
 
 				celestialBodies.star[sIndex].CelestialBodyBuilder.realPositions[planetIndex] = 
 					celestialBodies.star[sIndex].CelestialBodyBuilder.positionScripts[planetIndex].realPosition;
@@ -241,12 +245,16 @@ public class FormatImportData : MonoBehaviour {
 				celestialBodies.star[sIndex].CelestialBodyBuilder.positionScripts[planetIndexSize+moonIndex] = 
 					celestialBodies.star[sIndex].CelestialBodyBuilder.moons[moonIndex].gameObject.AddComponent<Position>();
 
+				celestialBodies.star[sIndex].CelestialBodyBuilder.scaleStatesScripts[planetIndexSize+moonIndex] = 
+					celestialBodies.star[sIndex].CelestialBodyBuilder.moons[moonIndex].gameObject.AddComponent<ScaleStates>();
+
 				celestialBodies.star[sIndex].CelestialBodyBuilder.realPositions[planetIndexSize+moonIndex] = 
 					celestialBodies.star[sIndex].CelestialBodyBuilder.positionScripts[planetIndexSize+moonIndex].realPosition;
 
 				celestialBodies.star[sIndex].CelestialBodyBuilder.relativePositions[planetIndexSize+moonIndex] = 
 					celestialBodies.star[sIndex].CelestialBodyBuilder.positionScripts[planetIndexSize+moonIndex].relativePosition;
 			}
+
 
 			// Keep this here until I figure out how to make the literal connections between the
 			// DistanceArray.cs's value for realPosition and the Position.cs value for realPosition

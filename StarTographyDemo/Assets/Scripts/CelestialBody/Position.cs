@@ -36,11 +36,6 @@ public class Position : MonoBehaviour {
 			//cachedRelativePosition = new Vector3d (relativePosition);
 		//Debug.LogError ("C " + realPosition.x);
 	}
-
-	// Use this for initialization
-	void Start () {
-
-	}
 	
 	// Update is called once per frame
 	void Update () {

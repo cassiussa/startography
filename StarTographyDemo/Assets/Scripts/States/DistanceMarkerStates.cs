@@ -69,7 +69,7 @@ public class DistanceMarkerStates : MonoBehaviour {
 			foreach (GameObject child in children) {
 				child.SetActive(true);
 			}
-			print ("active state");
+			//print ("active state");
 			_cacheState = state;
 		}
 
