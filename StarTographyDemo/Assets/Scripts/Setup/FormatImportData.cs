@@ -202,6 +202,9 @@ public class FormatImportData : MonoBehaviour {
 			 */
 			// Get the size of the array based on the number of Planets plus the number of Moons in this star system
 			int bodyArraySize = celestialBodies.star[sIndex].CelestialBodyBuilder.planets.Length + celestialBodies.star[sIndex].CelestialBodyBuilder.moons.Length;
+			int bodyAndStarArraySize = celestialBodies.star.Length + celestialBodies.star[sIndex].CelestialBodyBuilder.planets.Length + celestialBodies.star[sIndex].CelestialBodyBuilder.moons.Length;
+			//Debug.LogError ("bodyArraySize = "+bodyArraySize);
+			//Debug.LogError ("bodyAndStarArraySize = "+bodyAndStarArraySize);
 			// Create the array at the appropriate index size.
 			// We will use these literal variables later from other scripts
 			celestialBodies.star[sIndex].CelestialBodyBuilder.bodies = new GameObject[bodyArraySize];
@@ -210,6 +213,7 @@ public class FormatImportData : MonoBehaviour {
 			celestialBodies.star[sIndex].CelestialBodyBuilder.scaleStatesScripts = new ScaleStates[bodyArraySize+sIndex];
 			celestialBodies.star[sIndex].CelestialBodyBuilder.realPositions = new Vector3d[bodyArraySize];
 			celestialBodies.star[sIndex].CelestialBodyBuilder.relativePositions = new Vector3d[bodyArraySize];
+
 
 			// Iterate over each of the planets and add them individually into the new array
 			for(int planetIndex = 0; planetIndex < celestialBodies.star[sIndex].CelestialBodyBuilder.planets.Length; planetIndex++) {

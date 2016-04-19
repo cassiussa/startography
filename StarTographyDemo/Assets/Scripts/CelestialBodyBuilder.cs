@@ -110,11 +110,11 @@ public class CelestialBodyBuilder : MonoBehaviour {
 			GameObject hardCollider = Function.MakeSphereCollider("Local Hard Collider", transform, 0.75f, false);
 
 			if(bodyName == "Earth") {
-				Material earthMaterial = Resources.Load("Material/Earth 1") as Material;		// Get the CelestialSphere material from the 'Resources' folder
+				Material earthMaterial = Resources.Load("Material/Earth 1") as Material;		// TODO: Deal with Materials.  Get the CelestialSphere material from the 'Resources' folder
 				mesh.renderer.material = new Material(earthMaterial);
 				print ("It's earth");
 			}
-			GameObject trail = new GameObject ("Trail");
+			GameObject trail = new GameObject ("Trail");										// TODO: Handle the body trails
 			trail.transform.parent = gameObject.transform;
 
 
