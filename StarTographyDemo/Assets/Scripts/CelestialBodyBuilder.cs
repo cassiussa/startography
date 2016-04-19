@@ -130,10 +130,10 @@ public class CelestialBodyBuilder : MonoBehaviour {
 			 * are attached to all celestial bodies.  It holds onto their real position
 			 * in space as well as their relative position to the camera.
 			 */
-			gameObject.AddComponent<DistanceArrays> ();										// Add the DistanceArrays script to this Star
-			Position positionScript = gameObject.AddComponent<Position> ();					// Add the Position.cs script to this Star
-			ScaleStates scaleStatesScript = gameObject.AddComponent<ScaleStates>();			// Add the ScaleStates.cs script to this Star
-			positionScript.realPosition = coordinates;										// Assign the coordinates for this star into the realPosition variable on the Position script for this star
+			//gameObject.AddComponent<DistanceArrays> ();										// Add the DistanceArrays script to this Star
+			//Position positionScript = gameObject.AddComponent<Position> ();					// Add the Position.cs script to this Star
+			//ScaleStates scaleStatesScript = gameObject.AddComponent<ScaleStates>();			// Add the ScaleStates.cs script to this Star
+			//positionScript.realPosition = coordinates;										// Assign the coordinates for this star into the realPosition variable on the Position script for this star
 			gameObject.AddComponent<BuildStarColliders> ();									// Create colliders gameObjects, rigidbodies, and configs
 			gameObject.AddComponent<BuildSolarSystemSphere> ();								// Make the Solar Sphere for this star, assign the necessary scripts, positions, rotations, etc
 			gameObject.AddComponent<BuildDistanceMarkers> ();								// Create the Distance Marker gameObjects
