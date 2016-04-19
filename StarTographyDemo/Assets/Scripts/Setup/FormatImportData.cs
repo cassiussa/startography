@@ -94,12 +94,20 @@ public class FormatImportData : MonoBehaviour {
 
 			// Get the number of planets orbiting this star
 			celestialBodies.star[sIndex].CelestialBodyBuilder.planets = new GameObject[celestialBodies.star[sIndex].planets.Length];
+
+			int starArraySize = 1;
+			int planetArraySize = celestialBodies.star[sIndex].planets.Length;
+			int moonArraySize = 0;
+			int bodiesArraySize;
+
+
 			// Iterate over this star's planets so that we can count the total moons for the star
 			int starMoonCount = 0;
 			// Iterate through each child planet of this star
 			for(int pInd=0;pInd<celestialBodies.star[sIndex].planets.Length;pInd++) {
 				// Add the length of the 'moons' array to the starMoonCount variable
 				starMoonCount += celestialBodies.star[sIndex].planets[pInd].moons.Length;
+				moonArraySize += celestialBodies.star[sIndex].planets[pInd].moons.Length;;
 				/* 
 				 * Create a new array with the length of starMoonCount which adds 
 				 * all moons for each planet iteration so we get the total moons around 
@@ -108,8 +116,25 @@ public class FormatImportData : MonoBehaviour {
 				celestialBodies.star[sIndex].CelestialBodyBuilder.moons = new GameObject[starMoonCount];
 			}
 			// Reset the starMoonCount variable
-			starMoonCount = 0;
 
+			bodiesArraySize = starArraySize+planetArraySize+moonArraySize;
+
+
+			celestialBodies.star[sIndex].CelestialBodyBuilder.bodies = new GameObject[bodiesArraySize];
+			celestialBodies.star[sIndex].CelestialBodyBuilder.celestialBodyBuilderScripts = new CelestialBodyBuilder[bodiesArraySize];
+			celestialBodies.star[sIndex].CelestialBodyBuilder.positionScripts = new Position[bodiesArraySize];
+			celestialBodies.star[sIndex].CelestialBodyBuilder.scaleStatesScripts = new ScaleStates[bodiesArraySize];
+			celestialBodies.star[sIndex].CelestialBodyBuilder.realPositions = new Vector3d[bodiesArraySize];
+			celestialBodies.star[sIndex].CelestialBodyBuilder.relativePositions = new Vector3d[bodiesArraySize];
+			
+			celestialBodies.star[sIndex].CelestialBodyBuilder.celestialBodyBuilderScripts[starArraySize-1] = celestialBodies.star[sIndex].CelestialBodyBuilder;
+			celestialBodies.star[sIndex].CelestialBodyBuilder.positionScripts[starArraySize-1] = celestialBodies.star[sIndex].gameObject.AddComponent<Position>();
+			celestialBodies.star[sIndex].CelestialBodyBuilder.scaleStatesScripts[starArraySize-1] = celestialBodies.star[sIndex].gameObject.AddComponent<ScaleStates>();
+			celestialBodies.star[sIndex].CelestialBodyBuilder.realPositions[starArraySize-1] = celestialBodies.star[sIndex].CelestialBodyBuilder.positionScripts[starArraySize-1].realPosition;
+			celestialBodies.star[sIndex].CelestialBodyBuilder.relativePositions[starArraySize-1] = celestialBodies.star[sIndex].CelestialBodyBuilder.positionScripts[starArraySize-1].relativePosition;
+
+
+			starMoonCount = 0;
 
 			/*
 			 * Iterate through all the Planets in the JSON file and create their
@@ -118,12 +143,14 @@ public class FormatImportData : MonoBehaviour {
 			 * pIndex : Planet Index
 			 */
 			for(int pIndex=0;pIndex<celestialBodies.star[sIndex].planets.Length;pIndex++) {
+
 				celestialBodies.star[sIndex].planets[pIndex].gameObject = new GameObject();
 				celestialBodies.star[sIndex].planets[pIndex].gameObject.SetActive (false);
 				celestialBodies.star[sIndex].planets[pIndex].gameObject.name = "[STAR] "+celestialBodies.star[sIndex].name+" [PLANET] "+celestialBodies.star[sIndex].planets[pIndex].name;
 
 				celestialBodies.star[sIndex].planets[pIndex].CelestialBodyBuilder = celestialBodies.star[sIndex].planets[pIndex].gameObject.AddComponent<CelestialBodyBuilder>();
-				//celestialBodies.star[sIndex].planets[pIndex].CelestialBodyBuilder.enabled = false;
+
+
 				celestialBodies.star[sIndex].planets[pIndex].CelestialBodyBuilder.celestialBodyType = CelestialBodyBuilder.CelestialBodyType.Planet;
 
 				// Send the variable data to each planets's CelestialBodyBuilder.cs scripts
@@ -141,6 +168,17 @@ public class FormatImportData : MonoBehaviour {
 
 				// Add this planet to the 'planets' array within the CelestrialBodyBuilder.cs script attached to this planet's parent star
 				celestialBodies.star[sIndex].CelestialBodyBuilder.planets[pIndex] = celestialBodies.star[sIndex].planets[pIndex].gameObject;
+
+
+				celestialBodies.star[sIndex].CelestialBodyBuilder.celestialBodyBuilderScripts[pIndex+starArraySize] = celestialBodies.star[sIndex].planets[pIndex].CelestialBodyBuilder;
+				celestialBodies.star[sIndex].CelestialBodyBuilder.bodies[pIndex+starArraySize] = celestialBodies.star[sIndex].CelestialBodyBuilder.planets[pIndex];
+				celestialBodies.star[sIndex].CelestialBodyBuilder.positionScripts[pIndex+starArraySize] = celestialBodies.star[sIndex].CelestialBodyBuilder.planets[pIndex].AddComponent<Position>();
+				celestialBodies.star[sIndex].CelestialBodyBuilder.realPositions[pIndex+starArraySize] = celestialBodies.star[sIndex].CelestialBodyBuilder.positionScripts[pIndex].realPosition;
+				celestialBodies.star[sIndex].CelestialBodyBuilder.relativePositions[pIndex+starArraySize] = celestialBodies.star[sIndex].CelestialBodyBuilder.positionScripts[pIndex].relativePosition;
+				celestialBodies.star[sIndex].CelestialBodyBuilder.scaleStatesScripts[pIndex+starArraySize] = celestialBodies.star[sIndex].CelestialBodyBuilder.planets[pIndex].AddComponent<ScaleStates>();
+
+
+
 
 				int planetMoonCount = celestialBodies.star[sIndex].planets[pIndex].moons.Length;
 				celestialBodies.star[sIndex].planets[pIndex].CelestialBodyBuilder.moons = new GameObject[planetMoonCount];
@@ -161,7 +199,10 @@ public class FormatImportData : MonoBehaviour {
 					 * celestial bodies > this star > this star, this planet > this star, this planet, this moon's CelestialBodyBuilder.cs script
 					 */
 					celestialBodies.star[sIndex].planets[pIndex].moons[mIndex].CelestialBodyBuilder = celestialBodies.star[sIndex].planets[pIndex].moons[mIndex].gameObject.AddComponent<CelestialBodyBuilder>();
-					//celestialBodies.star[sIndex].planets[pIndex].moons[mIndex].CelestialBodyBuilder.enabled = false;
+
+
+
+
 					celestialBodies.star[sIndex].planets[pIndex].moons[mIndex].CelestialBodyBuilder.celestialBodyType = CelestialBodyBuilder.CelestialBodyType.Moon;
 
 					// Send the variable data to each moon's CelestialBodyBuilder.cs scripts
@@ -178,16 +219,29 @@ public class FormatImportData : MonoBehaviour {
 					celestialBodies.star[sIndex].planets[pIndex].moons[mIndex].CelestialBodyBuilder.star = celestialBodies.star[sIndex].gameObject;
 					celestialBodies.star[sIndex].planets[pIndex].moons[mIndex].CelestialBodyBuilder.planet = celestialBodies.star[sIndex].planets[pIndex].gameObject;
 
+					// Add the moon into the array for the parent planet
 					celestialBodies.star[sIndex].CelestialBodyBuilder.moons[starMoonCount] = celestialBodies.star[sIndex].planets[pIndex].moons[mIndex].gameObject;
-					starMoonCount++;
+					celestialBodies.star[sIndex].planets[pIndex].CelestialBodyBuilder.moons[mIndex] = celestialBodies.star[sIndex].CelestialBodyBuilder.moons[starMoonCount];
+					Debug.LogError ("Adding "+celestialBodies.star[sIndex].CelestialBodyBuilder.moons[starMoonCount].gameObject+", count = "+starMoonCount);
 
-					// Assign this moon into the parent star's 'moons' array.
-					celestialBodies.star[sIndex].planets[pIndex].CelestialBodyBuilder.moons[mIndex] = celestialBodies.star[sIndex].planets[pIndex].moons[mIndex].gameObject;
+					celestialBodies.star[sIndex].CelestialBodyBuilder.celestialBodyBuilderScripts[1+starMoonCount+pIndex] = celestialBodies.star[sIndex].planets[pIndex].moons[mIndex].CelestialBodyBuilder;
+					// We're not getting the moon's gameObject
+					celestialBodies.star[sIndex].CelestialBodyBuilder.bodies[1+starMoonCount+pIndex] = celestialBodies.star[sIndex].CelestialBodyBuilder.moons[mIndex];
+					celestialBodies.star[sIndex].CelestialBodyBuilder.positionScripts[starMoonCount+pIndex+mIndex] = celestialBodies.star[sIndex].CelestialBodyBuilder.moons[mIndex].gameObject.AddComponent<Position>();
+					celestialBodies.star[sIndex].CelestialBodyBuilder.realPositions[mIndex+starArraySize+planetArraySize] = celestialBodies.star[sIndex].CelestialBodyBuilder.positionScripts[mIndex].realPosition;
+					celestialBodies.star[sIndex].CelestialBodyBuilder.relativePositions[mIndex+starArraySize+planetArraySize] = celestialBodies.star[sIndex].CelestialBodyBuilder.positionScripts[mIndex].relativePosition;
+					celestialBodies.star[sIndex].CelestialBodyBuilder.scaleStatesScripts[mIndex+starArraySize+planetArraySize] = celestialBodies.star[sIndex].CelestialBodyBuilder.moons[mIndex].gameObject.AddComponent<ScaleStates>();
+
 
 					// Temporary until I figure out how to get the gameObjects instantiating on enum selection
 					celestialBodies.star[sIndex].planets[pIndex].moons[mIndex].gameObject.SetActive (true);
+
+					starMoonCount++;
 				}
 
+				for(int i=0;i<celestialBodies.star[sIndex].CelestialBodyBuilder.moons.Length;i++) {
+
+				}
 				// Temporary until I figure out how to get the gameObjects instantiating on enum selection
 				celestialBodies.star[sIndex].planets[pIndex].gameObject.SetActive (true);
 			}
@@ -201,85 +255,20 @@ public class FormatImportData : MonoBehaviour {
 			 * the process
 			 */
 			// Get the size of the array based on the number of Planets plus the number of Moons in this star system
-			int starArraySize = 1;
+			/*int starArraySize = 1;
 			int planetArraySize = celestialBodies.star[sIndex].CelestialBodyBuilder.planets.Length;
 			int moonArraySize = celestialBodies.star[sIndex].CelestialBodyBuilder.moons.Length;
-			int bodiesArraySize = starArraySize + planetArraySize + moonArraySize;
+			int bodiesArraySize = starArraySize + planetArraySize + moonArraySize;*/
 
 			// Create the array at the appropriate index size.
 			// We will use these literal variables later from other scripts
-			celestialBodies.star[sIndex].CelestialBodyBuilder.bodies = new GameObject[bodiesArraySize];
-			celestialBodies.star[sIndex].CelestialBodyBuilder.celestialBodyBuilderScripts = new CelestialBodyBuilder[bodiesArraySize];
-			celestialBodies.star[sIndex].CelestialBodyBuilder.positionScripts = new Position[bodiesArraySize];
-			celestialBodies.star[sIndex].CelestialBodyBuilder.scaleStatesScripts = new ScaleStates[bodiesArraySize];
-			celestialBodies.star[sIndex].CelestialBodyBuilder.realPositions = new Vector3d[bodiesArraySize];
-			celestialBodies.star[sIndex].CelestialBodyBuilder.relativePositions = new Vector3d[bodiesArraySize];
-
-
-
-
-			celestialBodies.star[sIndex].CelestialBodyBuilder.celestialBodyBuilderScripts[starArraySize-1] = 
-				celestialBodies.star[sIndex].CelestialBodyBuilder;
-			
-			celestialBodies.star[sIndex].CelestialBodyBuilder.positionScripts[starArraySize-1] = 
-				celestialBodies.star[sIndex].gameObject.AddComponent<Position>();
-			
-			celestialBodies.star[sIndex].CelestialBodyBuilder.scaleStatesScripts[starArraySize-1] = 
-				celestialBodies.star[sIndex].gameObject.AddComponent<ScaleStates>();
-			
-			celestialBodies.star[sIndex].CelestialBodyBuilder.realPositions[starArraySize-1] = 
-				celestialBodies.star[sIndex].CelestialBodyBuilder.positionScripts[starArraySize-1].realPosition;
-			
-			celestialBodies.star[sIndex].CelestialBodyBuilder.relativePositions[starArraySize-1] = 
-				celestialBodies.star[sIndex].CelestialBodyBuilder.positionScripts[starArraySize-1].relativePosition;
+		
 			
 			
 			// Temporary until I figure out how to get the gameObjects instantiating on enum selection
 			celestialBodies.star[sIndex].gameObject.SetActive (true);
 
 
-
-			// Iterate over each of the planets and add them individually into the new array
-			for(int planetIndex = 0; planetIndex < planetArraySize; planetIndex++) {
-				celestialBodies.star[sIndex].CelestialBodyBuilder.bodies[planetIndex+starArraySize] = 
-					celestialBodies.star[sIndex].CelestialBodyBuilder.planets[planetIndex];
-
-				celestialBodies.star[sIndex].CelestialBodyBuilder.celestialBodyBuilderScripts[planetIndex+starArraySize] = 
-					celestialBodies.star[sIndex].planets[planetIndex].CelestialBodyBuilder;
-
-				celestialBodies.star[sIndex].CelestialBodyBuilder.positionScripts[planetIndex+starArraySize] = 
-					celestialBodies.star[sIndex].CelestialBodyBuilder.planets[planetIndex].AddComponent<Position>();
-
-				celestialBodies.star[sIndex].CelestialBodyBuilder.scaleStatesScripts[planetIndex+starArraySize] = 
-					celestialBodies.star[sIndex].CelestialBodyBuilder.planets[planetIndex].AddComponent<ScaleStates>();
-
-				celestialBodies.star[sIndex].CelestialBodyBuilder.realPositions[planetIndex+starArraySize] = 
-					celestialBodies.star[sIndex].CelestialBodyBuilder.positionScripts[planetIndex].realPosition;
-
-				celestialBodies.star[sIndex].CelestialBodyBuilder.relativePositions[planetIndex+starArraySize] = 
-					celestialBodies.star[sIndex].CelestialBodyBuilder.positionScripts[planetIndex].relativePosition;
-			}
-
-
-			for(int moonIndex = 0; moonIndex < moonArraySize; moonIndex++) {
-				celestialBodies.star[sIndex].CelestialBodyBuilder.bodies[moonIndex+planetArraySize+starArraySize] = 
-					celestialBodies.star[sIndex].CelestialBodyBuilder.moons[moonIndex];
-
-				celestialBodies.star[sIndex].CelestialBodyBuilder.celestialBodyBuilderScripts[moonIndex+planetArraySize+starArraySize] = 
-					celestialBodies.star[sIndex].CelestialBodyBuilder.moons[moonIndex].gameObject.GetComponent<CelestialBodyBuilder>();
-
-				celestialBodies.star[sIndex].CelestialBodyBuilder.positionScripts[moonIndex+planetArraySize+starArraySize] = 
-					celestialBodies.star[sIndex].CelestialBodyBuilder.moons[moonIndex].gameObject.AddComponent<Position>();
-
-				celestialBodies.star[sIndex].CelestialBodyBuilder.scaleStatesScripts[moonIndex+planetArraySize+starArraySize] = 
-					celestialBodies.star[sIndex].CelestialBodyBuilder.moons[moonIndex].gameObject.AddComponent<ScaleStates>();
-
-				celestialBodies.star[sIndex].CelestialBodyBuilder.realPositions[moonIndex+planetArraySize+starArraySize] = 
-					celestialBodies.star[sIndex].CelestialBodyBuilder.positionScripts[moonIndex].realPosition;
-
-				celestialBodies.star[sIndex].CelestialBodyBuilder.relativePositions[moonIndex+planetArraySize+starArraySize] = 
-					celestialBodies.star[sIndex].CelestialBodyBuilder.positionScripts[moonIndex].relativePosition;
-			}
 
 
 			// Keep this here until I figure out how to make the literal connections between the

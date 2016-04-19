@@ -230,6 +230,17 @@
 							"inclination" : 3.39,
 							"moonMass" : 1.19,
 							"moonRadius" : 1.19
+						},
+						{
+							"name" : "That One",
+							"status" : false,
+							"numMoonsInSystem" : 1,
+							"orbitalPeriod" : 516.23,
+							"semiMajorAxis" : 1.19,
+							"eccentricity" : 0.59,
+							"inclination" : 3.39,
+							"moonMass" : 1.19,
+							"moonRadius" : 1.19
 						}
 					]
 				}
