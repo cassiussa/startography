@@ -24,6 +24,8 @@ public class ScaleStates : MonoBehaviour {
 	public double currentDistance;
 	public double scaleFactor;									// This is the scale multiplier, which is updated on every State update
 
+	public Transform[] allChildren;
+
 
 	void Awake() {
 
@@ -38,6 +40,9 @@ public class ScaleStates : MonoBehaviour {
 		relativePosition = positionScript.relativePosition;
 
 		currentDistance = Vector3d.Distance(new Vector3d(0,0,0), relativePosition);
+
+		allChildren = gameObject.GetComponentsInChildren<Transform>();
+
 
 		if(currentDistance < 1e+7)
 			SetState (State.ScaleLayer1);
@@ -173,7 +178,9 @@ public class ScaleStates : MonoBehaviour {
 	void ScaleLayer1() {
 		if(currentDistance >= 1e+7)
 			SetState (State.ScaleLayer2);
-		gameObject.layer = 8;
+
+		SetLayer(8);
+
 		ScaleFactor (1e+3);
 		thisPosition = relativePosition / scaleFactor;
 		transform.position = Vector3d.toV3(thisPosition);
@@ -184,7 +191,7 @@ public class ScaleStates : MonoBehaviour {
 			SetState (State.ScaleLayer3);
 		else if(currentDistance < 1e+6)
 			SetState (State.ScaleLayer1);
-		gameObject.layer = 9;
+		SetLayer (9);
 		ScaleFactor (1e+4);
 		thisPosition = relativePosition / scaleFactor;
 		transform.position = Vector3d.toV3(thisPosition);
@@ -195,7 +202,7 @@ public class ScaleStates : MonoBehaviour {
 			SetState (State.ScaleLayer4);
 		else if(currentDistance < 1e+7)
 			SetState (State.ScaleLayer2);
-		gameObject.layer = 10;
+		SetLayer (10);
 		ScaleFactor (1e+5);
 		thisPosition = relativePosition / scaleFactor;
 		transform.position = Vector3d.toV3(thisPosition);
@@ -206,7 +213,7 @@ public class ScaleStates : MonoBehaviour {
 			SetState (State.ScaleLayer5);
 		else if(currentDistance < 1e+8)
 			SetState (State.ScaleLayer3);
-		gameObject.layer = 11;
+		SetLayer (11);
 		ScaleFactor (1e+6);
 		transform.position = Vector3d.toV3(thisPosition);
 	}
@@ -216,7 +223,7 @@ public class ScaleStates : MonoBehaviour {
 			SetState (State.ScaleLayer6);
 		else if(currentDistance < 1e+9)
 			SetState (State.ScaleLayer4);
-		gameObject.layer = 12;
+		SetLayer (12);
 		ScaleFactor (1e+7);
 		thisPosition = relativePosition / scaleFactor;
 		transform.position = Vector3d.toV3(thisPosition);
@@ -227,7 +234,7 @@ public class ScaleStates : MonoBehaviour {
 			SetState (State.ScaleLayer7);
 		else if(currentDistance < 1e+10)
 			SetState (State.ScaleLayer5);
-		gameObject.layer = 13;
+		SetLayer (13);
 		ScaleFactor (1e+8);
 		thisPosition = relativePosition / scaleFactor;
 		transform.position = Vector3d.toV3(thisPosition);
@@ -238,7 +245,7 @@ public class ScaleStates : MonoBehaviour {
 			SetState (State.ScaleLayer8);
 		else if(currentDistance < 1e+11)
 			SetState (State.ScaleLayer6);
-		gameObject.layer = 14;
+		SetLayer (14);
 		ScaleFactor (1e+9);
 		thisPosition = relativePosition / scaleFactor;
 		transform.position = Vector3d.toV3(thisPosition);
@@ -249,7 +256,7 @@ public class ScaleStates : MonoBehaviour {
 			SetState (State.ScaleLayer9);
 		else if(currentDistance < 1e+12)
 			SetState (State.ScaleLayer7);
-		gameObject.layer = 15;
+		SetLayer (15);
 		ScaleFactor (1e+10);
 		thisPosition = relativePosition / scaleFactor;
 		transform.position = Vector3d.toV3(thisPosition);
@@ -260,7 +267,7 @@ public class ScaleStates : MonoBehaviour {
 			SetState (State.ScaleLayer10);
 		else if(currentDistance < 1e+13)
 			SetState (State.ScaleLayer8);
-		gameObject.layer = 16;
+		SetLayer (16);
 		ScaleFactor (1e+11);
 		thisPosition = relativePosition / scaleFactor;
 		transform.position = Vector3d.toV3(thisPosition);
@@ -271,7 +278,7 @@ public class ScaleStates : MonoBehaviour {
 			SetState (State.ScaleLayer11);
 		else if(currentDistance < 1e+14)
 			SetState (State.ScaleLayer9);
-		gameObject.layer = 17;
+		SetLayer (17);
 		ScaleFactor (1e+12);
 		thisPosition = relativePosition / scaleFactor;
 		transform.position = Vector3d.toV3(thisPosition);
@@ -282,7 +289,7 @@ public class ScaleStates : MonoBehaviour {
 			SetState (State.ScaleLayer12);
 		else if(currentDistance < 1e+15)
 			SetState (State.ScaleLayer10);
-		ScaleFactor (1e+13);
+		SetLayer (18);
 		thisPosition = relativePosition / scaleFactor;
 		transform.position = Vector3d.toV3(thisPosition);
 	}
@@ -292,7 +299,8 @@ public class ScaleStates : MonoBehaviour {
 			SetState (State.ScaleLayer13);
 		else if(currentDistance < 1e+16)
 			SetState (State.ScaleLayer11);
-		ScaleFactor (1e+14);
+		SetLayer (19);
+		thisPosition = relativePosition / scaleFactor;
 		transform.position = Vector3d.toV3(thisPosition);
 	}
 
@@ -301,7 +309,9 @@ public class ScaleStates : MonoBehaviour {
 			SetState (State.ScaleLayer14);
 		else if(currentDistance < 1e+17)
 			SetState (State.ScaleLayer12);
+		SetLayer (20);
 		ScaleFactor (1e+15);
+		thisPosition = relativePosition / scaleFactor;
 		transform.position = Vector3d.toV3(thisPosition);
 	}
 
@@ -310,7 +320,9 @@ public class ScaleStates : MonoBehaviour {
 			SetState (State.ScaleLayer15);
 		else if(currentDistance < 1e+18)
 			SetState (State.ScaleLayer13);
+		SetLayer (21);
 		ScaleFactor (1e+16);
+		thisPosition = relativePosition / scaleFactor;
 		transform.position = Vector3d.toV3(thisPosition);
 	}
 
@@ -319,7 +331,9 @@ public class ScaleStates : MonoBehaviour {
 			SetState (State.ScaleLayer16);
 		else if(currentDistance < 1e+19)
 			SetState (State.ScaleLayer14);
+		SetLayer (22);
 		ScaleFactor (1e+17);
+		thisPosition = relativePosition / scaleFactor;
 		transform.position = Vector3d.toV3(thisPosition);
 	}
 
@@ -328,7 +342,10 @@ public class ScaleStates : MonoBehaviour {
 			SetState (State.ScaleLayer17);
 		else if(currentDistance < 1e+20)
 			SetState (State.ScaleLayer15);
+		SetLayer (23);
 		ScaleFactor (1e+18);
+		thisPosition = relativePosition / scaleFactor;
+		transform.position = Vector3d.toV3(thisPosition);
 
 	}
 
@@ -337,7 +354,9 @@ public class ScaleStates : MonoBehaviour {
 			SetState (State.ScaleLayer18);
 		else if(currentDistance < 1e+21)
 			SetState (State.ScaleLayer16);
+		SetLayer (24);
 		ScaleFactor (1e+19);
+		thisPosition = relativePosition / scaleFactor;
 		transform.position = Vector3d.toV3(thisPosition);
 	}
 
@@ -345,6 +364,8 @@ public class ScaleStates : MonoBehaviour {
 		if(currentDistance < 1e+24)
 			SetState (State.ScaleLayer17);
 		ScaleFactor (1e+20);
+		SetLayer (25);
+		thisPosition = relativePosition / scaleFactor;
 		transform.position = Vector3d.toV3(thisPosition);
 	}
 
@@ -355,4 +376,13 @@ public class ScaleStates : MonoBehaviour {
 			_cacheState = state;
 		}
 	}
+
+	void SetLayer(int newLayer) {
+		gameObject.layer = newLayer;
+		foreach(Transform child in allChildren) {            
+			child.gameObject.layer = newLayer;
+		}
+	}
+
 }
+
