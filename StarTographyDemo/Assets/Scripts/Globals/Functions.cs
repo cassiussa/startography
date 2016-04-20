@@ -119,7 +119,7 @@ namespace Functions {
 		
 		// Divide by a scalar
 		public static Vector3d operator / (Vector3d vector3d, double scalar) {
-			return new Vector3d(scalar / vector3d.x, scalar / vector3d.y, scalar / vector3d.z);
+			return new Vector3d(vector3d.x / scalar, vector3d.y / scalar, vector3d.z / scalar);
 		}
 
 		// Distance between two Vector3d variables
@@ -163,8 +163,8 @@ namespace Functions {
 		}
 
 		// Convert the value of the Vector3d variable into a regular Vector3
-		public Vector3 toV3() {
-			Vector3 result = new Vector3( (float)x, (float)y, (float)z );
+		public static Vector3 toV3(Vector3d convert) {
+			Vector3 result = new Vector3( (float)convert.x, (float)convert.y, (float)convert.z );
 			return result;
 		}
 
