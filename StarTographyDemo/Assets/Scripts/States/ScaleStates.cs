@@ -19,16 +19,25 @@ public class ScaleStates : MonoBehaviour {
 	public Position positionScript;
 	public Vector3d realPosition;
 	public Vector3d relativePosition;
-	public Vector3d thisPosition = new Vector3d (0, 0, 0);
+	public Vector3d thisPosition = new Vector3d (100, 100, 100);
 
 	public double currentDistance;
 	public double scaleFactor;									// This is the scale multiplier, which is updated on every State update
 
 
 	void Awake() {
+
+		if (thisPosition.x == 0d || thisPosition.y == 0d || thisPosition.z == 0d) {
+			thisPosition.x = 1;
+			thisPosition.y = 1;
+			thisPosition.z = 1;
+		}
 		positionScript = gameObject.GetComponent<Position> ();
 
 		realPosition = positionScript.realPosition;
+		relativePosition = positionScript.relativePosition;
+
+		currentDistance = Vector3d.Distance(new Vector3d(0,0,0), relativePosition);
 
 		if(currentDistance < 1e+7)
 			SetState (State.ScaleLayer1);
@@ -142,10 +151,10 @@ public class ScaleStates : MonoBehaviour {
 	}
 
 	void Update() {
-		if (relativePosition.x == 0d || relativePosition.y == 0d || relativePosition.z == 0d) {
-			relativePosition.x = 1;
-			relativePosition.y = 1;
-			relativePosition.z = 1;
+		if (thisPosition.x == 0d || thisPosition.y == 0d || thisPosition.z == 0d) {
+			thisPosition.x = 1;
+			thisPosition.y = 1;
+			thisPosition.z = 1;
 		}
 		currentDistance = Vector3d.Distance(new Vector3d(0,0,0), relativePosition);
 
