@@ -32,7 +32,7 @@ public class Position : MonoBehaviour {
 
 		// Lets generate some random positions for now so that we can use them to iterate over
 		// and put together the code for determining the closest
-		realPosition = Vector3d.Set (realPosition, new Vector3d((double)Random.Range (-100000000.0f, 100000000.0f),(double)Random.Range (-100000000.0f, 100000000.0f),(double)Random.Range (-100000000.0f, 100000000.0f)));
+		realPosition = Vector3d.Set (realPosition, new Vector3d((double)Random.Range (-100000000000000.0f, 100000000000000.0f),(double)Random.Range (-100000000000000.0f, 100000000000000.0f),(double)Random.Range (-100000000000000.0f, 100000000000000.0f)));
 	
 
 		cachedRelativePosition = new Vector3d (relativePosition);

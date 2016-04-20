@@ -118,114 +118,137 @@ public class ScaleStates : MonoBehaviour {
 		 * a state.  Example.  ScaleLayer12 would check if we go into either
 		 * ScaleLayer11 or ScaleLayer13 only.
 		 */
-		if(currentDistance >= 100000000000000000000000d) 
-			SetState (State.ScaleLayer18);
-		else if(currentDistance >= 10000000000000000000000d)
-			SetState (State.ScaleLayer17);
-		else if(currentDistance >= 1000000000000000000000d)
-			SetState (State.ScaleLayer16);
-		else if(currentDistance >= 100000000000000000000d)
-			SetState (State.ScaleLayer15);
-		else if(currentDistance >= 10000000000000000000d)
-			SetState (State.ScaleLayer14);
-		else if(currentDistance >= 1000000000000000000d)
-			SetState (State.ScaleLayer13);
-		else if(currentDistance >= 100000000000000000d)
-			SetState (State.ScaleLayer12);
-		else if(currentDistance >= 10000000000000000d)
-			SetState (State.ScaleLayer11);
-		else if(currentDistance >= 1000000000000000d)
-			SetState (State.ScaleLayer10);
-		else if(currentDistance >= 100000000000000d)
-			SetState (State.ScaleLayer9);
-		else if(currentDistance >= 10000000000000d)
-			SetState (State.ScaleLayer8);
-		else if(currentDistance >= 1000000000000d)
-			SetState (State.ScaleLayer7);
-		else if(currentDistance >= 100000000000d)
-			SetState (State.ScaleLayer6);
-		else if(currentDistance >= 10000000000d)
-			SetState (State.ScaleLayer5);
-		else if(currentDistance >= 1000000000d)
-			SetState (State.ScaleLayer4);
-		else if(currentDistance >= 100000000d)
-			SetState (State.ScaleLayer3);
-		else if(currentDistance >= 10000000d)
-			SetState (State.ScaleLayer2);
-		else
-			SetState (State.ScaleLayer1);
 
 	}
 
 	void ScaleLayer1() {
-		
+		if(currentDistance >= 10000000d)
+			SetState (State.ScaleLayer2);
+		transform.position = new Vector3 ((float)relativePosition.x/10000, (float)relativePosition.y/10000, (float)relativePosition.z/10000);
 	}
 
 	void ScaleLayer2() {
-		
+		if(currentDistance >= 100000000d)
+			SetState (State.ScaleLayer3);
+		else if(currentDistance < 10000000d)
+			SetState (State.ScaleLayer1);
+		transform.position = new Vector3 ((float)relativePosition.x/100000, (float)relativePosition.y/100000, (float)relativePosition.z/100000);
 	}
 
 	void ScaleLayer3() {
-		
+		if(currentDistance >= 1000000000d)
+			SetState (State.ScaleLayer4);
+		else if(currentDistance < 10000000d)
+			SetState (State.ScaleLayer2);
+		transform.position = new Vector3 ((float)relativePosition.x/1000000, (float)relativePosition.y/1000000, (float)relativePosition.z/1000000);
 	}
 
 	void ScaleLayer4() {
-		
+		if(currentDistance >= 10000000000d)
+			SetState (State.ScaleLayer5);
+		else if(currentDistance < 100000000d)
+			SetState (State.ScaleLayer3);
+		transform.position = new Vector3 ((float)relativePosition.x/10000000, (float)relativePosition.y/10000000, (float)relativePosition.z/10000000);
 	}
 
 	void ScaleLayer5() {
-		
+		if(currentDistance >= 100000000000d)
+			SetState (State.ScaleLayer6);
+		else if(currentDistance < 1000000000d)
+			SetState (State.ScaleLayer4);
+		transform.position = new Vector3 ((float)relativePosition.x/100000000, (float)relativePosition.y/100000000, (float)relativePosition.z/100000000);
 	}
 
 	void ScaleLayer6() {
-		
+		if(currentDistance >= 1000000000000d)
+			SetState (State.ScaleLayer7);
+		else if(currentDistance < 10000000000d)
+			SetState (State.ScaleLayer5);
+		transform.position = new Vector3 ((float)relativePosition.x/1000000000, (float)relativePosition.y/1000000000, (float)relativePosition.z/1000000000);
 	}
 
 	void ScaleLayer7() {
-		
+		if(currentDistance >= 10000000000000d)
+			SetState (State.ScaleLayer8);
+		else if(currentDistance < 100000000000d)
+			SetState (State.ScaleLayer6);
+		transform.position = new Vector3 ((float)relativePosition.x/10000000000, (float)relativePosition.y/10000000000, (float)relativePosition.z/10000000000);
 	}
 
 	void ScaleLayer8() {
-		
+		if(currentDistance >= 100000000000000d)
+			SetState (State.ScaleLayer9);
+		else if(currentDistance < 1000000000000d)
+			SetState (State.ScaleLayer7);
+		transform.position = new Vector3 ((float)relativePosition.x/100000000000, (float)relativePosition.y/100000000000, (float)relativePosition.z/100000000000);
 	}
 
 	void ScaleLayer9() {
-		
+		if(currentDistance >= 1000000000000000d)
+			SetState (State.ScaleLayer10);
+		else if(currentDistance < 10000000000000d)
+			SetState (State.ScaleLayer8);
+		transform.position = new Vector3 ((float)relativePosition.x/1000000000000, (float)relativePosition.y/1000000000000, (float)relativePosition.z/1000000000000);
 	}
 
 	void ScaleLayer10() {
-		
+		if(currentDistance >= 10000000000000000d)
+			SetState (State.ScaleLayer11);
+		else if(currentDistance < 100000000000000d)
+			SetState (State.ScaleLayer9);
 	}
 
 	void ScaleLayer11() {
-		
+		if(currentDistance >= 100000000000000000d)
+			SetState (State.ScaleLayer12);
+		else if(currentDistance < 1000000000000000d)
+			SetState (State.ScaleLayer10);
 	}
 
 	void ScaleLayer12() {
-		
+		if(currentDistance >= 1000000000000000000d)
+			SetState (State.ScaleLayer13);
+		else if(currentDistance < 10000000000000000d)
+			SetState (State.ScaleLayer11);
 	}
 
 	void ScaleLayer13() {
-		
+		if(currentDistance >= 10000000000000000000d)
+			SetState (State.ScaleLayer14);
+		else if(currentDistance < 100000000000000000d)
+			SetState (State.ScaleLayer12);
 	}
 
 	void ScaleLayer14() {
-		
+		if(currentDistance >= 100000000000000000000d)
+			SetState (State.ScaleLayer15);
+		else if(currentDistance < 1000000000000000000d)
+			SetState (State.ScaleLayer13);
 	}
 
 	void ScaleLayer15() {
-		
+		if(currentDistance >= 1000000000000000000000d)
+			SetState (State.ScaleLayer16);
+		else if(currentDistance < 10000000000000000000d)
+			SetState (State.ScaleLayer14);
 	}
 
 	void ScaleLayer16() {
-		
+		if(currentDistance >= 10000000000000000000000d)
+			SetState (State.ScaleLayer17);
+		else if(currentDistance < 100000000000000000000d)
+			SetState (State.ScaleLayer15);
 	}
 
 	void ScaleLayer17() {
-		
+		if(currentDistance >= 100000000000000000000000d)
+			SetState (State.ScaleLayer18);
+		else if(currentDistance < 1000000000000000000000d)
+			SetState (State.ScaleLayer16);
 	}
 
 	void ScaleLayer18() {
-		
+		if(currentDistance < 10000000000000000000000d)
+			SetState (State.ScaleLayer17);
 	}
 }
