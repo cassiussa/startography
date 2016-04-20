@@ -22,21 +22,17 @@ public class Position : MonoBehaviour {
 	Vector3d cachedRelativePosition;
 
 	void Awake() {
+		// Lets generate some random positions for now so that we can use them to iterate over
+		// and put together the code for determining the closest
+		realPosition = Vector3d.Set (realPosition, new Vector3d((double)Random.Range (-100000000000000.0f, 100000000000000.0f),(double)Random.Range (-100000000000000.0f, 100000000000000.0f),(double)Random.Range (-100000000000000.0f, 100000000000000.0f)));
+
 		/*
 		 * Set the initial value of the relativePostion variable to be the same values
 		 * so that we can immediately calculate the closest planet or moon, if that
 		 * applies
 		 */
-		// The below doesn't need to be done here.  taken care of in FormatImportData
-		//relativePosition = realPosition;
-
-		// Lets generate some random positions for now so that we can use them to iterate over
-		// and put together the code for determining the closest
-		realPosition = Vector3d.Set (realPosition, new Vector3d((double)Random.Range (-100000000000000.0f, 100000000000000.0f),(double)Random.Range (-100000000000000.0f, 100000000000000.0f),(double)Random.Range (-100000000000000.0f, 100000000000000.0f)));
-	
-
+		relativePosition = new Vector3d (realPosition.x, realPosition.y, realPosition.z);		// If we don't have this here than the relativePosition variables will be empty for Star types
 		cachedRelativePosition = new Vector3d (relativePosition);
-		//Debug.LogError ("C " + realPosition.x);
 	}
 	
 	// Update is called once per frame
