@@ -18,6 +18,7 @@ public class ScaleStates : MonoBehaviour {
 
 	public Position positionScript;
 	public Vector3d realPosition;
+	public Vector3d relativePosition;
 
 	void Awake() {
 		positionScript = gameObject.GetComponent<Position> ();

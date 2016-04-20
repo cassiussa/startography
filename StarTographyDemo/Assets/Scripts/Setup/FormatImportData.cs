@@ -235,6 +235,10 @@ public class FormatImportData : MonoBehaviour {
 			celestialBodies.star[sIndex].CelestialBodyBuilder.positionScripts[0].relativePosition = celestialBodies.star[sIndex].CelestialBodyBuilder.relativePositions[0];
 			celestialBodies.star[sIndex].CelestialBodyBuilder.scaleStatesScripts[0] = celestialBodies.star[sIndex].gameObject.AddComponent<ScaleStates>();
 
+			// Assign the value reference of the realPosition and relativePosition into the ScaleStates script's variables
+			celestialBodies.star[sIndex].CelestialBodyBuilder.scaleStatesScripts[0].realPosition = celestialBodies.star[sIndex].CelestialBodyBuilder.positionScripts[0].realPosition;
+			celestialBodies.star[sIndex].CelestialBodyBuilder.scaleStatesScripts[0].relativePosition = celestialBodies.star[sIndex].CelestialBodyBuilder.relativePositions[0];
+
 			int count = 0;
 			for(int i=0;i<planetArrSize;i++) {
 				// Add this planet to the 'planets' array within the CelestralBodyBuilder.cs script attached to this planet's parent star
@@ -247,6 +251,10 @@ public class FormatImportData : MonoBehaviour {
 				celestialBodies.star[sIndex].CelestialBodyBuilder.relativePositions[i+1] = new Vector3d(celestialBodies.star[sIndex].CelestialBodyBuilder.positionScripts[i+1].realPosition);
 				celestialBodies.star[sIndex].CelestialBodyBuilder.positionScripts[i+1].relativePosition = celestialBodies.star[sIndex].CelestialBodyBuilder.relativePositions[i+1];
 				celestialBodies.star[sIndex].CelestialBodyBuilder.scaleStatesScripts[i+1] = celestialBodies.star[sIndex].CelestialBodyBuilder.planets[i].AddComponent<ScaleStates>();
+
+				// Assign the value reference of the realPosition and relativePosition into the ScaleStates script's variables
+				celestialBodies.star[sIndex].CelestialBodyBuilder.scaleStatesScripts[i+1].realPosition = celestialBodies.star[sIndex].CelestialBodyBuilder.realPositions[i+1];
+				celestialBodies.star[sIndex].CelestialBodyBuilder.scaleStatesScripts[i+1].relativePosition = celestialBodies.star[sIndex].CelestialBodyBuilder.positionScripts[i+1].relativePosition;
 				count++;
 			}
 			
@@ -258,6 +266,10 @@ public class FormatImportData : MonoBehaviour {
 				celestialBodies.star[sIndex].CelestialBodyBuilder.relativePositions[i+count+1] = new Vector3d(celestialBodies.star[sIndex].CelestialBodyBuilder.positionScripts[i+count+1].realPosition);
 				celestialBodies.star[sIndex].CelestialBodyBuilder.positionScripts[i+count+1].relativePosition = celestialBodies.star[sIndex].CelestialBodyBuilder.relativePositions[i+count+1];
 				celestialBodies.star[sIndex].CelestialBodyBuilder.scaleStatesScripts[i+count+1] = celestialBodies.star[sIndex].CelestialBodyBuilder.moons[i].AddComponent<ScaleStates>();
+
+				// Assign the value reference of the realPosition and relativePosition into the ScaleStates script's variables
+				celestialBodies.star[sIndex].CelestialBodyBuilder.scaleStatesScripts[i+count+1].realPosition = celestialBodies.star[sIndex].CelestialBodyBuilder.realPositions[i+count+1];
+				celestialBodies.star[sIndex].CelestialBodyBuilder.scaleStatesScripts[i+count+1].relativePosition = celestialBodies.star[sIndex].CelestialBodyBuilder.positionScripts[i+count+1].relativePosition;
 			}
 
 			/* 
