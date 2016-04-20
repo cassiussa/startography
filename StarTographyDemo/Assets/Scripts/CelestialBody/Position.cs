@@ -27,13 +27,15 @@ public class Position : MonoBehaviour {
 		 * so that we can immediately calculate the closest planet or moon, if that
 		 * applies
 		 */
+		// The below doesn't need to be done here.  taken care of in FormatImportData
 		//relativePosition = realPosition;
 
 		// Lets generate some random positions for now so that we can use them to iterate over
 		// and put together the code for determining the closest
-		//relativePosition = new Vector3d((double)Random.Range(-10000.0f, 10000.0f), (double)Random.Range(-10000.0f, 10000.0f), (double)Random.Range(-10000.0f, 10000.0f));
+		realPosition = Vector3d.Set (realPosition, new Vector3d((double)Random.Range (-100000000.0f, 100000000.0f),(double)Random.Range (-100000000.0f, 100000000.0f),(double)Random.Range (-100000000.0f, 100000000.0f)));
+	
 
-			//cachedRelativePosition = new Vector3d (relativePosition);
+		cachedRelativePosition = new Vector3d (relativePosition);
 		//Debug.LogError ("C " + realPosition.x);
 	}
 	

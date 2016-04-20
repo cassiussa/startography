@@ -20,6 +20,8 @@ public class ScaleStates : MonoBehaviour {
 	public Vector3d realPosition;
 	public Vector3d relativePosition;
 
+	public double currentDistance;
+
 	void Awake() {
 		positionScript = gameObject.GetComponent<Position> ();
 
@@ -96,6 +98,63 @@ public class ScaleStates : MonoBehaviour {
 		 * statements in the State functions below
 		 */
 		//_cacheState = newState;
+	}
+
+	void Update() {
+		currentDistance = Vector3d.Distance(new Vector3d(0,0,0), relativePosition);
+
+		/*
+		 * The distance values below are multiples of 1,000km per Unity.
+		 * In other words, the first distance (10,000,000km) represents
+		 * 10,000 Units in Unity.
+		 * 
+		 * We test largest to smallest because the majority of the objects
+		 * in the universe will be closer to the upper range vs the lower
+		 * range.  For example, Alpha Centauri is 41,315,009,973,844.2km
+		 * which is around layer 8-9.  So essentially all other star systems
+		 * would be closer to ScaleLayer18 than ScaleLayer1.
+		 * 
+		 * TODO: This should later be changed to do a single check only when within
+		 * a state.  Example.  ScaleLayer12 would check if we go into either
+		 * ScaleLayer11 or ScaleLayer13 only.
+		 */
+		if(currentDistance >= 100000000000000000000000d) 
+			SetState (State.ScaleLayer18);
+		else if(currentDistance >= 10000000000000000000000d)
+			SetState (State.ScaleLayer17);
+		else if(currentDistance >= 1000000000000000000000d)
+			SetState (State.ScaleLayer16);
+		else if(currentDistance >= 100000000000000000000d)
+			SetState (State.ScaleLayer15);
+		else if(currentDistance >= 10000000000000000000d)
+			SetState (State.ScaleLayer14);
+		else if(currentDistance >= 1000000000000000000d)
+			SetState (State.ScaleLayer13);
+		else if(currentDistance >= 100000000000000000d)
+			SetState (State.ScaleLayer12);
+		else if(currentDistance >= 10000000000000000d)
+			SetState (State.ScaleLayer11);
+		else if(currentDistance >= 1000000000000000d)
+			SetState (State.ScaleLayer10);
+		else if(currentDistance >= 100000000000000d)
+			SetState (State.ScaleLayer9);
+		else if(currentDistance >= 10000000000000d)
+			SetState (State.ScaleLayer8);
+		else if(currentDistance >= 1000000000000d)
+			SetState (State.ScaleLayer7);
+		else if(currentDistance >= 100000000000d)
+			SetState (State.ScaleLayer6);
+		else if(currentDistance >= 10000000000d)
+			SetState (State.ScaleLayer5);
+		else if(currentDistance >= 1000000000d)
+			SetState (State.ScaleLayer4);
+		else if(currentDistance >= 100000000d)
+			SetState (State.ScaleLayer3);
+		else if(currentDistance >= 10000000d)
+			SetState (State.ScaleLayer2);
+		else
+			SetState (State.ScaleLayer1);
+
 	}
 
 	void ScaleLayer1() {

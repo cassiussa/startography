@@ -130,6 +130,13 @@ namespace Functions {
 			return result;
 		}
 
+		public static Vector3d Set(Vector3d first, Vector3d second) {
+			first.x = second.x;
+			first.y = second.y;
+			first.z = second.z;
+			return first;
+		}
+
 		// Comparison of two Vector3d variables (this checks their values instead of checking if it's literally the same variable/item
 		public static bool operator == (Vector3d first, Vector3d second) {
 			return (first.x == second.x && first.y == second.y && first.z == second.z);

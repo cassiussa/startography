@@ -95,19 +95,20 @@ public class FormatImportData : MonoBehaviour {
 			// Get the number of planets orbiting this star
 			celestialBodies.star[sIndex].CelestialBodyBuilder.planets = new GameObject[celestialBodies.star[sIndex].planets.Length];
 
+
+			/*
+			 * We need to figure out how many child moons belong to each
+			 * planet and how many plantes belong to each star so that we
+			 * can add them up and resize the arrays
+			 */
 			int starArraySize = 1;
 			int planetArraySize = celestialBodies.star[sIndex].planets.Length;
-			int moonArraySize = 0;
-			int bodiesArraySize;
-
-
-			// Iterate over this star's planets so that we can count the total moons for the star
 			int starMoonCount = 0;
+			int bodiesArraySize;
 			// Iterate through each child planet of this star
 			for(int pInd=0;pInd<celestialBodies.star[sIndex].planets.Length;pInd++) {
 				// Add the length of the 'moons' array to the starMoonCount variable
 				starMoonCount += celestialBodies.star[sIndex].planets[pInd].moons.Length;
-				moonArraySize += celestialBodies.star[sIndex].planets[pInd].moons.Length;;
 				/* 
 				 * Create a new array with the length of starMoonCount which adds 
 				 * all moons for each planet iteration so we get the total moons around 
@@ -115,11 +116,8 @@ public class FormatImportData : MonoBehaviour {
 				 */
 				celestialBodies.star[sIndex].CelestialBodyBuilder.moons = new GameObject[starMoonCount];
 			}
-			// Reset the starMoonCount variable
 
-			bodiesArraySize = starArraySize+planetArraySize+moonArraySize;
-
-
+			bodiesArraySize = starArraySize+planetArraySize+starMoonCount;
 			celestialBodies.star[sIndex].CelestialBodyBuilder.bodies = new GameObject[bodiesArraySize];
 			celestialBodies.star[sIndex].CelestialBodyBuilder.celestialBodyBuilderScripts = new CelestialBodyBuilder[bodiesArraySize];
 			celestialBodies.star[sIndex].CelestialBodyBuilder.positionScripts = new Position[bodiesArraySize];
@@ -279,16 +277,7 @@ public class FormatImportData : MonoBehaviour {
 			 * closest to the sun.  Calculating their distance is expensive, so we want to streamline
 			 * the process
 			 */
-			// Get the size of the array based on the number of Planets plus the number of Moons in this star system
-			/*int starArraySize = 1;
-			int planetArraySize = celestialBodies.star[sIndex].CelestialBodyBuilder.planets.Length;
-			int moonArraySize = celestialBodies.star[sIndex].CelestialBodyBuilder.moons.Length;
-			int bodiesArraySize = starArraySize + planetArraySize + moonArraySize;*/
 
-			// Create the array at the appropriate index size.
-			// We will use these literal variables later from other scripts
-		
-			
 			
 			// Temporary until I figure out how to get the gameObjects instantiating on enum selection
 			celestialBodies.star[sIndex].gameObject.SetActive (true);

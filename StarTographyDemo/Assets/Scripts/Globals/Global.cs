@@ -3,6 +3,9 @@ using System.Collections;
 
 namespace Globals {
 
+	/*
+	 * The maximum distance scale is 100,000,000,000,000,000km
+	 */
 	public class Global : MonoBehaviour {
 		public static double PI = 3.14159265358979323846d;
 		public static double oneEightyOverPI = 57.29577951308232d;					// 180/PI - so it doesn't need to be calculated
