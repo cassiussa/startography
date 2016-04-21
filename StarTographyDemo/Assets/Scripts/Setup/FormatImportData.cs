@@ -91,6 +91,7 @@ public class FormatImportData : MonoBehaviour {
 			celestialBodies.star[sIndex].CelestialBodyBuilder.stellarMass = celestialBodies.star[sIndex].stellarMass;
 			celestialBodies.star[sIndex].CelestialBodyBuilder.stellarRadius = celestialBodies.star[sIndex].stellarRadius;
 			celestialBodies.star[sIndex].CelestialBodyBuilder.dateLastUpdate = celestialBodies.star[sIndex].dateLastUpdate;
+			celestialBodies.star[sIndex].CelestialBodyBuilder.radius = new Vector3d(1,1,1)*celestialBodies.star[sIndex].CelestialBodyBuilder.stellarRadius;
 
 			// Get the number of planets orbiting this star
 			celestialBodies.star[sIndex].CelestialBodyBuilder.planets = new GameObject[celestialBodies.star[sIndex].planets.Length];
@@ -159,6 +160,7 @@ public class FormatImportData : MonoBehaviour {
 				celestialBodies.star[sIndex].planets[pIndex].CelestialBodyBuilder.inclination = celestialBodies.star[sIndex].planets[pIndex].inclination;
 				celestialBodies.star[sIndex].planets[pIndex].CelestialBodyBuilder.planetMass = celestialBodies.star[sIndex].planets[pIndex].planetMass;
 				celestialBodies.star[sIndex].planets[pIndex].CelestialBodyBuilder.planetRadius = celestialBodies.star[sIndex].planets[pIndex].planetRadius;
+				celestialBodies.star[sIndex].planets[pIndex].CelestialBodyBuilder.radius = new Vector3d(1,1,1)*celestialBodies.star[sIndex].planets[pIndex].CelestialBodyBuilder.planetRadius;
 
 				// Assign the parent star into the 'star' variable of this planet
 				celestialBodies.star[sIndex].planets[pIndex].CelestialBodyBuilder.star = celestialBodies.star[sIndex].gameObject;
@@ -202,6 +204,7 @@ public class FormatImportData : MonoBehaviour {
 					celestialBodies.star[sIndex].planets[pIndex].moons[mIndex].CelestialBodyBuilder.inclination = celestialBodies.star[sIndex].planets[pIndex].moons[mIndex].inclination;
 					celestialBodies.star[sIndex].planets[pIndex].moons[mIndex].CelestialBodyBuilder.moonMass = celestialBodies.star[sIndex].planets[pIndex].moons[mIndex].moonMass;
 					celestialBodies.star[sIndex].planets[pIndex].moons[mIndex].CelestialBodyBuilder.moonRadius = celestialBodies.star[sIndex].planets[pIndex].moons[mIndex].moonRadius;
+					celestialBodies.star[sIndex].planets[pIndex].moons[mIndex].CelestialBodyBuilder.radius = new Vector3d(1,1,1)*celestialBodies.star[sIndex].planets[pIndex].moons[mIndex].CelestialBodyBuilder.moonRadius;
 
 					// Assign the parent star into the 'star' variable of this moon
 					celestialBodies.star[sIndex].planets[pIndex].moons[mIndex].CelestialBodyBuilder.star = celestialBodies.star[sIndex].gameObject;
@@ -353,6 +356,9 @@ public class Star {
 	
 	[JSONItem("dateLastUpdate", typeof(string))]
 	public string dateLastUpdate = null;
+
+	[JSONItem("radius", typeof(Vector3d))]
+	public Vector3d radius = new Vector3d(0,0,0);
 
 	/*
 	 * Create an array of type Planet.  This will
