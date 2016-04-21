@@ -36,9 +36,12 @@ public class CelestialBodyBuilder : MonoBehaviour {
 	public GameObject[] bodies;
 	public CelestialBodyBuilder[] celestialBodyBuilderScripts;
 	public Position[] positionScripts;
+	public Radius[] radiusScripts;
 	public ScaleStates[] scaleStatesScripts;
 	public Vector3d[] realPositions;
 	public Vector3d[] relativePositions;
+	public Vector3d[] realRadii;
+	public Vector3d[] relativeRadii;
 	[Space(20)]
 	[Header("Child planets")]
 	public GameObject[] planets;

@@ -121,9 +121,12 @@ public class FormatImportData : MonoBehaviour {
 			celestialBodies.star[sIndex].CelestialBodyBuilder.bodies = new GameObject[bodiesArraySize];
 			celestialBodies.star[sIndex].CelestialBodyBuilder.celestialBodyBuilderScripts = new CelestialBodyBuilder[bodiesArraySize];
 			celestialBodies.star[sIndex].CelestialBodyBuilder.positionScripts = new Position[bodiesArraySize];
+			celestialBodies.star[sIndex].CelestialBodyBuilder.radiusScripts = new Radius[bodiesArraySize];
 			celestialBodies.star[sIndex].CelestialBodyBuilder.scaleStatesScripts = new ScaleStates[bodiesArraySize];
 			celestialBodies.star[sIndex].CelestialBodyBuilder.realPositions = new Vector3d[bodiesArraySize];
 			celestialBodies.star[sIndex].CelestialBodyBuilder.relativePositions = new Vector3d[bodiesArraySize];
+			celestialBodies.star[sIndex].CelestialBodyBuilder.realRadii = new Vector3d[bodiesArraySize];
+			celestialBodies.star[sIndex].CelestialBodyBuilder.relativeRadii = new Vector3d[bodiesArraySize];
 			
 
 
@@ -231,6 +234,11 @@ public class FormatImportData : MonoBehaviour {
 			celestialBodies.star[sIndex].CelestialBodyBuilder.realPositions[0] = celestialBodies.star[sIndex].CelestialBodyBuilder.positionScripts[0].realPosition;
 			celestialBodies.star[sIndex].CelestialBodyBuilder.relativePositions[0] = new Vector3d(celestialBodies.star[sIndex].CelestialBodyBuilder.positionScripts[0].realPosition);
 			celestialBodies.star[sIndex].CelestialBodyBuilder.positionScripts[0].relativePosition = celestialBodies.star[sIndex].CelestialBodyBuilder.relativePositions[0];
+			celestialBodies.star[sIndex].CelestialBodyBuilder.radiusScripts[0] = celestialBodies.star[sIndex].gameObject.AddComponent<Radius>();
+			celestialBodies.star[sIndex].CelestialBodyBuilder.realRadii[0] = celestialBodies.star[sIndex].CelestialBodyBuilder.radiusScripts[0].realRadius;
+			celestialBodies.star[sIndex].CelestialBodyBuilder.relativeRadii[0] = new Vector3d(celestialBodies.star[sIndex].CelestialBodyBuilder.radiusScripts[0].realRadius);
+			celestialBodies.star[sIndex].CelestialBodyBuilder.radiusScripts[0].relativeRadius = celestialBodies.star[sIndex].CelestialBodyBuilder.relativeRadii[0];
+
 			celestialBodies.star[sIndex].CelestialBodyBuilder.scaleStatesScripts[0] = celestialBodies.star[sIndex].gameObject.AddComponent<ScaleStates>();
 
 			// Assign the value reference of the realPosition and relativePosition into the ScaleStates script's variables
@@ -248,6 +256,11 @@ public class FormatImportData : MonoBehaviour {
 				celestialBodies.star[sIndex].CelestialBodyBuilder.realPositions[i+1] = celestialBodies.star[sIndex].CelestialBodyBuilder.positionScripts[i+1].realPosition;
 				celestialBodies.star[sIndex].CelestialBodyBuilder.relativePositions[i+1] = new Vector3d(celestialBodies.star[sIndex].CelestialBodyBuilder.positionScripts[i+1].realPosition);
 				celestialBodies.star[sIndex].CelestialBodyBuilder.positionScripts[i+1].relativePosition = celestialBodies.star[sIndex].CelestialBodyBuilder.relativePositions[i+1];
+				celestialBodies.star[sIndex].CelestialBodyBuilder.radiusScripts[i+1] = celestialBodies.star[sIndex].CelestialBodyBuilder.planets[i].AddComponent<Radius>();
+				celestialBodies.star[sIndex].CelestialBodyBuilder.realRadii[i+1] = celestialBodies.star[sIndex].CelestialBodyBuilder.radiusScripts[i+1].realRadius;
+				celestialBodies.star[sIndex].CelestialBodyBuilder.relativeRadii[i+1] = new Vector3d(celestialBodies.star[sIndex].CelestialBodyBuilder.radiusScripts[i+1].realRadius);
+				celestialBodies.star[sIndex].CelestialBodyBuilder.radiusScripts[i+1].relativeRadius = celestialBodies.star[sIndex].CelestialBodyBuilder.relativeRadii[i+1];
+
 				celestialBodies.star[sIndex].CelestialBodyBuilder.scaleStatesScripts[i+1] = celestialBodies.star[sIndex].CelestialBodyBuilder.planets[i].AddComponent<ScaleStates>();
 
 				// Assign the value reference of the realPosition and relativePosition into the ScaleStates script's variables
@@ -263,6 +276,11 @@ public class FormatImportData : MonoBehaviour {
 				celestialBodies.star[sIndex].CelestialBodyBuilder.realPositions[i+count+1] = celestialBodies.star[sIndex].CelestialBodyBuilder.positionScripts[i+count+1].realPosition;
 				celestialBodies.star[sIndex].CelestialBodyBuilder.relativePositions[i+count+1] = new Vector3d(celestialBodies.star[sIndex].CelestialBodyBuilder.positionScripts[i+count+1].realPosition);
 				celestialBodies.star[sIndex].CelestialBodyBuilder.positionScripts[i+count+1].relativePosition = celestialBodies.star[sIndex].CelestialBodyBuilder.relativePositions[i+count+1];
+				celestialBodies.star[sIndex].CelestialBodyBuilder.radiusScripts[i+count+1] = celestialBodies.star[sIndex].CelestialBodyBuilder.moons[i].AddComponent<Radius>();
+				celestialBodies.star[sIndex].CelestialBodyBuilder.realRadii[i+count+1] = celestialBodies.star[sIndex].CelestialBodyBuilder.radiusScripts[i+count+1].realRadius;
+				celestialBodies.star[sIndex].CelestialBodyBuilder.relativeRadii[i+count+1] = new Vector3d(celestialBodies.star[sIndex].CelestialBodyBuilder.radiusScripts[i+count+1].realRadius);
+				celestialBodies.star[sIndex].CelestialBodyBuilder.radiusScripts[i+count+1].relativeRadius = celestialBodies.star[sIndex].CelestialBodyBuilder.relativeRadii[i+count+1];
+
 				celestialBodies.star[sIndex].CelestialBodyBuilder.scaleStatesScripts[i+count+1] = celestialBodies.star[sIndex].CelestialBodyBuilder.moons[i].AddComponent<ScaleStates>();
 
 				// Assign the value reference of the realPosition and relativePosition into the ScaleStates script's variables

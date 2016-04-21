@@ -17,12 +17,18 @@ public class ScaleStates : MonoBehaviour {
 	#endregion
 
 	public Position positionScript;
+	public Radius radiusScript;
 	public Vector3d realPosition;
 	public Vector3d relativePosition;
 	public Vector3d thisPosition = new Vector3d (100, 100, 100);
 
+	public Vector3d realRadius;
+	public Vector3d relativeRadius;
+	public Vector3d thisRadius = new Vector3d (100, 100, 100);
+
 	public double currentDistance;
-	public double scaleFactor;									// This is the scale multiplier, which is updated on every State update
+	public double positionFactor;									// This is the scale multiplier, which is updated on every State update
+	public double radiusFactor;
 
 	public Transform[] allChildren;
 
@@ -34,10 +40,18 @@ public class ScaleStates : MonoBehaviour {
 			thisPosition.y = 1;
 			thisPosition.z = 1;
 		}
+		if (thisRadius.x == 0d || thisRadius.y == 0d || thisRadius.z == 0d) {
+			thisRadius.x = 1;
+			thisRadius.y = 1;
+			thisRadius.z = 1;
+		}
 		positionScript = gameObject.GetComponent<Position> ();
+		radiusScript = gameObject.GetComponent<Radius> ();
 
 		realPosition = positionScript.realPosition;
 		relativePosition = positionScript.relativePosition;
+		realRadius = radiusScript.realRadius;
+		relativeRadius = radiusScript.relativeRadius;
 
 		currentDistance = Vector3d.Distance(new Vector3d(0,0,0), relativePosition);
 
@@ -161,6 +175,11 @@ public class ScaleStates : MonoBehaviour {
 			thisPosition.y = 1;
 			thisPosition.z = 1;
 		}
+		if (thisRadius.x == 0d || thisRadius.y == 0d || thisRadius.z == 0d) {
+			thisRadius.x = 1;
+			thisRadius.y = 1;
+			thisRadius.z = 1;
+		}
 		currentDistance = Vector3d.Distance(new Vector3d(0,0,0), relativePosition);
 
 		/*
@@ -181,9 +200,11 @@ public class ScaleStates : MonoBehaviour {
 
 		SetLayer(8);
 
-		ScaleFactor (1e+3);
-		thisPosition = relativePosition / scaleFactor;
+		ScaleFactor (1e+3, 1);
+		thisPosition = relativePosition / positionFactor;
+		thisRadius = relativeRadius / radiusFactor;
 		transform.position = Vector3d.toV3(thisPosition);
+		transform.localScale = Vector3d.toV3(thisRadius);
 	}
 
 	void ScaleLayer2() {
@@ -192,9 +213,11 @@ public class ScaleStates : MonoBehaviour {
 		else if(currentDistance < 1e+6)
 			SetState (State.ScaleLayer1);
 		SetLayer (9);
-		ScaleFactor (1e+4);
-		thisPosition = relativePosition / scaleFactor;
+		ScaleFactor (1e+4, 10);
+		thisPosition = relativePosition / positionFactor;
+		thisRadius = relativeRadius / radiusFactor;
 		transform.position = Vector3d.toV3(thisPosition);
+		transform.localScale = Vector3d.toV3(thisRadius);
 	}
 
 	void ScaleLayer3() {
@@ -203,9 +226,11 @@ public class ScaleStates : MonoBehaviour {
 		else if(currentDistance < 1e+7)
 			SetState (State.ScaleLayer2);
 		SetLayer (10);
-		ScaleFactor (1e+5);
-		thisPosition = relativePosition / scaleFactor;
+		ScaleFactor (1e+5, 100);
+		thisPosition = relativePosition / positionFactor;
+		thisRadius = relativeRadius / radiusFactor;
 		transform.position = Vector3d.toV3(thisPosition);
+		transform.localScale = Vector3d.toV3(thisRadius);
 	}
 
 	void ScaleLayer4() {
@@ -214,8 +239,11 @@ public class ScaleStates : MonoBehaviour {
 		else if(currentDistance < 1e+8)
 			SetState (State.ScaleLayer3);
 		SetLayer (11);
-		ScaleFactor (1e+6);
+		ScaleFactor (1e+6, 1000);
+		thisPosition = relativePosition / positionFactor;
+		thisRadius = relativeRadius / radiusFactor;
 		transform.position = Vector3d.toV3(thisPosition);
+		transform.localScale = Vector3d.toV3(thisRadius);
 	}
 
 	void ScaleLayer5() {
@@ -224,9 +252,11 @@ public class ScaleStates : MonoBehaviour {
 		else if(currentDistance < 1e+9)
 			SetState (State.ScaleLayer4);
 		SetLayer (12);
-		ScaleFactor (1e+7);
-		thisPosition = relativePosition / scaleFactor;
+		ScaleFactor (1e+7, 10000);
+		thisPosition = relativePosition / positionFactor;
+		thisRadius = relativeRadius / radiusFactor;
 		transform.position = Vector3d.toV3(thisPosition);
+		transform.localScale = Vector3d.toV3(thisRadius);
 	}
 
 	void ScaleLayer6() {
@@ -235,9 +265,11 @@ public class ScaleStates : MonoBehaviour {
 		else if(currentDistance < 1e+10)
 			SetState (State.ScaleLayer5);
 		SetLayer (13);
-		ScaleFactor (1e+8);
-		thisPosition = relativePosition / scaleFactor;
+		ScaleFactor (1e+8, 100000);
+		thisPosition = relativePosition / positionFactor;
+		thisRadius = relativeRadius / radiusFactor;
 		transform.position = Vector3d.toV3(thisPosition);
+		transform.localScale = Vector3d.toV3(thisRadius);
 	}
 
 	void ScaleLayer7() {
@@ -246,9 +278,11 @@ public class ScaleStates : MonoBehaviour {
 		else if(currentDistance < 1e+11)
 			SetState (State.ScaleLayer6);
 		SetLayer (14);
-		ScaleFactor (1e+9);
-		thisPosition = relativePosition / scaleFactor;
+		ScaleFactor (1e+9, 1000000);
+		thisPosition = relativePosition / positionFactor;
+		thisRadius = relativeRadius / radiusFactor;
 		transform.position = Vector3d.toV3(thisPosition);
+		transform.localScale = Vector3d.toV3(thisRadius);
 	}
 
 	void ScaleLayer8() {
@@ -257,9 +291,11 @@ public class ScaleStates : MonoBehaviour {
 		else if(currentDistance < 1e+12)
 			SetState (State.ScaleLayer7);
 		SetLayer (15);
-		ScaleFactor (1e+10);
-		thisPosition = relativePosition / scaleFactor;
+		ScaleFactor (1e+10, 10000000);
+		thisPosition = relativePosition / positionFactor;
+		thisRadius = relativeRadius / radiusFactor;
 		transform.position = Vector3d.toV3(thisPosition);
+		transform.localScale = Vector3d.toV3(thisRadius);
 	}
 
 	void ScaleLayer9() {
@@ -268,9 +304,11 @@ public class ScaleStates : MonoBehaviour {
 		else if(currentDistance < 1e+13)
 			SetState (State.ScaleLayer8);
 		SetLayer (16);
-		ScaleFactor (1e+11);
-		thisPosition = relativePosition / scaleFactor;
+		ScaleFactor (1e+11, 100000000);
+		thisPosition = relativePosition / positionFactor;
+		thisRadius = relativeRadius / radiusFactor;
 		transform.position = Vector3d.toV3(thisPosition);
+		transform.localScale = Vector3d.toV3(thisRadius);
 	}
 
 	void ScaleLayer10() {
@@ -279,9 +317,11 @@ public class ScaleStates : MonoBehaviour {
 		else if(currentDistance < 1e+14)
 			SetState (State.ScaleLayer9);
 		SetLayer (17);
-		ScaleFactor (1e+12);
-		thisPosition = relativePosition / scaleFactor;
+		ScaleFactor (1e+12, 1000000000);
+		thisPosition = relativePosition / positionFactor;
+		thisRadius = relativeRadius / radiusFactor;
 		transform.position = Vector3d.toV3(thisPosition);
+		transform.localScale = Vector3d.toV3(thisRadius);
 	}
 
 	void ScaleLayer11() {
@@ -290,8 +330,11 @@ public class ScaleStates : MonoBehaviour {
 		else if(currentDistance < 1e+15)
 			SetState (State.ScaleLayer10);
 		SetLayer (18);
-		thisPosition = relativePosition / scaleFactor;
+		ScaleFactor (1e+13, 10000000000);
+		thisPosition = relativePosition / positionFactor;
+		thisRadius = relativeRadius / radiusFactor;
 		transform.position = Vector3d.toV3(thisPosition);
+		transform.localScale = Vector3d.toV3(thisRadius);
 	}
 
 	void ScaleLayer12() {
@@ -300,8 +343,11 @@ public class ScaleStates : MonoBehaviour {
 		else if(currentDistance < 1e+16)
 			SetState (State.ScaleLayer11);
 		SetLayer (19);
-		thisPosition = relativePosition / scaleFactor;
+		ScaleFactor (1e+14, 100000000000);
+		thisPosition = relativePosition / positionFactor;
+		thisRadius = relativeRadius / radiusFactor;
 		transform.position = Vector3d.toV3(thisPosition);
+		transform.localScale = Vector3d.toV3(thisRadius);
 	}
 
 	void ScaleLayer13() {
@@ -310,9 +356,11 @@ public class ScaleStates : MonoBehaviour {
 		else if(currentDistance < 1e+17)
 			SetState (State.ScaleLayer12);
 		SetLayer (20);
-		ScaleFactor (1e+15);
-		thisPosition = relativePosition / scaleFactor;
+		ScaleFactor (1e+15, 1000000000000);
+		thisPosition = relativePosition / positionFactor;
+		thisRadius = relativeRadius / radiusFactor;
 		transform.position = Vector3d.toV3(thisPosition);
+		transform.localScale = Vector3d.toV3(thisRadius);
 	}
 
 	void ScaleLayer14() {
@@ -321,9 +369,11 @@ public class ScaleStates : MonoBehaviour {
 		else if(currentDistance < 1e+18)
 			SetState (State.ScaleLayer13);
 		SetLayer (21);
-		ScaleFactor (1e+16);
-		thisPosition = relativePosition / scaleFactor;
+		ScaleFactor (1e+16, 10000000000000);
+		thisPosition = relativePosition / positionFactor;
+		thisRadius = relativeRadius / radiusFactor;
 		transform.position = Vector3d.toV3(thisPosition);
+		transform.localScale = Vector3d.toV3(thisRadius);
 	}
 
 	void ScaleLayer15() {
@@ -332,9 +382,11 @@ public class ScaleStates : MonoBehaviour {
 		else if(currentDistance < 1e+19)
 			SetState (State.ScaleLayer14);
 		SetLayer (22);
-		ScaleFactor (1e+17);
-		thisPosition = relativePosition / scaleFactor;
+		ScaleFactor (1e+17, 100000000000000);
+		thisPosition = relativePosition / positionFactor;
+		thisRadius = relativeRadius / radiusFactor;
 		transform.position = Vector3d.toV3(thisPosition);
+		transform.localScale = Vector3d.toV3(thisRadius);
 	}
 
 	void ScaleLayer16() {
@@ -343,9 +395,11 @@ public class ScaleStates : MonoBehaviour {
 		else if(currentDistance < 1e+20)
 			SetState (State.ScaleLayer15);
 		SetLayer (23);
-		ScaleFactor (1e+18);
-		thisPosition = relativePosition / scaleFactor;
+		ScaleFactor (1e+18, 1000000000000000);
+		thisPosition = relativePosition / positionFactor;
+		thisRadius = relativeRadius / radiusFactor;
 		transform.position = Vector3d.toV3(thisPosition);
+		transform.localScale = Vector3d.toV3(thisRadius);
 
 	}
 
@@ -355,24 +409,30 @@ public class ScaleStates : MonoBehaviour {
 		else if(currentDistance < 1e+21)
 			SetState (State.ScaleLayer16);
 		SetLayer (24);
-		ScaleFactor (1e+19);
-		thisPosition = relativePosition / scaleFactor;
+		ScaleFactor (1e+19, 10000000000000000);
+		thisPosition = relativePosition / positionFactor;
+		thisRadius = relativeRadius / radiusFactor;
 		transform.position = Vector3d.toV3(thisPosition);
+		transform.localScale = Vector3d.toV3(thisRadius);
 	}
 
 	void ScaleLayer18() {
 		if(currentDistance < 1e+24)
 			SetState (State.ScaleLayer17);
-		ScaleFactor (1e+20);
+		ScaleFactor (1e+20, 100000000000000000);
 		SetLayer (25);
-		thisPosition = relativePosition / scaleFactor;
+		thisPosition = relativePosition / positionFactor;
+		thisRadius = relativeRadius / radiusFactor;
 		transform.position = Vector3d.toV3(thisPosition);
+		transform.localScale = Vector3d.toV3(thisRadius);
 	}
 
 
-	void ScaleFactor(double sFactor) {
+	void ScaleFactor(double pFactor, double rFactor) {
 		if (_cacheState != state) {
-			scaleFactor = sFactor;
+			//Vector3d.toV3(thisPosition);
+			positionFactor = pFactor;
+			radiusFactor = rFactor;
 			_cacheState = state;
 		}
 	}
