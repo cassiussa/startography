@@ -21,6 +21,7 @@ namespace Globals {
 		public static double julianYear = 31557600;//31558196.0153664				// Seconds in a Julian year (365.25 days) or 365.256898326 days
 
 		public static double maxUnits = 10000d;				// The maximum number of distance, in units, that something can go
+		public static double kmPerUnit = 1000d;				// The number of kilometers represented by 1 Unit at the bsae (smallest) scale
 
 		// Predefine these as it may cache or keep them in memory instead of assigning on each function call
 		public static double SM = 1d;						// SubMillion (the base size)

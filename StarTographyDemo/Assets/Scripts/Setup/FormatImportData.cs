@@ -24,6 +24,7 @@ using System.Text;
 using System.IO;
 using JSON;
 using Functions;
+using Globals;
 
 public class FormatImportData : MonoBehaviour {
 	[SerializeField] private CelestialBodies celestialBodies = null;
@@ -292,6 +293,7 @@ public class FormatImportData : MonoBehaviour {
 				// Assign the value reference of the realPosition and relativePosition into the ScaleStates script's variables
 				celestialBodies.star[sIndex].CelestialBodyBuilder.scaleStatesScripts[i+count+1].realPosition = celestialBodies.star[sIndex].CelestialBodyBuilder.realPositions[i+count+1];
 				celestialBodies.star[sIndex].CelestialBodyBuilder.scaleStatesScripts[i+count+1].relativePosition = celestialBodies.star[sIndex].CelestialBodyBuilder.positionScripts[i+count+1].relativePosition;
+
 			}
 
 			/* 
