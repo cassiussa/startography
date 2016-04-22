@@ -97,7 +97,7 @@ public class CelestialBodyBuilder : MonoBehaviour {
 		 * The below instantiations are temporary until I can figure
 		 * out a way to instantiate them via the Editor options
 		 */
-		GameObject mesh = Function.MakeSphereMesh("Mesh", transform, false);
+		GameObject mesh = Function.MakeSphereMesh("CelestialBodyMesh", transform, false);
 
 
 		/*

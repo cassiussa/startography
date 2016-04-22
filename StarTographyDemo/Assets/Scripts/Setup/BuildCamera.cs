@@ -20,7 +20,7 @@ public class BuildCamera : MonoBehaviour {
 
 			// Cache the Camera component since we have a few things to do with it
 			Camera cam = camera.AddComponent<Camera>();
-			cam.farClipPlane = 10000f;								// Set the camera's maximimum viewable distance
+			cam.farClipPlane = 20000f;								// Set the camera's maximimum viewable distance.  It's much farther than the 10k unit limit as we'll have visuals that are larger than the 10k space
 			cam.nearClipPlane = 0.1f;								// Set the camera's near clip plane
 			cam.depth = Global.layerCount-i;										// Set the camera's depth of field
 			cam.fieldOfView = 60f;									// Set the camera's field of view
