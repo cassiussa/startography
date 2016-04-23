@@ -205,7 +205,7 @@ public class ScaleStates : MonoBehaviour {
 		 * 10,000 Units in Unity.
 		 */
 
-		realPosition.z -= 10000000000;
+		realPosition.z -= 100000000;
 	}
 
 
@@ -303,7 +303,17 @@ public class ScaleStates : MonoBehaviour {
 			SetState (State.ScaleLayer2);
 		transform.position = CalculatePosition (1e+6, new Vector3d (0d, 0d, 0d));
 		//CalculateStateValues (8, 1e+7, 0, State.ScaleLayer2, State.ScaleNull);
-		SetLayer (8);
+
+		// Things to do only once per state change
+		if (_cacheState != state) {
+			SetLayer (8);
+			_cacheState = state;
+
+			bodyMesh.localScale = new Vector3(
+				(float)(1e+2 * realRadius.x * Global.radiusConstantSolar/Global.kmPerUnit),
+			    (float)(1e+2 * realRadius.y * Global.radiusConstantSolar/Global.kmPerUnit),
+			    (float)(1e+2 * realRadius.z * Global.radiusConstantSolar/Global.kmPerUnit));
+		}
 	}
 
 	void ScaleLayer2() {
@@ -314,7 +324,13 @@ public class ScaleStates : MonoBehaviour {
 		}
 		transform.position = CalculatePosition (1e+7, new Vector3d (0d, 0d, 0d));
 		//CalculateStateValues (9, 1e+8, 1e+7, State.ScaleLayer3, State.ScaleLayer1);
-		SetLayer (9);
+		if (_cacheState != state) {
+			SetLayer (9);
+			bodyMesh.localScale = new Vector3(
+				(float)(1e+1 * realRadius.x * Global.radiusConstantSolar/Global.kmPerUnit),
+				(float)(1e+1 * realRadius.y * Global.radiusConstantSolar/Global.kmPerUnit),
+				(float)(1e+1 * realRadius.z * Global.radiusConstantSolar/Global.kmPerUnit));
+		}
 	}
 
 	void ScaleLayer3() {
@@ -325,7 +341,13 @@ public class ScaleStates : MonoBehaviour {
 		}
 		transform.position = CalculatePosition (1e+8, new Vector3d (0d, 0d, 0d));
 		//CalculateStateValues (10, 1e+9, 1e+8, State.ScaleLayer4, State.ScaleLayer2);
-		SetLayer (10);
+		if (_cacheState != state) {
+			SetLayer (10);
+			bodyMesh.localScale = new Vector3(
+				(float)(1 * realRadius.x * Global.radiusConstantSolar/Global.kmPerUnit),
+				(float)(1 * realRadius.y * Global.radiusConstantSolar/Global.kmPerUnit),
+				(float)(1 * realRadius.z * Global.radiusConstantSolar/Global.kmPerUnit));
+		}
 	}
 
 	void ScaleLayer4() {
@@ -336,7 +358,13 @@ public class ScaleStates : MonoBehaviour {
 		}
 		transform.position = CalculatePosition (1e+9, new Vector3d (0d, 0d, 0d));
 		//CalculateStateValues (11, 1e+10, 1e+9, State.ScaleLayer5, State.ScaleLayer3);
-		SetLayer (11);
+		if (_cacheState != state) {
+			SetLayer (11);
+			bodyMesh.localScale = new Vector3(
+				(float)(1e-1 * realRadius.x * Global.radiusConstantSolar/Global.kmPerUnit),
+				(float)(1e-1 * realRadius.y * Global.radiusConstantSolar/Global.kmPerUnit),
+				(float)(1e-1 * realRadius.z * Global.radiusConstantSolar/Global.kmPerUnit));
+		}
 	}
 
 	void ScaleLayer5() {
@@ -347,7 +375,13 @@ public class ScaleStates : MonoBehaviour {
 		}
 		transform.position = CalculatePosition (1e+10, new Vector3d (0d, 0d, 0d));
 		//CalculateStateValues (12, 1e+11, 1e+10, State.ScaleLayer6, State.ScaleLayer4);
-		SetLayer (12);
+		if (_cacheState != state) {
+			SetLayer (12);
+			bodyMesh.localScale = new Vector3(
+				(float)(1e-2 * realRadius.x * Global.radiusConstantSolar/Global.kmPerUnit),
+				(float)(1e-2 * realRadius.y * Global.radiusConstantSolar/Global.kmPerUnit),
+				(float)(1e-2 * realRadius.z * Global.radiusConstantSolar/Global.kmPerUnit));
+		}
 	}
 
 	void ScaleLayer6() {
@@ -358,7 +392,13 @@ public class ScaleStates : MonoBehaviour {
 		}
 		transform.position = CalculatePosition (1e+11, new Vector3d (0d, 0d, 0d));
 		//CalculateStateValues (13, 1e+12, 1e+11, State.ScaleLayer7, State.ScaleLayer5);
-		SetLayer (13);
+		if (_cacheState != state) {
+			SetLayer (13);
+			bodyMesh.localScale = new Vector3(
+				(float)(1e-3 * realRadius.x * Global.radiusConstantSolar/Global.kmPerUnit),
+				(float)(1e-3 * realRadius.y * Global.radiusConstantSolar/Global.kmPerUnit),
+				(float)(1e-3 * realRadius.z * Global.radiusConstantSolar/Global.kmPerUnit));
+		}
 	}
 
 	void ScaleLayer7() {
@@ -369,7 +409,13 @@ public class ScaleStates : MonoBehaviour {
 		}
 		transform.position = CalculatePosition (1e+12, new Vector3d (0d, 0d, 0d));
 		//CalculateStateValues (14, 1e+13, 1e+12, State.ScaleLayer8, State.ScaleLayer6);
-		SetLayer (14);
+		if (_cacheState != state) {
+			SetLayer (14);
+			bodyMesh.localScale = new Vector3(
+				(float)(1e-4 * realRadius.x * Global.radiusConstantSolar/Global.kmPerUnit),
+				(float)(1e-4 * realRadius.y * Global.radiusConstantSolar/Global.kmPerUnit),
+				(float)(1e-4 * realRadius.z * Global.radiusConstantSolar/Global.kmPerUnit));
+		}
 	}
 
 	void ScaleLayer8() {
@@ -380,7 +426,13 @@ public class ScaleStates : MonoBehaviour {
 		}
 		transform.position = CalculatePosition (1e+13, new Vector3d (0d, 0d, 0d));
 		//CalculateStateValues (15, 1e+14, 1e+13, State.ScaleLayer9, State.ScaleLayer7);
-		SetLayer (15);
+		if (_cacheState != state) {
+			SetLayer (15);
+			bodyMesh.localScale = new Vector3(
+				(float)(1e-5 * realRadius.x * Global.radiusConstantSolar/Global.kmPerUnit),
+				(float)(1e-5 * realRadius.y * Global.radiusConstantSolar/Global.kmPerUnit),
+				(float)(1e-5 * realRadius.z * Global.radiusConstantSolar/Global.kmPerUnit));
+		}
 	}
 
 	void ScaleLayer9() {
@@ -391,7 +443,13 @@ public class ScaleStates : MonoBehaviour {
 		}
 		transform.position = CalculatePosition (1e+14, new Vector3d (0d, 0d, 0d));
 		//CalculateStateValues (16, 1e+15, 1e+14, State.ScaleLayer10, State.ScaleLayer8);
-		SetLayer (16);
+		if (_cacheState != state) {
+			SetLayer (16);
+			bodyMesh.localScale = new Vector3(
+				(float)(1e-6 * realRadius.x * Global.radiusConstantSolar/Global.kmPerUnit),
+				(float)(1e-6 * realRadius.y * Global.radiusConstantSolar/Global.kmPerUnit),
+				(float)(1e-6 * realRadius.z * Global.radiusConstantSolar/Global.kmPerUnit));
+		}
 	}
 
 	void ScaleLayer10() {
@@ -402,7 +460,13 @@ public class ScaleStates : MonoBehaviour {
 		}
 		transform.position = CalculatePosition (1e+15, new Vector3d (0d, 0d, 0d));
 		//CalculateStateValues (17, 1e+16, 1e+15, State.ScaleLayer11, State.ScaleLayer9);
-		SetLayer (17);
+		if (_cacheState != state) {
+			SetLayer (17);
+			bodyMesh.localScale = new Vector3(
+				(float)(1e-7 * realRadius.x * Global.radiusConstantSolar/Global.kmPerUnit),
+				(float)(1e-7 * realRadius.y * Global.radiusConstantSolar/Global.kmPerUnit),
+				(float)(1e-7 * realRadius.z * Global.radiusConstantSolar/Global.kmPerUnit));
+		}
 	}
 
 	void ScaleLayer11() {
@@ -413,7 +477,13 @@ public class ScaleStates : MonoBehaviour {
 		}
 		transform.position = CalculatePosition (1e+16, new Vector3d (0d, 0d, 0d));
 		//CalculateStateValues (18, 1e+17, 1e+16, State.ScaleLayer12, State.ScaleLayer10);
-		SetLayer (18);
+		if (_cacheState != state) {
+			SetLayer (18);
+			bodyMesh.localScale = new Vector3(
+				(float)(1e-8 * realRadius.x * Global.radiusConstantSolar/Global.kmPerUnit),
+				(float)(1e-8 * realRadius.y * Global.radiusConstantSolar/Global.kmPerUnit),
+				(float)(1e-8 * realRadius.z * Global.radiusConstantSolar/Global.kmPerUnit));
+		}
 	}
 
 	void ScaleLayer12() {
@@ -424,7 +494,13 @@ public class ScaleStates : MonoBehaviour {
 		}
 		transform.position = CalculatePosition (1e+17, new Vector3d (0d, 0d, 0d));
 		//CalculateStateValues (19, 1e+18, 1e+17, State.ScaleLayer13, State.ScaleLayer11);
-		SetLayer (19);
+		if (_cacheState != state) {
+			SetLayer (19);
+			bodyMesh.localScale = new Vector3(
+				(float)(1e-9 * realRadius.x * Global.radiusConstantSolar/Global.kmPerUnit),
+				(float)(1e-9 * realRadius.y * Global.radiusConstantSolar/Global.kmPerUnit),
+				(float)(1e-9 * realRadius.z * Global.radiusConstantSolar/Global.kmPerUnit));
+		}
 	}
 
 	void ScaleLayer13() {
@@ -435,7 +511,13 @@ public class ScaleStates : MonoBehaviour {
 		}
 		transform.position = CalculatePosition (1e+18, new Vector3d (0d, 0d, 0d));
 		//CalculateStateValues (20, 1e+19, 1e+18, State.ScaleLayer14, State.ScaleLayer12);
-		SetLayer (20);
+		if (_cacheState != state) {
+			SetLayer (20);
+			bodyMesh.localScale = new Vector3(
+				(float)(1e-10 * realRadius.x * Global.radiusConstantSolar/Global.kmPerUnit),
+				(float)(1e-10 * realRadius.y * Global.radiusConstantSolar/Global.kmPerUnit),
+				(float)(1e-10 * realRadius.z * Global.radiusConstantSolar/Global.kmPerUnit));
+		}
 	}
 
 	void ScaleLayer14() {
@@ -446,7 +528,13 @@ public class ScaleStates : MonoBehaviour {
 		}
 		transform.position = CalculatePosition (1e+19, new Vector3d (0d, 0d, 0d));
 		//CalculateStateValues (21, 1e+20, 1e+19, State.ScaleLayer15, State.ScaleLayer13);
-		SetLayer (21);
+		if (_cacheState != state) {
+			SetLayer (21);
+			bodyMesh.localScale = new Vector3(
+				(float)(1e+11 * realRadius.x * Global.radiusConstantSolar/Global.kmPerUnit),
+				(float)(1e+11 * realRadius.y * Global.radiusConstantSolar/Global.kmPerUnit),
+				(float)(1e+11 * realRadius.z * Global.radiusConstantSolar/Global.kmPerUnit));
+		}
 	}
 
 	void ScaleLayer15() {
@@ -457,7 +545,13 @@ public class ScaleStates : MonoBehaviour {
 		}
 		transform.position = CalculatePosition (1e+20, new Vector3d (0d, 0d, 0d));
 		//CalculateStateValues (22, 1e+21, 1e+20, State.ScaleLayer16, State.ScaleLayer14);
-		SetLayer (22);
+		if (_cacheState != state) {
+			SetLayer (22);
+			bodyMesh.localScale = new Vector3(
+				(float)(1e-12 * realRadius.x * Global.radiusConstantSolar/Global.kmPerUnit),
+				(float)(1e-12 * realRadius.y * Global.radiusConstantSolar/Global.kmPerUnit),
+				(float)(1e-12 * realRadius.z * Global.radiusConstantSolar/Global.kmPerUnit));
+		}
 	}
 
 	void ScaleLayer16() {
@@ -468,7 +562,13 @@ public class ScaleStates : MonoBehaviour {
 		}
 		transform.position = CalculatePosition (1e+21, new Vector3d (0d, 0d, 0d));
 		//CalculateStateValues (23, 1e+22, 1e+21, State.ScaleLayer17, State.ScaleLayer15);
-		SetLayer (23);
+		if (_cacheState != state) {
+			SetLayer (23);
+			bodyMesh.localScale = new Vector3(
+				(float)(1e-13 * realRadius.x * Global.radiusConstantSolar/Global.kmPerUnit),
+				(float)(1e-13 * realRadius.y * Global.radiusConstantSolar/Global.kmPerUnit),
+				(float)(1e-13 * realRadius.z * Global.radiusConstantSolar/Global.kmPerUnit));
+		}
 	}
 
 	void ScaleLayer17() {
@@ -479,7 +579,13 @@ public class ScaleStates : MonoBehaviour {
 		}
 		transform.position = CalculatePosition (1e+22, new Vector3d (0d, 0d, 0d));
 		//CalculateStateValues (23, 1e+23, 1e+22, State.ScaleLayer18, State.ScaleLayer16);
-		SetLayer (24);
+		if (_cacheState != state) {
+			SetLayer (24);
+			bodyMesh.localScale = new Vector3(
+				(float)(1e-14 * realRadius.x * Global.radiusConstantSolar/Global.kmPerUnit),
+				(float)(1e-14 * realRadius.y * Global.radiusConstantSolar/Global.kmPerUnit),
+				(float)(1e-14 * realRadius.z * Global.radiusConstantSolar/Global.kmPerUnit));
+		}
 	}
 
 	void ScaleLayer18() {
@@ -488,7 +594,13 @@ public class ScaleStates : MonoBehaviour {
 		}
 		transform.position = CalculatePosition (1e+23, new Vector3d (0d, 0d, 0d));
 		//CalculateStateValues (23, 1e+24, 0, State.ScaleNull, State.ScaleLayer17);
-		SetLayer (25);
+		if (_cacheState != state) {
+			SetLayer (25);
+			bodyMesh.localScale = new Vector3(
+				(float)(1e-15 * realRadius.x * Global.radiusConstantSolar/Global.kmPerUnit),
+				(float)(1e-15 * realRadius.y * Global.radiusConstantSolar/Global.kmPerUnit),
+				(float)(1e-15 * realRadius.z * Global.radiusConstantSolar/Global.kmPerUnit));
+		}
 	}
 
 
