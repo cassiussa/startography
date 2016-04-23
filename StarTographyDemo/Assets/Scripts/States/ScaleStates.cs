@@ -5,7 +5,7 @@ using Globals;
 
 public class ScaleStates : MonoBehaviour {
 
-	public enum State { ScaleLayer1, ScaleLayer2, ScaleLayer3, ScaleLayer4, ScaleLayer5, ScaleLayer6, ScaleLayer7, ScaleLayer8, ScaleLayer9, ScaleLayer10, ScaleLayer11, ScaleLayer12, ScaleLayer13, ScaleLayer14, ScaleLayer15, ScaleLayer16, ScaleLayer17, ScaleLayer18 }
+	public enum State { ScaleNull, ScaleLayer1, ScaleLayer2, ScaleLayer3, ScaleLayer4, ScaleLayer5, ScaleLayer6, ScaleLayer7, ScaleLayer8, ScaleLayer9, ScaleLayer10, ScaleLayer11, ScaleLayer12, ScaleLayer13, ScaleLayer14, ScaleLayer15, ScaleLayer16, ScaleLayer17, ScaleLayer18 }
 
 	public State state = State.ScaleLayer1;
 	State _prevState;
@@ -27,7 +27,6 @@ public class ScaleStates : MonoBehaviour {
 	public Vector3d thisRadius = new Vector3d (100, 100, 100);
 
 	public double currentDistance;
-	public double positionFactor;									// This is the scale multiplier, which is updated on every State update
 	public double radiusFactor;
 	public Vector3d thisLocalScale = new Vector3d(1,1,1);
 	public Vector3d originalLocalScale;
@@ -55,7 +54,7 @@ public class ScaleStates : MonoBehaviour {
 		realRadius = radiusScript.realRadius;
 		relativeRadius = radiusScript.relativeRadius;
 
-		currentDistance = Vector3d.Distance(new Vector3d(0,0,0), relativePosition);
+		currentDistance = Vector3d.Distance(new Vector3d(0,0,0), realPosition);
 
 		allChildren = gameObject.GetComponentsInChildren<Transform>();
 
@@ -69,52 +68,55 @@ public class ScaleStates : MonoBehaviour {
 		}
 
 
-		if(currentDistance < 1e+6)
+		if(currentDistance < 1e+7)
 			SetState (State.ScaleLayer1);
-		else if(currentDistance < 1e+7)
-			SetState (State.ScaleLayer2);
 		else if(currentDistance < 1e+8)
-			SetState (State.ScaleLayer3);
+			SetState (State.ScaleLayer2);
 		else if(currentDistance < 1e+9)
-			SetState (State.ScaleLayer4);
+			SetState (State.ScaleLayer3);
 		else if(currentDistance < 1e+10)
-			SetState (State.ScaleLayer5);
+			SetState (State.ScaleLayer4);
 		else if(currentDistance < 1e+11)
-			SetState (State.ScaleLayer6);
+			SetState (State.ScaleLayer5);
 		else if(currentDistance < 1e+12)
-			SetState (State.ScaleLayer7);
+			SetState (State.ScaleLayer6);
 		else if(currentDistance < 1e+13)
-			SetState (State.ScaleLayer8);
+			SetState (State.ScaleLayer7);
 		else if(currentDistance < 1e+14)
-			SetState (State.ScaleLayer9);
+			SetState (State.ScaleLayer8);
 		else if(currentDistance < 1e+15)
-			SetState (State.ScaleLayer10);
+			SetState (State.ScaleLayer9);
 		else if(currentDistance < 1e+16)
-			SetState (State.ScaleLayer11);
+			SetState (State.ScaleLayer10);
 		else if(currentDistance < 1e+17)
-			SetState (State.ScaleLayer12);
+			SetState (State.ScaleLayer11);
 		else if(currentDistance < 1e+18)
-			SetState (State.ScaleLayer13);
+			SetState (State.ScaleLayer12);
 		else if(currentDistance < 1e+19)
-			SetState (State.ScaleLayer14);
+			SetState (State.ScaleLayer13);
 		else if(currentDistance < 1e+20)
-			SetState (State.ScaleLayer15);
+			SetState (State.ScaleLayer14);
 		else if(currentDistance < 1e+21)
-			SetState (State.ScaleLayer16);
+			SetState (State.ScaleLayer15);
 		else if(currentDistance < 1e+22)
+			SetState (State.ScaleLayer16);
+		else if(currentDistance < 1e+23)
 			SetState (State.ScaleLayer17);
 		else
 			SetState (State.ScaleLayer18);
 
 
-		Debug.Log("149000000 = " + 149000000 + " = " + 1.49e+8);
+		/*Debug.Log("149000000 = " + 149000000 + " = " + 1.49e+8);
 		Debug.Log ("10,000,000 = " + 10000000 + " = " + 1e+7);
-		Debug.Log ("149,000,000,000 = "+149000000000+" = "+1.49e+11);
+		Debug.Log ("149,000,000,000 = "+149000000000+" = "+1.49e+11);*/
+
 	}
 
 	IEnumerator Start() {
 		while (true) {
 			switch (state) {
+			case State.ScaleNull:
+				break;
 			case State.ScaleLayer1:
 				ScaleLayer1 ();
 				break;
@@ -195,7 +197,7 @@ public class ScaleStates : MonoBehaviour {
 			thisRadius.y = 1;
 			thisRadius.z = 1;
 		}
-		currentDistance = Vector3d.Distance(new Vector3d(0,0,0), relativePosition);
+		currentDistance = Vector3d.Distance(new Vector3d(0,0,0), realPosition);
 
 		/*
 		 * The distance values below are multiples of 1,000km per Unit.
@@ -203,200 +205,10 @@ public class ScaleStates : MonoBehaviour {
 		 * 10,000 Units in Unity.
 		 */
 
+		realPosition.z -= 10000000000;
 	}
 
-	/*
-	 * Scales should be checked every Update(), so these functions
-	 * are executed every frame.
-	 */
 
-	/*
-	 * Something that is 100 units in size within ScaleLayer1 should be
-	 * scale of 10 units when in the ScaleLayer2.  If it's position is
-	 * at Vector3(5000,2000,1000) in ScaleLayer1, that is the same as being
-	 * at Vector3(500,200,100) when in ScaleLayer2.
-	 * 
-	 */
-
-
-	void ScaleLayer1() {
-		// Check if the distance is less than or equal to 10M Km away
-		if(currentDistance >= 1e+7)
-			SetState (State.ScaleLayer2);
-		SetLayer(8);
-		CalculateLocalScale (1e+3, 1e+2);
-		transform.position = Vector3d.toV3(thisPosition);
-		//transform.localScale = new Vector3(0.01f,0.01f,0.01f);		// TODO: Check this out again.  Start at 0.01 instead of 1.0 as 10,000 is 1000 times smaller than 10,000,000
-	}
-
-	void ScaleLayer2() {
-		if(currentDistance >= 1e+8)
-			SetState (State.ScaleLayer3);
-		else if(currentDistance < 1e+7)
-			SetState (State.ScaleLayer1);
-		SetLayer (9);
-		CalculateLocalScale (1e+4, 1e+3);
-		transform.position = Vector3d.toV3(thisPosition);
-	}
-
-	void ScaleLayer3() {
-		if(currentDistance >= 1e+9)
-			SetState (State.ScaleLayer4);
-		else if(currentDistance < 1e+8)
-			SetState (State.ScaleLayer2);
-		SetLayer (10);
-		CalculateLocalScale (1e+5,1e+4);
-		transform.position = Vector3d.toV3(thisPosition);
-	}
-
-	void ScaleLayer4() {
-		if(currentDistance >= 1e+10)
-			SetState (State.ScaleLayer5);
-		else if(currentDistance < 1e+9)
-			SetState (State.ScaleLayer3);
-		SetLayer (11);
-		CalculateLocalScale (1e+6,1e+5);
-		transform.position = Vector3d.toV3(thisPosition);
-	}
-
-	void ScaleLayer5() {
-		if(currentDistance >= 1e+11)
-			SetState (State.ScaleLayer6);
-		else if(currentDistance < 1e+10)
-			SetState (State.ScaleLayer4);
-		SetLayer (12);
-		CalculateLocalScale (1e+7,1e+6);
-		transform.position = Vector3d.toV3(thisPosition);
-	}
-
-	void ScaleLayer6() {
-		if(currentDistance >= 1e+12)
-			SetState (State.ScaleLayer7);
-		else if(currentDistance < 1e+11)
-			SetState (State.ScaleLayer5);
-		SetLayer (13);
-		CalculateLocalScale (1e+8,1e+12);
-		transform.position = Vector3d.toV3(thisPosition);
-	}
-
-	void ScaleLayer7() {
-		if(currentDistance >= 1e+13)
-			SetState (State.ScaleLayer8);
-		else if(currentDistance < 1e+12)
-			SetState (State.ScaleLayer6);
-		SetLayer (14);
-		CalculateLocalScale (1e+9, 1e+13);
-		transform.position = Vector3d.toV3(thisPosition);
-	}
-
-	void ScaleLayer8() {
-		if(currentDistance >= 1e+14)
-			SetState (State.ScaleLayer9);
-		else if(currentDistance < 1e+13)
-			SetState (State.ScaleLayer7);
-		SetLayer (15);
-		CalculateLocalScale (1e+10, 1e+13);
-		transform.position = Vector3d.toV3(thisPosition);
-	}
-
-	void ScaleLayer9() {
-		if(currentDistance >= 1e+15)
-			SetState (State.ScaleLayer10);
-		else if(currentDistance < 1e+14)
-			SetState (State.ScaleLayer8);
-		SetLayer (16);
-		CalculateLocalScale (1e+11, 1e+14);
-		transform.position = Vector3d.toV3(thisPosition);
-	}
-
-	void ScaleLayer10() {
-		if(currentDistance >= 1e+16)
-			SetState (State.ScaleLayer11);
-		else if(currentDistance < 1e+15)
-			SetState (State.ScaleLayer9);
-		SetLayer (17);
-		CalculateLocalScale (1e+12, 1e+15);
-		transform.position = Vector3d.toV3(thisPosition);
-	}
-
-	void ScaleLayer11() {
-		if(currentDistance >= 1e+17)
-			SetState (State.ScaleLayer12);
-		else if(currentDistance < 1e+16)
-			SetState (State.ScaleLayer10);
-		SetLayer (18);
-		CalculateLocalScale (1e+13, 1e+16);
-		transform.position = Vector3d.toV3(thisPosition);
-	}
-
-	void ScaleLayer12() {
-		if(currentDistance >= 1e+18)
-			SetState (State.ScaleLayer13);
-		else if(currentDistance < 1e+17)
-			SetState (State.ScaleLayer11);
-		SetLayer (19);
-		CalculateLocalScale (1e+14, 1e+17);
-		transform.position = Vector3d.toV3(thisPosition);
-	}
-
-	void ScaleLayer13() {
-		if(currentDistance >= 1e+19)
-			SetState (State.ScaleLayer14);
-		else if(currentDistance < 1e+18)
-			SetState (State.ScaleLayer12);
-		SetLayer (20);
-		CalculateLocalScale (1e+15, 1e+18);
-		transform.position = Vector3d.toV3(thisPosition);
-	}
-
-	void ScaleLayer14() {
-		if(currentDistance >= 1e+20)
-			SetState (State.ScaleLayer15);
-		else if(currentDistance < 1e+19)
-			SetState (State.ScaleLayer13);
-		SetLayer (21);
-		CalculateLocalScale (1e+16, 1e+19);
-		transform.position = Vector3d.toV3(thisPosition);
-	}
-
-	void ScaleLayer15() {
-		if(currentDistance >= 1e+21)
-			SetState (State.ScaleLayer16);
-		else if(currentDistance < 1e+20)
-			SetState (State.ScaleLayer14);
-		SetLayer (22);
-		CalculateLocalScale (1e+17, 1e+20);
-		transform.position = Vector3d.toV3(thisPosition);
-	}
-
-	void ScaleLayer16() {
-		if(currentDistance >= 1e+22)
-			SetState (State.ScaleLayer17);
-		else if(currentDistance < 1e+21)
-			SetState (State.ScaleLayer15);
-		SetLayer (23);
-		CalculateLocalScale (1e+18, 1e+21);
-		transform.position = Vector3d.toV3(thisPosition);
-
-	}
-
-	void ScaleLayer17() {
-		if(currentDistance >= 1e+23)
-			SetState (State.ScaleLayer18);
-		else if(currentDistance < 1e+22)
-			SetState (State.ScaleLayer16);
-		SetLayer (24);
-		CalculateLocalScale (1e+19, 1e+22);
-		transform.position = Vector3d.toV3(thisPosition);
-	}
-
-	void ScaleLayer18() {
-		if(currentDistance < 1e+24)
-			SetState (State.ScaleLayer17);
-		SetLayer (25);
-		CalculateLocalScale (1e+20,1e+23);
-		transform.position = Vector3d.toV3(thisPosition);
-	}
 
 
 	/*
@@ -410,19 +222,273 @@ public class ScaleStates : MonoBehaviour {
 	 * making it appear that nothing has happened.
 	 */
 
-	private void CalculateLocalScale(double pFactor, double sFactor) {
-		positionFactor = pFactor;
-		Vector3d newLocalScale = new Vector3d (
-			(thisLocalScale.x / sFactor) * Global.kmPerUnit,
-			(thisLocalScale.y / sFactor) * Global.kmPerUnit,
-			(thisLocalScale.z / sFactor) * Global.kmPerUnit);
+	// double positionFactor, int layer, double moveScaleUp, double moveScaleDown, State higherState, State lowerState
+	private void CalculateStateValues(int layer, double moveScaleUp, double moveScaleDown, State higherState, State lowerState) {
+		/* ScaleLayer2 example
+		if(currentDistance >= 1e+8)
+			SetState (State.ScaleLayer3);
+		else if(currentDistance < 1e+7)
+			SetState (State.ScaleLayer1);
+		 */
 
-		gameObject.transform.localScale = new Vector3(
-			(float)newLocalScale.x, 
-			(float)newLocalScale.y, 
-			(float)newLocalScale.z);
+		State tempState = state;
+		if (gameObject.name == "[STAR] Sun") {
 
-		thisPosition = realPosition / positionFactor;
+
+			if (higherState != State.ScaleNull) {
+				if (currentDistance >= moveScaleUp) {
+					tempState = higherState;
+				}
+			}
+			if (lowerState != State.ScaleNull) {
+				if (currentDistance < moveScaleDown) {
+					tempState = lowerState;
+				}
+			}
+
+			// Have we received a state change this Update()?
+			if(tempState != state) {
+				SetLayer (layer);
+				SetState (tempState);
+			}
+
+		}
+
+
+	}
+
+
+
+	public Vector3 CalculatePosition(double stateScale, Vector3d camPos) {
+		/*
+		 * Calculate the ratio of real position to fit within 10k unit limit
+		 * 
+		 * Parameters
+		 * ----------
+		 * stateScale : The distance value of the scale State (ex: 100000 for MK)
+		 *		- supplied by the ScaleStates.cs script
+		 *		- supplied by the PlanetOrbitPathTrail.cs script
+		 * position : A Vector3d value of the real position of the object
+		 * 
+		 * Actions
+		 * -------
+		 * Assigns the position to the gameObject that the calling ScaleStates.cs script is attached to
+		*/
+
+		Vector3d tempV3 = new Vector3d(((realPosition + camPos) / stateScale) * Global.kmPerUnit);
+		/*float _x = (float)(((realPosition.x + camPos.x) / stateScale) * Global.maxUnits);
+		float _y = (float)(((realPosition.y + camPos.y) / stateScale) * Global.maxUnits);
+		float _z = (float)(((realPosition.z + camPos.z) / stateScale) * Global.maxUnits);*/
+		
+		return new Vector3 ((float)tempV3.x, (float)tempV3.y, (float)tempV3.z);
+	}
+
+
+
+
+	/*
+	 * Scales should be checked every Update(), so these functions
+	 * are executed every frame.
+	 * 
+	 * Something that is 100 units in size within ScaleLayer1 should be
+	 * scale of 10 units when in the ScaleLayer2.  If it's position is
+	 * at Vector3(5000,2000,1000) in ScaleLayer1, that is the same as being
+	 * at Vector3(500,200,100) when in ScaleLayer2.
+	 * 
+	 */
+
+	// Check if the distance is more than 9,999,999.9999999km away
+	void ScaleLayer1() {
+		if (currentDistance >= 1e+7)
+			SetState (State.ScaleLayer2);
+		transform.position = CalculatePosition (1e+6, new Vector3d (0d, 0d, 0d));
+		//CalculateStateValues (8, 1e+7, 0, State.ScaleLayer2, State.ScaleNull);
+		SetLayer (8);
+	}
+
+	void ScaleLayer2() {
+		if (currentDistance >= 1e+8) {
+			SetState (State.ScaleLayer3);
+		} else if (currentDistance < 1e+7) {
+			SetState (State.ScaleLayer1);
+		}
+		transform.position = CalculatePosition (1e+7, new Vector3d (0d, 0d, 0d));
+		//CalculateStateValues (9, 1e+8, 1e+7, State.ScaleLayer3, State.ScaleLayer1);
+		SetLayer (9);
+	}
+
+	void ScaleLayer3() {
+		if (currentDistance >= 1e+9) {
+			SetState (State.ScaleLayer4);
+		} else if (currentDistance < 1e+8) {
+			SetState (State.ScaleLayer2);
+		}
+		transform.position = CalculatePosition (1e+8, new Vector3d (0d, 0d, 0d));
+		//CalculateStateValues (10, 1e+9, 1e+8, State.ScaleLayer4, State.ScaleLayer2);
+		SetLayer (10);
+	}
+
+	void ScaleLayer4() {
+		if (currentDistance >= 1e+10) {
+			SetState (State.ScaleLayer5);
+		} else if (currentDistance < 1e+9) {
+			SetState (State.ScaleLayer3);
+		}
+		transform.position = CalculatePosition (1e+9, new Vector3d (0d, 0d, 0d));
+		//CalculateStateValues (11, 1e+10, 1e+9, State.ScaleLayer5, State.ScaleLayer3);
+		SetLayer (11);
+	}
+
+	void ScaleLayer5() {
+		if (currentDistance >= 1e+11) {
+			SetState (State.ScaleLayer6);
+		} else if (currentDistance < 1e+10) {
+			SetState (State.ScaleLayer4);
+		}
+		transform.position = CalculatePosition (1e+10, new Vector3d (0d, 0d, 0d));
+		//CalculateStateValues (12, 1e+11, 1e+10, State.ScaleLayer6, State.ScaleLayer4);
+		SetLayer (12);
+	}
+
+	void ScaleLayer6() {
+		if (currentDistance >= 1e+12) {
+			SetState (State.ScaleLayer7);
+		} else if (currentDistance < 1e+11) {
+			SetState (State.ScaleLayer5);
+		}
+		transform.position = CalculatePosition (1e+11, new Vector3d (0d, 0d, 0d));
+		//CalculateStateValues (13, 1e+12, 1e+11, State.ScaleLayer7, State.ScaleLayer5);
+		SetLayer (13);
+	}
+
+	void ScaleLayer7() {
+		if (currentDistance >= 1e+13) {
+			SetState (State.ScaleLayer8);
+		} else if (currentDistance < 1e+12) {
+			SetState (State.ScaleLayer6);
+		}
+		transform.position = CalculatePosition (1e+12, new Vector3d (0d, 0d, 0d));
+		//CalculateStateValues (14, 1e+13, 1e+12, State.ScaleLayer8, State.ScaleLayer6);
+		SetLayer (14);
+	}
+
+	void ScaleLayer8() {
+		if (currentDistance >= 1e+14) {
+			SetState (State.ScaleLayer9);
+		} else if (currentDistance < 1e+13) {
+			SetState (State.ScaleLayer7);
+		}
+		transform.position = CalculatePosition (1e+13, new Vector3d (0d, 0d, 0d));
+		//CalculateStateValues (15, 1e+14, 1e+13, State.ScaleLayer9, State.ScaleLayer7);
+		SetLayer (15);
+	}
+
+	void ScaleLayer9() {
+		if (currentDistance >= 1e+15) {
+			SetState (State.ScaleLayer10);
+		} else if (currentDistance < 1e+14) {
+			SetState (State.ScaleLayer8);
+		}
+		transform.position = CalculatePosition (1e+14, new Vector3d (0d, 0d, 0d));
+		//CalculateStateValues (16, 1e+15, 1e+14, State.ScaleLayer10, State.ScaleLayer8);
+		SetLayer (16);
+	}
+
+	void ScaleLayer10() {
+		if (currentDistance >= 1e+16) {
+			SetState (State.ScaleLayer11);
+		} else if (currentDistance < 1e+15) {
+			SetState (State.ScaleLayer9);
+		}
+		transform.position = CalculatePosition (1e+15, new Vector3d (0d, 0d, 0d));
+		//CalculateStateValues (17, 1e+16, 1e+15, State.ScaleLayer11, State.ScaleLayer9);
+		SetLayer (17);
+	}
+
+	void ScaleLayer11() {
+		if (currentDistance >= 1e+17) {
+			SetState (State.ScaleLayer12);
+		} else if (currentDistance < 1e+16) {
+			SetState (State.ScaleLayer10);
+		}
+		transform.position = CalculatePosition (1e+16, new Vector3d (0d, 0d, 0d));
+		//CalculateStateValues (18, 1e+17, 1e+16, State.ScaleLayer12, State.ScaleLayer10);
+		SetLayer (18);
+	}
+
+	void ScaleLayer12() {
+		if (currentDistance >= 1e+18) {
+			SetState (State.ScaleLayer13);
+		} else if (currentDistance < 1e+17) {
+			SetState (State.ScaleLayer11);
+		}
+		transform.position = CalculatePosition (1e+17, new Vector3d (0d, 0d, 0d));
+		//CalculateStateValues (19, 1e+18, 1e+17, State.ScaleLayer13, State.ScaleLayer11);
+		SetLayer (19);
+	}
+
+	void ScaleLayer13() {
+		if (currentDistance >= 1e+19) {
+			SetState (State.ScaleLayer14);
+		} else if (currentDistance < 1e+18) {
+			SetState (State.ScaleLayer12);
+		}
+		transform.position = CalculatePosition (1e+18, new Vector3d (0d, 0d, 0d));
+		//CalculateStateValues (20, 1e+19, 1e+18, State.ScaleLayer14, State.ScaleLayer12);
+		SetLayer (20);
+	}
+
+	void ScaleLayer14() {
+		if (currentDistance >= 1e+20) {
+			SetState (State.ScaleLayer15);
+		} else if (currentDistance < 1e+19) {
+			SetState (State.ScaleLayer13);
+		}
+		transform.position = CalculatePosition (1e+19, new Vector3d (0d, 0d, 0d));
+		//CalculateStateValues (21, 1e+20, 1e+19, State.ScaleLayer15, State.ScaleLayer13);
+		SetLayer (21);
+	}
+
+	void ScaleLayer15() {
+		if (currentDistance >= 1e+21) {
+			SetState (State.ScaleLayer16);
+		} else if (currentDistance < 1e+20) {
+			SetState (State.ScaleLayer14);
+		}
+		transform.position = CalculatePosition (1e+20, new Vector3d (0d, 0d, 0d));
+		//CalculateStateValues (22, 1e+21, 1e+20, State.ScaleLayer16, State.ScaleLayer14);
+		SetLayer (22);
+	}
+
+	void ScaleLayer16() {
+		if (currentDistance >= 1e+22) {
+			SetState (State.ScaleLayer17);
+		} else if (currentDistance < 1e+21) {
+			SetState (State.ScaleLayer15);
+		}
+		transform.position = CalculatePosition (1e+21, new Vector3d (0d, 0d, 0d));
+		//CalculateStateValues (23, 1e+22, 1e+21, State.ScaleLayer17, State.ScaleLayer15);
+		SetLayer (23);
+	}
+
+	void ScaleLayer17() {
+		if (currentDistance >= 1e+23) {
+			SetState (State.ScaleLayer18);
+		} else if (currentDistance < 1e+22) {
+			SetState (State.ScaleLayer16);
+		}
+		transform.position = CalculatePosition (1e+22, new Vector3d (0d, 0d, 0d));
+		//CalculateStateValues (23, 1e+23, 1e+22, State.ScaleLayer18, State.ScaleLayer16);
+		SetLayer (24);
+	}
+
+	void ScaleLayer18() {
+		if (currentDistance < 1e+23) {
+			SetState (State.ScaleLayer17);
+		}
+		transform.position = CalculatePosition (1e+23, new Vector3d (0d, 0d, 0d));
+		//CalculateStateValues (23, 1e+24, 0, State.ScaleNull, State.ScaleLayer17);
+		SetLayer (25);
 	}
 
 
