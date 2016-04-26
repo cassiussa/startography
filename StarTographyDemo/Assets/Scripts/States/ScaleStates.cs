@@ -103,11 +103,6 @@ public class ScaleStates : MonoBehaviour {
 		else
 			SetState (State.ScaleLayer18);
 
-
-		/*Debug.Log("149000000 = " + 149000000 + " = " + 1.49e+8);
-		Debug.Log ("10,000,000 = " + 10000000 + " = " + 1e+7);
-		Debug.Log ("149,000,000,000 = "+149000000000+" = "+1.49e+11);*/
-
 	}
 
 	IEnumerator Start() {
@@ -212,66 +207,6 @@ public class ScaleStates : MonoBehaviour {
 
 
 	/*
-	 * Here we take the original scale of the object and modify it so that
-	 * perspectively, it will look the appropriate size in any given scale
-	 * state layer.  In other words if the object goes beyond the bounds of
-	 * any one layer (ex ScaleLayer1) and into the next (ex ScaleLayer2), then
-	 * the object will readjust its position to be closer to the camera (to 
-	 * ensure we never go beyond the 10,000 unit limit) and the object will be
-	 * resized (shrunk in this case) to account for the perspective difference,
-	 * making it appear that nothing has happened.
-	 */
-
-	// StateChecks (greaterThan, nextState, lessThan, previousState, positionDistance, cameraPosition, layer, scaleMultiplier);
-	private void StateChecks(double greaterThan, State nextState, double lessThan, State previousState, double positionDistance, Vector3d cameraPosition, int layer, double scaleMultiplier) {
-		if (currentDistance >= greaterThan) {
-			SetState (nextState);
-		} else if (currentDistance < lessThan) {
-			SetState (previousState);
-		} else {
-			transform.position = CalculatePosition (positionDistance, cameraPosition);
-			if (_cacheState != state) {
-				SetLayer (layer);
-				bodyMesh.localScale = new Vector3 (
-					(float)(scaleMultiplier * realRadius.x * Global.radiusConstantSolar / Global.kmPerUnit),
-					(float)(scaleMultiplier * realRadius.y * Global.radiusConstantSolar / Global.kmPerUnit),
-					(float)(scaleMultiplier * realRadius.z * Global.radiusConstantSolar / Global.kmPerUnit));
-
-				_cacheState = state;
-			}
-		}
-	}
-
-
-
-	public Vector3 CalculatePosition(double stateScale, Vector3d camPos) {
-		/*
-		 * Calculate the ratio of real position to fit within 10k unit limit
-		 * 
-		 * Parameters
-		 * ----------
-		 * stateScale : The distance value of the scale State (ex: 100000 for MK)
-		 *		- supplied by the ScaleStates.cs script
-		 *		- supplied by the PlanetOrbitPathTrail.cs script
-		 * position : A Vector3d value of the real position of the object
-		 * 
-		 * Actions
-		 * -------
-		 * Assigns the position to the gameObject that the calling ScaleStates.cs script is attached to
-		*/
-
-		Vector3d tempV3 = new Vector3d(((realPosition + camPos) / stateScale) * Global.kmPerUnit);
-		/*float _x = (float)(((realPosition.x + camPos.x) / stateScale) * Global.maxUnits);
-		float _y = (float)(((realPosition.y + camPos.y) / stateScale) * Global.maxUnits);
-		float _z = (float)(((realPosition.z + camPos.z) / stateScale) * Global.maxUnits);*/
-		
-		return new Vector3 ((float)tempV3.x, (float)tempV3.y, (float)tempV3.z);
-	}
-
-
-
-
-	/*
 	 * Scales should be checked every Update(), so these functions
 	 * are executed every frame.
 	 * 
@@ -281,10 +216,16 @@ public class ScaleStates : MonoBehaviour {
 	 * at Vector3(500,200,100) when in ScaleLayer2.
 	 * 
 	 */
-
-	// Check if the distance is more than 9,999,999.9999999km away
+	
 	void ScaleLayer1() {
-		StateChecks (1e+7d, State.ScaleLayer2, double.MinValue, State.ScaleNull, 1e+6d, new Vector3d (0d, 0d, 0d), 8, 1e-2d);
+		StateChecks (1e+7d,							// The minimum value of the state above this state
+		             State.ScaleLayer2,				// The state above this State
+		             double.MinValue,				// The minimum value we can use for this state
+		             State.ScaleNull,				// Otherwise, drop down to the next lowest State
+		             1e+6d,							// Scale State size.  1,000,000 in this case (makes this max: 9,999,999.999999999~)
+		             new Vector3d (0d, 0d, 0d),		// The relative position of the camera
+		             8,								// The Layer that this State occupies
+		             1e-2d);						// The scale multiplier
 	}
 
 	void ScaleLayer2() {
@@ -356,8 +297,87 @@ public class ScaleStates : MonoBehaviour {
 	}
 
 
+	/*
+	 * Here we take the original scale of the object and modify it so that
+	 * perspectively, it will look the appropriate size in any given scale
+	 * state layer.  In other words if the object goes beyond the bounds of
+	 * any one layer (ex ScaleLayer1) and into the next (ex ScaleLayer2), then
+	 * the object will readjust its position to be closer to the camera (to 
+	 * ensure we never go beyond the 10,000 unit limit) and the object will be
+	 * resized (shrunk in this case) to account for the perspective difference,
+	 * making it appear that nothing has happened.
+	 */
+
+
+
+
+	private void StateChecks(double greaterThan, State nextState, double lessThan, State previousState, double stateScaleSize, Vector3d cameraPosition, int layer, double scaleMultiplier) {
+		/*
+		 * Perform the operations that the specified state requires
+		 * 
+		 * Parameters
+		 * ----------
+		 * greaterThan : The minimum value of the state above this state
+		 * nextState : The state above this State
+		 * lessThan : The minimum value we can use for this state
+		 * previousState : The next lowest State below the current state being checked
+		 * stateScaleSize : Scale State size.  1,000,000 for example (makes a max of 9,999,999.999999999~)
+		 * cameraPosition : The relative position of the camera
+		 * layer : The Layer that this State occupies
+		 * scaleMultiplier : The scale multiplier
+		 */
+		             
+		if (currentDistance >= greaterThan) {
+			SetState (nextState);
+		} else if (currentDistance < lessThan) {
+			SetState (previousState);
+		} else {
+			/* 
+			 * We update the position every frame.  If one of the above two conditions is true, we
+			 * continue to check in other States until finally this condition is reached within
+			 * the same Update()
+			 */
+			transform.position = CalculatePosition (stateScaleSize, cameraPosition);
+			
+			/*
+			 * If the current state is not the same as the state that we were in in the last Update(),
+			 * then readjust the scale of this celestial body, set the cache value, and update the
+			 * Layer
+			 */
+			if (_cacheState != state) {
+				SetLayer (layer);
+				Vector3d tempV3 = new Vector3d(scaleMultiplier * realRadius * Global.radiusConstantSolar / Global.kmPerUnit); //TODO: come back to this and in Awake do a check to see what type of celestial body.  Use a variable to hold the "radiusConstantSolar" (or radiusConstantX) value.
+				bodyMesh.localScale = new Vector3 ((float)tempV3.x, (float)tempV3.y, (float)tempV3.z);
+				_cacheState = state;
+			}
+		}
+	}
+
+
+	public Vector3 CalculatePosition(double stateScale, Vector3d cameraPosition) {
+		/*
+		 * Calculate the ratio of real position to fit within 10k unit limit
+		 * 
+		 * Parameters
+		 * ----------
+		 * stateScale : The distance value of the scale State (ex: 1,000,000)
+		 * cameraPosition : A Vector3d value of the real position of the object
+		 * 
+		 * Actions
+		 * -------
+		 * Assigns the position to the gameObject that the calling ScaleStates.cs script is attached to
+		*/
+		
+		Vector3d tempV3d = new Vector3d(((realPosition + cameraPosition) / stateScale) * Global.kmPerUnit);
+		return new Vector3 ((float)tempV3d.x, (float)tempV3d.y, (float)tempV3d.z);
+	}
+
 
 	void SetLayer(int newLayer) {
+		/*
+		 * Iterate through the list of all the child transforms and assign the
+		 * appropriate layer to the transform's gameObject
+		 */
 		gameObject.layer = newLayer;
 		foreach(Transform child in allChildren) {            
 			child.gameObject.layer = newLayer;
