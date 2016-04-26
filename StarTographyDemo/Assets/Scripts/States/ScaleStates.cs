@@ -20,14 +20,14 @@ public class ScaleStates : MonoBehaviour {
 	public Radius radiusScript;
 	public Vector3d realPosition;
 	public Vector3d relativePosition;
-	public Vector3d thisPosition = new Vector3d (100, 100, 100);
+	public Vector3d thisPosition = new Vector3d (100d, 100d, 100d);
 
 	public Vector3d realRadius;
-	public Vector3d thisRadius = new Vector3d (100, 100, 100);
+	public Vector3d thisRadius = new Vector3d (100d, 100d, 100d);
 
 	public double currentDistance;
 	public double radiusFactor;
-	public Vector3d thisLocalScale = new Vector3d(1,1,1);
+	public Vector3d thisLocalScale = new Vector3d(1d,1d,1d);
 	public Vector3d originalLocalScale;
 
 	public Transform[] allChildren;
@@ -36,14 +36,14 @@ public class ScaleStates : MonoBehaviour {
 	void Awake() {
 
 		if (thisPosition.x == 0d || thisPosition.y == 0d || thisPosition.z == 0d) {
-			thisPosition.x = 1;
-			thisPosition.y = 1;
-			thisPosition.z = 1;
+			thisPosition.x = 1d;
+			thisPosition.y = 1d;
+			thisPosition.z = 1d;
 		}
 		if (thisRadius.x == 0d || thisRadius.y == 0d || thisRadius.z == 0d) {
-			thisRadius.x = 1;
-			thisRadius.y = 1;
-			thisRadius.z = 1;
+			thisRadius.x = 1d;
+			thisRadius.y = 1d;
+			thisRadius.z = 1d;
 		}
 		positionScript = gameObject.GetComponent<Position> ();
 		radiusScript = gameObject.GetComponent<Radius> ();
@@ -52,7 +52,7 @@ public class ScaleStates : MonoBehaviour {
 		relativePosition = positionScript.relativePosition;
 		realRadius = radiusScript.realRadius;
 
-		currentDistance = Vector3d.Distance(new Vector3d(0,0,0), realPosition);
+		currentDistance = Vector3d.Distance(new Vector3d(0d,0d,0d), realPosition);
 
 		allChildren = gameObject.GetComponentsInChildren<Transform>();
 
@@ -66,39 +66,39 @@ public class ScaleStates : MonoBehaviour {
 		}
 
 
-		if(currentDistance < 1e+7)
+		if(currentDistance < 1e+7d)
 			SetState (State.ScaleLayer1);
-		else if(currentDistance < 1e+8)
+		else if(currentDistance < 1e+8d)
 			SetState (State.ScaleLayer2);
-		else if(currentDistance < 1e+9)
+		else if(currentDistance < 1e+9d)
 			SetState (State.ScaleLayer3);
-		else if(currentDistance < 1e+10)
+		else if(currentDistance < 1e+10d)
 			SetState (State.ScaleLayer4);
-		else if(currentDistance < 1e+11)
+		else if(currentDistance < 1e+11d)
 			SetState (State.ScaleLayer5);
-		else if(currentDistance < 1e+12)
+		else if(currentDistance < 1e+12d)
 			SetState (State.ScaleLayer6);
-		else if(currentDistance < 1e+13)
+		else if(currentDistance < 1e+13d)
 			SetState (State.ScaleLayer7);
-		else if(currentDistance < 1e+14)
+		else if(currentDistance < 1e+14d)
 			SetState (State.ScaleLayer8);
-		else if(currentDistance < 1e+15)
+		else if(currentDistance < 1e+15d)
 			SetState (State.ScaleLayer9);
-		else if(currentDistance < 1e+16)
+		else if(currentDistance < 1e+16d)
 			SetState (State.ScaleLayer10);
-		else if(currentDistance < 1e+17)
+		else if(currentDistance < 1e+17d)
 			SetState (State.ScaleLayer11);
-		else if(currentDistance < 1e+18)
+		else if(currentDistance < 1e+18d)
 			SetState (State.ScaleLayer12);
-		else if(currentDistance < 1e+19)
+		else if(currentDistance < 1e+19d)
 			SetState (State.ScaleLayer13);
-		else if(currentDistance < 1e+20)
+		else if(currentDistance < 1e+20d)
 			SetState (State.ScaleLayer14);
-		else if(currentDistance < 1e+21)
+		else if(currentDistance < 1e+21d)
 			SetState (State.ScaleLayer15);
-		else if(currentDistance < 1e+22)
+		else if(currentDistance < 1e+22d)
 			SetState (State.ScaleLayer16);
-		else if(currentDistance < 1e+23)
+		else if(currentDistance < 1e+23d)
 			SetState (State.ScaleLayer17);
 		else
 			SetState (State.ScaleLayer18);
@@ -181,16 +181,16 @@ public class ScaleStates : MonoBehaviour {
 
 	void Update() {
 		if (thisPosition.x == 0d || thisPosition.y == 0d || thisPosition.z == 0d) {
-			thisPosition.x = 1;
-			thisPosition.y = 1;
-			thisPosition.z = 1;
+			thisPosition.x = 1d;
+			thisPosition.y = 1d;
+			thisPosition.z = 1d;
 		}
 		if (thisRadius.x == 0d || thisRadius.y == 0d || thisRadius.z == 0d) {
-			thisRadius.x = 1;
-			thisRadius.y = 1;
-			thisRadius.z = 1;
+			thisRadius.x = 1d;
+			thisRadius.y = 1d;
+			thisRadius.z = 1d;
 		}
-		currentDistance = Vector3d.Distance(new Vector3d(0,0,0), realPosition);
+		currentDistance = Vector3d.Distance(new Vector3d(0d,0d,0d), realPosition);
 
 		/*
 		 * The distance values below are multiples of 1,000km per Unit.
