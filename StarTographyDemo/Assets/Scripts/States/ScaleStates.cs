@@ -204,6 +204,8 @@ public class ScaleStates : MonoBehaviour {
 		 */
 
 		//realPosition.z -= 100000001;
+		if (gameObject.name == "[STAR] Sun")
+			print("Update()");
 	}
 
 
@@ -220,39 +222,24 @@ public class ScaleStates : MonoBehaviour {
 	 * making it appear that nothing has happened.
 	 */
 
-	// double positionFactor, int layer, double moveScaleUp, double moveScaleDown, State higherState, State lowerState
-	private void CalculateStateValues(int layer, double moveScaleUp, double moveScaleDown, State higherState, State lowerState) {
-		/* ScaleLayer2 example
-		if(currentDistance >= 1e+8)
-			SetState (State.ScaleLayer3);
-		else if(currentDistance < 1e+7)
-			SetState (State.ScaleLayer1);
-		 */
-
-		State tempState = state;
-		if (gameObject.name == "[STAR] Sun") {
-
-
-			if (higherState != State.ScaleNull) {
-				if (currentDistance >= moveScaleUp) {
-					tempState = higherState;
-				}
-			}
-			if (lowerState != State.ScaleNull) {
-				if (currentDistance < moveScaleDown) {
-					tempState = lowerState;
-				}
-			}
-
-			// Have we received a state change this Update()?
-			if(tempState != state) {
+	// StateChecks (greaterThan, nextState, lessThan, previousState, positionDistance, cameraPosition, layer, scaleMultiplier);
+	private void StateChecks(double greaterThan, State nextState, double lessThan, State previousState, double positionDistance, Vector3d cameraPosition, int layer, double scaleMultiplier) {
+		if (currentDistance >= greaterThan) {
+			SetState (nextState);
+		} else if (currentDistance < lessThan) {
+			SetState (previousState);
+		} else {
+			transform.position = CalculatePosition (positionDistance, cameraPosition);
+			if (_cacheState != state) {
 				SetLayer (layer);
-				SetState (tempState);
+				bodyMesh.localScale = new Vector3 (
+					(float)(scaleMultiplier * realRadius.x * Global.radiusConstantSolar / Global.kmPerUnit),
+					(float)(scaleMultiplier * realRadius.y * Global.radiusConstantSolar / Global.kmPerUnit),
+					(float)(scaleMultiplier * realRadius.z * Global.radiusConstantSolar / Global.kmPerUnit));
+
+				_cacheState = state;
 			}
-
 		}
-
-
 	}
 
 
@@ -297,308 +284,75 @@ public class ScaleStates : MonoBehaviour {
 
 	// Check if the distance is more than 9,999,999.9999999km away
 	void ScaleLayer1() {
-		if (currentDistance >= 1e+7d)
-			SetState (State.ScaleLayer2);
-		transform.position = CalculatePosition (1e+6d, new Vector3d (0d, 0d, 0d));
-		//CalculateStateValues (8, 1e+7, 0, State.ScaleLayer2, State.ScaleNull);
-
-		// Things to do only once per state change
-		if (_cacheState != state) {
-			SetLayer (8);
-			_cacheState = state;
-
-			bodyMesh.localScale = new Vector3(
-				(float)(1d * realRadius.x * Global.radiusConstantSolar/Global.kmPerUnit),
-			    (float)(1d * realRadius.y * Global.radiusConstantSolar/Global.kmPerUnit),
-			    (float)(1d * realRadius.z * Global.radiusConstantSolar/Global.kmPerUnit));
-		}
+		StateChecks (1e+7d, State.ScaleLayer2, double.MinValue, State.ScaleNull, 1e+6d, new Vector3d (0d, 0d, 0d), 8, 1e-2d);
 	}
 
 	void ScaleLayer2() {
-		if (currentDistance >= 1e+8d) {
-			SetState (State.ScaleLayer3);
-		} else if (currentDistance < 1e+7d) {
-			SetState (State.ScaleLayer1);
-		}
-		transform.position = CalculatePosition (1e+7d, new Vector3d (0d, 0d, 0d));
-		//CalculateStateValues (9, 1e+8, 1e+7, State.ScaleLayer3, State.ScaleLayer1);
-		if (_cacheState != state) {
-			SetLayer (9);
-			bodyMesh.localScale = new Vector3(
-				(float)(1e-1d * realRadius.x * Global.radiusConstantSolar/Global.kmPerUnit),
-				(float)(1e-1d * realRadius.y * Global.radiusConstantSolar/Global.kmPerUnit),
-				(float)(1e-1d * realRadius.z * Global.radiusConstantSolar/Global.kmPerUnit));
-		}
+		StateChecks (1e+8d, State.ScaleLayer3, 1e+7d, State.ScaleLayer1, 1e+7d, new Vector3d (0d, 0d, 0d), 9, 1e-3d);
 	}
 
 	void ScaleLayer3() {
-		if (currentDistance >= 1e+9d) {
-			SetState (State.ScaleLayer4);
-		} else if (currentDistance < 1e+8d) {
-			SetState (State.ScaleLayer2);
-		}
-		transform.position = CalculatePosition (1e+8d, new Vector3d (0d, 0d, 0d));
-		//CalculateStateValues (10, 1e+9, 1e+8, State.ScaleLayer4, State.ScaleLayer2);
-		if (_cacheState != state) {
-			SetLayer (10);
-			bodyMesh.localScale = new Vector3(
-				(float)(1e-2d * realRadius.x * Global.radiusConstantSolar/Global.kmPerUnit),
-				(float)(1e-2d * realRadius.y * Global.radiusConstantSolar/Global.kmPerUnit),
-				(float)(1e-2d * realRadius.z * Global.radiusConstantSolar/Global.kmPerUnit));
-		}
+		StateChecks (1e+9d, State.ScaleLayer4, 1e+8d, State.ScaleLayer2, 1e+8d, new Vector3d (0d, 0d, 0d), 10, 1e-4d);
 	}
 
 	void ScaleLayer4() {
-		if (currentDistance >= 1e+10d) {
-			SetState (State.ScaleLayer5);
-		} else if (currentDistance < 1e+9d) {
-			SetState (State.ScaleLayer3);
-		}
-		transform.position = CalculatePosition (1e+9d, new Vector3d (0d, 0d, 0d));
-		//CalculateStateValues (11, 1e+10, 1e+9, State.ScaleLayer5, State.ScaleLayer3);
-		if (_cacheState != state) {
-			SetLayer (11);
-			bodyMesh.localScale = new Vector3(
-				(float)(1e-3d * realRadius.x * Global.radiusConstantSolar/Global.kmPerUnit),
-				(float)(1e-3d * realRadius.y * Global.radiusConstantSolar/Global.kmPerUnit),
-				(float)(1e-3d * realRadius.z * Global.radiusConstantSolar/Global.kmPerUnit));
-		}
+		StateChecks (1e+10d, State.ScaleLayer5, 1e+9d, State.ScaleLayer3, 1e+9d, new Vector3d (0d, 0d, 0d), 11, 1e-5d);
 	}
 
 	void ScaleLayer5() {
-		if (currentDistance >= 1e+11d) {
-			SetState (State.ScaleLayer6);
-		} else if (currentDistance < 1e+10d) {
-			SetState (State.ScaleLayer4);
-		}
-		transform.position = CalculatePosition (1e+10d, new Vector3d (0d, 0d, 0d));
-		//CalculateStateValues (12, 1e+11, 1e+10, State.ScaleLayer6, State.ScaleLayer4);
-		if (_cacheState != state) {
-			SetLayer (12);
-			bodyMesh.localScale = new Vector3(
-				(float)(1e-4d * realRadius.x * Global.radiusConstantSolar/Global.kmPerUnit),
-				(float)(1e-4d * realRadius.y * Global.radiusConstantSolar/Global.kmPerUnit),
-				(float)(1e-4d * realRadius.z * Global.radiusConstantSolar/Global.kmPerUnit));
-		}
+		StateChecks (1e+11d, State.ScaleLayer6, 1e+10d, State.ScaleLayer4, 1e+10d, new Vector3d (0d, 0d, 0d), 12, 1e-6d);
 	}
 
 	void ScaleLayer6() {
-		if (currentDistance >= 1e+12d) {
-			SetState (State.ScaleLayer7);
-		} else if (currentDistance < 1e+11d) {
-			SetState (State.ScaleLayer5);
-		}
-		transform.position = CalculatePosition (1e+11d, new Vector3d (0d, 0d, 0d));
-		//CalculateStateValues (13, 1e+12, 1e+11, State.ScaleLayer7, State.ScaleLayer5);
-		if (_cacheState != state) {
-			SetLayer (13);
-			bodyMesh.localScale = new Vector3(
-				(float)(1e-5d * realRadius.x * Global.radiusConstantSolar/Global.kmPerUnit),
-				(float)(1e-5d * realRadius.y * Global.radiusConstantSolar/Global.kmPerUnit),
-				(float)(1e-5d * realRadius.z * Global.radiusConstantSolar/Global.kmPerUnit));
-		}
+		StateChecks (1e+12d, State.ScaleLayer7, 1e+11d, State.ScaleLayer5, 1e+11d, new Vector3d (0d, 0d, 0d), 13, 1e-7d);
 	}
 
 	void ScaleLayer7() {
-		if (currentDistance >= 1e+13d) {
-			SetState (State.ScaleLayer8);
-		} else if (currentDistance < 1e+12d) {
-			SetState (State.ScaleLayer6);
-		}
-		transform.position = CalculatePosition (1e+12d, new Vector3d (0d, 0d, 0d));
-		//CalculateStateValues (14, 1e+13, 1e+12, State.ScaleLayer8, State.ScaleLayer6);
-		if (_cacheState != state) {
-			SetLayer (14);
-			bodyMesh.localScale = new Vector3(
-				(float)(1e-6d * realRadius.x * Global.radiusConstantSolar/Global.kmPerUnit),
-				(float)(1e-6d * realRadius.y * Global.radiusConstantSolar/Global.kmPerUnit),
-				(float)(1e-7d * realRadius.z * Global.radiusConstantSolar/Global.kmPerUnit));
-		}
+		StateChecks (1e+13d, State.ScaleLayer8, 1e+12d, State.ScaleLayer6, 1e+12d, new Vector3d (0d, 0d, 0d), 14, 1e-8d);
 	}
 
 	void ScaleLayer8() {
-		if (currentDistance >= 1e+14d) {
-			SetState (State.ScaleLayer9);
-		} else if (currentDistance < 1e+13d) {
-			SetState (State.ScaleLayer7);
-		}
-		transform.position = CalculatePosition (1e+13d, new Vector3d (0d, 0d, 0d));
-		//CalculateStateValues (15, 1e+14, 1e+13, State.ScaleLayer9, State.ScaleLayer7);
-		if (_cacheState != state) {
-			SetLayer (15);
-			bodyMesh.localScale = new Vector3(
-				(float)(1e-7d * realRadius.x * Global.radiusConstantSolar/Global.kmPerUnit),
-				(float)(1e-7d * realRadius.y * Global.radiusConstantSolar/Global.kmPerUnit),
-				(float)(1e-7d * realRadius.z * Global.radiusConstantSolar/Global.kmPerUnit));
-		}
+		StateChecks (1e+14d, State.ScaleLayer9, 1e+13d, State.ScaleLayer7, 1e+13d, new Vector3d (0d, 0d, 0d), 15, 1e-9d);
 	}
 
 	void ScaleLayer9() {
-		if (currentDistance >= 1e+15d) {
-			SetState (State.ScaleLayer10);
-		} else if (currentDistance < 1e+14d) {
-			SetState (State.ScaleLayer8);
-		}
-		transform.position = CalculatePosition (1e+14d, new Vector3d (0d, 0d, 0d));
-		//CalculateStateValues (16, 1e+15, 1e+14, State.ScaleLayer10, State.ScaleLayer8);
-		if (_cacheState != state) {
-			SetLayer (16);
-			bodyMesh.localScale = new Vector3(
-				(float)(1e-8d * realRadius.x * Global.radiusConstantSolar/Global.kmPerUnit),
-				(float)(1e-8d * realRadius.y * Global.radiusConstantSolar/Global.kmPerUnit),
-				(float)(1e-8d * realRadius.z * Global.radiusConstantSolar/Global.kmPerUnit));
-		}
+		StateChecks (1e+15d, State.ScaleLayer10, 1e+14d, State.ScaleLayer8, 1e+14d, new Vector3d (0d, 0d, 0d), 16, 1e-10d);
 	}
 
 	void ScaleLayer10() {
-		if (currentDistance >= 1e+16d) {
-			SetState (State.ScaleLayer11);
-		} else if (currentDistance < 1e+15d) {
-			SetState (State.ScaleLayer9);
-		}
-		transform.position = CalculatePosition (1e+15d, new Vector3d (0d, 0d, 0d));
-		//CalculateStateValues (17, 1e+16, 1e+15, State.ScaleLayer11, State.ScaleLayer9);
-		if (_cacheState != state) {
-			SetLayer (17);
-			bodyMesh.localScale = new Vector3(
-				(float)(1e-9d * realRadius.x * Global.radiusConstantSolar/Global.kmPerUnit),
-				(float)(1e-9d * realRadius.y * Global.radiusConstantSolar/Global.kmPerUnit),
-				(float)(1e-9d * realRadius.z * Global.radiusConstantSolar/Global.kmPerUnit));
-		}
+		StateChecks (1e+16d, State.ScaleLayer11, 1e+15d, State.ScaleLayer9, 1e+15d, new Vector3d (0d, 0d, 0d), 17, 1e-11d);
 	}
 
 	void ScaleLayer11() {
-		if (currentDistance >= 1e+17d) {
-			SetState (State.ScaleLayer12);
-		} else if (currentDistance < 1e+16d) {
-			SetState (State.ScaleLayer10);
-		}
-		transform.position = CalculatePosition (1e+16d, new Vector3d (0d, 0d, 0d));
-		//CalculateStateValues (18, 1e+17, 1e+16, State.ScaleLayer12, State.ScaleLayer10);
-		if (_cacheState != state) {
-			SetLayer (18);
-			bodyMesh.localScale = new Vector3(
-				(float)(1e-10d * realRadius.x * Global.radiusConstantSolar/Global.kmPerUnit),
-				(float)(1e-10d * realRadius.y * Global.radiusConstantSolar/Global.kmPerUnit),
-				(float)(1e-10d * realRadius.z * Global.radiusConstantSolar/Global.kmPerUnit));
-		}
+		StateChecks (1e+17d, State.ScaleLayer12, 1e+16d, State.ScaleLayer10, 1e+16d, new Vector3d (0d, 0d, 0d), 18, 1e-12d);
 	}
 
 	void ScaleLayer12() {
-		if (currentDistance >= 1e+18d) {
-			SetState (State.ScaleLayer13);
-		} else if (currentDistance < 1e+17d) {
-			SetState (State.ScaleLayer11);
-		}
-		transform.position = CalculatePosition (1e+17d, new Vector3d (0d, 0d, 0d));
-		//CalculateStateValues (19, 1e+18, 1e+17, State.ScaleLayer13, State.ScaleLayer11);
-		if (_cacheState != state) {
-			SetLayer (19);
-			bodyMesh.localScale = new Vector3(
-				(float)(1e-11d * realRadius.x * Global.radiusConstantSolar/Global.kmPerUnit),
-				(float)(1e-11d * realRadius.y * Global.radiusConstantSolar/Global.kmPerUnit),
-				(float)(1e-11d * realRadius.z * Global.radiusConstantSolar/Global.kmPerUnit));
-		}
+		StateChecks (1e+18d, State.ScaleLayer13, 1e+17d, State.ScaleLayer11, 1e+17d, new Vector3d (0d, 0d, 0d), 19, 1e-13d);
 	}
 
 	void ScaleLayer13() {
-		if (currentDistance >= 1e+19d) {
-			SetState (State.ScaleLayer14);
-		} else if (currentDistance < 1e+18d) {
-			SetState (State.ScaleLayer12);
-		}
-		transform.position = CalculatePosition (1e+18d, new Vector3d (0d, 0d, 0d));
-		//CalculateStateValues (20, 1e+19, 1e+18, State.ScaleLayer14, State.ScaleLayer12);
-		if (_cacheState != state) {
-			SetLayer (20);
-			bodyMesh.localScale = new Vector3(
-				(float)(1e-12d * realRadius.x * Global.radiusConstantSolar/Global.kmPerUnit),
-				(float)(1e-12d * realRadius.y * Global.radiusConstantSolar/Global.kmPerUnit),
-				(float)(1e-12d * realRadius.z * Global.radiusConstantSolar/Global.kmPerUnit));
-		}
+		StateChecks (1e+19d, State.ScaleLayer14, 1e+18d, State.ScaleLayer12, 1e+18d, new Vector3d (0d, 0d, 0d), 20, 1e-14d);
 	}
 
 	void ScaleLayer14() {
-		if (currentDistance >= 1e+20d) {
-			SetState (State.ScaleLayer15);
-		} else if (currentDistance < 1e+19d) {
-			SetState (State.ScaleLayer13);
-		}
-		transform.position = CalculatePosition (1e+19d, new Vector3d (0d, 0d, 0d));
-		//CalculateStateValues (21, 1e+20, 1e+19, State.ScaleLayer15, State.ScaleLayer13);
-		if (_cacheState != state) {
-			SetLayer (21);
-			bodyMesh.localScale = new Vector3(
-				(float)(1e+13d * realRadius.x * Global.radiusConstantSolar/Global.kmPerUnit),
-				(float)(1e+13d * realRadius.y * Global.radiusConstantSolar/Global.kmPerUnit),
-				(float)(1e+13d * realRadius.z * Global.radiusConstantSolar/Global.kmPerUnit));
-		}
+		StateChecks (1e+20d, State.ScaleLayer15, 1e+19d, State.ScaleLayer13, 1e+19d, new Vector3d (0d, 0d, 0d), 21, 1e-15d);
 	}
 
 	void ScaleLayer15() {
-		if (currentDistance >= 1e+21d) {
-			SetState (State.ScaleLayer16);
-		} else if (currentDistance < 1e+20d) {
-			SetState (State.ScaleLayer14);
-		}
-		transform.position = CalculatePosition (1e+20d, new Vector3d (0d, 0d, 0d));
-		//CalculateStateValues (22, 1e+21, 1e+20, State.ScaleLayer16, State.ScaleLayer14);
-		if (_cacheState != state) {
-			SetLayer (22);
-			bodyMesh.localScale = new Vector3(
-				(float)(1e-14d * realRadius.x * Global.radiusConstantSolar/Global.kmPerUnit),
-				(float)(1e-14d * realRadius.y * Global.radiusConstantSolar/Global.kmPerUnit),
-				(float)(1e-14d * realRadius.z * Global.radiusConstantSolar/Global.kmPerUnit));
-		}
+		StateChecks (1e+21d, State.ScaleLayer16, 1e+20d, State.ScaleLayer14, 1e+20d, new Vector3d (0d, 0d, 0d), 22, 1e-16d);
 	}
 
 	void ScaleLayer16() {
-		if (currentDistance >= 1e+22d) {
-			SetState (State.ScaleLayer17);
-		} else if (currentDistance < 1e+21d) {
-			SetState (State.ScaleLayer15);
-		}
-		transform.position = CalculatePosition (1e+21d, new Vector3d (0d, 0d, 0d));
-		//CalculateStateValues (23, 1e+22, 1e+21, State.ScaleLayer17, State.ScaleLayer15);
-		if (_cacheState != state) {
-			SetLayer (23);
-			bodyMesh.localScale = new Vector3(
-				(float)(1e-15d * realRadius.x * Global.radiusConstantSolar/Global.kmPerUnit),
-				(float)(1e-15d * realRadius.y * Global.radiusConstantSolar/Global.kmPerUnit),
-				(float)(1e-15d * realRadius.z * Global.radiusConstantSolar/Global.kmPerUnit));
-		}
+		StateChecks (1e+22d, State.ScaleLayer17, 1e+21d, State.ScaleLayer15, 1e+21d, new Vector3d (0d, 0d, 0d), 23, 1e-17d);
 	}
 
 	void ScaleLayer17() {
-		if (currentDistance >= 1e+23d) {
-			SetState (State.ScaleLayer18);
-		} else if (currentDistance < 1e+22d) {
-			SetState (State.ScaleLayer16);
-		}
-		transform.position = CalculatePosition (1e+22d, new Vector3d (0d, 0d, 0d));
-		//CalculateStateValues (23, 1e+23, 1e+22, State.ScaleLayer18, State.ScaleLayer16);
-		if (_cacheState != state) {
-			SetLayer (24);
-			bodyMesh.localScale = new Vector3(
-				(float)(1e-16d * realRadius.x * Global.radiusConstantSolar/Global.kmPerUnit),
-				(float)(1e-16d * realRadius.y * Global.radiusConstantSolar/Global.kmPerUnit),
-				(float)(1e-16d * realRadius.z * Global.radiusConstantSolar/Global.kmPerUnit));
-		}
+		StateChecks (1e+23d, State.ScaleLayer18, 1e+22d, State.ScaleLayer16, 1e+22d, new Vector3d (0d, 0d, 0d), 24, 1e-18d);
 	}
 
 	void ScaleLayer18() {
-		if (currentDistance < 1e+23d) {
-			SetState (State.ScaleLayer17);
-		}
-		transform.position = CalculatePosition (1e+23d, new Vector3d (0d, 0d, 0d));
-		//CalculateStateValues (23, 1e+24, 0, State.ScaleNull, State.ScaleLayer17);
-		if (_cacheState != state) {
-			SetLayer (25);
-			bodyMesh.localScale = new Vector3(
-				(float)(1e-17d * realRadius.x * Global.radiusConstantSolar/Global.kmPerUnit),
-				(float)(1e-17d * realRadius.y * Global.radiusConstantSolar/Global.kmPerUnit),
-				(float)(1e-17d * realRadius.z * Global.radiusConstantSolar/Global.kmPerUnit));
-		}
+		StateChecks (double.MaxValue, State.ScaleNull, 1e+23d, State.ScaleLayer17, 1e+23d, new Vector3d (0d, 0d, 0d), 25, 1e-19d);
 	}
 
 
