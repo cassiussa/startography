@@ -1,7 +1,7 @@
 ﻿using UnityEditor;
 using UnityEngine;
 
-[CustomEditor(typeof(ObjectData)), CanEditMultipleObjects]
+/*[CustomEditor(typeof(ObjectData)), CanEditMultipleObjects]
 public class ObjectDataEditor : Editor {
 
 	// create a list of new serialized items.  These can be named anything, but have been named same as variables in ObjectData.cs for simplicity
@@ -12,10 +12,10 @@ public class ObjectDataEditor : Editor {
 		mass,
 		tilt,
 		orbitalPeriod,
-		parentStarMass,
+		parentMass,
 		temperature,
 		luminosity,
-		parentStarObject,
+		parentObject,
 		solarSystemSphere;
 	
 	void OnEnable () {
@@ -26,10 +26,10 @@ public class ObjectDataEditor : Editor {
 		mass = serializedObject.FindProperty ("mass");
 		tilt = serializedObject.FindProperty ("tilt");
 		orbitalPeriod = serializedObject.FindProperty ("orbitalPeriod");
-		parentStarMass = serializedObject.FindProperty ("parentStarMass");
+		parentMass = serializedObject.FindProperty ("parentMass");
 		temperature = serializedObject.FindProperty ("temperature");   
 		luminosity = serializedObject.FindProperty ("luminosity");
-		parentStarObject = serializedObject.FindProperty ("parentStarObject");
+		parentObject = serializedObject.FindProperty ("parentObject");
 		solarSystemSphere = serializedObject.FindProperty ("solarSystemSphere");
 	}
 	
@@ -45,8 +45,8 @@ public class ObjectDataEditor : Editor {
 			EditorGUILayout.PropertyField(mass, new GUIContent("mass"));
 			EditorGUILayout.PropertyField(tilt, new GUIContent("tilt"));
 			EditorGUILayout.PropertyField(orbitalPeriod, new GUIContent("orbitalPeriod"));
-			EditorGUILayout.PropertyField(parentStarMass, new GUIContent("parentStarMass"));
-			EditorGUILayout.PropertyField(parentStarObject, new GUIContent("parentStarObject") );
+			EditorGUILayout.PropertyField(parentMass, new GUIContent("parentMass"));
+			EditorGUILayout.PropertyField(parentObject, new GUIContent("parentObject") );
 			break;
 			
 		case ObjectData.CelestialBodyType.Star:            
@@ -60,16 +60,25 @@ public class ObjectDataEditor : Editor {
 
 		case ObjectData.CelestialBodyType.SolarSystemSphere:
 			EditorGUILayout.PropertyField(coordinates, new GUIContent("coordinates"), true);
-			EditorGUILayout.PropertyField(parentStarObject, new GUIContent("parentStarObject") );
+			EditorGUILayout.PropertyField(parentObject, new GUIContent("parentObject") );
 			break;
 
 		case ObjectData.CelestialBodyType.StarLight:
 			//EditorGUILayout.PropertyField(coordinates, new GUIContent("coordinates"), true);
-			//EditorGUILayout.PropertyField(parentStarObject, new GUIContent("parentStarObject") );
+			//EditorGUILayout.PropertyField(parentObject, new GUIContent("parentObject") );
 			break;
 
+		case ObjectData.CelestialBodyType.Moon:
+			EditorGUILayout.PropertyField(coordinates, new GUIContent("coordinates"), true);			// True boolean is to allow array
+			EditorGUILayout.PropertyField(radius, new GUIContent("radius"), true);
+			EditorGUILayout.PropertyField(mass, new GUIContent("mass"));
+			EditorGUILayout.PropertyField(tilt, new GUIContent("tilt"));
+			EditorGUILayout.PropertyField(orbitalPeriod, new GUIContent("orbitalPeriod"));
+			EditorGUILayout.PropertyField(parentMass, new GUIContent("parentMass"));
+			EditorGUILayout.PropertyField(parentObject, new GUIContent("parentObject") );
+			break;
 		}
 		
 		serializedObject.ApplyModifiedProperties ();
 	}
-}
+}*/

@@ -1,7 +1,7 @@
 ﻿using UnityEditor;
 using UnityEngine;
 
-[CustomEditor(typeof(PropertyHolder)), CanEditMultipleObjects]
+/*[CustomEditor(typeof(PropertyHolder)), CanEditMultipleObjects]
 public class PropertyHolderEditor : Editor {
 	
 	public SerializedProperty 
@@ -49,4 +49,4 @@ public class PropertyHolderEditor : Editor {
 		
 		serializedObject.ApplyModifiedProperties ();
 	}
-}
+}*/
