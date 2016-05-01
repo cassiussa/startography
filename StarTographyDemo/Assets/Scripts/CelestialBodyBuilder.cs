@@ -140,7 +140,7 @@ public class CelestialBodyBuilder : MonoBehaviour {
 			gameObject.AddComponent<BuildSolarSystemSphere> ();								// Make the Solar Sphere for this star, assign the necessary scripts, positions, rotations, etc
 			gameObject.AddComponent<BuildDistanceMarkers> ();								// Create the Distance Marker gameObjects
 			gameObject.AddComponent<BuildStarGlow> ();
-
+			gameObject.AddComponent<BuildStarLight>();										// The Light Components that are the stars
 
 		}
 

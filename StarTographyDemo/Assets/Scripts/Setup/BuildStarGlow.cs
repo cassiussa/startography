@@ -16,6 +16,6 @@ public class BuildStarGlow : MonoBehaviour {
 		GameObject starGlowMain = new GameObject ("Main Star Glow");
 		starGlowMain.transform.parent = starGlow.transform;
 
-		Destroy (this);
+		//Destroy (this);
 	}
 }

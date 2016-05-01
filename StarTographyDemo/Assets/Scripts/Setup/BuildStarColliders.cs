@@ -18,6 +18,6 @@ public class BuildStarColliders : MonoBehaviour {
 			colliderRadius *= 10;
 		}
 
-		Destroy (this);
+		//Destroy (this);
 	}
 }
