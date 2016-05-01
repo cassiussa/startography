@@ -33,6 +33,8 @@ public class ScaleStates : MonoBehaviour {
 	public Transform[] allChildren;
 	public Transform bodyMesh;
 
+	public Transform[] scaleLayers;
+
 	void Awake() {
 
 		if (thisPosition.x == 0d || thisPosition.y == 0d || thisPosition.z == 0d) {
@@ -64,6 +66,8 @@ public class ScaleStates : MonoBehaviour {
 				                                  (float)(realRadius.z * Global.radiusConstantSolar/Global.kmPerUnit));
 			}
 		}
+
+		scaleLayers = GameObject.Find ("/Galaxy/Scale Layers/").GetComponentsInChildren<Transform> ();
 
 
 		if(currentDistance < 1e+7d)
@@ -217,7 +221,9 @@ public class ScaleStates : MonoBehaviour {
 	 * 
 	 */
 	
-	void ScaleLayer1() {
+	void ScaleLayer1() {							// This State is commented for clarity
+		Parent(1);									// The index is 1 as 0 contains the parent.  This works out nice for the index number matching layer number
+
 		StateChecks (1e+7d,							// The minimum value of the state above this state
 		             State.ScaleLayer2,				// The state above this State
 		             double.MinValue,				// The minimum value we can use for this state
@@ -226,73 +232,91 @@ public class ScaleStates : MonoBehaviour {
 		             new Vector3d (0d, 0d, 0d),		// The relative position of the camera
 		             8,								// The Layer that this State occupies
 		             1e-2d);						// The scale multiplier
+
 	}
 
 	void ScaleLayer2() {
+		Parent(2);
 		StateChecks (1e+8d, State.ScaleLayer3, 1e+7d, State.ScaleLayer1, 1e+7d, new Vector3d (0d, 0d, 0d), 9, 1e-3d);
 	}
 
 	void ScaleLayer3() {
+		Parent(3);
 		StateChecks (1e+9d, State.ScaleLayer4, 1e+8d, State.ScaleLayer2, 1e+8d, new Vector3d (0d, 0d, 0d), 10, 1e-4d);
 	}
 
 	void ScaleLayer4() {
+		Parent(4);
 		StateChecks (1e+10d, State.ScaleLayer5, 1e+9d, State.ScaleLayer3, 1e+9d, new Vector3d (0d, 0d, 0d), 11, 1e-5d);
 	}
 
 	void ScaleLayer5() {
+		Parent(5);
 		StateChecks (1e+11d, State.ScaleLayer6, 1e+10d, State.ScaleLayer4, 1e+10d, new Vector3d (0d, 0d, 0d), 12, 1e-6d);
 	}
 
 	void ScaleLayer6() {
+		Parent(6);
 		StateChecks (1e+12d, State.ScaleLayer7, 1e+11d, State.ScaleLayer5, 1e+11d, new Vector3d (0d, 0d, 0d), 13, 1e-7d);
 	}
 
 	void ScaleLayer7() {
+		Parent(7);
 		StateChecks (1e+13d, State.ScaleLayer8, 1e+12d, State.ScaleLayer6, 1e+12d, new Vector3d (0d, 0d, 0d), 14, 1e-8d);
 	}
 
 	void ScaleLayer8() {
+		Parent(8);
 		StateChecks (1e+14d, State.ScaleLayer9, 1e+13d, State.ScaleLayer7, 1e+13d, new Vector3d (0d, 0d, 0d), 15, 1e-9d);
 	}
 
 	void ScaleLayer9() {
+		Parent(9);
 		StateChecks (1e+15d, State.ScaleLayer10, 1e+14d, State.ScaleLayer8, 1e+14d, new Vector3d (0d, 0d, 0d), 16, 1e-10d);
 	}
 
 	void ScaleLayer10() {
+		Parent(10);
 		StateChecks (1e+16d, State.ScaleLayer11, 1e+15d, State.ScaleLayer9, 1e+15d, new Vector3d (0d, 0d, 0d), 17, 1e-11d);
 	}
 
 	void ScaleLayer11() {
+		Parent(11);
 		StateChecks (1e+17d, State.ScaleLayer12, 1e+16d, State.ScaleLayer10, 1e+16d, new Vector3d (0d, 0d, 0d), 18, 1e-12d);
 	}
 
 	void ScaleLayer12() {
+		Parent(12);
 		StateChecks (1e+18d, State.ScaleLayer13, 1e+17d, State.ScaleLayer11, 1e+17d, new Vector3d (0d, 0d, 0d), 19, 1e-13d);
 	}
 
 	void ScaleLayer13() {
+		Parent(13);
 		StateChecks (1e+19d, State.ScaleLayer14, 1e+18d, State.ScaleLayer12, 1e+18d, new Vector3d (0d, 0d, 0d), 20, 1e-14d);
 	}
 
 	void ScaleLayer14() {
+		Parent(14);
 		StateChecks (1e+20d, State.ScaleLayer15, 1e+19d, State.ScaleLayer13, 1e+19d, new Vector3d (0d, 0d, 0d), 21, 1e-15d);
 	}
 
 	void ScaleLayer15() {
+		Parent(15);
 		StateChecks (1e+21d, State.ScaleLayer16, 1e+20d, State.ScaleLayer14, 1e+20d, new Vector3d (0d, 0d, 0d), 22, 1e-16d);
 	}
 
 	void ScaleLayer16() {
+		Parent(16);
 		StateChecks (1e+22d, State.ScaleLayer17, 1e+21d, State.ScaleLayer15, 1e+21d, new Vector3d (0d, 0d, 0d), 23, 1e-17d);
 	}
 
 	void ScaleLayer17() {
+		Parent(17);
 		StateChecks (1e+23d, State.ScaleLayer18, 1e+22d, State.ScaleLayer16, 1e+22d, new Vector3d (0d, 0d, 0d), 24, 1e-18d);
 	}
 
 	void ScaleLayer18() {
+		Parent(18);
 		StateChecks (double.MaxValue, State.ScaleNull, 1e+23d, State.ScaleLayer17, 1e+23d, new Vector3d (0d, 0d, 0d), 25, 1e-19d);
 	}
 
@@ -351,6 +375,18 @@ public class ScaleStates : MonoBehaviour {
 				_cacheState = state;
 			}
 		}
+	}
+
+	/*
+	 * Sets the parent Scale Layer that the body should currently
+	 * exist within.
+	 * 
+	 * Note that index 0 is actually the parent (/Galaxy/Scale Layer/")
+	 * and not a child (/Galaxy/Scale Layer/Scale Layer N") so it isn't
+	 * used.
+	 */
+	private void Parent(int index) {
+		transform.parent = scaleLayers[index].transform;
 	}
 
 

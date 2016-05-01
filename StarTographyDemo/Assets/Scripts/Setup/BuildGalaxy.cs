@@ -11,7 +11,7 @@ public class BuildGalaxy : MonoBehaviour {
 	 */
 	void Awake () {
 		GameObject galaxy = new GameObject ("Galaxy");					// Create the parent Galaxy gameObject
-		GameObject scaleStates = new GameObject ("Scale States");		// Create a child of the Galaxy gameObject that we use to contain the scale states
+		GameObject scaleStates = new GameObject ("Scale Layers");		// Create a child of the Galaxy gameObject that we use to contain the scale states
 		scaleStates.transform.parent = galaxy.transform;				// Assign the parent/child relationship
 		for(int i=1;i<=Global.layerCount-7;i++) {
 			GameObject scale = new GameObject("Scale Layer "+i);		// Create this specific scale's gameObject
