@@ -66,9 +66,10 @@ public class ScaleStates : MonoBehaviour {
 				                                  (float)(realRadius.z * Global.radiusConstantSolar/Global.kmPerUnit));
 			}
 		}
-
-		scaleLayers = GameObject.Find ("/Galaxy/Scale Layers/").GetComponentsInChildren<Transform> ();
-
+		scaleLayers = new Transform[18];
+		for (int i=0; i<scaleLayers.Length; i++) {
+			scaleLayers[i] = GameObject.Find ("/Galaxy/Scale Layers/Scale Layer "+(i+1)).GetComponent<Transform> ();
+		}
 
 		if(currentDistance < 1e+7d)
 			SetState (State.ScaleLayer1);
