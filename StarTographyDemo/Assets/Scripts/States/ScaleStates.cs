@@ -9,7 +9,7 @@ public class ScaleStates : MonoBehaviour {
 
 	public State state = State.ScaleNull;
 	State _prevState;
-	State _cacheState;
+	public State _cacheState;
 
 	#region Basic Getters/Setters
 	public State CurrentState { get { return state; } }
@@ -34,6 +34,10 @@ public class ScaleStates : MonoBehaviour {
 	public Transform bodyMesh;
 
 	public Transform[] scaleLayers;
+
+	public enum CelestialBodyType { Star, Planet, Moon }		// These should be the same as found in CelestialBodyBuilder.cs
+	public CelestialBodyType celestialBodyType;					// Variable is set upon instantiation of this script by the FormatImportData.cs script
+	public GameObject[] lightGameObjects = new GameObject[4];	// The lights the encompass Layers 1-4 for this if it's a Star type
 
 	void Awake() {
 
@@ -196,16 +200,6 @@ public class ScaleStates : MonoBehaviour {
 			thisRadius.z = 1d;
 		}
 		currentDistance = Vector3d.Distance(new Vector3d(0d,0d,0d), realPosition);
-
-		/*
-		 * The distance values below are multiples of 1,000km per Unit.
-		 * In other words, the first distance (10,000,000km) represents
-		 * 10,000 Units in Unity.
-		 */
-
-		//realPosition.z -= 100000001;
-		if (gameObject.name == "[STAR] Sun")
-			print("Update()");
 	}
 
 
@@ -224,7 +218,6 @@ public class ScaleStates : MonoBehaviour {
 	
 	void ScaleLayer1() {							// This State is commented for clarity
 		Parent(1);									// The index is 1 as 0 contains the parent.  This works out nice for the index number matching layer number
-
 		StateChecks (1e+7d,							// The minimum value of the state above this state
 		             State.ScaleLayer2,				// The state above this State
 		             double.MinValue,				// The minimum value we can use for this state
@@ -351,7 +344,6 @@ public class ScaleStates : MonoBehaviour {
 		 * layer : The Layer that this State occupies
 		 * scaleMultiplier : The scale multiplier
 		 */
-		             
 		if (currentDistance >= greaterThan) {
 			SetState (nextState);
 		} else if (currentDistance < lessThan) {
@@ -369,13 +361,26 @@ public class ScaleStates : MonoBehaviour {
 			 * then readjust the scale of this celestial body, set the cache value, and update the
 			 * Layer
 			 */
-			if (_cacheState != state) {
-				SetLayer (layer);
-				Vector3d tempV3 = new Vector3d(scaleMultiplier * realRadius * Global.radiusConstantSolar / Global.kmPerUnit); //TODO: come back to this and in Awake do a check to see what type of celestial body.  Use a variable to hold the "radiusConstantSolar" (or radiusConstantX) value.
-				bodyMesh.localScale = new Vector3 ((float)tempV3.x, (float)tempV3.y, (float)tempV3.z);
-				_cacheState = state;
-			}
+
+
 		}
+		if (_cacheState != state) {
+			//Debug.LogError ("state = " + state + ", _cacheState = " + _cacheState);
+			if (celestialBodyType == CelestialBodyType.Star) {
+				for (int i=0; i<lightGameObjects.Length; i++) {
+					if((layer-7) <= 4)
+						lightGameObjects [i].SetActive (true);
+					else
+						lightGameObjects [i].SetActive (false);
+				}
+			}
+			SetLayer (layer);
+			Vector3d tempV3 = new Vector3d(scaleMultiplier * realRadius * Global.radiusConstantSolar / Global.kmPerUnit); //TODO: come back to this and in Awake do a check to see what type of celestial body.  Use a variable to hold the "radiusConstantSolar" (or radiusConstantX) value.
+			bodyMesh.localScale = new Vector3 ((float)tempV3.x, (float)tempV3.y, (float)tempV3.z);
+
+			_cacheState = state;
+		}
+
 	}
 
 	/*

@@ -242,10 +242,12 @@ public class FormatImportData : MonoBehaviour {
 			celestialBodies.star[sIndex].CelestialBodyBuilder.realRadii[0] = celestialBodies.star[sIndex].CelestialBodyBuilder.radiusScripts[0].realRadius;
 
 			celestialBodies.star[sIndex].CelestialBodyBuilder.scaleStatesScripts[0] = celestialBodies.star[sIndex].gameObject.AddComponent<ScaleStates>();
+			ScaleStates sSS = celestialBodies.star[sIndex].CelestialBodyBuilder.scaleStatesScripts[0];
+			sSS.celestialBodyType = ScaleStates.CelestialBodyType.Star;
 
 			// Assign the value reference of the realPosition and relativePosition into the ScaleStates script's variables
-			celestialBodies.star[sIndex].CelestialBodyBuilder.scaleStatesScripts[0].realPosition = celestialBodies.star[sIndex].CelestialBodyBuilder.positionScripts[0].realPosition;
-			celestialBodies.star[sIndex].CelestialBodyBuilder.scaleStatesScripts[0].relativePosition = celestialBodies.star[sIndex].CelestialBodyBuilder.relativePositions[0];
+			sSS.realPosition = celestialBodies.star[sIndex].CelestialBodyBuilder.positionScripts[0].realPosition;
+			sSS.relativePosition = celestialBodies.star[sIndex].CelestialBodyBuilder.relativePositions[0];
 
 			int count = 0;
 			for(int i=0;i<planetArrSize;i++) {
@@ -263,10 +265,11 @@ public class FormatImportData : MonoBehaviour {
 				celestialBodies.star[sIndex].CelestialBodyBuilder.realRadii[i+1] = celestialBodies.star[sIndex].CelestialBodyBuilder.radiusScripts[i+1].realRadius;
 
 				celestialBodies.star[sIndex].CelestialBodyBuilder.scaleStatesScripts[i+1] = celestialBodies.star[sIndex].CelestialBodyBuilder.planets[i].AddComponent<ScaleStates>();
-
+				ScaleStates sSS2 = celestialBodies.star[sIndex].CelestialBodyBuilder.scaleStatesScripts[i+1];
+				sSS2.celestialBodyType = ScaleStates.CelestialBodyType.Planet;
 				// Assign the value reference of the realPosition and relativePosition into the ScaleStates script's variables
-				celestialBodies.star[sIndex].CelestialBodyBuilder.scaleStatesScripts[i+1].realPosition = celestialBodies.star[sIndex].CelestialBodyBuilder.realPositions[i+1];
-				celestialBodies.star[sIndex].CelestialBodyBuilder.scaleStatesScripts[i+1].relativePosition = celestialBodies.star[sIndex].CelestialBodyBuilder.positionScripts[i+1].relativePosition;
+				sSS2.realPosition = celestialBodies.star[sIndex].CelestialBodyBuilder.realPositions[i+1];
+				sSS2.relativePosition = celestialBodies.star[sIndex].CelestialBodyBuilder.positionScripts[i+1].relativePosition;
 				count++;
 			}
 			
@@ -282,10 +285,12 @@ public class FormatImportData : MonoBehaviour {
 				celestialBodies.star[sIndex].CelestialBodyBuilder.realRadii[i+count+1] = celestialBodies.star[sIndex].CelestialBodyBuilder.radiusScripts[i+count+1].realRadius;
 
 				celestialBodies.star[sIndex].CelestialBodyBuilder.scaleStatesScripts[i+count+1] = celestialBodies.star[sIndex].CelestialBodyBuilder.moons[i].AddComponent<ScaleStates>();
+				ScaleStates sSS3 = celestialBodies.star[sIndex].CelestialBodyBuilder.scaleStatesScripts[i+count+1];
+				sSS3.celestialBodyType = ScaleStates.CelestialBodyType.Moon;
 
 				// Assign the value reference of the realPosition and relativePosition into the ScaleStates script's variables
-				celestialBodies.star[sIndex].CelestialBodyBuilder.scaleStatesScripts[i+count+1].realPosition = celestialBodies.star[sIndex].CelestialBodyBuilder.realPositions[i+count+1];
-				celestialBodies.star[sIndex].CelestialBodyBuilder.scaleStatesScripts[i+count+1].relativePosition = celestialBodies.star[sIndex].CelestialBodyBuilder.positionScripts[i+count+1].relativePosition;
+				sSS3.realPosition = celestialBodies.star[sIndex].CelestialBodyBuilder.realPositions[i+count+1];
+				sSS3.relativePosition = celestialBodies.star[sIndex].CelestialBodyBuilder.positionScripts[i+count+1].relativePosition;
 
 			}
 
