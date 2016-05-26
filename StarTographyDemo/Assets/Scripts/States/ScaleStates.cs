@@ -8,8 +8,8 @@ public class ScaleStates : MonoBehaviour {
 	public enum State { ScaleNull, ScaleLayer1, ScaleLayer2, ScaleLayer3, ScaleLayer4, ScaleLayer5, ScaleLayer6, ScaleLayer7, ScaleLayer8, ScaleLayer9, ScaleLayer10, ScaleLayer11, ScaleLayer12, ScaleLayer13, ScaleLayer14, ScaleLayer15, ScaleLayer16, ScaleLayer17, ScaleLayer18 }
 
 	public State state = State.ScaleNull;
-	State _prevState;
-	public State _cacheState;
+	State _prevState = State.ScaleNull;
+	public State _cacheState = State.ScaleNull;
 
 	#region Basic Getters/Setters
 	public State CurrentState { get { return state; } }
@@ -347,19 +347,25 @@ public class ScaleStates : MonoBehaviour {
 		}
 
 		Parent(parent);
+		if(gameObject.name == "[STAR] Sun")
+			print ("_cacheState = " + _cacheState + ", state = " + state);
 
-		//if(gameObject.name =="[STAR] Sun") Debug.LogError ("state = " + state + ", _cacheState = " + _cacheState);
 		if (_cacheState != state) {
+			if(gameObject.name == "[STAR] Sun")
+			print ("layer before = "+layer);
 			if (currentDistance >= greaterThan) {
 				layer++;
-				if(layer > 18) layer = 18;
 			} else {
 				layer--;
-				if(layer < 1) layer = 1;
 			}
-
+			//if(layer > 18) layer = 18;
+			//if(layer < 1) layer = 1;
+			if(gameObject.name == "[STAR] Sun")
+			print ("layer after = "+layer);
 			if (celestialBodyType == CelestialBodyType.Star) {
 				for (int i=0; i<lightGameObjects.Length; i++) {
+					if(gameObject.name == "[STAR] Sun")
+					print ("i = "+i);
 					if((layer-7) <= 4)
 						lightGameObjects [i].SetActive (true);
 					else
@@ -382,7 +388,6 @@ public class ScaleStates : MonoBehaviour {
 
 			_cacheState = state;
 		}
-
 	}
 
 	/*
@@ -394,7 +399,7 @@ public class ScaleStates : MonoBehaviour {
 	 * used.
 	 */
 	private void Parent(int index) {
-		transform.parent = scaleLayers[index].transform;
+		transform.parent = scaleLayers[index-1];
 	}
 
 
