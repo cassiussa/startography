@@ -125,7 +125,7 @@ public class CelestialBodyBuilder : MonoBehaviour {
 		 * The celestial body is of type Star.  Do any functionality
 		 * or instantiations that we need that apply only to Stars
 		 */
-		} else {
+		} else if(celestialBodyType == CelestialBodyType.Star){
 			/*
 			 * DistanceArrays are attached to Stars.  It holds onto the local solar
 			 * system's last known celestial body positions.  The Position scripts
@@ -140,7 +140,7 @@ public class CelestialBodyBuilder : MonoBehaviour {
 			gameObject.AddComponent<BuildSolarSystemSphere> ();								// Make the Solar Sphere for this star, assign the necessary scripts, positions, rotations, etc
 			gameObject.AddComponent<BuildDistanceMarkers> ();								// Create the Distance Marker gameObjects
 			gameObject.AddComponent<BuildStarGlow> ();
-
+			gameObject.AddComponent<BuildStarLight>();										// The Light Components that are the stars
 
 		}
 
