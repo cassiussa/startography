@@ -344,28 +344,21 @@ public class ScaleStates : MonoBehaviour {
 			 * then readjust the scale of this celestial body, set the cache value, and update the
 			 * Layer
 			 */
+
 		}
 
-		Parent(parent);
-		if(gameObject.name == "[STAR] Sun")
-			print ("_cacheState = " + _cacheState + ", state = " + state);
 
 		if (_cacheState != state) {
-			if(gameObject.name == "[STAR] Sun")
-			print ("layer before = "+layer);
 			if (currentDistance >= greaterThan) {
 				layer++;
+				if(layer > 26) layer = 26;		// This is the lowest layer (8) plus the last layer (18)
 			} else {
 				layer--;
+				if(layer < 8) layer = 8;		// This is the lowest layer (8)
 			}
-			//if(layer > 18) layer = 18;
-			//if(layer < 1) layer = 1;
-			if(gameObject.name == "[STAR] Sun")
-			print ("layer after = "+layer);
+
 			if (celestialBodyType == CelestialBodyType.Star) {
 				for (int i=0; i<lightGameObjects.Length; i++) {
-					if(gameObject.name == "[STAR] Sun")
-					print ("i = "+i);
 					if((layer-7) <= 4)
 						lightGameObjects [i].SetActive (true);
 					else
@@ -387,6 +380,11 @@ public class ScaleStates : MonoBehaviour {
 			bodyMesh.localScale = new Vector3 ((float)tempV3.x, (float)tempV3.y, (float)tempV3.z);
 
 			_cacheState = state;
+		}
+
+		// Make sure that we're not just re-assigning the same parent again every frame
+		if (transform.parent != scaleLayers [parent - 1]) {
+			Parent (parent);
 		}
 	}
 
