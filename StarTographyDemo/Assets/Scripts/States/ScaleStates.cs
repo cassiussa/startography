@@ -226,23 +226,27 @@ public class ScaleStates : MonoBehaviour {
 		             8,								// The Layer that this State occupies
 		             1e-2d,							// The scale multiplier
 		             1);							// Parent. The index is 1 as 0 contains the parent.  This works out nice for the index number matching layer number
-
+		//transform.localScale = new Vector3 (1f, 1f, 1f);
 	}
 
 	void ScaleLayer2() {
 		StateChecks (1e+8d, State.ScaleLayer3, 1e+7d, State.ScaleLayer1, 1e+7d, new Vector3d (0d, 0d, 0d), 9, 1e-3d, 2);
+		//transform.localScale = new Vector3 (0.1f, 0.1f, 0.1f);
 	}
 
 	void ScaleLayer3() {
 		StateChecks (1e+9d, State.ScaleLayer4, 1e+8d, State.ScaleLayer2, 1e+8d, new Vector3d (0d, 0d, 0d), 10, 1e-4d, 3);
+		//transform.localScale = new Vector3 (0.01f, 0.01f, 0.01f);
 	}
 
 	void ScaleLayer4() {
 		StateChecks (1e+10d, State.ScaleLayer5, 1e+9d, State.ScaleLayer3, 1e+9d, new Vector3d (0d, 0d, 0d), 11, 1e-5d, 4);
+		//transform.localScale = new Vector3 (0.001f, 0.001f, 0.001f);
 	}
 
 	void ScaleLayer5() {
 		StateChecks (1e+11d, State.ScaleLayer6, 1e+10d, State.ScaleLayer4, 1e+10d, new Vector3d (0d, 0d, 0d), 12, 1e-6d, 5);
+		//transform.localScale = new Vector3 (0.0001f, 0.0001f, 0.0001f);
 	}
 
 	void ScaleLayer6() {
@@ -326,6 +330,7 @@ public class ScaleStates : MonoBehaviour {
 		 * cameraPosition : The relative position of the camera
 		 * layer : The Layer that this State occupies
 		 * scaleMultiplier : The scale multiplier
+		 * parent : the parent's layer number by layer name
 		 */
 		if (currentDistance >= greaterThan) {
 			SetState (nextState);
@@ -379,6 +384,8 @@ public class ScaleStates : MonoBehaviour {
 			Vector3d tempV3 = new Vector3d(scaleMultiplier * realRadius * Global.radiusConstantSolar / Global.kmPerUnit); //TODO: come back to this and in Awake do a check to see what type of celestial body.  Use a variable to hold the "radiusConstantSolar" (or radiusConstantX) value.
 			bodyMesh.localScale = new Vector3 ((float)tempV3.x, (float)tempV3.y, (float)tempV3.z);
 
+			print ("updating state");
+			gameObject.BroadcastMessage("StateUpdate", scaleMultiplier, SendMessageOptions.DontRequireReceiver);
 			_cacheState = state;
 		}
 
