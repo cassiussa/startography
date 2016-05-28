@@ -28,6 +28,7 @@ public class BuildDistanceMarkerBorder : MonoBehaviour {
 		 * that this object is currently found in.
 		 */
 		lineRendererWidth = (gameObject.transform.parent.GetComponent<DistanceMarkerStates> ().distanceMarkerSize) * 0.00001 * 0.00200537613669;
+		lineRenderer.SetWidth((float)lineRendererWidth, (float)lineRendererWidth);	// Set the initial size of the lineRenderer
 	}
 
 }
