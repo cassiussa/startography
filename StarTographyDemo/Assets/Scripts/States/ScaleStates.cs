@@ -83,9 +83,9 @@ public class ScaleStates : MonoBehaviour {
 				                                  (float)(realRadius.z * Global.radiusConstantSolar/Global.kmPerUnit));
 			}
 		}
-		scaleLayers = new Transform[18];
-		for (int i=0; i<scaleLayers.Length; i++) {
-			scaleLayers[i] = GameObject.Find ("/Galaxy/Scale Layers/Scale Layer "+(i+1)).GetComponent<Transform> ();
+		scaleLayers = new Transform[19];			// Leave index 0 empty for simplicity of remembering which state in which index 
+		for (int i=1; i<scaleLayers.Length; i++) {
+			scaleLayers[i] = GameObject.Find ("/Galaxy/Scale Layers/Scale Layer "+(i)).GetComponent<Transform> ();
 		}
 
 		if(currentDistance < 1e+7d)
@@ -196,6 +196,7 @@ public class ScaleStates : MonoBehaviour {
 
 	public void SetState(State newState) {
 		_prevState = state;
+		_cacheState = State.ScaleNull;
 		state = newState;
 	}
 
@@ -211,14 +212,13 @@ public class ScaleStates : MonoBehaviour {
 			thisRadius.z = 1d;
 		}
 
+
+
 		currentDistance = Vector3d.Distance(new Vector3d(0d,0d,0d), realPosition);
 
 		CheckDistance (tooBig, higherState, tooSmall, lowerState, stateScaleSize, cameraPosition);
 
-		if (_cacheState != state) {
-			StateChecks (layer, scaleMultiplier, parent);
-			_cacheState = state;
-		}
+
 	}
 
 
@@ -246,6 +246,12 @@ public class ScaleStates : MonoBehaviour {
 		cameraPosition = new Vector3d (0d, 0d, 0d);
 
 		if (gameObject.layer != layer) UpdateLayer(layer);
+		if (_cacheState != state) {
+			if (gameObject.name == "[STAR] Sun") print ("state updated to "+state+" from _"+_prevState+".  _cachedState = "+_cacheState);
+			//StateChecks (layer, scaleMultiplier, parent);
+			StateChecks ();
+			_cacheState = state;
+		}
 	}
 
 	void ScaleLayer2() {
@@ -263,6 +269,12 @@ public class ScaleStates : MonoBehaviour {
 		if (gameObject.layer != layer) {
 			UpdateLayer(layer);
 		}
+		if (_cacheState != state) {
+			if (gameObject.name == "[STAR] Sun") print ("state updated to "+state+" from _"+_prevState+".  _cachedState = "+_cacheState);
+			//StateChecks (layer, scaleMultiplier, parent);
+			StateChecks ();
+			_cacheState = state;
+		}
 	}
 
 	void ScaleLayer3() {
@@ -279,6 +291,12 @@ public class ScaleStates : MonoBehaviour {
 
 		if (gameObject.layer != layer) {
 			UpdateLayer(layer);
+		}
+		if (_cacheState != state) {
+			if (gameObject.name == "[STAR] Sun") print ("state updated to "+state+" from _"+_prevState+".  _cachedState = "+_cacheState);
+			//StateChecks (layer, scaleMultiplier, parent);
+			StateChecks ();
+			_cacheState = state;
 		}
 
 	}
@@ -298,6 +316,12 @@ public class ScaleStates : MonoBehaviour {
 		if (gameObject.layer != layer) {
 			UpdateLayer(layer);
 		}
+		if (_cacheState != state) {
+			if (gameObject.name == "[STAR] Sun") print ("state updated to "+state+" from _"+_prevState+".  _cachedState = "+_cacheState);
+			//StateChecks (layer, scaleMultiplier, parent);
+			StateChecks ();
+			_cacheState = state;
+		}
 
 	}
 
@@ -315,6 +339,12 @@ public class ScaleStates : MonoBehaviour {
 
 		if (gameObject.layer != layer) {
 			UpdateLayer(layer);
+		}
+		if (_cacheState != state) {
+			if (gameObject.name == "[STAR] Sun") print ("state updated to "+state+" from _"+_prevState+".  _cachedState = "+_cacheState);
+			//StateChecks (layer, scaleMultiplier, parent);
+			StateChecks ();
+			_cacheState = state;
 		}
 
 	}
@@ -334,6 +364,12 @@ public class ScaleStates : MonoBehaviour {
 		if (gameObject.layer != layer) {
 			UpdateLayer(layer);
 		}
+		if (_cacheState != state) {
+			if (gameObject.name == "[STAR] Sun") print ("state updated to "+state+" from _"+_prevState+".  _cachedState = "+_cacheState);
+			//StateChecks (layer, scaleMultiplier, parent);
+			StateChecks ();
+			_cacheState = state;
+		}
 
 	}
 
@@ -351,6 +387,12 @@ public class ScaleStates : MonoBehaviour {
 
 		if (gameObject.layer != layer) {
 			UpdateLayer(layer);
+		}
+		if (_cacheState != state) {
+			if (gameObject.name == "[STAR] Sun") print ("state updated to "+state+" from _"+_prevState+".  _cachedState = "+_cacheState);
+			//StateChecks (layer, scaleMultiplier, parent);
+			StateChecks ();
+			_cacheState = state;
 		}
 
 	}
@@ -370,6 +412,12 @@ public class ScaleStates : MonoBehaviour {
 		if (gameObject.layer != layer) {
 			UpdateLayer(layer);
 		}
+		if (_cacheState != state) {
+			if (gameObject.name == "[STAR] Sun") print ("state updated to "+state+" from _"+_prevState+".  _cachedState = "+_cacheState);
+			//StateChecks (layer, scaleMultiplier, parent);
+			StateChecks ();
+			_cacheState = state;
+		}
 
 	}
 
@@ -387,6 +435,12 @@ public class ScaleStates : MonoBehaviour {
 
 		if (gameObject.layer != layer) {
 			UpdateLayer(layer);
+		}
+		if (_cacheState != state) {
+			if (gameObject.name == "[STAR] Sun") print ("state updated to "+state+" from _"+_prevState+".  _cachedState = "+_cacheState);
+			//StateChecks (layer, scaleMultiplier, parent);
+			StateChecks ();
+			_cacheState = state;
 		}
 
 	}
@@ -406,6 +460,12 @@ public class ScaleStates : MonoBehaviour {
 		if (gameObject.layer != layer) {
 			UpdateLayer(layer);
 		}
+		if (_cacheState != state) {
+			if (gameObject.name == "[STAR] Sun") print ("state updated to "+state+" from _"+_prevState+".  _cachedState = "+_cacheState);
+			//StateChecks (layer, scaleMultiplier, parent);
+			StateChecks ();
+			_cacheState = state;
+		}
 
 	}
 
@@ -423,6 +483,12 @@ public class ScaleStates : MonoBehaviour {
 
 		if (gameObject.layer != layer) {
 			UpdateLayer(layer);
+		}
+		if (_cacheState != state) {
+			if (gameObject.name == "[STAR] Sun") print ("state updated to "+state+" from _"+_prevState+".  _cachedState = "+_cacheState);
+			//StateChecks (layer, scaleMultiplier, parent);
+			StateChecks ();
+			_cacheState = state;
 		}
 
 	}
@@ -442,6 +508,12 @@ public class ScaleStates : MonoBehaviour {
 		if (gameObject.layer != layer) {
 			UpdateLayer(layer);
 		}
+		if (_cacheState != state) {
+			if (gameObject.name == "[STAR] Sun") print ("state updated to "+state+" from _"+_prevState+".  _cachedState = "+_cacheState);
+			//StateChecks (layer, scaleMultiplier, parent);
+			StateChecks ();
+			_cacheState = state;
+		}
 
 	}
 
@@ -459,6 +531,12 @@ public class ScaleStates : MonoBehaviour {
 
 		if (gameObject.layer != layer) {
 			UpdateLayer(layer);
+		}
+		if (_cacheState != state) {
+			if (gameObject.name == "[STAR] Sun") print ("state updated to "+state+" from _"+_prevState+".  _cachedState = "+_cacheState);
+			//StateChecks (layer, scaleMultiplier, parent);
+			StateChecks ();
+			_cacheState = state;
 		}
 
 	}
@@ -478,6 +556,12 @@ public class ScaleStates : MonoBehaviour {
 		if (gameObject.layer != layer) {
 			UpdateLayer(layer);
 		}
+		if (_cacheState != state) {
+			if (gameObject.name == "[STAR] Sun") print ("state updated to "+state+" from _"+_prevState+".  _cachedState = "+_cacheState);
+			//StateChecks (layer, scaleMultiplier, parent);
+			StateChecks ();
+			_cacheState = state;
+		}
 
 	}
 
@@ -495,6 +579,12 @@ public class ScaleStates : MonoBehaviour {
 
 		if (gameObject.layer != layer) {
 			UpdateLayer(layer);
+		}
+		if (_cacheState != state) {
+			if (gameObject.name == "[STAR] Sun") print ("state updated to "+state+" from _"+_prevState+".  _cachedState = "+_cacheState);
+			//StateChecks (layer, scaleMultiplier, parent);
+			StateChecks ();
+			_cacheState = state;
 		}
 
 	}
@@ -515,6 +605,12 @@ public class ScaleStates : MonoBehaviour {
 		if (gameObject.layer != layer) {
 			UpdateLayer(layer);
 		}
+		if (_cacheState != state) {
+			if (gameObject.name == "[STAR] Sun") print ("state updated to "+state+" from _"+_prevState+".  _cachedState = "+_cacheState);
+			//StateChecks (layer, scaleMultiplier, parent);
+			StateChecks ();
+			_cacheState = state;
+		}
 
 	}
 
@@ -532,6 +628,12 @@ public class ScaleStates : MonoBehaviour {
 
 		if (gameObject.layer != layer) {
 			UpdateLayer(layer);
+		}
+		if (_cacheState != state) {
+			if (gameObject.name == "[STAR] Sun") print ("state updated to "+state+" from _"+_prevState+".  _cachedState = "+_cacheState);
+			//StateChecks (layer, scaleMultiplier, parent);
+			StateChecks ();
+			_cacheState = state;
 		}
 
 	}
@@ -552,6 +654,12 @@ public class ScaleStates : MonoBehaviour {
 
 		if (gameObject.layer != layer) {
 			UpdateLayer(layer);
+		}
+		if (_cacheState != state) {
+			if (gameObject.name == "[STAR] Sun") print ("state updated to "+state+" from _"+_prevState+".  _cachedState = "+_cacheState);
+			//StateChecks (layer, scaleMultiplier, parent);
+			StateChecks ();
+			_cacheState = state;
 		}
 
 	}
@@ -604,7 +712,7 @@ public class ScaleStates : MonoBehaviour {
 		}
 	}
 
-	private void StateChecks(int layer, double scaleMultiplier, int parent) {
+	private void StateChecks() {
 		/*
 		 * Perform the operations that the specified state requires
 		 * 
@@ -614,7 +722,6 @@ public class ScaleStates : MonoBehaviour {
 		 * scaleMultiplier : The scale multiplier
 		 * parent : the parent's layer number by layer name
 		 */
-
 		if (celestialBodyType == CelestialBodyType.Star) {
 			for (int i=0; i<lightGameObjects.Length; i++) {
 				if((layer-7) <= 4)
@@ -628,19 +735,19 @@ public class ScaleStates : MonoBehaviour {
 		bodyMesh.localScale = new Vector3 ((float)tempV3.x, (float)tempV3.y, (float)tempV3.z);
 
 		// Make sure that we're not just re-assigning the same parent again every frame
-		if (transform.parent != scaleLayers [parent - 1]) {
+		if (transform.parent != scaleLayers [parent]) {
 			Parent (parent);
 		}
 	}
 	
-	private void Parent(int index) {
+	private void Parent(int parent) {
 		/*
 		 * Sets the parent Scale Layer that the body should currently exist within.
 		 * 
 		 * Note that index 0 is actually the parent (/Galaxy/Scale Layer/") and not a child 
 		 * (/Galaxy/Scale Layer/Scale Layer N") so it isn't used.
 		 */
-		transform.parent = scaleLayers[index-1];
+		transform.parent = scaleLayers[parent];
 	}
 
 
