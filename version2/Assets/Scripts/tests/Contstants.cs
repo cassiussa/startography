@@ -8,15 +8,15 @@ public class Contstants : MonoBehaviour {
 	 * quickly access the different scale sizes
 	 */
 
-	public const double meter		= 1d;
-	public const double kilometer	= 1000d;
-	public const double megameter	= 1000000d;
-	public const double gigameter	= 1000000000d;
-	public const double terameter	= 1000000000000d;
-	public const double petameter	= 1000000000000000d;
-	public const double exameter	= 1000000000000000000d;
-	public const double zetameter	= 1000000000000000000000d;
-	public const double yottameter	= 1000000000000000000000000d;
+	public const double meter       = 1d;
+	public const double kilometer   = 1000d;
+	public const double megameter   = 1000000d;
+	public const double gigameter   = 1000000000d;
+	public const double terameter   = 1000000000000d;
+	public const double petameter   = 1000000000000000d;
+	public const double exameter    = 1000000000000000000d;
+	public const double zetameter   = 1000000000000000000000d;
+	public const double yottameter  = 1000000000000000000000000d;
 
 	/*
 	 * Create the astronomical constants in SI units
