@@ -29,11 +29,11 @@ public class Contstants : MonoBehaviour {
 
 	public const double pi = 3.14159265358979323846d;
 
-	public const double luminosityOfSun 	= 3.846e26d;	// watts		Allen's Astrophysical Quantities 4th Ed.
-	public const double massOfSun 			= 1.9891e30d;	// kilograms	Allen's Astrophysical Quantities 4th Ed.
-	public const double radiusOfSun 		= 6.95508e8d;	// meters		Allen's Astrophysical Quantities 4th Ed.
-	public const double massOfJupiter 		= 1.8987e27d;	// kilograms	Allen's Astrophysical Quantities 4th Ed.
-	public const double radiusOfJupiter 	= 7.1492e7d;	// meters		Allen's Astrophysical Quantities 4th Ed.
-	public const double massOfEarth 		= 5.9742e24d;	// kilograms	Allen's Astrophysical Quantities 4th Ed.
-	public const double radiusOfEarth 		= 6.378136e6d;	// meters		Allen's Astrophysical Quantities 4th Ed.
+	public const double luminosityOfSun = 3.846e26d;	// watts        Allen's Astrophysical Quantities 4th Ed.
+	public const double massOfSun       = 1.9891e30d;	// kilograms    Allen's Astrophysical Quantities 4th Ed.
+	public const double radiusOfSun     = 6.95508e8d;	// meters       Allen's Astrophysical Quantities 4th Ed.
+	public const double massOfJupiter   = 1.8987e27d;	// kilograms    Allen's Astrophysical Quantities 4th Ed.
+	public const double radiusOfJupiter = 7.1492e7d;	// meters       Allen's Astrophysical Quantities 4th Ed.
+	public const double massOfEarth     = 5.9742e24d;	// kilograms    Allen's Astrophysical Quantities 4th Ed.
+	public const double radiusOfEarth   = 6.378136e6d;	// meters       Allen's Astrophysical Quantities 4th Ed.
 }
