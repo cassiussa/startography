@@ -75,13 +75,25 @@ public class ScaleStates : MonoBehaviour {
 
 		allChildren = gameObject.GetComponentsInChildren<Transform>();
 
+		/*
+		 * We scale the parent of the celestial body.
+		 * 
+		 */
 		foreach (Transform child in allChildren) {
 			if(child.gameObject.name == "CelestialBodyMesh") {
+				bodyMesh = child;
+				bodyMesh.localScale = new Vector3((float)(realRadius.x * Global.radiusConstantSolar / Global.kmPerUnit),
+				                                  (float)(realRadius.y * Global.radiusConstantSolar / Global.kmPerUnit / 1e+07),
+				                                  (float)(realRadius.z * Global.radiusConstantSolar / Global.kmPerUnit / 1e+07) );
+			}
+			/*if(child.gameObject.name == "CelestialBodyMesh") {
+				|| child.gameObject.name == "Local Colliders"
+				|| child.gameObject.name == "Solar System Sphere") {
 				bodyMesh = child;
 				bodyMesh.localScale = new Vector3((float)(realRadius.x * Global.radiusConstantSolar/Global.kmPerUnit),
 				                                  (float)(realRadius.y * Global.radiusConstantSolar/Global.kmPerUnit),
 				                                  (float)(realRadius.z * Global.radiusConstantSolar/Global.kmPerUnit));
-			}
+			}*/
 		}
 		scaleLayers = new Transform[19];			// Leave index 0 empty for simplicity of remembering which state in which index 
 		for (int i=1; i<scaleLayers.Length; i++) {
@@ -729,11 +741,26 @@ public class ScaleStates : MonoBehaviour {
 				else
 					lightGameObjects [i].SetActive (false);
 			}
+
+			//Vector3d tempV3 = new Vector3d(scaleMultiplier * realRadius * Global.radiusConstantSolar / Global.kmPerUnit / 100000); //TODO: come back to this and in Awake do a check to see what type of celestial body.  Use a variable to hold the "radiusConstantSolar" (or radiusConstantX) value.
+			Vector3d tempV3 = new Vector3d(scaleMultiplier * realRadius * Global.radiusConstantSolar / Global.kmPerUnit);
+			foreach (Transform child in allChildren) {
+				if(child.gameObject.name == "CelestialBodyMesh" ||
+					child.gameObject.name == "Local Colliders" ||
+					child.gameObject.name == "Solar System Sphere") {
+					if(gameObject.name == "[STAR] Sun")
+						print(scaleMultiplier);
+					bodyMesh = child;
+					bodyMesh.localScale = new Vector3 ((float)tempV3.x, (float)tempV3.y, (float)tempV3.z);
+				}
+			}
 		}
 
-		Vector3d tempV3 = new Vector3d(scaleMultiplier * realRadius * Global.radiusConstantSolar / Global.kmPerUnit); //TODO: come back to this and in Awake do a check to see what type of celestial body.  Use a variable to hold the "radiusConstantSolar" (or radiusConstantX) value.
-		bodyMesh.localScale = new Vector3 ((float)tempV3.x, (float)tempV3.y, (float)tempV3.z);
 
+
+
+		Vector3d scale = new Vector3d(scaleMultiplier * realRadius * 1e12d / Global.kmPerUnit);
+		transform.localScale = new Vector3((float)scale.x, (float)scale.y, (float)scale.z);
 		// Make sure that we're not just re-assigning the same parent again every frame
 		if (transform.parent != scaleLayers [parent]) {
 			Parent (parent);
