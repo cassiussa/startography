@@ -11,8 +11,12 @@ namespace Globals {
 		public static double oneEightyOverPI = 57.29577951308232d;					// 180/PI - so it doesn't need to be calculated
 		public static double radiusConstantSolar = 695508d;							// In kilometers
 		public static double radiusTemperatureSolar = 5777d;						// The effective temperature of the sun, in Kelvin
-		public static double radiusConstantEarth = 6371d;							// In kilometers
-		public static double radiusConstantJupiter = 69911d;						// In kilometers
+        #public static double radiusConstantEarth = 6371d;							// In kilometers
+        # From https://github.com/astropy/astropy/blob/master/astropy/constants/si.py
+        public static double radiusConstantEarth = 6378.136d;                        // In kilometers
+        #public static double radiusConstantJupiter = 69911d;						// In kilometers
+        From https://github.com/astropy/astropy/blob/master/astropy/constants/si.py#
+        public static double radiusConstantJupiter = 71492d;                       // In kilometers
 		public static double massConstantSolar = 1988500000000000000000000000000d;	// In kilograms
 		public static double massConstantJupiter = 1898130000000000000000000000d;	// In kilograms
 		public static double massConstantEarth = 5972190000000000000000000d;		// In Kilograms

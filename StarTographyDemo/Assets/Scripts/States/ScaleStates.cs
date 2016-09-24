@@ -39,6 +39,19 @@ public class ScaleStates : MonoBehaviour {
 	public CelestialBodyType celestialBodyType;					// Variable is set upon instantiation of this script by the FormatImportData.cs script
 	public GameObject[] lightGameObjects = new GameObject[4];	// The lights the encompass Layers 1-4 for this if it's a Star type
 
+	/*
+	 * The following are set every update() by the States
+	 */
+	int layer = 1;												// Set each state update, used for controlling layer we're on
+	double scaleMultiplier = 1d;								// Set each state update, used for scaling
+	int parent = 1;												// Set each state update, used to assign the appropriate parent based on the new state
+	double tooBig;												// Too big to remain in the current state, so enter the state above the current State
+	State higherState;											// The state above the current State
+	double tooSmall;											// Too small to remain in the current state, so it drop down one State
+	State lowerState;											// The next lowest State below the current state being checked
+	double stateScaleSize;										// Scale State size.  1,000,000 for example (makes a max of 9,999,999.999999999~)
+	Vector3d cameraPosition;									// The relative position of the camera
+
 	void Awake() {
 
 		if (thisPosition.x == 0d || thisPosition.y == 0d || thisPosition.z == 0d) {
@@ -62,17 +75,29 @@ public class ScaleStates : MonoBehaviour {
 
 		allChildren = gameObject.GetComponentsInChildren<Transform>();
 
+		/*
+		 * We scale the parent of the celestial body.
+		 * 
+		 */
 		foreach (Transform child in allChildren) {
 			if(child.gameObject.name == "CelestialBodyMesh") {
+				bodyMesh = child;
+				bodyMesh.localScale = new Vector3((float)(realRadius.x * Global.radiusConstantSolar / Global.kmPerUnit),
+				                                  (float)(realRadius.y * Global.radiusConstantSolar / Global.kmPerUnit / 1e+07),
+				                                  (float)(realRadius.z * Global.radiusConstantSolar / Global.kmPerUnit / 1e+07) );
+			}
+			/*if(child.gameObject.name == "CelestialBodyMesh") {
+				|| child.gameObject.name == "Local Colliders"
+				|| child.gameObject.name == "Solar System Sphere") {
 				bodyMesh = child;
 				bodyMesh.localScale = new Vector3((float)(realRadius.x * Global.radiusConstantSolar/Global.kmPerUnit),
 				                                  (float)(realRadius.y * Global.radiusConstantSolar/Global.kmPerUnit),
 				                                  (float)(realRadius.z * Global.radiusConstantSolar/Global.kmPerUnit));
-			}
+			}*/
 		}
-		scaleLayers = new Transform[18];
-		for (int i=0; i<scaleLayers.Length; i++) {
-			scaleLayers[i] = GameObject.Find ("/Galaxy/Scale Layers/Scale Layer "+(i+1)).GetComponent<Transform> ();
+		scaleLayers = new Transform[19];			// Leave index 0 empty for simplicity of remembering which state in which index 
+		for (int i=1; i<scaleLayers.Length; i++) {
+			scaleLayers[i] = GameObject.Find ("/Galaxy/Scale Layers/Scale Layer "+(i)).GetComponent<Transform> ();
 		}
 
 		if(currentDistance < 1e+7d)
@@ -112,6 +137,7 @@ public class ScaleStates : MonoBehaviour {
 		else
 			SetState (State.ScaleLayer18);
 
+		if(gameObject.name == "[STAR] Sun") print ("At the end of Awake(), _cacheState = " + _cacheState + ", state = " + state+" _prevState = "+_prevState);
 	}
 
 	IEnumerator Start() {
@@ -176,16 +202,14 @@ public class ScaleStates : MonoBehaviour {
 			}
 			yield return null;
 		}
+		// never gets to here
+		if(gameObject.name == "[STAR] Sun") print ("At the end of Start(), _cacheState = " + _cacheState + ", state = " + state+" _prevState = "+_prevState);
 	}
 
 	public void SetState(State newState) {
 		_prevState = state;
+		_cacheState = State.ScaleNull;
 		state = newState;
-		/* Uncomment the below line, "_cacheState = newState;", if we want to
-		 * perform state every Update(), then comment out all the "if(state != _cacheState)"
-		 * statements in the State functions below
-		 */
-		//_cacheState = newState;
 	}
 
 	void Update() {
@@ -199,10 +223,15 @@ public class ScaleStates : MonoBehaviour {
 			thisRadius.y = 1d;
 			thisRadius.z = 1d;
 		}
+
+
+
 		currentDistance = Vector3d.Distance(new Vector3d(0d,0d,0d), realPosition);
+
+		CheckDistance (tooBig, higherState, tooSmall, lowerState, stateScaleSize, cameraPosition);
+
+
 	}
-
-
 
 
 	/*
@@ -215,90 +244,436 @@ public class ScaleStates : MonoBehaviour {
 	 * at Vector3(500,200,100) when in ScaleLayer2.
 	 * 
 	 */
-	
-	void ScaleLayer1() {							// This State is commented for clarity
-		StateChecks (1e+7d,							// The minimum value of the state above this state
-		             State.ScaleLayer2,				// The state above this State
-		             double.MinValue,				// The minimum value we can use for this state
-		             State.ScaleNull,				// Otherwise, drop down to the next lowest State
-		             1e+6d,							// Scale State size.  1,000,000 in this case (makes this max: 9,999,999.999999999~)
-		             new Vector3d (0d, 0d, 0d),		// The relative position of the camera
-		             8,								// The Layer that this State occupies
-		             1e-2d,							// The scale multiplier
-		             1);							// Parent. The index is 1 as 0 contains the parent.  This works out nice for the index number matching layer number
-		//transform.localScale = new Vector3 (1f, 1f, 1f);
+
+	void ScaleLayer1() {
+		layer = 8;
+		scaleMultiplier = 1e-2d;
+		parent = 1;							// Parent. The index is 1 as 0 contains the parent.  This works out nice for the index number matching layer number
+
+		tooBig = 1e+7d;
+		higherState = State.ScaleLayer2;
+		tooSmall = double.MinValue;
+		lowerState = State.ScaleNull;
+		stateScaleSize = 1e+6d;
+		cameraPosition = new Vector3d (0d, 0d, 0d);
+
+		if (gameObject.layer != layer) UpdateLayer(layer);
+		if (_cacheState != state) {
+			if (gameObject.name == "[STAR] Sun") print ("state updated to "+state+" from _"+_prevState+".  _cachedState = "+_cacheState);
+			//StateChecks (layer, scaleMultiplier, parent);
+			StateChecks ();
+			_cacheState = state;
+		}
 	}
 
 	void ScaleLayer2() {
-		StateChecks (1e+8d, State.ScaleLayer3, 1e+7d, State.ScaleLayer1, 1e+7d, new Vector3d (0d, 0d, 0d), 9, 1e-3d, 2);
-		//transform.localScale = new Vector3 (0.1f, 0.1f, 0.1f);
+		layer = 9;
+		scaleMultiplier = 1e-3d;
+		parent = 2;
+
+		tooBig = 1e+8d;
+		higherState = State.ScaleLayer3;
+		tooSmall = 1e+7d;
+		lowerState = State.ScaleLayer1;
+		stateScaleSize = tooSmall;
+		cameraPosition = new Vector3d (0d, 0d, 0d);
+
+		if (gameObject.layer != layer) {
+			UpdateLayer(layer);
+		}
+		if (_cacheState != state) {
+			if (gameObject.name == "[STAR] Sun") print ("state updated to "+state+" from _"+_prevState+".  _cachedState = "+_cacheState);
+			//StateChecks (layer, scaleMultiplier, parent);
+			StateChecks ();
+			_cacheState = state;
+		}
 	}
 
 	void ScaleLayer3() {
-		StateChecks (1e+9d, State.ScaleLayer4, 1e+8d, State.ScaleLayer2, 1e+8d, new Vector3d (0d, 0d, 0d), 10, 1e-4d, 3);
-		//transform.localScale = new Vector3 (0.01f, 0.01f, 0.01f);
+		layer = 10;
+		scaleMultiplier = 1e-4d;
+		parent = 3;
+
+		tooBig = 1e+9d;
+		higherState = State.ScaleLayer4;
+		tooSmall = 1e+8d;
+		lowerState = State.ScaleLayer2;
+		stateScaleSize = tooSmall;
+		cameraPosition = new Vector3d (0d, 0d, 0d);
+
+		if (gameObject.layer != layer) {
+			UpdateLayer(layer);
+		}
+		if (_cacheState != state) {
+			if (gameObject.name == "[STAR] Sun") print ("state updated to "+state+" from _"+_prevState+".  _cachedState = "+_cacheState);
+			//StateChecks (layer, scaleMultiplier, parent);
+			StateChecks ();
+			_cacheState = state;
+		}
+
 	}
 
 	void ScaleLayer4() {
-		StateChecks (1e+10d, State.ScaleLayer5, 1e+9d, State.ScaleLayer3, 1e+9d, new Vector3d (0d, 0d, 0d), 11, 1e-5d, 4);
-		//transform.localScale = new Vector3 (0.001f, 0.001f, 0.001f);
+		layer = 11;
+		scaleMultiplier = 1e-5d;
+		parent = 4;
+
+		tooBig = 1e+10d;
+		higherState = State.ScaleLayer5;
+		tooSmall = 1e+9d;
+		lowerState = State.ScaleLayer3;
+		stateScaleSize = tooSmall;
+		cameraPosition = new Vector3d (0d, 0d, 0d);
+
+		if (gameObject.layer != layer) {
+			UpdateLayer(layer);
+		}
+		if (_cacheState != state) {
+			if (gameObject.name == "[STAR] Sun") print ("state updated to "+state+" from _"+_prevState+".  _cachedState = "+_cacheState);
+			//StateChecks (layer, scaleMultiplier, parent);
+			StateChecks ();
+			_cacheState = state;
+		}
+
 	}
 
 	void ScaleLayer5() {
-		StateChecks (1e+11d, State.ScaleLayer6, 1e+10d, State.ScaleLayer4, 1e+10d, new Vector3d (0d, 0d, 0d), 12, 1e-6d, 5);
-		//transform.localScale = new Vector3 (0.0001f, 0.0001f, 0.0001f);
+		layer = 12;
+		scaleMultiplier = 1e-6d;
+		parent = 5;
+
+		tooBig = 1e+11d;
+		higherState = State.ScaleLayer6;
+		tooSmall = 1e+10d;
+		lowerState = State.ScaleLayer4;
+		stateScaleSize = tooSmall;
+		cameraPosition = new Vector3d (0d, 0d, 0d);
+
+		if (gameObject.layer != layer) {
+			UpdateLayer(layer);
+		}
+		if (_cacheState != state) {
+			if (gameObject.name == "[STAR] Sun") print ("state updated to "+state+" from _"+_prevState+".  _cachedState = "+_cacheState);
+			//StateChecks (layer, scaleMultiplier, parent);
+			StateChecks ();
+			_cacheState = state;
+		}
+
 	}
 
 	void ScaleLayer6() {
-		StateChecks (1e+12d, State.ScaleLayer7, 1e+11d, State.ScaleLayer5, 1e+11d, new Vector3d (0d, 0d, 0d), 13, 1e-7d, 6);
+		layer = 13;
+		scaleMultiplier = 1e-7d;
+		parent = 6;
+
+		tooBig = 1e+12d;
+		higherState = State.ScaleLayer7;
+		tooSmall = 1e+11d;
+		lowerState = State.ScaleLayer5;
+		stateScaleSize = tooSmall;
+		cameraPosition = new Vector3d (0d, 0d, 0d);
+
+		if (gameObject.layer != layer) {
+			UpdateLayer(layer);
+		}
+		if (_cacheState != state) {
+			if (gameObject.name == "[STAR] Sun") print ("state updated to "+state+" from _"+_prevState+".  _cachedState = "+_cacheState);
+			//StateChecks (layer, scaleMultiplier, parent);
+			StateChecks ();
+			_cacheState = state;
+		}
+
 	}
 
 	void ScaleLayer7() {
-		StateChecks (1e+13d, State.ScaleLayer8, 1e+12d, State.ScaleLayer6, 1e+12d, new Vector3d (0d, 0d, 0d), 14, 1e-8d, 7);
+		layer = 14;
+		scaleMultiplier = 1e-8d;
+		parent = 7;
+
+		tooBig = 1e+13d;
+		higherState = State.ScaleLayer8;
+		tooSmall = 1e+12d;
+		lowerState = State.ScaleLayer6;
+		stateScaleSize = tooSmall;
+		cameraPosition = new Vector3d (0d, 0d, 0d);
+
+		if (gameObject.layer != layer) {
+			UpdateLayer(layer);
+		}
+		if (_cacheState != state) {
+			if (gameObject.name == "[STAR] Sun") print ("state updated to "+state+" from _"+_prevState+".  _cachedState = "+_cacheState);
+			//StateChecks (layer, scaleMultiplier, parent);
+			StateChecks ();
+			_cacheState = state;
+		}
+
 	}
 
 	void ScaleLayer8() {
-		StateChecks (1e+14d, State.ScaleLayer9, 1e+13d, State.ScaleLayer7, 1e+13d, new Vector3d (0d, 0d, 0d), 15, 1e-9d, 8);
+		layer = 15;
+		scaleMultiplier = 1e-9d;
+		parent = 8;
+
+		tooBig = 1e+14d;
+		higherState = State.ScaleLayer9;
+		tooSmall = 1e+13d;
+		lowerState = State.ScaleLayer7;
+		stateScaleSize = tooSmall;
+		cameraPosition = new Vector3d (0d, 0d, 0d);
+
+		if (gameObject.layer != layer) {
+			UpdateLayer(layer);
+		}
+		if (_cacheState != state) {
+			if (gameObject.name == "[STAR] Sun") print ("state updated to "+state+" from _"+_prevState+".  _cachedState = "+_cacheState);
+			//StateChecks (layer, scaleMultiplier, parent);
+			StateChecks ();
+			_cacheState = state;
+		}
+
 	}
 
 	void ScaleLayer9() {
-		StateChecks (1e+15d, State.ScaleLayer10, 1e+14d, State.ScaleLayer8, 1e+14d, new Vector3d (0d, 0d, 0d), 16, 1e-10d, 9);
+		layer = 16;
+		scaleMultiplier = 1e-10d;
+		parent = 9;
+
+		tooBig = 1e+15d;
+		higherState = State.ScaleLayer10;
+		tooSmall = 1e+14d;
+		lowerState = State.ScaleLayer8;
+		stateScaleSize = tooSmall;
+		cameraPosition = new Vector3d (0d, 0d, 0d);
+
+		if (gameObject.layer != layer) {
+			UpdateLayer(layer);
+		}
+		if (_cacheState != state) {
+			if (gameObject.name == "[STAR] Sun") print ("state updated to "+state+" from _"+_prevState+".  _cachedState = "+_cacheState);
+			//StateChecks (layer, scaleMultiplier, parent);
+			StateChecks ();
+			_cacheState = state;
+		}
+
 	}
 
 	void ScaleLayer10() {
-		StateChecks (1e+16d, State.ScaleLayer11, 1e+15d, State.ScaleLayer9, 1e+15d, new Vector3d (0d, 0d, 0d), 17, 1e-11d, 10);
+		layer = 17;
+		scaleMultiplier = 1e-11d;
+		parent = 10;
+
+		tooBig = 1e+16d;
+		higherState = State.ScaleLayer11;
+		tooSmall = 1e+15d;
+		lowerState = State.ScaleLayer9;
+		stateScaleSize = tooSmall;
+		cameraPosition = new Vector3d (0d, 0d, 0d);
+
+		if (gameObject.layer != layer) {
+			UpdateLayer(layer);
+		}
+		if (_cacheState != state) {
+			if (gameObject.name == "[STAR] Sun") print ("state updated to "+state+" from _"+_prevState+".  _cachedState = "+_cacheState);
+			//StateChecks (layer, scaleMultiplier, parent);
+			StateChecks ();
+			_cacheState = state;
+		}
+
 	}
 
 	void ScaleLayer11() {
-		StateChecks (1e+17d, State.ScaleLayer12, 1e+16d, State.ScaleLayer10, 1e+16d, new Vector3d (0d, 0d, 0d), 18, 1e-12d, 11);
+		layer = 18;
+		scaleMultiplier = 1e-12d;
+		parent = 11;
+
+		tooBig = 1e+17d;
+		higherState = State.ScaleLayer12;
+		tooSmall = 1e+16d;
+		lowerState = State.ScaleLayer10;
+		stateScaleSize = tooSmall;
+		cameraPosition = new Vector3d (0d, 0d, 0d);
+
+		if (gameObject.layer != layer) {
+			UpdateLayer(layer);
+		}
+		if (_cacheState != state) {
+			if (gameObject.name == "[STAR] Sun") print ("state updated to "+state+" from _"+_prevState+".  _cachedState = "+_cacheState);
+			//StateChecks (layer, scaleMultiplier, parent);
+			StateChecks ();
+			_cacheState = state;
+		}
+
 	}
 
 	void ScaleLayer12() {
-		StateChecks (1e+18d, State.ScaleLayer13, 1e+17d, State.ScaleLayer11, 1e+17d, new Vector3d (0d, 0d, 0d), 19, 1e-13d, 12);
+		layer = 19;
+		scaleMultiplier = 1e-13d;
+		parent = 12;
+
+		tooBig = 1e+18d;
+		higherState = State.ScaleLayer13;
+		tooSmall = 1e+17d;
+		lowerState = State.ScaleLayer11;
+		stateScaleSize = tooSmall;
+		cameraPosition = new Vector3d (0d, 0d, 0d);
+
+		if (gameObject.layer != layer) {
+			UpdateLayer(layer);
+		}
+		if (_cacheState != state) {
+			if (gameObject.name == "[STAR] Sun") print ("state updated to "+state+" from _"+_prevState+".  _cachedState = "+_cacheState);
+			//StateChecks (layer, scaleMultiplier, parent);
+			StateChecks ();
+			_cacheState = state;
+		}
+
 	}
 
 	void ScaleLayer13() {
-		StateChecks (1e+19d, State.ScaleLayer14, 1e+18d, State.ScaleLayer12, 1e+18d, new Vector3d (0d, 0d, 0d), 20, 1e-14d, 13);
+		layer = 20;
+		scaleMultiplier = 1e-14d;
+		parent = 13;
+
+		tooBig = 1e+19d;
+		higherState = State.ScaleLayer14;
+		tooSmall = 1e+18d;
+		lowerState = State.ScaleLayer12;
+		stateScaleSize = tooSmall;
+		cameraPosition = new Vector3d (0d, 0d, 0d);
+
+		if (gameObject.layer != layer) {
+			UpdateLayer(layer);
+		}
+		if (_cacheState != state) {
+			if (gameObject.name == "[STAR] Sun") print ("state updated to "+state+" from _"+_prevState+".  _cachedState = "+_cacheState);
+			//StateChecks (layer, scaleMultiplier, parent);
+			StateChecks ();
+			_cacheState = state;
+		}
+
 	}
 
 	void ScaleLayer14() {
-		StateChecks (1e+20d, State.ScaleLayer15, 1e+19d, State.ScaleLayer13, 1e+19d, new Vector3d (0d, 0d, 0d), 21, 1e-15d, 14);
+		layer = 21;
+		scaleMultiplier = 1e-15d;
+		parent = 14;
+
+		tooBig = 1e+20d;
+		higherState = State.ScaleLayer15;
+		tooSmall = 1e+19d;
+		lowerState = State.ScaleLayer13;
+		stateScaleSize = tooSmall;
+		cameraPosition = new Vector3d (0d, 0d, 0d);
+
+		if (gameObject.layer != layer) {
+			UpdateLayer(layer);
+		}
+		if (_cacheState != state) {
+			if (gameObject.name == "[STAR] Sun") print ("state updated to "+state+" from _"+_prevState+".  _cachedState = "+_cacheState);
+			//StateChecks (layer, scaleMultiplier, parent);
+			StateChecks ();
+			_cacheState = state;
+		}
+
 	}
 
 	void ScaleLayer15() {
-		StateChecks (1e+21d, State.ScaleLayer16, 1e+20d, State.ScaleLayer14, 1e+20d, new Vector3d (0d, 0d, 0d), 22, 1e-16d, 15);
+		layer = 22;
+		scaleMultiplier = 1e-16d;
+		parent = 15;
+
+		tooBig = 1e+21d;
+		higherState = State.ScaleLayer16;
+		tooSmall = 1e+20d;
+		lowerState = State.ScaleLayer14;
+		stateScaleSize = tooSmall;
+		cameraPosition = new Vector3d (0d, 0d, 0d);
+
+		if (gameObject.layer != layer) {
+			UpdateLayer(layer);
+		}
+		if (_cacheState != state) {
+			if (gameObject.name == "[STAR] Sun") print ("state updated to "+state+" from _"+_prevState+".  _cachedState = "+_cacheState);
+			//StateChecks (layer, scaleMultiplier, parent);
+			StateChecks ();
+			_cacheState = state;
+		}
+
 	}
 
 	void ScaleLayer16() {
-		StateChecks (1e+22d, State.ScaleLayer17, 1e+21d, State.ScaleLayer15, 1e+21d, new Vector3d (0d, 0d, 0d), 23, 1e-17d, 16);
+		layer = 23;
+		scaleMultiplier = 1e-17d;
+		parent = 16;
+
+		tooBig = 1e+22d;
+		higherState = State.ScaleLayer17;
+		tooSmall = 1e+21d;
+		lowerState = State.ScaleLayer15;
+		stateScaleSize = tooSmall;
+		cameraPosition = new Vector3d (0d, 0d, 0d);
+
+
+		if (gameObject.layer != layer) {
+			UpdateLayer(layer);
+		}
+		if (_cacheState != state) {
+			if (gameObject.name == "[STAR] Sun") print ("state updated to "+state+" from _"+_prevState+".  _cachedState = "+_cacheState);
+			//StateChecks (layer, scaleMultiplier, parent);
+			StateChecks ();
+			_cacheState = state;
+		}
+
 	}
 
 	void ScaleLayer17() {
-		StateChecks (1e+23d, State.ScaleLayer18, 1e+22d, State.ScaleLayer16, 1e+22d, new Vector3d (0d, 0d, 0d), 24, 1e-18d, 17);
+		layer = 24;
+		scaleMultiplier = 1e-18d;
+		parent = 17;
+
+		tooBig = 1e+23d;
+		higherState = State.ScaleLayer18;
+		tooSmall = 1e+22d;
+		lowerState = State.ScaleLayer16;
+		stateScaleSize = tooSmall;
+		cameraPosition = new Vector3d (0d, 0d, 0d);
+
+		if (gameObject.layer != layer) {
+			UpdateLayer(layer);
+		}
+		if (_cacheState != state) {
+			if (gameObject.name == "[STAR] Sun") print ("state updated to "+state+" from _"+_prevState+".  _cachedState = "+_cacheState);
+			//StateChecks (layer, scaleMultiplier, parent);
+			StateChecks ();
+			_cacheState = state;
+		}
+
 	}
 
+
 	void ScaleLayer18() {
-		StateChecks (double.MaxValue, State.ScaleNull, 1e+23d, State.ScaleLayer17, 1e+23d, new Vector3d (0d, 0d, 0d), 25, 1e-19d, 18);
+		layer = 25;
+		scaleMultiplier = 1e-19d;
+		parent = 18;
+
+		tooBig = double.MaxValue;
+		higherState = State.ScaleNull;
+		tooSmall = 1e+23d;
+		lowerState = State.ScaleLayer17;
+		stateScaleSize = tooSmall;
+		cameraPosition = new Vector3d (0d, 0d, 0d);
+
+
+		if (gameObject.layer != layer) {
+			UpdateLayer(layer);
+		}
+		if (_cacheState != state) {
+			if (gameObject.name == "[STAR] Sun") print ("state updated to "+state+" from _"+_prevState+".  _cachedState = "+_cacheState);
+			//StateChecks (layer, scaleMultiplier, parent);
+			StateChecks ();
+			_cacheState = state;
+		}
+
 	}
 
 
@@ -314,97 +689,92 @@ public class ScaleStates : MonoBehaviour {
 	 */
 
 
+	private void UpdateLayer(int layer) {
+		gameObject.layer = layer;
+		foreach (Transform child in allChildren) {            
+			child.gameObject.layer = layer;
+		}
+	}
 
 
-	private void StateChecks(double greaterThan, State nextState, double lessThan, State previousState, double stateScaleSize, Vector3d cameraPosition, int layer, double scaleMultiplier, int parent) {
+	private void CheckDistance(double tooBig, State higherState, double tooSmall, State lowerState, double stateScaleSize, Vector3d cameraPosition) {
 		/*
-		 * Perform the operations that the specified state requires
-		 * 
-		 * Parameters
-		 * ----------
-		 * greaterThan : The minimum value of the state above this state
-		 * nextState : The state above this State
-		 * lessThan : The minimum value we can use for this state
-		 * previousState : The next lowest State below the current state being checked
+		 * tooBig : Too big to remain in this state, so enter the state above this State
+		 * higherState : The state above this State
+		 * tooSmall : Too small to remain in this state, so it drop down a State
+		 * lowerState : The next lowest State below the current state being checked
 		 * stateScaleSize : Scale State size.  1,000,000 for example (makes a max of 9,999,999.999999999~)
 		 * cameraPosition : The relative position of the camera
-		 * layer : The Layer that this State occupies
-		 * scaleMultiplier : The scale multiplier
-		 * parent : the parent's layer number by layer name
 		 */
-		if (currentDistance >= greaterThan) {
-			SetState (nextState);
-		} else if (currentDistance < lessThan) {
-			SetState (previousState);
+
+		if (currentDistance >= tooBig) {
+			SetState (higherState);
+		} else if (currentDistance < tooSmall) {
+			SetState (lowerState);
 		} else {
 			/* 
+			 * No update to the state so only perform the below during this Update()
+			 * 
 			 * We update the position every frame.  If one of the above two conditions is true, we
 			 * continue to check in other States until finally this condition is reached within
 			 * the same Update()
 			 */
 			transform.position = CalculatePosition (stateScaleSize, cameraPosition);
 			
-			/*
-			 * If the current state is not the same as the state that we were in in the last Update(),
-			 * then readjust the scale of this celestial body, set the cache value, and update the
-			 * Layer
-			 */
-
-		}
-
-
-		if (_cacheState != state) {
-			if (currentDistance >= greaterThan) {
-				layer++;
-				if(layer > 26) layer = 26;		// This is the lowest layer (8) plus the last layer (18)
-			} else {
-				layer--;
-				if(layer < 8) layer = 8;		// This is the lowest layer (8)
-			}
-
-			if (celestialBodyType == CelestialBodyType.Star) {
-				for (int i=0; i<lightGameObjects.Length; i++) {
-					if((layer-7) <= 4)
-						lightGameObjects [i].SetActive (true);
-					else
-						lightGameObjects [i].SetActive (false);
-				}
-			}
-
-
-			/*
-			 * Iterate through the list of all the child transforms and assign the
-			 * appropriate layer to the transform's gameObject
-			 */
-			gameObject.layer = layer;
-			foreach(Transform child in allChildren) {            
-				child.gameObject.layer = layer;
-			}
-
-			Vector3d tempV3 = new Vector3d(scaleMultiplier * realRadius * Global.radiusConstantSolar / Global.kmPerUnit); //TODO: come back to this and in Awake do a check to see what type of celestial body.  Use a variable to hold the "radiusConstantSolar" (or radiusConstantX) value.
-			bodyMesh.localScale = new Vector3 ((float)tempV3.x, (float)tempV3.y, (float)tempV3.z);
-
-			print ("updating state");
-			gameObject.BroadcastMessage("StateUpdate", scaleMultiplier, SendMessageOptions.DontRequireReceiver);
-			_cacheState = state;
-		}
-
-		// Make sure that we're not just re-assigning the same parent again every frame
-		if (transform.parent != scaleLayers [parent - 1]) {
-			Parent (parent);
 		}
 	}
 
-	/*
-	 * Sets the parent Scale Layer that the body should currently
-	 * exist within.
-	 * 
-	 * Note that index 0 is actually the parent (/Galaxy/Scale Layer/")
-	 * and not a child (/Galaxy/Scale Layer/Scale Layer N") so it isn't
-	 * used.
-	 */
-	private void Parent(int index) {
-		transform.parent = scaleLayers[index-1];
+	private void StateChecks() {
+		/*
+		 * Perform the operations that the specified state requires
+		 * 
+		 * Parameters
+		 * ----------
+		 * layer : The Layer that this State occupies
+		 * scaleMultiplier : The scale multiplier
+		 * parent : the parent's layer number by layer name
+		 */
+		if (celestialBodyType == CelestialBodyType.Star) {
+			for (int i=0; i<lightGameObjects.Length; i++) {
+				if((layer-7) <= 4)
+					lightGameObjects [i].SetActive (true);
+				else
+					lightGameObjects [i].SetActive (false);
+			}
+
+			//Vector3d tempV3 = new Vector3d(scaleMultiplier * realRadius * Global.radiusConstantSolar / Global.kmPerUnit / 100000); //TODO: come back to this and in Awake do a check to see what type of celestial body.  Use a variable to hold the "radiusConstantSolar" (or radiusConstantX) value.
+			Vector3d tempV3 = new Vector3d(scaleMultiplier * realRadius * Global.radiusConstantSolar / Global.kmPerUnit);
+			foreach (Transform child in allChildren) {
+				if(child.gameObject.name == "CelestialBodyMesh" ||
+					child.gameObject.name == "Local Colliders" ||
+					child.gameObject.name == "Solar System Sphere") {
+					if(gameObject.name == "[STAR] Sun")
+						print(scaleMultiplier);
+					bodyMesh = child;
+					bodyMesh.localScale = new Vector3 ((float)tempV3.x, (float)tempV3.y, (float)tempV3.z);
+				}
+			}
+		}
+
+
+
+
+		Vector3d scale = new Vector3d(scaleMultiplier * realRadius * 1e12d / Global.kmPerUnit);
+		transform.localScale = new Vector3((float)scale.x, (float)scale.y, (float)scale.z);
+		// Make sure that we're not just re-assigning the same parent again every frame
+		if (transform.parent != scaleLayers [parent]) {
+			Parent (parent);
+		}
+	}
+	
+	private void Parent(int parent) {
+		/*
+		 * Sets the parent Scale Layer that the body should currently exist within.
+		 * 
+		 * Note that index 0 is actually the parent (/Galaxy/Scale Layer/") and not a child 
+		 * (/Galaxy/Scale Layer/Scale Layer N") so it isn't used.
+		 */
+		transform.parent = scaleLayers[parent];
 	}
 
 
@@ -424,11 +794,6 @@ public class ScaleStates : MonoBehaviour {
 		
 		Vector3d tempV3d = new Vector3d(((realPosition + cameraPosition) / stateScale) * Global.kmPerUnit);
 		return new Vector3 ((float)tempV3d.x, (float)tempV3d.y, (float)tempV3d.z);
-	}
-
-
-	void SetLayer(int newLayer) {
-
 	}
 
 }
