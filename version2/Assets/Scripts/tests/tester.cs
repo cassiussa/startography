@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections;
 using Constants;
 
@@ -9,8 +10,6 @@ public class tester : MonoBehaviour {
 	void Start ()
 	{
 		Debug.Log (sun.Name);
-		Constant test = new Constant ();
-		Debug.Log (test);
 	}
 	
 	// Update is called once per frame

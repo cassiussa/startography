@@ -1,33 +1,34 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections;
 
 namespace Constants
 {
 
-	[System.Serializable]	// Show it in the Inspector
-	public class Constant
+	[System.Serializable] // Show it in the Inspector
+	public class Constant : System.Object
 	{
 		/*
 		 * Class Specification (Value Type)
 		 * Purpose: To output data for a specified predefined astronomical constant
 		 * Has Receiver: Yes
-		 * Inputs:	A short name, full name, value, value unit type, the uncertainty of the value, a reference for
-		 * 			where the values come from, and a system type
+		 * Inputs:  A short name, full name, value, value unit type, the uncertainty of the value, a reference for
+		 *          where the values come from, and a system type
 		 * Outputs: A short name, full name, value, value unit type, the uncertainty of the value, a reference for
-		 * 			where the values come from, and a system type
+		 *          where the values come from, and a system type
 		 * Side Effects: none
 		 * Error Case 1: values cannot be of the wrong Type
 		 * Error Case 2: must not contain any null or empty values
 		 */
 
 		// Fields of various types
-		public string ShortName;	// Ex: m_jup <-- mass of Jupiter
-		public string Name;			// Ex: Mass of Jupiter
-		public string Unit;			// Ex: kg
-		public string Reference;	// Ex: Allen's Astrophysical Quantities 4th Edition
-		public string System;		// Ex: si
-		public double Value;		// Ex: 1.8987e27d (Nullable)
-		public double Uncertainty;	// Ex: 0.00005e27d (Nullable)
+		public string ShortName;    // Ex: m_jup <-- mass of Jupiter
+		public string Name;         // Ex: Mass of Jupiter
+		public string Unit;         // Ex: kg
+		public string Reference;    // Ex: Allen's Astrophysical Quantities 4th Edition
+		public string System;       // Ex: si
+		public double Value;        // Ex: 1.8987e27d (Nullable)
+		public double Uncertainty;  // Ex: 0.00005e27d (Nullable)
 
 		public Constant() {
 			ConstantTest ();
@@ -66,6 +67,10 @@ namespace Constants
 				|| System == null
 				|| System == "")
 				Debug.LogError ("A value is empty or null in one of the following:... string: " + ShortName + ", string: " + Name + ", double: " + Value + ", string: " + Unit + ", double: " + Uncertainty + ", string: " + Reference + ", string: " + System);
+		}
+
+		public void Values() {
+			Debug.Log ("Values for "+this+" - ShortName: "+ShortName+", Name: "+Name+", Value: "+Value+", Unit: "+Unit+", Uncertainty: "+Uncertainty+", Reference: "+Reference+", System: "+System);
 		}
 
 		/*
