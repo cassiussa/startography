@@ -6,7 +6,7 @@ namespace Constants
 {
 
 	[System.Serializable] // Show it in the Inspector
-	public class Constant : System.Object
+	public class Constant
 	{
 		/*
 		 * Class Specification (Value Type)
@@ -47,30 +47,17 @@ namespace Constants
 
 		}
 
+		// Make sure we don't have any values that are null
 		private void ConstantTest()
 		{
-			/*
-			 * Debugging the Constant Type
-			 */
-			
-			// Make sure we don't have any values that are null
-			if (ShortName == null
-				|| ShortName == "" 
-				|| Name == null
-				|| Name == "" 
-				|| double.IsNaN ((double)Value)
-				|| Unit == null
-				|| Unit == "" 
-				|| double.IsNaN ((double)Uncertainty)
-				|| Reference == null
-				|| Reference == "" 
-				|| System == null
-				|| System == "")
+			if (ShortName == null || ShortName == "" || Name == null || Name == "" || double.IsNaN ((double)Value) || Unit == null || Unit == "" || double.IsNaN ((double)Uncertainty) || Reference == null || Reference == "" || System == null || System == "")
 				Debug.LogError ("A value is empty or null in one of the following:... string: " + ShortName + ", string: " + Name + ", double: " + Value + ", string: " + Unit + ", double: " + Uncertainty + ", string: " + Reference + ", string: " + System);
 		}
 
-		public void Values() {
-			Debug.Log ("Values for "+this+" - ShortName: "+ShortName+", Name: "+Name+", Value: "+Value+", Unit: "+Unit+", Uncertainty: "+Uncertainty+", Reference: "+Reference+", System: "+System);
+		public virtual String Items()
+		{
+			Debug.Log ("Values for ShortName: "+ShortName+", Name: "+Name+", Value: "+Value+", Unit: "+Unit+", Uncertainty: "+Uncertainty+", Reference: "+Reference+", System: "+System);
+			return "Values for ShortName: "+ShortName+", Name: "+Name+", Value: "+Value+", Unit: "+Unit+", Uncertainty: "+Uncertainty+", Reference: "+Reference+", System: "+System;
 		}
 
 		/*
