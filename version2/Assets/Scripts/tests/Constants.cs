@@ -22,21 +22,21 @@ namespace Constants
 		 */
 
 		// Fields of various types
-		public string ShortName;    // Ex: m_jup <-- mass of Jupiter
+		public string Short;    // Ex: m_jup <-- mass of Jupiter
 		public string Name;         // Ex: Mass of Jupiter
-		public string Unit;         // Ex: kg
-		public string Reference;    // Ex: Allen's Astrophysical Quantities 4th Edition
-		public string System;       // Ex: si
 		public double Value;        // Ex: 1.8987e27d (Nullable)
+		public string Unit;         // Ex: kg
 		public double Uncertainty;  // Ex: 0.00005e27d (Nullable)
-
+		public string System;       // Ex: si
+		public string Reference;    // Ex: Allen's Astrophysical Quantities 4th Edition
+		
 		public Constant() {
 			ConstantTest ();
 		}
 		// Constructor
-		public Constant(string ShortName, string Name, double Value, string Unit, double Uncertainty, string Reference, string System)
+		public Constant(string Short, string Name, double Value, string Unit, double Uncertainty, string System, string Reference)
 		{
-			this.ShortName = ShortName;
+			this.Short = Short;
 			this.Name = Name;
 			this.Value = Value;
 			this.Unit = Unit;
@@ -50,14 +50,15 @@ namespace Constants
 		// Make sure we don't have any values that are null
 		private void ConstantTest()
 		{
-			if (ShortName == null || ShortName == "" || Name == null || Name == "" || double.IsNaN ((double)Value) || Unit == null || Unit == "" || double.IsNaN ((double)Uncertainty) || Reference == null || Reference == "" || System == null || System == "")
-				Debug.LogError ("A value is empty or null in one of the following:... string: " + ShortName + ", string: " + Name + ", double: " + Value + ", string: " + Unit + ", double: " + Uncertainty + ", string: " + Reference + ", string: " + System);
+			if (Short == null || Short == "" || Name == null || Name == "" || double.IsNaN ((double)Value) || Unit == null || Unit == "" || double.IsNaN ((double)Uncertainty) || System == null || System == "" || Reference == null || Reference == "")
+				Debug.LogError ("A value is empty or null in one of the following:... string: " + Short + ", string: " + Name + ", double: " + Value + ", string: " + Unit + ", double: " + Uncertainty + ", string: " + System + ", string: " + Reference);
 		}
 
+		// Outputs the Items in the object to screen and/or String variable
 		public virtual String Items()
 		{
-			Debug.Log ("Values for ShortName: "+ShortName+", Name: "+Name+", Value: "+Value+", Unit: "+Unit+", Uncertainty: "+Uncertainty+", Reference: "+Reference+", System: "+System);
-			return "Values for ShortName: "+ShortName+", Name: "+Name+", Value: "+Value+", Unit: "+Unit+", Uncertainty: "+Uncertainty+", Reference: "+Reference+", System: "+System;
+			Debug.Log ("Values for Short: "+Short+", Name: "+Name+", Value: "+Value+", Unit: "+Unit+", Uncertainty: "+Uncertainty+", System: "+System+", Reference: "+Reference);
+			return "Values for Short: "+Short+", Name: "+Name+", Value: "+Value+", Unit: "+Unit+", Uncertainty: "+Uncertainty+", System: "+System+", Reference: "+Reference;
 		}
 
 		/*
