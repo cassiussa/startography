@@ -11,6 +11,7 @@ namespace OrbitElements
 	{
 
 		// Fields of various types
+		public Constant OrbitalPeriod;        // Length of time it takes to orbit
 		public Constant SemiMajorAxis;    	  // Semi-major axis = size
 		public Constant Eccentricity;         // Eccentricity = shape
 		public Constant EccentricAnomaly;     // The Eccentric Anomaly
@@ -25,8 +26,9 @@ namespace OrbitElements
 			OrbitTest ();
 		}
 		// Constructor
-		public Orbit(Constant SemiMajorAxis, Constant Eccentricity, Constant EccentricAnomaly, Constant Inclination, Constant Perigee, Constant RightAscension, Constant MeanAnomaly, Constant TrueAnomaly)
+		public Orbit(Constant OrbitalPeriod, Constant SemiMajorAxis, Constant Eccentricity, Constant EccentricAnomaly, Constant Inclination, Constant Perigee, Constant RightAscension, Constant MeanAnomaly, Constant TrueAnomaly)
 		{
+			this.OrbitalPeriod = OrbitalPeriod;
 			this.SemiMajorAxis = SemiMajorAxis;
 			this.Eccentricity = Eccentricity;
 			this.EccentricAnomaly = EccentricAnomaly;
@@ -50,8 +52,8 @@ namespace OrbitElements
 		// Outputs the Items in the object to screen and/or String variable
 		public virtual String Items()
 		{
-			Debug.Log ("Values for SemiMajorAxis: "+SemiMajorAxis+", Eccentricity: "+Eccentricity+", Inclination: "+Inclination+", Perigee: "+Perigee+", RightAscension: "+RightAscension+", MeanAnomaly: "+MeanAnomaly);
-			return "Values for SemiMajorAxis: "+SemiMajorAxis+", Eccentricity: "+Eccentricity+", Inclination: "+Inclination+", Perigee: "+Perigee+", RightAscension: "+RightAscension+", MeanAnomaly: "+MeanAnomaly;
+			Debug.Log ("Values for OrbitalPeriod: "+OrbitalPeriod+", SemiMajorAxis: "+SemiMajorAxis+", Eccentricity: "+Eccentricity+", Inclination: "+Inclination+", Perigee: "+Perigee+", RightAscension: "+RightAscension+", MeanAnomaly: "+MeanAnomaly);
+			return "Values for OrbitalPeriod: "+OrbitalPeriod+", SemiMajorAxis: "+SemiMajorAxis+", Eccentricity: "+Eccentricity+", Inclination: "+Inclination+", Perigee: "+Perigee+", RightAscension: "+RightAscension+", MeanAnomaly: "+MeanAnomaly;
 		}
 	}
 }

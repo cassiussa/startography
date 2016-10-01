@@ -70,7 +70,7 @@ public class CreateConstants : MonoBehaviour
 
 	void Start ()
 	{
-		Debug.Log ("The " + massOfSun.Name + " is " + massOfSun.Value +" "+ massOfSun.Unit+" according to " + massOfSun.Reference);
+		/*Debug.Log ("The " + massOfSun.Name + " is " + massOfSun.Value +" "+ massOfSun.Unit+" according to " + massOfSun.Reference);
 		Debug.Log ("The " + radiusOfSun.Name + " is " + radiusOfSun.Value +" "+ radiusOfSun.Unit+" according to " + radiusOfSun.Reference);
 		Debug.Log ("The " + luminosityOfSun.Name + " is " + luminosityOfSun.Value +" "+ luminosityOfSun.Unit+" according to " + luminosityOfSun.Reference);
 		Debug.Log ("The " + massOfEarth.Name + " is " + massOfEarth.Value +" "+ massOfEarth.Unit+" according to " + massOfEarth.Reference);
@@ -78,6 +78,7 @@ public class CreateConstants : MonoBehaviour
 		Debug.Log ("The " + semiMajorAxisOfMars.Name + " is " + semiMajorAxisOfMars.Value +" "+ semiMajorAxisOfMars.Unit+" according to " + semiMajorAxisOfMars.Reference);
 		Debug.Log ("The " + eccentricityOfMars.Name + " is " + eccentricityOfMars.Value +" "+ eccentricityOfMars.Unit+" according to " + eccentricityOfMars.Reference);
 		Debug.Log ("The " + inclinationOfMars.Name + " is " + inclinationOfMars.Value +" "+ inclinationOfMars.Unit+" according to " + inclinationOfMars.Reference);
+	*/
 	}
 	
 

@@ -7,7 +7,8 @@ using OrbitElements;
 public class Planets : MonoBehaviour {
 
 	public Orbit earth = new Orbit(
-		new Constant ("a", "Semi-Major Axis", 0.1234567890123456789d, "fraction", 0.0d, "SI", "StarTography 1.0"),
+		new Constant ("p", "Orbit Period", 1, "days", 0.0d, "SI", "StarTography 1.0"),
+		new Constant ("a", "Semi-Major Axis", 0.1234567890123456789, "fraction", 0.0d, "SI", "StarTography 1.0"),
 		new Constant ("e", "Eccentricity", 0.1d, "ratio", 0.0d, "SI", "StarTography 1.0"),
 		new Constant ("E", "Eccentric Anomaly", 0.1d, "ratio", 0.0d, "SI", "StarTography 1.0"),
 		new Constant ("i", "Inclination", 0.1d, "ratio", 0.0d, "SI", "StarTography 1.0"),
@@ -19,7 +20,7 @@ public class Planets : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		Debug.LogError ("Value of the Earth's Semi Major Axis is: "+earth.SemiMajorAxis.Value);
+		Debug.Log ("Value of the Earth's Semi Major Axis is: "+earth.SemiMajorAxis.Value);
 	}
 	
 	// Update is called once per frame
