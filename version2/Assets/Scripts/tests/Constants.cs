@@ -22,7 +22,7 @@ namespace Constants
 		 */
 
 		// Fields of various types
-		public string Short;    // Ex: m_jup <-- mass of Jupiter
+		public string Short;        // Ex: m_jup <-- mass of Jupiter
 		public string Name;         // Ex: Mass of Jupiter
 		public double Value;        // Ex: 1.8987e27d (Nullable)
 		public string Unit;         // Ex: kg

@@ -3,7 +3,7 @@ using System;
 using System.Collections;
 using Constants;
 
-namespace Orbit
+namespace OrbitElements
 {
 
 	[System.Serializable] // Show it in the Inspector
@@ -11,26 +11,30 @@ namespace Orbit
 	{
 
 		// Fields of various types
-		public Constant a;    	  // Semi-major axis = size
-		public Constant e;        // Eccentricity = shape
-		public Constant i;        // inclination = tilt
-		public Constant ω;        // argument of perigee = twist
-		public Constant Ω;        // longitude of the ascending node = pin
-		public Constant v;        // mean anomaly = angle now
+		public Constant SemiMajorAxis;    	  // Semi-major axis = size
+		public Constant Eccentricity;         // Eccentricity = shape
+		public Constant EccentricAnomaly;     // The Eccentric Anomaly
+		public Constant Inclination;          // inclination = tilt
+		public Constant Perigee;              // argument of perigee = twist
+		public Constant RightAscension;       // longitude of the ascending node = pin
+		public Constant MeanAnomaly;          // mean anomaly = angle now
+		public Constant TrueAnomaly;          // the True anomaly
 
 		public Orbit()
 		{
 			OrbitTest ();
 		}
 		// Constructor
-		public Orbit(Constant a, Constant e, Constant i, Constant ω, Constant Ω, Constant v)
+		public Orbit(Constant SemiMajorAxis, Constant Eccentricity, Constant EccentricAnomaly, Constant Inclination, Constant Perigee, Constant RightAscension, Constant MeanAnomaly, Constant TrueAnomaly)
 		{
-			this.a = a;
-			this.e = e;
-			this.i = i;
-			this.ω = ω;
-			this.Ω = Ω;
-			this.v = v;
+			this.SemiMajorAxis = SemiMajorAxis;
+			this.Eccentricity = Eccentricity;
+			this.EccentricAnomaly = EccentricAnomaly;
+			this.Inclination = Inclination;
+			this.Perigee = Perigee;
+			this.RightAscension = RightAscension;
+			this.MeanAnomaly = MeanAnomaly;
+			this.TrueAnomaly = TrueAnomaly;
 			OrbitTest ();
 			
 		}
@@ -46,8 +50,8 @@ namespace Orbit
 		// Outputs the Items in the object to screen and/or String variable
 		public virtual String Items()
 		{
-			Debug.Log ("Values for a: "+a+", e: "+e+", i: "+i+", ω: "+ω+", Ω: "+Ω+", v: "+v);
-			return "Values for a: "+a+", e: "+e+", i: "+i+", ω: "+ω+", Ω: "+Ω+", v: "+v;
+			Debug.Log ("Values for SemiMajorAxis: "+SemiMajorAxis+", Eccentricity: "+Eccentricity+", Inclination: "+Inclination+", Perigee: "+Perigee+", RightAscension: "+RightAscension+", MeanAnomaly: "+MeanAnomaly);
+			return "Values for SemiMajorAxis: "+SemiMajorAxis+", Eccentricity: "+Eccentricity+", Inclination: "+Inclination+", Perigee: "+Perigee+", RightAscension: "+RightAscension+", MeanAnomaly: "+MeanAnomaly;
 		}
 	}
 }
