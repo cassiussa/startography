@@ -30,7 +30,8 @@ namespace Constants
 		public string System;       // Ex: si
 		public string Reference;    // Ex: Allen's Astrophysical Quantities 4th Edition
 		
-		public Constant() {
+		public Constant()
+		{
 			ConstantTest ();
 		}
 		// Constructor

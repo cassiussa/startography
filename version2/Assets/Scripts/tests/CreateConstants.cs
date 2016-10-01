@@ -2,7 +2,8 @@
 using System.Collections;
 using Constants;
 
-public class CreateConstants : MonoBehaviour {
+public class CreateConstants : MonoBehaviour
+{
 
 	/*
 	 * Earth Solar System Values
@@ -67,7 +68,8 @@ public class CreateConstants : MonoBehaviour {
 		             0.0d, "si", "StarTography version 1");
 	
 
-	void Start () {
+	void Start ()
+	{
 		Debug.Log ("The " + massOfSun.Name + " is " + massOfSun.Value +" "+ massOfSun.Unit+" according to " + massOfSun.Reference);
 		Debug.Log ("The " + radiusOfSun.Name + " is " + radiusOfSun.Value +" "+ radiusOfSun.Unit+" according to " + radiusOfSun.Reference);
 		Debug.Log ("The " + luminosityOfSun.Name + " is " + luminosityOfSun.Value +" "+ luminosityOfSun.Unit+" according to " + luminosityOfSun.Reference);
@@ -79,7 +81,8 @@ public class CreateConstants : MonoBehaviour {
 	}
 	
 
-	void Update () {
+	void Update ()
+	{
 	 
 	}
 }
