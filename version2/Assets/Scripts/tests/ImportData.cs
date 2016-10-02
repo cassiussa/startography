@@ -3,34 +3,38 @@ using System.Collections;
 using System.IO;
 using SimpleJSON;
 
-public class ImportData : MonoBehaviour {
 
-	string fileName = "Assets/Scripts/data.json";
-	StreamReader reader;
-	public string JSONData = "";
-	public int numberOfStars;
+namespace ImportData
+{
+
+	public class Data {
+
+		static string fileName = "Assets/Scripts/data.json";
+		public static StreamReader data = File.OpenText(fileName);
+		public static JSONNode importedData;
+
+		[HideInInspector]
+		public string JSONData;    // Holds the data.json file data
+		public int numberOfStars;
 
 
-	// Use this for initialization
-	void Start () {
-		StreamReader reader = File.OpenText(fileName);
-		JSONData = reader.ReadToEnd ();
+		/*void Awake () {
+			StreamReader data = File.OpenText(fileName);
+			JSONData = data.ReadToEnd ();
+			data.Close ();
 
-		var importedData = JSON.Parse(JSONData);
+			importedData = JSON.Parse(JSONData);
 
-		// Sample of iterating over the Star array of stars
-		for (int i=0; i<importedData["star"].Count; i++) {
-			string starName = importedData["star"][i]["name"] as string;
-			int starNumOfPlanets = importedData["star"][i]["planets"].Count;
-			Debug.LogError (starName);
-			Debug.LogError (starNumOfPlanets);
-		}
-		numberOfStars = importedData["star"].Count;
+			// Sample of iterating over the Star array of stars
+			for (int i=0; i<importedData["star"].Count; i++) {
+				string starName = importedData["star"][i]["name"] as string;
+				int starNumOfPlanets = importedData["star"][i]["planets"].Count;
+				Debug.Log (starName);
+				Debug.Log (starNumOfPlanets);
+			}
+			numberOfStars = importedData ["star"].Count;
 
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
+		}*/
+
 	}
 }

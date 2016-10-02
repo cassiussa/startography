@@ -21,12 +21,20 @@ namespace OrbitElements
 		public Constant MeanAnomaly;          // mean anomaly = angle now
 		public Constant TrueAnomaly;          // the True anomaly
 
-		public Orbit()
+		public Orbit() 
 		{
-			OrbitTest ();
 		}
 		// Constructor
-		public Orbit(Constant OrbitalPeriod, Constant SemiMajorAxis, Constant Eccentricity, Constant EccentricAnomaly, Constant Inclination, Constant Perigee, Constant RightAscension, Constant MeanAnomaly, Constant TrueAnomaly)
+		public Orbit(
+			Constant OrbitalPeriod,
+			Constant SemiMajorAxis,
+			Constant Eccentricity,
+			Constant EccentricAnomaly,
+			Constant Inclination,
+			Constant Perigee,
+			Constant RightAscension,
+			Constant MeanAnomaly,
+			Constant TrueAnomaly)
 		{
 			this.OrbitalPeriod = OrbitalPeriod;
 			this.SemiMajorAxis = SemiMajorAxis;
@@ -37,23 +45,8 @@ namespace OrbitElements
 			this.RightAscension = RightAscension;
 			this.MeanAnomaly = MeanAnomaly;
 			this.TrueAnomaly = TrueAnomaly;
-			OrbitTest ();
 			
 		}
-		
-		// Make sure we don't have any values that are null
-		private void OrbitTest()
-		{
-			Debug.Log ("figure out how to do value checking of Type Constant");
-			//if (double.IsNaN ((double)a) || double.IsNaN ((double)e) || double.IsNaN ((double)i) || double.IsNaN ((double)ω) || double.IsNaN ((double)Ω) || double.IsNaN ((double)v))
-			//	Debug.LogError ("A value is empty or null in one of the following:... double: " + a + ", double: " + e + ", double: " + i + ", double: " + ω + ", double: " + Ω + ", double: " + v);
-		}
-		
-		// Outputs the Items in the object to screen and/or String variable
-		public virtual String Items()
-		{
-			Debug.Log ("Values for OrbitalPeriod: "+OrbitalPeriod+", SemiMajorAxis: "+SemiMajorAxis+", Eccentricity: "+Eccentricity+", Inclination: "+Inclination+", Perigee: "+Perigee+", RightAscension: "+RightAscension+", MeanAnomaly: "+MeanAnomaly);
-			return "Values for OrbitalPeriod: "+OrbitalPeriod+", SemiMajorAxis: "+SemiMajorAxis+", Eccentricity: "+Eccentricity+", Inclination: "+Inclination+", Perigee: "+Perigee+", RightAscension: "+RightAscension+", MeanAnomaly: "+MeanAnomaly;
-		}
+
 	}
 }

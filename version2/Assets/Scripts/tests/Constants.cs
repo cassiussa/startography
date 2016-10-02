@@ -25,22 +25,23 @@ namespace Constants
 		public string Short;        // Ex: m_jup <-- mass of Jupiter
 		public string Name;         // Ex: Mass of Jupiter
 		public double Value;        // Ex: 1.8987e27d (Nullable)
-		public string Unit;         // Ex: kg
+		public string Measurement;  // Ex: kg
 		public double Uncertainty;  // Ex: 0.00005e27d (Nullable)
 		public string System;       // Ex: si
 		public string Reference;    // Ex: Allen's Astrophysical Quantities 4th Edition
 		
-		public Constant()
+		/*public Constant()
 		{
 			ConstantTest ();
-		}
+		}*/
+
 		// Constructor
-		public Constant(string Short, string Name, double Value, string Unit, double Uncertainty, string System, string Reference)
+		public Constant(string Short, string Name, double Value, string Measurement, double Uncertainty, string System, string Reference)
 		{
 			this.Short = Short;
 			this.Name = Name;
 			this.Value = Value;
-			this.Unit = Unit;
+			this.Measurement = Measurement;
 			this.Uncertainty = Uncertainty;
 			this.Reference = Reference;
 			this.System = System;
@@ -51,15 +52,15 @@ namespace Constants
 		// Make sure we don't have any values that are null
 		private void ConstantTest()
 		{
-			if (Short == null || Short == "" || Name == null || Name == "" || double.IsNaN ((double)Value) || Unit == null || Unit == "" || double.IsNaN ((double)Uncertainty) || System == null || System == "" || Reference == null || Reference == "")
-				Debug.LogError ("A value is empty or null in one of the following:... string: " + Short + ", string: " + Name + ", double: " + Value + ", string: " + Unit + ", double: " + Uncertainty + ", string: " + System + ", string: " + Reference);
+			if (Short == null || Short == "" || Name == null || Name == "" || double.IsNaN ((double)Value) || Measurement == null || Measurement == "" || double.IsNaN ((double)Uncertainty) || System == null || System == "" || Reference == null || Reference == "")
+				Debug.LogError ("A value is empty or null in one of the following:... string: " + Short + ", string: " + Name + ", double: " + Value + ", string: " + Measurement + ", double: " + Uncertainty + ", string: " + System + ", string: " + Reference);
 		}
 
 		// Outputs the Items in the object to screen and/or String variable
 		public virtual String Items()
 		{
-			Debug.Log ("Values for Short: "+Short+", Name: "+Name+", Value: "+Value+", Unit: "+Unit+", Uncertainty: "+Uncertainty+", System: "+System+", Reference: "+Reference);
-			return "Values for Short: "+Short+", Name: "+Name+", Value: "+Value+", Unit: "+Unit+", Uncertainty: "+Uncertainty+", System: "+System+", Reference: "+Reference;
+			Debug.Log ("Values for Short: "+Short+", Name: "+Name+", Value: "+Value+", Measurement: "+Measurement+", Uncertainty: "+Uncertainty+", System: "+System+", Reference: "+Reference);
+			return "Values for Short: "+Short+", Name: "+Name+", Value: "+Value+", Measurement: "+Measurement+", Uncertainty: "+Uncertainty+", System: "+System+", Reference: "+Reference;
 		}
 
 		/*
