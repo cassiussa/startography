@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
-using Constants;
+using Elements;
 
-public class CreateConstants : MonoBehaviour
+public class CreateElements : MonoBehaviour
 {
 
 	/*
@@ -11,60 +11,60 @@ public class CreateConstants : MonoBehaviour
 
 	// *** SUN ***
 	// Mass of the Sun
-	Constant massOfSun =
-		new Constant("m_sun", "Mass of the Sun", 1.9891e30d, "kilograms",
+	Element massOfSun =
+		new Element("m_sun", "Mass of the Sun", 1.9891e30d, "kilograms",
 		             0.00005e30d, "si", "Allen's Astrophysical Quantities 4th Edition");
 
 	// Equatorial radius of the Sun
-	Constant radiusOfSun =
-		new Constant("r_sun", "Radius of the Sun", 6.95508e8d, "meters",
+	Element radiusOfSun =
+		new Element("r_sun", "Radius of the Sun", 6.95508e8d, "meters",
 		             0.00026e8d, "si", "Allen's Astrophysical Quantities 4th Edition");
 
 	// Luminosity of the Sun
-	Constant luminosityOfSun =
-		new Constant("l_sun", "Luminosity of the Sun", 3.846e26d, "watts",
+	Element luminosityOfSun =
+		new Element("l_sun", "Luminosity of the Sun", 3.846e26d, "watts",
 		             0.0005e26d, "si", "Allen's Astrophysical Quantities 4th Edition");
 
 	// *** JUPITER ***
 	// Mass of Jupiter
-	Constant massOfJupiter =
-		new Constant("m_jup", "Mass of Jupiter", 1.8987e27d, "kilograms",
+	Element massOfJupiter =
+		new Element("m_jup", "Mass of Jupiter", 1.8987e27d, "kilograms",
 		             0.00005e27d, "si", "Allen's Astrophysical Quantities 4th Edition");
 
 	// Equatorial radius of Jupiter
-	Constant radiusOfJupiter =
-		new Constant("r_jup", "Jupiter equatorial radius", 7.1492e7d, "meters",
+	Element radiusOfJupiter =
+		new Element("r_jup", "Jupiter equatorial radius", 7.1492e7d, "meters",
 		             0.00005e7d, "si", "Allen's Astrophysical Quantities 4th Edition");
 
 	// *** EARTH ***
 	// Mass of the Earth
-	Constant massOfEarth =
-		new Constant("m_earth", "Mass of the Earth", 5.9742e24d, "kilograms",
+	Element massOfEarth =
+		new Element("m_earth", "Mass of the Earth", 5.9742e24d, "kilograms",
 		             0.00005e24d, "si", "Allen's Astrophysical Quantities 4th Edition");
 
 	// Equatorial radius of the Earth
-	Constant radiusOfEarth =
-		new Constant("r_earth", "Equatorial radius of the Earth", 6.378136e6d, "meters",
+	Element radiusOfEarth =
+		new Element("r_earth", "Equatorial radius of the Earth", 6.378136e6d, "meters",
 		             0.0000005e6d, "si", "Allen's Astrophysical Quantities 4th Edition");
 
 	// Mars orbital period
-	Constant orbitalPeriodOfMars =
-		new Constant("op_earth", "Orbital period of the Mars", 516.228d, "days",
+	Element orbitalPeriodOfMars =
+		new Element("op_earth", "Orbital period of the Mars", 516.228d, "days",
 		             0.0d, "si", "StarTography version 1");
 
 	// Mars semi-major axis
-	Constant semiMajorAxisOfMars =
-		new Constant("sma_earth", "Semi-Major axis the Mars", 1.54d, "AU (change later)",
+	Element semiMajorAxisOfMars =
+		new Element("sma_earth", "Semi-Major axis the Mars", 1.54d, "AU (change later)",
 		             0.0d, "si", "StarTography version 1");
 
 	// Eccentricity of Mars orbit
-	Constant eccentricityOfMars =
-		new Constant("e_mars", "Orbital eccentricity of Mars", 0.08d, "e",
+	Element eccentricityOfMars =
+		new Element("e_mars", "Orbital eccentricity of Mars", 0.08d, "e",
 		             0.0d, "si", "StarTography version 1");
 
 	// Inclination of Mars orbit
-	Constant inclinationOfMars =
-		new Constant("i_mars", "Orbital inclination of Mars", 0.1d, "degrees",
+	Element inclinationOfMars =
+		new Element("i_mars", "Orbital inclination of Mars", 0.1d, "degrees",
 		             0.0d, "si", "StarTography version 1");
 	
 

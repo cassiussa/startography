@@ -2,11 +2,11 @@
 using System;
 using System.Collections;
 
-namespace Constants
+namespace Elements
 {
 
 	[System.Serializable] // Show it in the Inspector
-	public class Constant
+	public class Element
 	{
 		/*
 		 * Class Specification (Value Type)
@@ -36,7 +36,7 @@ namespace Constants
 		}*/
 
 		// Constructor
-		public Constant(string Short, string Name, double Value, string Measurement, double Uncertainty, string System, string Reference)
+		public Element(string Short, string Name, double Value, string Measurement, double Uncertainty, string System, string Reference)
 		{
 			this.Short = Short;
 			this.Name = Name;
@@ -45,19 +45,19 @@ namespace Constants
 			this.Uncertainty = Uncertainty;
 			this.Reference = Reference;
 			this.System = System;
-			ConstantTest ();
+			ElementTest ();
 
 		}
 
 		// Make sure we don't have any values that are null
-		private void ConstantTest()
+		private void ElementTest()
 		{
 			if (Short == null || Short == "" || Name == null || Name == "" || double.IsNaN ((double)Value) || Measurement == null || Measurement == "" || double.IsNaN ((double)Uncertainty) || System == null || System == "" || Reference == null || Reference == "")
 				Debug.LogError ("A value is empty or null in one of the following:... string: " + Short + ", string: " + Name + ", double: " + Value + ", string: " + Measurement + ", double: " + Uncertainty + ", string: " + System + ", string: " + Reference);
 		}
 
-		// Outputs the Items in the object to screen and/or String variable
-		public virtual String Items()
+		// Outputs the Elements in the object to screen and/or String variable
+		public virtual String Elements()
 		{
 			Debug.Log ("Values for Short: "+Short+", Name: "+Name+", Value: "+Value+", Measurement: "+Measurement+", Uncertainty: "+Uncertainty+", System: "+System+", Reference: "+Reference);
 			return "Values for Short: "+Short+", Name: "+Name+", Value: "+Value+", Measurement: "+Measurement+", Uncertainty: "+Uncertainty+", System: "+System+", Reference: "+Reference;
