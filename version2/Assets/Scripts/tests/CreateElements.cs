@@ -11,9 +11,9 @@ public class CreateElements : MonoBehaviour
 
 	// *** SUN ***
 	// Mass of the Sun
-	Element massOfSun =
+	/*Element massOfSun =
 		new Element("m_sun", "Mass of the Sun", 1.9891e30d, "kilograms",
-		             0.00005e30d, "si", "Allen's Astrophysical Quantities 4th Edition");
+		             0.00005e30d, "si", "Allen's Astrophysical Quantities 4th Edition");*/
 
 	// Equatorial radius of the Sun
 	Element radiusOfSun =

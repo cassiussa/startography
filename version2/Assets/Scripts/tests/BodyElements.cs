@@ -6,48 +6,75 @@ using Elements;
 
 namespace BodyElements
 {
+
 	[System.Serializable] // Show it in the Inspector
-	public class Details
+	public class CelestialBody
 	{
-		public Element Name;
-		public Element Mass;
-		public Element Radius;
-		public Element LastUpdated;
-		public Element Temperature;
-		public Element OpticalMagnitude;
-		public Element RightAscension;
-		public Element Declination;
-		public List<Element> Moons;
-		//public List<Orbit> celestialBodies = new List<Orbit>();
-
-		public Details() { }
-
-		// Constructor
-		public Details (
-			Element Name,
-			Element Mass,
-			Element Radius,
-			Element LastUpdated,
-			Element Temperature,
-			Element OpticalMagnitude,
-			Element RightAscension,
-			Element Declination,
-			List<Element> Moons)
+		public string Name;
+		
+		// Constructors
+		public CelestialBody() { }
+		public CelestialBody (
+			string Name)
 		{
 			this.Name = Name;
-			this.Mass = Mass;
-			this.Radius = Radius;
-			this.LastUpdated = LastUpdated;
-			this.Temperature = Temperature;
-			this.OpticalMagnitude = OpticalMagnitude;
+		}
+	}
+
+
+	[System.Serializable] // Show it in the Inspector
+	public class Star : BodyElement
+		
+	{
+		public string RightAscension;
+		public string Declination;
+		public Element Distance;
+		public Element Luminosity;
+		public Element Temperature;
+
+		// Constructors
+		public Star() { }
+		public Star (
+			string RightAscension,
+			string Declination,
+			Element Distance,
+			Element Luminosity,
+			Element Temperature
+			)
+		{
 			this.RightAscension = RightAscension;
 			this.Declination = Declination;
-			this.Moons = Moons;
+			this.Distance = Distance;
+			this.Luminosity = Luminosity;
+			this.Temperature = Temperature;
+		}
+	}
+
+
+
+
+	[System.Serializable] // Show it in the Inspector
+	public class BodyElement : CelestialBody
+	{
+		public Element Mass;
+		public Element Radius;
+		public string DateLastUpdated;
+		
+		// Constructors
+		public BodyElement() { }
+		public BodyElement (
+			Element Mass,
+			Element Radius,
+			string DateLastUpdated)
+		{
+			this.Mass = Mass;
+			this.Radius = Radius;
+			this.DateLastUpdated = DateLastUpdated;
 		}
 	}
 
 	[System.Serializable] // Show it in the Inspector
-	public class Orbit
+	public class OrbitElement : BodyElement
 	{
 
 		// Fields of various types
@@ -61,10 +88,9 @@ namespace BodyElements
 		public Element MeanAnomaly;          // mean anomaly = angle now
 		public Element TrueAnomaly;          // the True anomaly
 
-		public Orbit() { }
-
-		// Constructor
-		public Orbit(
+		// Constructors
+		public OrbitElement() { }
+		public OrbitElement(
 			Element OrbitalPeriod,
 			Element SemiMajorAxis,
 			Element Eccentricity,
@@ -88,4 +114,24 @@ namespace BodyElements
 		}
 
 	}
+
+	[System.Serializable] // Show it in the Inspector
+	public class Planet : OrbitElement
+		
+	{
+		// Constructors
+		public Planet() { }
+		
+	}
+
+	[System.Serializable] // Show it in the Inspector
+	public class Moon : OrbitElement
+		
+	{
+		// Constructors
+		public Moon() { }
+		
+	}
+
+
 }
