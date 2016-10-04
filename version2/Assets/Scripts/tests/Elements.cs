@@ -63,6 +63,90 @@ namespace Elements
 			return "Values for Short: "+Short+", Name: "+Name+", Value: "+Value+", Measurement: "+Measurement+", Uncertainty: "+Uncertainty+", System: "+System+", Reference: "+Reference;
 		}
 
+
+
+
+
+		// Methods
+		public void ToM()
+		{
+			if(this.Measurement == "kilometer")
+				this.Value *= kilometer;
+			else if(this.Measurement == "megameter")
+				this.Value *= megameter;
+			else if(this.Measurement == "gigameter")
+				this.Value *= gigameter;
+			else if(this.Measurement == "terameter")
+				this.Value *= terameter;
+			else if(this.Measurement == "petameter")
+				this.Value *= petameter;
+			else if(this.Measurement == "exameter")
+				this.Value *= exameter;
+			else if(this.Measurement == "zetameter")
+				this.Value *= zetameter;
+			else if(this.Measurement == "yottameter")
+				this.Value *= yottameter;
+
+			this.Measurement = "meter";
+		}
+
+		public void ToKM()
+		{
+			string Measurement = this.Measurement;
+			ToM ();
+			this.Value /= kilometer;
+			this.Measurement = "kilometer";
+		}
+		public void ToMM()
+		{
+			string Measurement = this.Measurement;
+			ToM ();
+			this.Value /= megameter;
+			this.Measurement = "megameter";
+		}
+		public void ToGM()
+		{
+			string Measurement = this.Measurement;
+			ToM ();
+			this.Value /= gigameter;
+			this.Measurement = "gigameter";
+		}
+		public void ToTM()
+		{
+			string Measurement = this.Measurement;
+			ToM ();
+			this.Value /= terameter;
+			this.Measurement = "terameter";
+		}
+		public void ToPM()
+		{
+			string Measurement = this.Measurement;
+			ToM ();
+			this.Value /= petameter;
+			this.Measurement = "petameter";
+		}
+		public void ToEM()
+		{
+			string Measurement = this.Measurement;
+			ToM ();
+			this.Value /= exameter;
+			this.Measurement = "exameter";
+		}
+		public void ToZM()
+		{
+			string Measurement = this.Measurement;
+			ToM ();
+			this.Value /= zetameter;
+			this.Measurement = "zetameter";
+		}
+		public void ToYM()
+		{
+			string Measurement = this.Measurement;
+			ToM ();
+			this.Value /= yottameter;
+			this.Measurement = "yottameter";
+		}
+
 		/*
 		 * TODO: 
 		 * These values need to be taen out of here and put into a more appropriate place

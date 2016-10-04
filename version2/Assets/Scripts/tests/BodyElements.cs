@@ -11,19 +11,56 @@ namespace BodyElements
 	public class CelestialBody
 	{
 		public string Name;
+		public string DateLastUpdated;
+		public Element Mass;
+		public Element Radius;
 		
 		// Constructors
 		public CelestialBody() { }
-		public CelestialBody (
-			string Name)
+		public CelestialBody (string Name,string DateLastUpdated,Element Mass,Element Radius)
 		{
 			this.Name = Name;
+			this.DateLastUpdated = DateLastUpdated;
+			this.Mass = Mass;
+			this.Radius = Radius;
 		}
 	}
 
+	[System.Serializable] // Show it in the Inspector
+	public class OrbitElement : CelestialBody
+	{
+
+		// Fields of various types
+		// Classic orbital elements
+		public Element SemiMajorAxis;        // Semi-major axis = size
+		public Element Eccentricity;         // Eccentricity = shape
+		public Element Inclination;          // inclination = tilt
+		public Element ArgOfPariapsis;       // argument of pariapsis = twist
+		public Element Longitude;            // longitude of the ascending node = pin
+		public Element MeanAnomaly;          // mean anomaly = angle now
+
+		public Element Period;               // Length of time it takes to orbit
+		public Element EccentricAnomaly;     // The Eccentric Anomaly
+		public Element TrueAnomaly;          // the True anomaly
+
+		// Constructors
+		public OrbitElement() { }
+		public OrbitElement(Element SemiMajorAxis,Element Eccentricity,Element Inclination,Element ArgOfPariapsis,Element Longitude,Element MeanAnomaly,Element Period,Element EccentricAnomaly,Element TrueAnomaly)
+		{
+			this.SemiMajorAxis = SemiMajorAxis;
+			this.Eccentricity = Eccentricity;
+			this.Inclination = Inclination;
+			this.ArgOfPariapsis = ArgOfPariapsis;
+			this.Longitude = Longitude;
+			this.MeanAnomaly = MeanAnomaly;
+			this.Period = Period;
+			this.EccentricAnomaly = EccentricAnomaly;
+			this.TrueAnomaly = TrueAnomaly;	
+		}
+	}
 
 	[System.Serializable] // Show it in the Inspector
-	public class Star : BodyElement
+	public class Star : CelestialBody
 		
 	{
 		public string RightAscension;
@@ -31,16 +68,10 @@ namespace BodyElements
 		public Element Distance;
 		public Element Luminosity;
 		public Element Temperature;
-
+		
 		// Constructors
 		public Star() { }
-		public Star (
-			string RightAscension,
-			string Declination,
-			Element Distance,
-			Element Luminosity,
-			Element Temperature
-			)
+		public Star (string RightAscension,string Declination,Element Distance,Element Luminosity,Element Temperature)
 		{
 			this.RightAscension = RightAscension;
 			this.Declination = Declination;
@@ -49,89 +80,31 @@ namespace BodyElements
 			this.Temperature = Temperature;
 		}
 	}
-
-
-
-
-	[System.Serializable] // Show it in the Inspector
-	public class BodyElement : CelestialBody
-	{
-		public Element Mass;
-		public Element Radius;
-		public string DateLastUpdated;
-		
-		// Constructors
-		public BodyElement() { }
-		public BodyElement (
-			Element Mass,
-			Element Radius,
-			string DateLastUpdated)
-		{
-			this.Mass = Mass;
-			this.Radius = Radius;
-			this.DateLastUpdated = DateLastUpdated;
-		}
-	}
-
-	[System.Serializable] // Show it in the Inspector
-	public class OrbitElement : BodyElement
-	{
-
-		// Fields of various types
-		public Element OrbitalPeriod;        // Length of time it takes to orbit
-		public Element SemiMajorAxis;    	  // Semi-major axis = size
-		public Element Eccentricity;         // Eccentricity = shape
-		public Element EccentricAnomaly;     // The Eccentric Anomaly
-		public Element Inclination;          // inclination = tilt
-		public Element Perigee;              // argument of perigee = twist
-		public Element RightAscension;       // longitude of the ascending node = pin
-		public Element MeanAnomaly;          // mean anomaly = angle now
-		public Element TrueAnomaly;          // the True anomaly
-
-		// Constructors
-		public OrbitElement() { }
-		public OrbitElement(
-			Element OrbitalPeriod,
-			Element SemiMajorAxis,
-			Element Eccentricity,
-			Element EccentricAnomaly,
-			Element Inclination,
-			Element Perigee,
-			Element RightAscension,
-			Element MeanAnomaly,
-			Element TrueAnomaly)
-		{
-			this.OrbitalPeriod = OrbitalPeriod;
-			this.SemiMajorAxis = SemiMajorAxis;
-			this.Eccentricity = Eccentricity;
-			this.EccentricAnomaly = EccentricAnomaly;
-			this.Inclination = Inclination;
-			this.Perigee = Perigee;
-			this.RightAscension = RightAscension;
-			this.MeanAnomaly = MeanAnomaly;
-			this.TrueAnomaly = TrueAnomaly;
-			
-		}
-
-	}
-
+	
 	[System.Serializable] // Show it in the Inspector
 	public class Planet : OrbitElement
-		
 	{
+		public Element HostStar;
+
 		// Constructors
 		public Planet() { }
-		
+		public Planet(Element HostStar)
+		{
+			this.HostStar = HostStar;
+		}		
 	}
 
 	[System.Serializable] // Show it in the Inspector
 	public class Moon : OrbitElement
-		
 	{
+		public Element HostPlanet;
+		
 		// Constructors
 		public Moon() { }
-		
+		public Moon(Element HostPlanet)
+		{
+			this.HostPlanet = HostPlanet;
+		}
 	}
-
-
+	
 }
