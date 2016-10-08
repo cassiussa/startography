@@ -80,8 +80,26 @@ namespace Elements
 
 
 
+		/************************************************************
+		 * 
+		 * Methods()
+		 * 
+		 * The following functions will take the current value in
+		 * Element.Value and convert it into the requested
+		 * Element.Measurement type.  For example, it would convert
+		 * 10000 kilometers into 10 megameters if ToMM() was used
+		 * and the original value was in kilometers.  Another example
+		 * would be converting 86400 seconds into 1 day if ToDay()
+		 * was used and the original value was in seconds;
+		 * 
+		 * These functions: SET A VALUE
+		 * 
+		 ************************************************************/
 
-		// Methods
+
+		/*
+		 * Distance Conversions
+		 */
 		double ConvertToMeters(double value, string measurement)
 		{
 			if(measurement == "meter")
@@ -102,64 +120,94 @@ namespace Elements
 				value *= Maths.zetameter;
 			else if(measurement == "yottameter")
 				value *= Maths.yottameter;
-
-			//this.Measurement = "meter";
 			return value;
 		}
-		/*
-		 * The following functions will take the current value in
-		 * (Star|Planet|Moon).Distance.Value and convert it into the requested
-		 * Element.Value.  For example, it would convert 10000 kilometers
-		 * into 10 megameters if ToMM() was used and the original value
-		 * was in kilometers.
-		 * 
-		 * SETS A VALUE
-		 */
 
-		public virtual void ToM()
-		{
+		public virtual void ToM() {
 			this.Value = ConvertToMeters (this.Value, this.Measurement) / Maths.meter;
 			this.Measurement = "meter";
 		}
-		public virtual void ToKM()
-		{
+		public virtual void ToKM() {
 			this.Value = ConvertToMeters (this.Value, this.Measurement) / Maths.kilometer;
 			this.Measurement = "kilometer";
 		}
-		public virtual void ToMM()
-		{
+		public virtual void ToMM() {
 			this.Value = ConvertToMeters (this.Value, this.Measurement) / Maths.megameter;
 			this.Measurement = "megameter";
 		}
-		public virtual void ToGM()
-		{
+		public virtual void ToGM() {
 			this.Value = ConvertToMeters (this.Value, this.Measurement) / Maths.gigameter;
 			this.Measurement = "gigameter";
 		}
-		public virtual void ToTM()
-		{
+		public virtual void ToTM() {
 			this.Value = ConvertToMeters (this.Value, this.Measurement) / Maths.terameter;
 			this.Measurement = "terameter";
 		}
-		public virtual void ToPM()
-		{
+		public virtual void ToPM() {
 			this.Value = ConvertToMeters (this.Value, this.Measurement) / Maths.petameter;
 			this.Measurement = "petameter";
 		}
-		public virtual void ToEM()
-		{
+		public virtual void ToEM() {
 			this.Value = ConvertToMeters (this.Value, this.Measurement) / Maths.exameter;
 			this.Measurement = "exameter";
 		}
-		public virtual void ToZM()
-		{
+		public virtual void ToZM() {
 			this.Value = ConvertToMeters (this.Value, this.Measurement) / Maths.zetameter;
 			this.Measurement = "zetameter";
 		}
-		public virtual void ToYM()
-		{
+		public virtual void ToYM() {
 			this.Value = ConvertToMeters (this.Value, this.Measurement) / Maths.yottameter;
 			this.Measurement = "yottameter";
+		}
+
+
+		/* 
+		 * Time Conversions
+		 */
+		double ConvertToSeconds(double value, string measurement)
+		{
+			if(measurement == "second")
+				value *= Maths.second;
+			else if(measurement == "minute")
+				value *= Maths.minute;
+			else if(measurement == "hour")
+				value *= Maths.hour;
+			else if(measurement == "day")
+				value *= Maths.day;
+			else if(measurement == "year")
+				value *= Maths.year;
+			else if(measurement == "decade")
+				value *= Maths.decade;
+			else if(measurement == "century")
+				value *= Maths.century;
+			else if(measurement == "millennium")
+				value *= Maths.millennium;
+			return value;
+		}
+
+		public virtual void ToSecond() {
+			this.Value = ConvertToSeconds (this.Value, this.Measurement) / Maths.second;
+		}
+		public virtual void ToMinute() {
+			this.Value = ConvertToSeconds (this.Value, this.Measurement) / Maths.minute;
+		}
+		public virtual void ToHour() {
+			this.Value = ConvertToSeconds (this.Value, this.Measurement) / Maths.hour;
+		}
+		public virtual void ToDay() {
+			this.Value = ConvertToSeconds (this.Value, this.Measurement) / Maths.day;
+		}
+		public virtual void ToYear() {
+			this.Value = ConvertToSeconds (this.Value, this.Measurement) / Maths.year;
+		}
+		public virtual void ToDecade() {
+			this.Value = ConvertToSeconds (this.Value, this.Measurement) / Maths.decade;
+		}
+		public virtual void ToCentury() {
+			this.Value = ConvertToSeconds (this.Value, this.Measurement) / Maths.century;
+		}
+		public virtual void ToMillennium() {
+			this.Value = ConvertToSeconds (this.Value, this.Measurement) / Maths.millennium;
 		}
 
 	}

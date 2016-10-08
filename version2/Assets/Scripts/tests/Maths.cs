@@ -11,9 +11,26 @@ namespace CustomMath
 	public class Maths
 	{
 		
-		// Methods
-		public static Element ConvertToMeters(Element element)
-		{
+		/************************************************************
+		 * 
+		 * Methods()
+		 * 
+		 * The following functions will take the current value in
+		 * Element.Value and convert it into the requested
+		 * Element.Measurement type.  For example, it would convert
+		 * 10000 kilometers into 10 megameters if ToMM() was used
+		 * and the original value was in kilometers.  Another example
+		 * would be converting 86400 seconds into 1 day if ToDay()
+		 * was used and the original value was in seconds;
+		 * 
+		 * These functions: SET A VALUE
+		 * 
+		 ************************************************************/
+
+		/*
+		 * Distance Conversions
+		 */
+		public static Element ConvertToMeters(Element element) {
 			Element el = new Element (element);
 
 			if(el.Measurement == "meter")
@@ -39,16 +56,6 @@ namespace CustomMath
 			return el;
 		}
 
-		/*
-		 * The following functions will take the current value in
-		 * (Star|Planet|Moon).Distance.Value and return the same
-		 * value within the requested measurement type.  For
-		 * example, it would take 10000 kilometers and return
-		 * 10 megameters if InMM() was used and the value submitted
-		 * was in kilometers.
-		 * 
-		 * GETS A VALUE
-		 */
 		public static double InM(Element element) {
 			Element el = ConvertToMeters (element);
 			double value = el.Value / meter;
@@ -94,7 +101,80 @@ namespace CustomMath
 			double value = el.Value / yottameter;
 			return value;
 		}
-		
+
+
+		public static Element ConvertToSeconds(Element element) {
+			Element el = new Element (element);
+			if(el.Measurement == "second")
+				el.Value *= second;
+			else if(el.Measurement == "minute")
+				el.Value *= minute;
+			else if(el.Measurement == "hour")
+				el.Value *= hour;
+			else if(el.Measurement == "day")
+				el.Value *= day;
+			else if(el.Measurement == "year")
+				el.Value *= year;
+			else if(el.Measurement == "decade")
+				el.Value *= decade;
+			else if(el.Measurement == "century")
+				el.Value *= century;
+			else if(el.Measurement == "millennium")
+				el.Value *= millennium;
+			el.Measurement = "second";
+			return el;
+		}
+
+		public static double InSeconds(Element element) {
+			Element el = ConvertToSeconds (element);
+			double value = el.Value / second;
+			return value;
+		}
+
+		public static double InMinutes(Element element) {
+			Element el = ConvertToSeconds (element);
+			double value = el.Value / minute;
+			return value;
+		}
+
+		public static double InHours(Element element) {
+			Element el = ConvertToSeconds (element);
+			double value = el.Value / hour;
+			return value;
+		}
+
+		public static double InDays(Element element) {
+			Element el = ConvertToSeconds (element);
+			double value = el.Value / day;
+			return value;
+		}
+
+		public static double InYears(Element element) {
+			Element el = ConvertToSeconds (element);
+			double value = el.Value / year;
+			return value;
+		}
+
+		public static double InDecade(Element element) {
+			Element el = ConvertToSeconds (element);
+			double value = el.Value / decade;
+			return value;
+		}
+
+		public static double InCentury(Element element) {
+			Element el = ConvertToSeconds (element);
+			double value = el.Value / century;
+			return value;
+		}
+
+		public static double InMillennium(Element element) {
+			Element el = ConvertToSeconds (element);
+			double value = el.Value / millennium;
+			return value;
+		}
+
+
+
 		/*
 		 * TODO: 
 		 * These values need to be taken out of here and put into a more appropriate place
@@ -107,15 +187,30 @@ namespace CustomMath
 		 * quickly access the different scale sizes
 		 */
 		
-		public const double meter       = 1d;
-		public const double kilometer   = 1000d;
-		public const double megameter   = 1000000d;
-		public const double gigameter   = 1000000000d;
-		public const double terameter   = 1000000000000d;
-		public const double petameter   = 1000000000000000d;
-		public const double exameter    = 1000000000000000000d;
-		public const double zetameter   = 1000000000000000000000d;
-		public const double yottameter  = 1000000000000000000000000d;
+		public const double meter        = 1d;
+		public const double kilometer    = 1000d;
+		public const double megameter    = 1000000d;
+		public const double gigameter    = 1000000000d;
+		public const double terameter    = 1000000000000d;
+		public const double petameter    = 1000000000000000d;
+		public const double exameter     = 1000000000000000000d;
+		public const double zetameter    = 1000000000000000000000d;
+		public const double yottameter   = 1000000000000000000000000d;
+
+		/*
+		 * TODO: Come back and put in real values for these
+		 * and possibly expand on the types available
+		 */
+		public const double second       = 1d;
+		public const double minute       = 60d;
+		public const double hour         = 3600d;
+		public const double day          = 86400d;
+		public const double siDay        = 86164.09164d;
+		public const double ephemerisDay = 0d;
+		public const double year         = 31556925d;
+		public const double decade       = 315569250d;
+		public const double century      = 3155692500d;
+		public const double millennium   = 31556925000d;
 		
 		/*
 		 * Create the astronomical constants in SI units
