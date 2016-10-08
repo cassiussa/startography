@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System;
 using System.Collections;
+using CustomMath;
 
 namespace Elements
 {
@@ -35,7 +36,7 @@ namespace Elements
 			ConstantTest ();
 		}*/
 
-		// Constructor
+		// Constructors
 		public Element(string Short, string Name, double Value, string Measurement, double Uncertainty, string System, string Reference)
 		{
 			this.Short = Short;
@@ -47,6 +48,19 @@ namespace Elements
 			this.System = System;
 			ElementTest ();
 
+		}
+
+		public Element(Element element)
+		{
+			this.Short = element.Short;
+			this.Name = element.Name;
+			this.Value = element.Value;
+			this.Measurement = element.Measurement;
+			this.Uncertainty = element.Uncertainty;
+			this.Reference = element.Reference;
+			this.System = element.System;
+			ElementTest ();
+			
 		}
 
 		// Make sure we don't have any values that are null
@@ -68,125 +82,85 @@ namespace Elements
 
 
 		// Methods
-		public void ToM()
+		double ConvertToMeters(double value, string measurement)
 		{
-			if(this.Measurement == "kilometer")
-				this.Value *= kilometer;
-			else if(this.Measurement == "megameter")
-				this.Value *= megameter;
-			else if(this.Measurement == "gigameter")
-				this.Value *= gigameter;
-			else if(this.Measurement == "terameter")
-				this.Value *= terameter;
-			else if(this.Measurement == "petameter")
-				this.Value *= petameter;
-			else if(this.Measurement == "exameter")
-				this.Value *= exameter;
-			else if(this.Measurement == "zetameter")
-				this.Value *= zetameter;
-			else if(this.Measurement == "yottameter")
-				this.Value *= yottameter;
+			if(measurement == "meter")
+				value *= Maths.meter;
+			else if(measurement == "kilometer")
+				value *= Maths.kilometer;
+			else if(measurement == "megameter")
+				value *= Maths.megameter;
+			else if(measurement == "gigameter")
+				value *= Maths.gigameter;
+			else if(measurement == "terameter")
+				value *= Maths.terameter;
+			else if(measurement == "petameter")
+				value *= Maths.petameter;
+			else if(measurement == "exameter")
+				value *= Maths.exameter;
+			else if(measurement == "zetameter")
+				value *= Maths.zetameter;
+			else if(measurement == "yottameter")
+				value *= Maths.yottameter;
 
+			//this.Measurement = "meter";
+			return value;
+		}
+		/*
+		 * The following functions will take the current value in
+		 * (Star|Planet|Moon).Distance.Value and convert it into the requested
+		 * Element.Value.  For example, it would convert 10000 kilometers
+		 * into 10 megameters if ToMM() was used and the original value
+		 * was in kilometers.
+		 * 
+		 * SETS A VALUE
+		 */
+
+		public virtual void ToM()
+		{
+			this.Value = ConvertToMeters (this.Value, this.Measurement) / Maths.meter;
 			this.Measurement = "meter";
 		}
-
-		public void ToKM()
+		public virtual void ToKM()
 		{
-			string Measurement = this.Measurement;
-			ToM ();
-			this.Value /= kilometer;
+			this.Value = ConvertToMeters (this.Value, this.Measurement) / Maths.kilometer;
 			this.Measurement = "kilometer";
 		}
-		public void ToMM()
+		public virtual void ToMM()
 		{
-			string Measurement = this.Measurement;
-			ToM ();
-			this.Value /= megameter;
+			this.Value = ConvertToMeters (this.Value, this.Measurement) / Maths.megameter;
 			this.Measurement = "megameter";
 		}
-		public void ToGM()
+		public virtual void ToGM()
 		{
-			string Measurement = this.Measurement;
-			ToM ();
-			this.Value /= gigameter;
+			this.Value = ConvertToMeters (this.Value, this.Measurement) / Maths.gigameter;
 			this.Measurement = "gigameter";
 		}
-		public void ToTM()
+		public virtual void ToTM()
 		{
-			string Measurement = this.Measurement;
-			ToM ();
-			this.Value /= terameter;
+			this.Value = ConvertToMeters (this.Value, this.Measurement) / Maths.terameter;
 			this.Measurement = "terameter";
 		}
-		public void ToPM()
+		public virtual void ToPM()
 		{
-			string Measurement = this.Measurement;
-			ToM ();
-			this.Value /= petameter;
+			this.Value = ConvertToMeters (this.Value, this.Measurement) / Maths.petameter;
 			this.Measurement = "petameter";
 		}
-		public void ToEM()
+		public virtual void ToEM()
 		{
-			string Measurement = this.Measurement;
-			ToM ();
-			this.Value /= exameter;
+			this.Value = ConvertToMeters (this.Value, this.Measurement) / Maths.exameter;
 			this.Measurement = "exameter";
 		}
-		public void ToZM()
+		public virtual void ToZM()
 		{
-			string Measurement = this.Measurement;
-			ToM ();
-			this.Value /= zetameter;
+			this.Value = ConvertToMeters (this.Value, this.Measurement) / Maths.zetameter;
 			this.Measurement = "zetameter";
 		}
-		public void ToYM()
+		public virtual void ToYM()
 		{
-			string Measurement = this.Measurement;
-			ToM ();
-			this.Value /= yottameter;
+			this.Value = ConvertToMeters (this.Value, this.Measurement) / Maths.yottameter;
 			this.Measurement = "yottameter";
 		}
-
-		/*
-		 * TODO: 
-		 * These values need to be taen out of here and put into a more appropriate place
-		 * at a later time.
-		 */
-		
-		
-		/*
-		 * We statically assign the size of each scale so that we can
-		 * quickly access the different scale sizes
-		 */
-		
-		public const double meter       = 1d;
-		public const double kilometer   = 1000d;
-		public const double megameter   = 1000000d;
-		public const double gigameter   = 1000000000d;
-		public const double terameter   = 1000000000000d;
-		public const double petameter   = 1000000000000000d;
-		public const double exameter    = 1000000000000000000d;
-		public const double zetameter   = 1000000000000000000000d;
-		public const double yottameter  = 1000000000000000000000000d;
-		
-		/*
-		 * Create the astronomical constants in SI units
-		 * https://github.com/astropy/astropy/blob/master/astropy/constants/si.py
-		 */
-		
-		public const double au = 1.49597870700e11d;	// meters, IAU 2012 Resolution B2
-		// public const double parsec = // Can be derived from au
-		// public const double kiloparsec = // Can be derived from au
-		
-		public const double pi = 3.14159265358979323846d;
-		
-		public const double luminosityOfSun = 3.846e26d;	// watts        Allen's Astrophysical Quantities 4th Ed.
-		public const double massOfSun       = 1.9891e30d;	// kilograms    Allen's Astrophysical Quantities 4th Ed.
-		public const double radiusOfSun     = 6.95508e8d;	// meters       Allen's Astrophysical Quantities 4th Ed.
-		public const double massOfJupiter   = 1.8987e27d;	// kilograms    Allen's Astrophysical Quantities 4th Ed.
-		public const double radiusOfJupiter = 7.1492e7d;	// meters       Allen's Astrophysical Quantities 4th Ed.
-		public const double massOfEarth     = 5.9742e24d;	// kilograms    Allen's Astrophysical Quantities 4th Ed.
-		public const double radiusOfEarth   = 6.378136e6d;	// meters       Allen's Astrophysical Quantities 4th Ed.
 
 	}
 	

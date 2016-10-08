@@ -6,6 +6,7 @@ using SimpleJSON;
 using BodyElements;
 using ImportData;
 using System.IO;
+using CustomMath;
 
 
 public class Planets : MonoBehaviour {
@@ -35,7 +36,9 @@ public class Planets : MonoBehaviour {
 			_star.RightAscension = importedData ["star"] [iteratorA] ["rightAscension"];
 			_star.Declination = importedData ["star"] [iteratorA] ["declination"];
 			_star.Distance = new Element("d", "Distance", double.Parse(importedData ["star"] [iteratorA] ["distance"]), "meter", 0.0d, "SI", "StarTography 1.0");
-			_star.Distance.ToMM();
+			_star.Distance.ToKM();
+			Debug.Log(_star.Distance);
+			Debug.Log (Maths.InKM(_star.Distance));
 			_star.Luminosity = new Element("l", "Optical Magnitude", double.Parse(importedData ["star"] [iteratorA] ["opticalMagnitude"]), "lum", 0.0d, "SI", "StarTography 1.0");
 			_star.Temperature = new Element("t", "Temperature", double.Parse(importedData ["star"] [iteratorA] ["temperature"]), "celcius", 0.0d, "SI", "StarTography 1.0");
 
