@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using Elements;
 using BodyElements;
+using System.Linq;
 
 namespace CustomMath
 {
@@ -28,149 +29,129 @@ namespace CustomMath
 		 ************************************************************/
 
 		/*
-		 * Distance Conversions
+		 * Conversions
 		 */
 		public static Element ConvertToMeters(Element element) {
 			Element _element = new Element (element);
+			string _measurement = "";
 
-			if(_element.Measurement == "meter")
-				_element.Value *= meter;
-			else if(_element.Measurement == "kilometer")
-				_element.Value *= kilometer;
-			else if(_element.Measurement == "megameter")
-				_element.Value *= megameter;
-			else if(_element.Measurement == "gigameter")
-				_element.Value *= gigameter;
-			else if(_element.Measurement == "terameter")
-				_element.Value *= terameter;
-			else if(_element.Measurement == "petameter")
-				_element.Value *= petameter;
-			else if(_element.Measurement == "exameter")
-				_element.Value *= exameter;
-			else if(_element.Measurement == "zetameter")
-				_element.Value *= zetameter;
-			else if(_element.Measurement == "yottameter")
-				_element.Value *= yottameter;
-			
-			_element.Measurement = "meter";
+			/* Distance Conversion */
+			if(distanceArray.Contains(_element.Measurement)) {
+				if (_element.Measurement == "meter") {
+					_element.Value *= meter;
+					_measurement = "meter";
+				} else if (_element.Measurement == "kilometer") {
+					_element.Value *= kilometer;
+					_measurement = "kilometer";
+				} else if (_element.Measurement == "megameter") {
+					_element.Value *= megameter;
+					_measurement = "megameter";
+				} else if (_element.Measurement == "gigameter") {
+					_element.Value *= gigameter;
+					_measurement = "gigameter";
+				} else if (_element.Measurement == "terameter") {
+					_element.Value *= terameter;
+					_measurement = "terameter";
+				} else if (_element.Measurement == "petameter") {
+					_element.Value *= petameter;
+					_measurement = "petameter";
+				} else if (_element.Measurement == "exameter") {
+					_element.Value *= exameter;
+					_measurement = "exameter";
+				} else if (_element.Measurement == "zetameter") {
+					_element.Value *= zetameter;
+					_measurement = "zetameter";
+				} else if (_element.Measurement == "yottameter") {
+					_element.Value *= yottameter;
+					_measurement = "yottameter";
+				}
+
+			/* Time Conversion */
+			} else if(timeArray.Contains(_element.Measurement)) {
+				if (_element.Measurement == "second") {
+					_element.Value *= second;
+					_measurement = "second";
+				} else if (_element.Measurement == "minute") {
+					_element.Value *= minute;
+					_measurement = "minute";
+				} else if (_element.Measurement == "hour") {
+					_element.Value *= hour;
+					_measurement = "hour";
+				} else if (_element.Measurement == "day") {
+					_element.Value *= day;
+					_measurement = "day";
+				} else if (_element.Measurement == "year") {
+					_element.Value *= year;
+					_measurement = "year";
+				} else if (_element.Measurement == "decade") {
+					_element.Value *= decade;
+					_measurement = "decade";
+				} else if (_element.Measurement == "century") {
+					_element.Value *= century;
+					_measurement = "century";
+				} else if (_element.Measurement == "millennium") {
+					_element.Value *= millennium;
+					_measurement = "millennium";
+				}
+			}
+
+			_element.Measurement = _measurement;
 			return _element;
 		}
 
+		/* Distance Measurement Conversins */
 		public static double InM(Element element) {
-			Element _element = ConvertToMeters (element);
-			double value = _element.Value / meter;
-			return value;
+			return new Element(ConvertToMeters(element)).Value / meter;
 		}
 		public static double InKM(Element element) {
-			Element _element = ConvertToMeters (element);
-			double value = _element.Value / kilometer;
-			return value;
+			return new Element(ConvertToMeters(element)).Value / kilometer;
 		}
 		public static double InMM(Element element) {
-			Element _element = ConvertToMeters (element);
-			double value = _element.Value / megameter;
-			return value;
+			return new Element(ConvertToMeters(element)).Value / megameter;
 		}
 		public static double InGM(Element element) {
-			Element _element = ConvertToMeters (element);
-			double value = _element.Value / gigameter;
-			return value;
+			return new Element(ConvertToMeters(element)).Value / gigameter;
 		}
 		public static double InTM(Element element) {
-			Element _element = ConvertToMeters (element);
-			double value = _element.Value / terameter;
-			return value;
+			return new Element(ConvertToMeters(element)).Value / terameter;
 		}
 		public static double InPM(Element element) {
-			Element _element = ConvertToMeters (element);
-			double value = _element.Value / petameter;
-			return value;
+			return new Element(ConvertToMeters(element)).Value / petameter;
 		}
 		public static double InEM(Element element) {
-			Element _element = ConvertToMeters (element);
-			double value = _element.Value / exameter;
-			return value;
+			return new Element(ConvertToMeters(element)).Value / exameter;
 		}
 		public static double InZM(Element element) {
-			Element _element = ConvertToMeters (element);
-			double value = _element.Value / zetameter;
-			return value;
+			return new Element(ConvertToMeters(element)).Value / zetameter;
 		}
 		public static double InYM(Element element) {
-			Element _element = ConvertToMeters (element);
-			double value = _element.Value / yottameter;
-			return value;
+			return new Element(ConvertToMeters(element)).Value / yottameter;
 		}
 
-
-		public static Element ConvertToSeconds(Element element) {
-			Element _element = new Element (element);
-			if(_element.Measurement == "second")
-				_element.Value *= second;
-			else if(_element.Measurement == "minute")
-				_element.Value *= minute;
-			else if(_element.Measurement == "hour")
-				_element.Value *= hour;
-			else if(_element.Measurement == "day")
-				_element.Value *= day;
-			else if(_element.Measurement == "year")
-				_element.Value *= year;
-			else if(_element.Measurement == "decade")
-				_element.Value *= decade;
-			else if(_element.Measurement == "century")
-				_element.Value *= century;
-			else if(_element.Measurement == "millennium")
-				_element.Value *= millennium;
-			_element.Measurement = "second";
-			return _element;
-		}
-
+		/* Time Measurement Conversins */
 		public static double InSeconds(Element element) {
-			Element _element = ConvertToSeconds (element);
-			double value = _element.Value / second;
-			return value;
+			return new Element(ConvertToMeters(element)).Value / second;
 		}
-
 		public static double InMinutes(Element element) {
-			Element _element = ConvertToSeconds (element);
-			double value = _element.Value / minute;
-			return value;
+			return new Element(ConvertToMeters(element)).Value / minute;
 		}
-
 		public static double InHours(Element element) {
-			Element _element = ConvertToSeconds (element);
-			double value = _element.Value / hour;
-			return value;
+			return new Element(ConvertToMeters(element)).Value / hour;
 		}
-
 		public static double InDays(Element element) {
-			Element _element = ConvertToSeconds (element);
-			double value = _element.Value / day;
-			return value;
+			return new Element(ConvertToMeters(element)).Value / day;
 		}
-
 		public static double InYears(Element element) {
-			Element _element = ConvertToSeconds (element);
-			double value = _element.Value / year;
-			return value;
+			return new Element(ConvertToMeters(element)).Value / year;
 		}
-
 		public static double InDecade(Element element) {
-			Element _element = ConvertToSeconds (element);
-			double value = _element.Value / decade;
-			return value;
+			return new Element(ConvertToMeters(element)).Value / decade;
 		}
-
 		public static double InCentury(Element element) {
-			Element _element = ConvertToSeconds (element);
-			double value = _element.Value / century;
-			return value;
+			return new Element(ConvertToMeters(element)).Value / century;
 		}
-
 		public static double InMillennium(Element element) {
-			Element _element = ConvertToSeconds (element);
-			double value = _element.Value / millennium;
-			return value;
+			return new Element(ConvertToMeters(element)).Value / millennium;
 		}
 
 
@@ -186,7 +167,7 @@ namespace CustomMath
 		 * We statically assign the size of each scale so that we can
 		 * quickly access the different scale sizes
 		 */
-		
+		public static string[] distanceArray = new string[]{"meter", "kilometer", "megameter", "gigameter", "terameter", "petameter", "exameter", "zetameter", "yottameter"};
 		public const double meter        = 1d;
 		public const double kilometer    = 1000d;
 		public const double megameter    = 1000000d;
@@ -201,6 +182,7 @@ namespace CustomMath
 		 * TODO: Come back and put in real values for these
 		 * and possibly expand on the types available
 		 */
+		public static string[] timeArray = new string[]{"second", "minute", "hour", "day", "year", "decade", "century", "millennium"};
 		public const double second       = 1d;
 		public const double minute       = 60d;
 		public const double hour         = 3600d;
@@ -230,7 +212,9 @@ namespace CustomMath
 		public const double radiusOfJupiter = 7.1492e7d;	// meters       Allen's Astrophysical Quantities 4th Ed.
 		public const double massOfEarth     = 5.9742e24d;	// kilograms    Allen's Astrophysical Quantities 4th Ed.
 		public const double radiusOfEarth   = 6.378136e6d;	// meters       Allen's Astrophysical Quantities 4th Ed.
-		
+
+
+
 	}
 	
 	

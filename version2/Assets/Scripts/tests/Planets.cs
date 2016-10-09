@@ -39,6 +39,8 @@ public class Planets : MonoBehaviour {
 			_star.Distance.ToKM();
 			Debug.Log(_star.Distance);
 			Debug.Log (Maths.InKM(_star.Distance));
+			Element testTime = new Element("s","Seconds", 30d, "second", 0d, "SI", "StarTography");
+			Debug.Log (Maths.InMinutes(testTime));
 			_star.Luminosity = new Element("l", "Optical Magnitude", double.Parse(importedData ["star"] [iteratorA] ["opticalMagnitude"]), "lum", 0.0d, "SI", "StarTography 1.0");
 			_star.Temperature = new Element("t", "Temperature", double.Parse(importedData ["star"] [iteratorA] ["temperature"]), "celcius", 0.0d, "SI", "StarTography 1.0");
 
