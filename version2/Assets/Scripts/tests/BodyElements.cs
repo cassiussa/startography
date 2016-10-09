@@ -84,26 +84,26 @@ namespace BodyElements
 	[System.Serializable] // Show it in the Inspector
 	public class Planet : OrbitElement
 	{
-		public Element HostStar;
+		public Star ParentStar;
 
 		// Constructors
 		public Planet() { }
-		public Planet(Element HostStar)
+		public Planet(Star ParentStar)
 		{
-			this.HostStar = HostStar;
+			this.ParentStar = ParentStar;
 		}		
 	}
 
 	[System.Serializable] // Show it in the Inspector
 	public class Moon : OrbitElement
 	{
-		public Element HostPlanet;
+		public Planet ParentPlanet;
 		
 		// Constructors
 		public Moon() { }
-		public Moon(Element HostPlanet)
+		public Moon(Planet ParentPlanet)
 		{
-			this.HostPlanet = HostPlanet;
+			this.ParentPlanet = ParentPlanet;
 		}
 	}
 	
