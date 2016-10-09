@@ -35,7 +35,7 @@ namespace BodyElements
 		public Element SemiMajorAxis;        // Semi-major axis = size
 		public Element Eccentricity;         // Eccentricity = shape
 		public Element Inclination;          // inclination = tilt
-		public Element ArgOfPariapsis;       // argument of pariapsis = twist
+		public Element ArgumentOfPariapsis;  // argument of pariapsis = twist
 		public Element Longitude;            // longitude of the ascending node = pin
 		public Element MeanAnomaly;          // mean anomaly = angle now
 
@@ -45,12 +45,12 @@ namespace BodyElements
 
 		// Constructors
 		public OrbitElement() { }
-		public OrbitElement(Element SemiMajorAxis,Element Eccentricity,Element Inclination,Element ArgOfPariapsis,Element Longitude,Element MeanAnomaly,Element Period,Element EccentricAnomaly,Element TrueAnomaly)
+		public OrbitElement(Element SemiMajorAxis,Element Eccentricity,Element Inclination,Element ArgumentOfPariapsis,Element Longitude,Element MeanAnomaly,Element Period,Element EccentricAnomaly,Element TrueAnomaly)
 		{
 			this.SemiMajorAxis = SemiMajorAxis;
 			this.Eccentricity = Eccentricity;
 			this.Inclination = Inclination;
-			this.ArgOfPariapsis = ArgOfPariapsis;
+			this.ArgumentOfPariapsis = ArgumentOfPariapsis;
 			this.Longitude = Longitude;
 			this.MeanAnomaly = MeanAnomaly;
 			this.Period = Period;

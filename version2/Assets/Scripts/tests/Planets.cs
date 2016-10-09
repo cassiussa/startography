@@ -19,8 +19,7 @@ public class Planets : MonoBehaviour {
 	public JSONNode importedData;
 	string JSONData;    // Holds the data.json file data
 
-	void Start ()
-	{
+	void Awake () {
 		JSONData = Data.data.ReadToEnd (); // Read from the data.json file
 		Data.data.Close ();
 		
@@ -28,21 +27,21 @@ public class Planets : MonoBehaviour {
 
 		for (int iteratorA=0; iteratorA<importedData["star"].Count; iteratorA++) {
 			Star _star = new Star ();
-			_star.Mass = new Element ("m", "Stellar Mass", double.Parse(importedData ["star"] [iteratorA]["stellarMass"]), "Kg", 0.0d, "SI", "StarTography 1.0");
-			_star.Radius = new Element ("m", "Stellar Radius", double.Parse(importedData ["star"] [iteratorA] ["stellarRadius"]), "meter", 0.0d, "SI", "StarTography 1.0");
+			_star.Mass = new Element ("Stellar Mass", double.Parse(importedData ["star"] [iteratorA]["stellarMass"]), "Kg", 0.0d, "SI", "StarTography 1.0", "2016-10-10");
+			_star.Radius = new Element ("Stellar Radius", double.Parse(importedData ["star"] [iteratorA] ["stellarRadius"]), "meter", 0.0d, "SI", "StarTography 1.0", "2016-10-10");
 			_star.Radius.Value *= 100d; // An example of how to multiply by Stellar Radii
 			_star.DateLastUpdated = importedData ["star"] [iteratorA] ["dateLastUpdate"];
 			_star.Name = importedData ["star"] [iteratorA] ["name"];
 			_star.RightAscension = importedData ["star"] [iteratorA] ["rightAscension"];
 			_star.Declination = importedData ["star"] [iteratorA] ["declination"];
-			_star.Distance = new Element("d", "Distance", double.Parse(importedData ["star"] [iteratorA] ["distance"]), "meter", 0.0d, "SI", "StarTography 1.0");
+			_star.Distance = new Element("Distance", double.Parse(importedData ["star"] [iteratorA] ["distance"]), "meter", 0.0d, "SI", "StarTography 1.0", "2016-10-10");
 			_star.Distance.ToKM();
 			Debug.Log(_star.Distance);
 			Debug.Log (Maths.InKM(_star.Distance));
-			Element testTime = new Element("s","Seconds", 30d, "second", 0d, "SI", "StarTography");
+			Element testTime = new Element("Seconds", 30d, "second", 0d, "SI", "StarTography", "2016-10-10");
 			Debug.Log (Maths.InMinutes(testTime));
-			_star.Luminosity = new Element("l", "Optical Magnitude", double.Parse(importedData ["star"] [iteratorA] ["opticalMagnitude"]), "lum", 0.0d, "SI", "StarTography 1.0");
-			_star.Temperature = new Element("t", "Temperature", double.Parse(importedData ["star"] [iteratorA] ["temperature"]), "celcius", 0.0d, "SI", "StarTography 1.0");
+			_star.Luminosity = new Element("Optical Magnitude", double.Parse(importedData ["star"] [iteratorA] ["opticalMagnitude"]), "lum", 0.0d, "SI", "StarTography 1.0", "2016-10-10");
+			_star.Temperature = new Element("Temperature", double.Parse(importedData ["star"] [iteratorA] ["temperature"]), "celcius", 0.0d, "SI", "StarTography 1.0", "2016-10-10");
 
 			stars.Add (_star);
 
@@ -66,6 +65,40 @@ public class Planets : MonoBehaviour {
 			}
 		}
 
+	}
+
+	void Start() {
+		foreach(Star star in stars) {
+			GameObject _system = new GameObject("System: "+star.Name);
+			GameObject _star = new GameObject("Star: "+star.Name);
+			_star.transform.parent = _system.transform;
+
+			MeshFilter meshFilter         = _star.AddComponent<MeshFilter>();
+			SphereCollider sphereCollider = _star.AddComponent<SphereCollider>();
+			sphereCollider.isTrigger      = false;
+			sphereCollider.radius         = 1f;
+			MeshRenderer meshRenderer     = _star.AddComponent<MeshRenderer>();
+		}
+
+		foreach (Planet planet in planets) {
+			GameObject _planet = new GameObject("Planet: "+planet.Name);
+			
+			MeshFilter meshFilter         = _planet.AddComponent<MeshFilter>();
+			SphereCollider sphereCollider = _planet.AddComponent<SphereCollider>();
+			sphereCollider.isTrigger      = false;
+			sphereCollider.radius         = 1f;
+			MeshRenderer meshRenderer     = _planet.AddComponent<MeshRenderer>();
+		}
+
+		foreach (Moon moon in moons) {
+			GameObject _moon = new GameObject("Moon: "+moon.Name);
+			
+			MeshFilter meshFilter         = _moon.AddComponent<MeshFilter>();
+			SphereCollider sphereCollider = _moon.AddComponent<SphereCollider>();
+			sphereCollider.isTrigger      = false;
+			sphereCollider.radius         = 1f;
+			MeshRenderer meshRenderer     = _moon.AddComponent<MeshRenderer>();
+		}
 	}
 
 }
