@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using CustomMath;
+using System.Linq;
 
 namespace Elements
 {
@@ -100,114 +101,123 @@ namespace Elements
 		/*
 		 * Distance Conversions
 		 */
-		double ConvertToMeters(double value, string measurement)
-		{
-			if(measurement == "meter")
-				value *= Maths.meter;
-			else if(measurement == "kilometer")
-				value *= Maths.kilometer;
-			else if(measurement == "megameter")
-				value *= Maths.megameter;
-			else if(measurement == "gigameter")
-				value *= Maths.gigameter;
-			else if(measurement == "terameter")
-				value *= Maths.terameter;
-			else if(measurement == "petameter")
-				value *= Maths.petameter;
-			else if(measurement == "exameter")
-				value *= Maths.exameter;
-			else if(measurement == "zetameter")
-				value *= Maths.zetameter;
-			else if(measurement == "yottameter")
-				value *= Maths.yottameter;
+		double SetMeasurementTo(double value, string measurement) {
+			/* Distance Conversion */
+			if (Maths.distanceArray.Contains (measurement)) {
+				if (measurement == "meter")
+					value *= Maths.meter;
+				else if (measurement == "kilometer")
+					value *= Maths.kilometer;
+				else if (measurement == "megameter")
+					value *= Maths.megameter;
+				else if (measurement == "gigameter")
+					value *= Maths.gigameter;
+				else if (measurement == "terameter")
+					value *= Maths.terameter;
+				else if (measurement == "petameter")
+					value *= Maths.petameter;
+				else if (measurement == "exameter")
+					value *= Maths.exameter;
+				else if (measurement == "zetameter")
+					value *= Maths.zetameter;
+				else if (measurement == "yottameter")
+					value *= Maths.yottameter;
+			/* Time Conversion */
+			} else if (Maths.timeArray.Contains (measurement)) {
+				if (measurement == "millisecond")
+					value *= Maths.millisecond;
+				else if (measurement == "centisecond")
+					value *= Maths.centisecond;
+				else if (measurement == "second")
+					value *= Maths.second;
+				else if (measurement == "minute")
+					value *= Maths.minute;
+				else if (measurement == "sidrealMinute")
+					value *= Maths.siderealMinute;
+				else if (measurement == "hour")
+					value *= Maths.hour;
+				else if (measurement == "day")
+					value *= Maths.day;
+				else if (measurement == "sidrealDay")
+					value *= Maths.siderealDay;
+				else if (measurement == "year")
+					value *= Maths.year;
+				else if (measurement == "decade")
+					value *= Maths.decade;
+				else if (measurement == "century")
+					value *= Maths.century;
+				else if (measurement == "millennium")
+					value *= Maths.millennium;
+			}
 			return value;
 		}
 
 		public virtual void ToM() {
-			this.Value = ConvertToMeters (this.Value, this.Measurement) / Maths.meter;
+			this.Value = SetMeasurementTo (this.Value, this.Measurement) / Maths.meter;
 			this.Measurement = "meter";
 		}
 		public virtual void ToKM() {
-			this.Value = ConvertToMeters (this.Value, this.Measurement) / Maths.kilometer;
+			this.Value = SetMeasurementTo (this.Value, this.Measurement) / Maths.kilometer;
 			this.Measurement = "kilometer";
 		}
 		public virtual void ToMM() {
-			this.Value = ConvertToMeters (this.Value, this.Measurement) / Maths.megameter;
+			this.Value = SetMeasurementTo (this.Value, this.Measurement) / Maths.megameter;
 			this.Measurement = "megameter";
 		}
 		public virtual void ToGM() {
-			this.Value = ConvertToMeters (this.Value, this.Measurement) / Maths.gigameter;
+			this.Value = SetMeasurementTo (this.Value, this.Measurement) / Maths.gigameter;
 			this.Measurement = "gigameter";
 		}
 		public virtual void ToTM() {
-			this.Value = ConvertToMeters (this.Value, this.Measurement) / Maths.terameter;
+			this.Value = SetMeasurementTo (this.Value, this.Measurement) / Maths.terameter;
 			this.Measurement = "terameter";
 		}
 		public virtual void ToPM() {
-			this.Value = ConvertToMeters (this.Value, this.Measurement) / Maths.petameter;
+			this.Value = SetMeasurementTo (this.Value, this.Measurement) / Maths.petameter;
 			this.Measurement = "petameter";
 		}
 		public virtual void ToEM() {
-			this.Value = ConvertToMeters (this.Value, this.Measurement) / Maths.exameter;
+			this.Value = SetMeasurementTo (this.Value, this.Measurement) / Maths.exameter;
 			this.Measurement = "exameter";
 		}
 		public virtual void ToZM() {
-			this.Value = ConvertToMeters (this.Value, this.Measurement) / Maths.zetameter;
+			this.Value = SetMeasurementTo (this.Value, this.Measurement) / Maths.zetameter;
 			this.Measurement = "zetameter";
 		}
 		public virtual void ToYM() {
-			this.Value = ConvertToMeters (this.Value, this.Measurement) / Maths.yottameter;
+			this.Value = SetMeasurementTo (this.Value, this.Measurement) / Maths.yottameter;
 			this.Measurement = "yottameter";
 		}
-
-
-		/* 
-		 * Time Conversions
-		 */
-		double ConvertToSeconds(double value, string measurement)
-		{
-			if(measurement == "second")
-				value *= Maths.second;
-			else if(measurement == "minute")
-				value *= Maths.minute;
-			else if(measurement == "hour")
-				value *= Maths.hour;
-			else if(measurement == "day")
-				value *= Maths.day;
-			else if(measurement == "year")
-				value *= Maths.year;
-			else if(measurement == "decade")
-				value *= Maths.decade;
-			else if(measurement == "century")
-				value *= Maths.century;
-			else if(measurement == "millennium")
-				value *= Maths.millennium;
-			return value;
-		}
-
+		/* Time Conversions */
 		public virtual void ToSecond() {
-			this.Value = ConvertToSeconds (this.Value, this.Measurement) / Maths.second;
+			this.Value = SetMeasurementTo (this.Value, this.Measurement) / Maths.second;
 		}
 		public virtual void ToMinute() {
-			this.Value = ConvertToSeconds (this.Value, this.Measurement) / Maths.minute;
+			this.Value = SetMeasurementTo (this.Value, this.Measurement) / Maths.minute;
+		}
+		public virtual void ToSidrealMinute() {
+			this.Value = SetMeasurementTo (this.Value, this.Measurement) / Maths.siderealMinute;
 		}
 		public virtual void ToHour() {
-			this.Value = ConvertToSeconds (this.Value, this.Measurement) / Maths.hour;
+			this.Value = SetMeasurementTo (this.Value, this.Measurement) / Maths.hour;
 		}
 		public virtual void ToDay() {
-			this.Value = ConvertToSeconds (this.Value, this.Measurement) / Maths.day;
+			this.Value = SetMeasurementTo (this.Value, this.Measurement) / Maths.day;
+		}
+		public virtual void ToSidrealDay() {
+			this.Value = SetMeasurementTo (this.Value, this.Measurement) / Maths.siderealDay;
 		}
 		public virtual void ToYear() {
-			this.Value = ConvertToSeconds (this.Value, this.Measurement) / Maths.year;
+			this.Value = SetMeasurementTo (this.Value, this.Measurement) / Maths.year;
 		}
 		public virtual void ToDecade() {
-			this.Value = ConvertToSeconds (this.Value, this.Measurement) / Maths.decade;
+			this.Value = SetMeasurementTo (this.Value, this.Measurement) / Maths.decade;
 		}
 		public virtual void ToCentury() {
-			this.Value = ConvertToSeconds (this.Value, this.Measurement) / Maths.century;
+			this.Value = SetMeasurementTo (this.Value, this.Measurement) / Maths.century;
 		}
 		public virtual void ToMillennium() {
-			this.Value = ConvertToSeconds (this.Value, this.Measurement) / Maths.millennium;
+			this.Value = SetMeasurementTo (this.Value, this.Measurement) / Maths.millennium;
 		}
 
 	}

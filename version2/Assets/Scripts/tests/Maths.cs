@@ -31,7 +31,7 @@ namespace CustomMath
 		/*
 		 * Conversions
 		 */
-		public static Element ConvertToMeters(Element element) {
+		public static Element GetMeasurementIn(Element element) {
 			Element _element = new Element (element);
 			string _measurement = "";
 
@@ -68,7 +68,13 @@ namespace CustomMath
 
 			/* Time Conversion */
 			} else if(timeArray.Contains(_element.Measurement)) {
-				if (_element.Measurement == "second") {
+				if (_element.Measurement == "millisecond") {
+					_element.Value *= millisecond;
+					_measurement = "millisecond";
+				} else if (_element.Measurement == "centisecond") {
+					_element.Value *= centisecond;
+					_measurement = "centisecond";
+				} else if (_element.Measurement == "second") {
 					_element.Value *= second;
 					_measurement = "second";
 				} else if (_element.Measurement == "minute") {
@@ -99,59 +105,71 @@ namespace CustomMath
 			return _element;
 		}
 
-		/* Distance Measurement Conversins */
+		/* Distance Measurement Conversions */
 		public static double InM(Element element) {
-			return new Element(ConvertToMeters(element)).Value / meter;
+			return new Element(GetMeasurementIn(element)).Value / meter;
 		}
 		public static double InKM(Element element) {
-			return new Element(ConvertToMeters(element)).Value / kilometer;
+			return new Element(GetMeasurementIn(element)).Value / kilometer;
 		}
 		public static double InMM(Element element) {
-			return new Element(ConvertToMeters(element)).Value / megameter;
+			return new Element(GetMeasurementIn(element)).Value / megameter;
 		}
 		public static double InGM(Element element) {
-			return new Element(ConvertToMeters(element)).Value / gigameter;
+			return new Element(GetMeasurementIn(element)).Value / gigameter;
 		}
 		public static double InTM(Element element) {
-			return new Element(ConvertToMeters(element)).Value / terameter;
+			return new Element(GetMeasurementIn(element)).Value / terameter;
 		}
 		public static double InPM(Element element) {
-			return new Element(ConvertToMeters(element)).Value / petameter;
+			return new Element(GetMeasurementIn(element)).Value / petameter;
 		}
 		public static double InEM(Element element) {
-			return new Element(ConvertToMeters(element)).Value / exameter;
+			return new Element(GetMeasurementIn(element)).Value / exameter;
 		}
 		public static double InZM(Element element) {
-			return new Element(ConvertToMeters(element)).Value / zetameter;
+			return new Element(GetMeasurementIn(element)).Value / zetameter;
 		}
 		public static double InYM(Element element) {
-			return new Element(ConvertToMeters(element)).Value / yottameter;
+			return new Element(GetMeasurementIn(element)).Value / yottameter;
 		}
 
-		/* Time Measurement Conversins */
+		/* Time Measurement Conversions */
+		public static double InMillisecond(Element element) {
+			return new Element(GetMeasurementIn(element)).Value / millisecond;
+		}
+		public static double InCentisecond(Element element) {
+			return new Element(GetMeasurementIn(element)).Value / centisecond;
+		}
 		public static double InSeconds(Element element) {
-			return new Element(ConvertToMeters(element)).Value / second;
+			return new Element(GetMeasurementIn(element)).Value / second;
 		}
 		public static double InMinutes(Element element) {
-			return new Element(ConvertToMeters(element)).Value / minute;
+			return new Element(GetMeasurementIn(element)).Value / minute;
+		}
+		public static double InSidrealMinutes(Element element) {
+			return new Element(GetMeasurementIn(element)).Value / siderealMinute;
 		}
 		public static double InHours(Element element) {
-			return new Element(ConvertToMeters(element)).Value / hour;
+			return new Element(GetMeasurementIn(element)).Value / hour;
 		}
 		public static double InDays(Element element) {
-			return new Element(ConvertToMeters(element)).Value / day;
+			return new Element(GetMeasurementIn(element)).Value / day;
+		}
+		public static double InSidrealDays(Element element) {
+			return new Element(GetMeasurementIn(element)).Value / siderealDay;
 		}
 		public static double InYears(Element element) {
-			return new Element(ConvertToMeters(element)).Value / year;
+			return new Element(GetMeasurementIn(element)).Value / year;
 		}
 		public static double InDecade(Element element) {
-			return new Element(ConvertToMeters(element)).Value / decade;
+			return new Element(GetMeasurementIn(element)).Value / decade;
 		}
 		public static double InCentury(Element element) {
-			return new Element(ConvertToMeters(element)).Value / century;
+			return new Element(GetMeasurementIn(element)).Value / century;
 		}
 		public static double InMillennium(Element element) {
-			return new Element(ConvertToMeters(element)).Value / millennium;
+			return new Element(GetMeasurementIn(element)).Value / millennium;
 		}
 
 
@@ -182,18 +200,21 @@ namespace CustomMath
 		 * TODO: Come back and put in real values for these
 		 * and possibly expand on the types available
 		 */
-		public static string[] timeArray = new string[]{"second", "minute", "hour", "day", "year", "decade", "century", "millennium"};
-		public const double second       = 1d;
-		public const double minute       = 60d;
-		public const double hour         = 3600d;
-		public const double day          = 86400d;
-		public const double siDay        = 86164.09164d;
-		public const double ephemerisDay = 0d;
-		public const double year         = 31556925d;
-		public const double decade       = 315569250d;
-		public const double century      = 3155692500d;
-		public const double millennium   = 31556925000d;
-		
+		public static string[] timeArray   = new string[]{"millisecond", "centisecond", "second", "minute", "siderealMinute", "hour", "day", "siderealDay", "year", "decade", "century", "millennium"};
+		public const double millisecond    = 0.001d;
+		public const double centisecond    = 0.01d;
+		public const double second         = 1d;
+		public const double minute         = 60d;
+		public const double siderealMinute = 60d;
+		public const double hour           = 3600d;
+		public const double day            = 86400d;
+		public const double siderealDay    = 86164.090530833d;  // https://en.wikipedia.org/wiki/Sidereal_time: Aoki, S., B. Guinot, G. H. Kaplan, H. Kinoshita, D. D. McCarthy and P. K. Seidelmann: "The new definition of Universal Time". Astronomy and Astrophysics 105(2), 361, 1982, see equation 19.
+		public const double year           = 31556925d;
+		public const double decade         = 315569250d;
+		public const double century        = 3155692500d;
+		public const double millennium     = 31556925000d;
+
+
 		/*
 		 * Create the astronomical constants in SI units
 		 * https://github.com/astropy/astropy/blob/master/astropy/constants/si.py
@@ -213,6 +234,7 @@ namespace CustomMath
 		public const double massOfEarth     = 5.9742e24d;	// kilograms    Allen's Astrophysical Quantities 4th Ed.
 		public const double radiusOfEarth   = 6.378136e6d;	// meters       Allen's Astrophysical Quantities 4th Ed.
 
+		public const double speedOfLight    = 299792458d;   // meters per second
 
 
 	}
