@@ -82,7 +82,7 @@ public class Planets : MonoBehaviour {
 			StarList _stars_ = new StarList();
 			_stars_.name = _star.Name;
 			_stars_.key = _star;
-			_stars_.value = _starGameObject;
+			_stars_.value = _starSystem;
 			stars.Add (_stars_);
 
 			for (int iteratorB=0; iteratorB<importedData["star"][iteratorA]["planets"].Count; iteratorB++) {
@@ -108,7 +108,7 @@ public class Planets : MonoBehaviour {
 				PlanetList _planets_ = new PlanetList();
 				_planets_.name = _planet.Name;
 				_planets_.key = _planet;
-				_planets_.value = _planetGameObject;
+				_planets_.value = _planetSystem;
 				planets.Add (_planets_);
 
 				//planets.Add(_planet, _planetGameObject);
@@ -138,7 +138,7 @@ public class Planets : MonoBehaviour {
 					MoonList _moons_ = new MoonList();
 					_moons_.name = _moon.Name;
 					_moons_.key = _moon;
-					_moons_.value = _moonGameObject;
+					_moons_.value = _moonSystem;
 					moons.Add (_moons_);
 
 					//moons.Add(_moon, _moonGameObject);
