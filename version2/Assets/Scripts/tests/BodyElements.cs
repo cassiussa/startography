@@ -68,40 +68,46 @@ namespace BodyElements
 		public Element Distance;
 		public Element Luminosity;
 		public Element Temperature;
+		public List<GameObject> ChildPlanets = new List<GameObject>();
 		
 		// Constructors
 		public Star() { }
-		public Star (string RightAscension,string Declination,Element Distance,Element Luminosity,Element Temperature)
+		public Star (string RightAscension,string Declination,Element Distance,Element Luminosity,Element Temperature,List<GameObject> ChildPlanets)
 		{
 			this.RightAscension = RightAscension;
 			this.Declination = Declination;
 			this.Distance = Distance;
 			this.Luminosity = Luminosity;
 			this.Temperature = Temperature;
+			this.ChildPlanets = ChildPlanets;
 		}
 	}
 	
 	[System.Serializable] // Show it in the Inspector
 	public class Planet : OrbitElement
 	{
-		public Star ParentStar;
+		public GameObject ParentStar;
+		public List<GameObject> ChildMoons = new List<GameObject>();
 
 		// Constructors
 		public Planet() { }
-		public Planet(Star ParentStar)
-		{
+		public Planet(GameObject ParentStar) {
 			this.ParentStar = ParentStar;
-		}		
+		}
+		public Planet(GameObject ParentStar, List<GameObject> ChildMoons) {
+			this.ParentStar = ParentStar;
+			this.ChildMoons = ChildMoons;
+		}
 	}
 
 	[System.Serializable] // Show it in the Inspector
 	public class Moon : OrbitElement
 	{
-		public Planet ParentPlanet;
+		public GameObject ParentPlanet;
 		
 		// Constructors
 		public Moon() { }
-		public Moon(Planet ParentPlanet)
+		public Moon(GameObject ParentPlanet)
 		{
 			this.ParentPlanet = ParentPlanet;
 		}
