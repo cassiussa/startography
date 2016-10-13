@@ -58,10 +58,12 @@ public class Planets : MonoBehaviour {
 			_star.Declination = importedData ["star"] [iteratorA] ["declination"];
 			_star.Distance = new Element("Distance", double.Parse(importedData ["star"] [iteratorA] ["distance"]), "meter", 0.0d, "SI", "StarTography 1.0", "2016-10-10");
 			_star.Distance.ToKM();
-			Debug.Log(_star.Distance);
-			Debug.Log (Maths.InKM(_star.Distance));
+			//Debug.Log(_star.Distance);
+			//Debug.Log (Maths.InKM(_star.Distance));
 			Element testTime = new Element("Seconds", 30d, "second", 0d, "SI", "StarTography", "2016-10-10");
-			Debug.Log (Maths.InMinutes(testTime));
+			//Debug.Log (Maths.InMinutes(testTime));
+
+			Maths.ToCoord(11.9d, 1d, 44d, 4.091d, 15d, 56d, 14.89d);
 			_star.Luminosity = new Element("Optical Magnitude", double.Parse(importedData ["star"] [iteratorA] ["opticalMagnitude"]), "lum", 0.0d, "SI", "StarTography 1.0", "2016-10-10");
 			_star.Temperature = new Element("Temperature", double.Parse(importedData ["star"] [iteratorA] ["temperature"]), "celcius", 0.0d, "SI", "StarTography 1.0", "2016-10-10");
 

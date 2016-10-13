@@ -237,6 +237,32 @@ namespace CustomMath
 		public const double speedOfLight    = 299792458d;   // meters per second
 
 
+		// Convert from RA and Dec to XYZ cartesian coordinates
+		public static void ToCoord(
+			double distance,
+			double rightAscensionHours,
+			double rightAscensionMinutes,
+			double rightAscensionSeconds,
+			double declinationDegrees,
+			double declinationMinutes,
+			double declinationSeconds) {
+
+			// Verification: http://keisan.casio.com/exec/system/1359534351
+			// Converting to decimal (double) values
+			double rightAscension = (rightAscensionHours * 15d) + (rightAscensionMinutes * 0.25d) + (rightAscensionSeconds * 0.004166d);
+			double declination = (Math.Abs (declinationDegrees) + (declinationMinutes / 60d) + (declinationSeconds / 3600d)) * Math.Sign (declinationDegrees);
+			Debug.Log ("In double: " + rightAscension + ", " + declination + ", " + distance);
+
+			// Convert to cartesian values
+			double X = distance * Math.Sin(UnityEngine.Mathf.Deg2Rad * declination) * Math.Cos(UnityEngine.Mathf.Deg2Rad * rightAscension);
+			double Y = distance * Math.Sin(UnityEngine.Mathf.Deg2Rad * declination) * Math.Sin(UnityEngine.Mathf.Deg2Rad * rightAscension);
+			double Z = distance * Math.Cos(UnityEngine.Mathf.Deg2Rad * declination);
+			Debug.Log ("In double: " + X + ", " + Y + ", " + Z);
+			Vector3 coord = new Vector3 ( (float)X, (float)Y, (float)Z );
+
+			//return coord;
+		}
+
 	}
 	
 	
