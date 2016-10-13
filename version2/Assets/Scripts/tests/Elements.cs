@@ -8,6 +8,34 @@ namespace Elements
 {
 
 	[System.Serializable] // Show it in the Inspector
+	public class RA {
+		public double Hours;
+		public double Minutes;
+		public double Seconds;
+
+		// Constructors
+		public RA(double Hours, double Minutes, double Seconds) {
+			this.Hours = Hours;
+			this.Minutes = Minutes;
+			this.Seconds = Seconds;
+		}
+		public RA(string Hours, string Minutes, string Seconds) {
+			double _hours = 0d;
+			double _minutes = 0d;
+			double _seconds = 0d;
+			this.Hours = _hours;
+			this.Minutes = _minutes;
+			this.Seconds = _seconds;
+		}
+		public RA(string HMS) {
+			// Break up the HMS variable and send into the below variables
+			//this.Hours = Hours;
+			//this.Minutes = Minutes;
+			//this.Seconds = Seconds;
+		}
+	}
+
+	[System.Serializable] // Show it in the Inspector
 	public class Element {
 		/*
 		 * Class Specification (Value Type)

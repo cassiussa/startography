@@ -224,7 +224,9 @@ namespace CustomMath
 		// public const double parsec = // Can be derived from au
 		// public const double kiloparsec = // Can be derived from au
 		
-		public const double pi = 3.14159265358979323846d;
+		public const double pi = 3.14159265358979323846d;   // Pi to a high degree of accuracy
+		public const double Deg2Rad = pi/180d;              // Convert from Degrees to Radians, just like Mathf.Deg2Rad
+		public const double Rad2Deg = 180d/pi;              // Convert from Radians to Degrees, just like Mathf.Rad2Deg
 		
 		public const double luminosityOfSun = 3.846e26d;	// watts        Allen's Astrophysical Quantities 4th Ed.
 		public const double massOfSun       = 1.9891e30d;	// kilograms    Allen's Astrophysical Quantities 4th Ed.
@@ -238,7 +240,7 @@ namespace CustomMath
 
 
 		// Convert from RA and Dec to XYZ cartesian coordinates
-		public static void ToCoord(
+		public static Vector3 SphericalToCartesianCoords(
 			double distance,
 			double rightAscensionHours,
 			double rightAscensionMinutes,
@@ -254,14 +256,15 @@ namespace CustomMath
 			Debug.Log ("In double: " + rightAscension + ", " + declination + ", " + distance);
 
 			// Convert to cartesian values
-			double X = distance * Math.Sin(UnityEngine.Mathf.Deg2Rad * declination) * Math.Cos(UnityEngine.Mathf.Deg2Rad * rightAscension);
-			double Y = distance * Math.Sin(UnityEngine.Mathf.Deg2Rad * declination) * Math.Sin(UnityEngine.Mathf.Deg2Rad * rightAscension);
-			double Z = distance * Math.Cos(UnityEngine.Mathf.Deg2Rad * declination);
+			double X = distance * Math.Sin(Maths.Deg2Rad * declination) * Math.Cos(Maths.Deg2Rad * rightAscension);
+			double Y = distance * Math.Sin(Maths.Deg2Rad * declination) * Math.Sin(Maths.Deg2Rad * rightAscension);
+			double Z = distance * Math.Cos(Maths.Deg2Rad * declination);
 			Debug.Log ("In double: " + X + ", " + Y + ", " + Z);
 			Vector3 coord = new Vector3 ( (float)X, (float)Y, (float)Z );
 
-			//return coord;
+			return coord;
 		}
+
 
 	}
 	

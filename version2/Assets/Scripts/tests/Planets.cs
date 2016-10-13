@@ -63,7 +63,8 @@ public class Planets : MonoBehaviour {
 			Element testTime = new Element("Seconds", 30d, "second", 0d, "SI", "StarTography", "2016-10-10");
 			//Debug.Log (Maths.InMinutes(testTime));
 
-			Maths.ToCoord(11.9d, 1d, 44d, 4.091d, 15d, 56d, 14.89d);
+			Vector3 pos = Maths.SphericalToCartesianCoords(11.9d, 1d, 44d, 4.091d, 15d, 56d, 14.89d);
+
 			_star.Luminosity = new Element("Optical Magnitude", double.Parse(importedData ["star"] [iteratorA] ["opticalMagnitude"]), "lum", 0.0d, "SI", "StarTography 1.0", "2016-10-10");
 			_star.Temperature = new Element("Temperature", double.Parse(importedData ["star"] [iteratorA] ["temperature"]), "celcius", 0.0d, "SI", "StarTography 1.0", "2016-10-10");
 
@@ -72,6 +73,7 @@ public class Planets : MonoBehaviour {
 
 
 			GameObject _starSystem = new GameObject("Star System: "+_star.Name);
+			_starSystem.transform.position = pos;
 			GameObject _starGameObject = new GameObject("Star: "+_star.Name);
 			_starGameObject.transform.parent = _starSystem.transform;
 			
