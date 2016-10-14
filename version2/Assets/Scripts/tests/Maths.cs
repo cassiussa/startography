@@ -179,7 +179,11 @@ namespace CustomMath
 		 * These values need to be taken out of here and put into a more appropriate place
 		 * at a later time.
 		 */
-		
+
+
+		// http://www.stellar-database.com/
+		// Some definitions on what fields mean
+		// http://www.stellar-database.com/fields.html
 		
 		/*
 		 * We statically assign the size of each scale so that we can
@@ -239,30 +243,26 @@ namespace CustomMath
 		public const double speedOfLight    = 299792458d;   // meters per second
 
 
-		// Convert from RA and Dec to XYZ cartesian coordinates
-		public static Vector3 SphericalToCartesianCoords(
-			double distance,
-			double rightAscensionHours,
-			double rightAscensionMinutes,
-			double rightAscensionSeconds,
-			double declinationDegrees,
-			double declinationMinutes,
-			double declinationSeconds) {
+		public static double RightAscensionToDegrees(RightAscension rightAscension) {
+			return (rightAscension.Hours * 15d) + (rightAscension.Minutes * 0.25d) + (rightAscension.Seconds * 0.004166d);
+		}
+		public static double DeclinationToDegrees(Declination declination) {
+			return (Math.Abs (declination.Degrees) + (declination.DegreeMinutes / 60d) + (declination.DegreeSeconds / 3600d)) * Math.Sign (declination.Degrees);
+		}
 
+		// Convert from Right Ascension & Declination to XYZ Cartesian coordinates
+		public static Vector3 SphericalToCartesianCoords(double distance, RightAscension rightAscension, Declination declination) {
 			// Verification: http://keisan.casio.com/exec/system/1359534351
-			// Converting to decimal (double) values
-			double rightAscension = (rightAscensionHours * 15d) + (rightAscensionMinutes * 0.25d) + (rightAscensionSeconds * 0.004166d);
-			double declination = (Math.Abs (declinationDegrees) + (declinationMinutes / 60d) + (declinationSeconds / 3600d)) * Math.Sign (declinationDegrees);
-			Debug.Log ("In double: " + rightAscension + ", " + declination + ", " + distance);
+			// Converting to degree (double) values
+			double _rightAscensionDegrees = RightAscensionToDegrees(rightAscension);
+			double _declinationDegrees = DeclinationToDegrees(declination);
 
 			// Convert to cartesian values
-			double X = distance * Math.Sin(Maths.Deg2Rad * declination) * Math.Cos(Maths.Deg2Rad * rightAscension);
-			double Y = distance * Math.Sin(Maths.Deg2Rad * declination) * Math.Sin(Maths.Deg2Rad * rightAscension);
-			double Z = distance * Math.Cos(Maths.Deg2Rad * declination);
+			double X = distance * Math.Sin(Maths.Deg2Rad * _declinationDegrees) * Math.Cos(Maths.Deg2Rad * _rightAscensionDegrees);
+			double Y = distance * Math.Sin(Maths.Deg2Rad * _declinationDegrees) * Math.Sin(Maths.Deg2Rad * _rightAscensionDegrees);
+			double Z = distance * Math.Cos(Maths.Deg2Rad * _declinationDegrees);
 			Debug.Log ("In double: " + X + ", " + Y + ", " + Z);
-			Vector3 coord = new Vector3 ( (float)X, (float)Y, (float)Z );
-
-			return coord;
+			return new Vector3 ( (float)X, (float)Y, (float)Z );
 		}
 
 

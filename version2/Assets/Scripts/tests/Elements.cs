@@ -8,18 +8,26 @@ namespace Elements
 {
 
 	[System.Serializable] // Show it in the Inspector
-	public class RA {
+	public class RightAscension {
 		public double Hours;
 		public double Minutes;
 		public double Seconds;
-
+		
 		// Constructors
-		public RA(double Hours, double Minutes, double Seconds) {
+		/*
+			public RA(ra=10.625*u.degree, dec=41.2*u.degree')
+			public RA(10.625, 41.2, frame='icrs', unit='deg')
+			public RA('00h42m30s', '+41d12m00s', frame='icrs')
+			public RA('00h42.5m', '+41d12m')
+			public RA('00 42 30 +41 12 00', unit=(u.hourangle, u.deg))
+			public RA('00:42.5 +41:12', unit=(u.hourangle, u.deg))
+		 */
+		public RightAscension(double Hours, double Minutes, double Seconds) {
 			this.Hours = Hours;
 			this.Minutes = Minutes;
 			this.Seconds = Seconds;
 		}
-		public RA(string Hours, string Minutes, string Seconds) {
+		public RightAscension(string Hours, string Minutes, string Seconds) {
 			double _hours = 0d;
 			double _minutes = 0d;
 			double _seconds = 0d;
@@ -27,7 +35,42 @@ namespace Elements
 			this.Minutes = _minutes;
 			this.Seconds = _seconds;
 		}
-		public RA(string HMS) {
+		public RightAscension(string HMS) {
+			// Break up the HMS variable and send into the below variables
+			//this.Hours = Hours;
+			//this.Minutes = Minutes;
+			//this.Seconds = Seconds;
+		}
+	}
+
+	public class Declination {
+		public double Degrees;
+		public double DegreeMinutes;
+		public double DegreeSeconds;
+		
+		// Constructors
+		/*
+			public RA(ra=10.625*u.degree, dec=41.2*u.degree')
+			public RA(10.625, 41.2, frame='icrs', unit='deg')
+			public RA('00h42m30s', '+41d12m00s', frame='icrs')
+			public RA('00h42.5m', '+41d12m')
+			public RA('00 42 30 +41 12 00', unit=(u.hourangle, u.deg))
+			public RA('00:42.5 +41:12', unit=(u.hourangle, u.deg))
+		 */
+		public Declination(double Degrees, double DegreeMinutes, double DegreeSeconds) {
+			this.Degrees = Degrees;
+			this.DegreeMinutes = DegreeMinutes;
+			this.DegreeSeconds = DegreeSeconds;
+		}
+		public Declination(string Degrees, string DegreeMinutes, string DegreeSeconds) {
+			double _degrees = 0d;
+			double _degreeMinutes = 0d;
+			double _degreeSeconds = 0d;
+			this.Degrees = _degrees;
+			this.DegreeMinutes = _degreeMinutes;
+			this.DegreeSeconds = _degreeSeconds;
+		}
+		public Declination(string DMS) {
 			// Break up the HMS variable and send into the below variables
 			//this.Hours = Hours;
 			//this.Minutes = Minutes;

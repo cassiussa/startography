@@ -63,7 +63,9 @@ public class Planets : MonoBehaviour {
 			Element testTime = new Element("Seconds", 30d, "second", 0d, "SI", "StarTography", "2016-10-10");
 			//Debug.Log (Maths.InMinutes(testTime));
 
-			Vector3 pos = Maths.SphericalToCartesianCoords(11.9d, 1d, 44d, 4.091d, 15d, 56d, 14.89d);
+			RightAscension rightAscension = new RightAscension(1d, 44d, 4.091d);
+			Declination declination = new Declination(-15d, 56d, 14.89d);
+			Vector3 pos = Maths.SphericalToCartesianCoords(11.9d, rightAscension, declination);
 
 			_star.Luminosity = new Element("Optical Magnitude", double.Parse(importedData ["star"] [iteratorA] ["opticalMagnitude"]), "lum", 0.0d, "SI", "StarTography 1.0", "2016-10-10");
 			_star.Temperature = new Element("Temperature", double.Parse(importedData ["star"] [iteratorA] ["temperature"]), "celcius", 0.0d, "SI", "StarTography 1.0", "2016-10-10");
