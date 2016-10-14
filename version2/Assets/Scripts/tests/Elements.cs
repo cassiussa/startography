@@ -14,14 +14,6 @@ namespace Elements
 		public double Seconds;
 		
 		// Constructors
-		/*
-			public RA(ra=10.625*u.degree, dec=41.2*u.degree')
-			public RA(10.625, 41.2, frame='icrs', unit='deg')
-			public RA('00h42m30s', '+41d12m00s', frame='icrs')
-			public RA('00h42.5m', '+41d12m')
-			public RA('00 42 30 +41 12 00', unit=(u.hourangle, u.deg))
-			public RA('00:42.5 +41:12', unit=(u.hourangle, u.deg))
-		 */
 		public RightAscension(double Hours, double Minutes, double Seconds) {
 			this.Hours = Hours;
 			this.Minutes = Minutes;
@@ -35,28 +27,47 @@ namespace Elements
 			this.Minutes = _minutes;
 			this.Seconds = _seconds;
 		}
-		public RightAscension(string HMS) {
-			// Break up the HMS variable and send into the below variables
-			//this.Hours = Hours;
-			//this.Minutes = Minutes;
-			//this.Seconds = Seconds;
+		public RightAscension(string HourMinSec) {
+			/*
+			 * Possible format options
+			 * 
+			 * '00h42m30s'
+			 * '00h42.5m'
+			 * '00:42.5'
+			 * '00 42 30'
+		 	 */
+			string[] _words = new string[] { "" };
+			double[] _values = new double[4];
+
+			if (HourMinSec.Split (new char[] { 'h', 'm', 's' }).Length == 4) {
+				_words = HourMinSec.Split (new char[] { 'h', 'm', 's' });
+			} else if(HourMinSec.Split (new char[] { 'h', '.', 'm' }).Length == 4) {
+				_words = HourMinSec.Split (new char[] { 'h', '.', 'm' });
+				_words[2] = ((Convert.ToDouble(_words[2])/10) * 60).ToString();  // Convert fraction of minute to seconds
+			} else if(HourMinSec.Split (new char[] { ':', '.' }).Length == 3) {
+				_words = HourMinSec.Split (new char[] { ':', '.' });
+				_words[2] = ((Convert.ToDouble(_words[2])/10) * 60).ToString();  // Convert fraction of minute to seconds
+			} else if(HourMinSec.Split (new char[] { ' ' }).Length == 3) {
+				_words = HourMinSec.Split (new char[] { ' ' });
+			}
+
+			for (int i=0; i<_words.Length; i++) {
+				if(_words[i] != "")
+					_values [i] = Convert.ToDouble (_words [i]);
+			}
+
+			this.Hours = _values[0];
+			this.Minutes = _values[1];
+			this.Seconds = _values[2];
 		}
 	}
-
+	
 	public class Declination {
 		public double Degrees;
 		public double DegreeMinutes;
 		public double DegreeSeconds;
 		
 		// Constructors
-		/*
-			public RA(ra=10.625*u.degree, dec=41.2*u.degree')
-			public RA(10.625, 41.2, frame='icrs', unit='deg')
-			public RA('00h42m30s', '+41d12m00s', frame='icrs')
-			public RA('00h42.5m', '+41d12m')
-			public RA('00 42 30 +41 12 00', unit=(u.hourangle, u.deg))
-			public RA('00:42.5 +41:12', unit=(u.hourangle, u.deg))
-		 */
 		public Declination(double Degrees, double DegreeMinutes, double DegreeSeconds) {
 			this.Degrees = Degrees;
 			this.DegreeMinutes = DegreeMinutes;
@@ -70,11 +81,39 @@ namespace Elements
 			this.DegreeMinutes = _degreeMinutes;
 			this.DegreeSeconds = _degreeSeconds;
 		}
-		public Declination(string DMS) {
-			// Break up the HMS variable and send into the below variables
-			//this.Hours = Hours;
-			//this.Minutes = Minutes;
-			//this.Seconds = Seconds;
+		public Declination(string Deg_DegMin_DegSec) {
+			/*
+			 * Possible format options
+			 * 
+			 * '+41d12m00s'
+			 * '+41d12m'
+			 * '+41:12'
+			 * '+41 12 00'
+		 	 */
+			string[] _words = new string[] { "" };
+			double[] _values = new double[3];
+			
+			if (Deg_DegMin_DegSec.Split (new char[] {'+','d','m','s'} ).Length == 5) {
+				_words = Deg_DegMin_DegSec.Split (new char[] {'+','d','m','s'} );
+			} else if(Deg_DegMin_DegSec.Split (new char[] {'+','d','m'} ).Length == 4) {
+				_words = Deg_DegMin_DegSec.Split (new char[] {'+','d','m'} );
+			} else if(Deg_DegMin_DegSec.Split (new char[] {'+',':'} ).Length == 3) {
+				_words = Deg_DegMin_DegSec.Split (new char[] {'+',':'} );
+			} else if(Deg_DegMin_DegSec.Split (new char[] {'+',' '} ).Length == 4) {
+				_words = Deg_DegMin_DegSec.Split (new char[] {'+',' '} );
+			}
+
+			int b = 0;
+			for (int i=0; i<_words.Length; i++) {
+				if(_words[i] != "" && _words[i] != " " && _words[i] != null) {  // Check that it's not an empty value
+					_values[b] = Convert.ToDouble (_words [i]);                 // Convert to a double and add to the array
+					b++;
+				}
+			}
+			
+			this.Degrees = _values[0];
+			this.DegreeMinutes = _values[1];
+			this.DegreeSeconds = _values[2];
 		}
 	}
 
