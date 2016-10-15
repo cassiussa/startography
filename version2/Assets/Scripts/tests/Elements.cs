@@ -135,17 +135,12 @@ namespace Elements
 
 		// Fields of various types
 		public string Name;         // Ex: Mass of Jupiter
-		public double Value;        // Ex: 1.8987e27d (Nullable)
+		public double Value;        // Ex: 1.8987e27d
 		public string Measurement;  // Ex: kilogram
-		public double Uncertainty;  // Ex: 0.00005e27d (Nullable)
+		public double Uncertainty;  // Ex: 0.00005e27d
 		public string System;       // Ex: si
 		public string Reference;    // Ex: Allen's Astrophysical Quantities 4th Edition
 		public string LastUpdate;	// TODO: Convert to DateTime
-		
-		/*public Constant()
-		{
-			ConstantTest ();
-		}*/
 
 		// Constructors
 		public Element(string Name, double Value, string Measurement, double Uncertainty, string System, string Reference, string LastUpdate) {
@@ -326,6 +321,145 @@ namespace Elements
 			this.Value = SetMeasurementTo (this.Value, this.Measurement) / Maths.millennium;
 		}
 
+	}
+
+	/*
+	 * Create a new Type.  Vector3d double.
+	 * 
+	 * Parameters
+	 * ----------
+	 * x : x coordinate double
+	 * y : y coordinate double
+	 * z : z coordinate double
+	 * 
+	 * Returns
+	 * -------
+	 * Coordinates : x,y,z - all doubles
+	 * Stores a Vector that contains doubles instead of floats for higher accuracy
+	 * Type: Reference
+	 * 
+	*/
+	[System.Serializable]
+	public class Vector3d {
+		public double x;
+		public double y;
+		public double z;
+
+		public Vector3d(double x, double y, double z) {
+			this.x = x;
+			this.y = y;
+			this.z = z;
+		}
+		
+		// Constructors
+
+		// Reset the Vector3d reference variable to zeros
+		public virtual void Clear() {
+			this.x = 0;
+			this.y = 0;
+			this.z = 0;
+		}
+
+		public Vector3d() {
+			Clear();
+		}
+		
+		public Vector3d(Vector3d vector3d) {
+			this.x = vector3d.x;
+			this.y = vector3d.y;
+			this.z = vector3d.z;
+		}
+
+		// Vector3d Addition
+		public static Vector3d operator + (Vector3d first, Vector3d second) {
+			return new Vector3d(first.x + second.x, first.y + second.y, first.z + second.z);
+		}
+		public static Vector3d operator ++ (Vector3d first) {
+			return new Vector3d(first.x+1d, first.y+1d, first.z+1d);
+		}
+
+		// Vector3d Subtraction
+		public static Vector3d operator - (Vector3d first, Vector3d second) {
+			return new Vector3d(first.x - second.x, first.y - second.y, first.z - second.z);
+		}
+		public static Vector3d operator -- (Vector3d first) {
+			return new Vector3d(first.x-1d, first.y-1d, first.z-1d);
+		}
+		
+		// Vector3d multiplication
+		public static Vector3d operator * (Vector3d first, Vector3d second) {
+			return new Vector3d(first.x * second.x, first.y * second.y, first.z * second.z);
+		}
+		
+		// Scalar multiplication
+		public static Vector3d operator * (double scalar, Vector3d vector3d) {
+			return new Vector3d(scalar * vector3d.x, scalar * vector3d.y, scalar * vector3d.z);
+		}
+		public static Vector3d operator * (Vector3d vector3d, double scalar) {
+			return new Vector3d(scalar * vector3d.x, scalar * vector3d.y, scalar * vector3d.z);
+		}
+		
+		// Vector3d division
+		public static Vector3d operator / (Vector3d first, Vector3d second) {
+			return new Vector3d(first.x / second.x, first.y / second.y, first.z / second.z);
+		}
+		
+		// Scalar division
+		public static Vector3d operator / (double scalar, Vector3d vector3d) {
+			return new Vector3d(scalar / vector3d.x, scalar / vector3d.y, scalar / vector3d.z);
+		}
+		public static Vector3d operator / (Vector3d vector3d, double scalar) {
+			return new Vector3d(vector3d.x / scalar, vector3d.y / scalar, vector3d.z / scalar);
+		}
+		
+		// Distance between two Vector3d variables
+		public static double Distance(Vector3d first, Vector3d second) {
+			Vector3d difference = new Vector3d(second - first);
+			Vector3d squared = new Vector3d (difference * difference);
+			return (double)System.Math.Sqrt(squared.x+squared.y+squared.z);
+		}
+
+		// Comparison of two Vector3d variables. Checks their values instead of checking if it's the same reference
+		public static bool operator == (Vector3d first, Vector3d second) {
+			return (first.x == second.x && first.y == second.y && first.z == second.z);
+		}
+		
+		// Comparison of two Vector3d variables.  Checks their values instead of checking if it's the same reference
+		public static bool operator !=(Vector3d first, Vector3d second) {
+			return (first.x != second.x || first.y != second.y || first.z != second.z);
+		}
+
+		// Calculate the length of the Vector3d variable (from 0,0,0)
+		public double Length() {
+			return System.Math.Sqrt(this.x*this.x + this.y*this.y + this.z*this.z);
+		}
+		
+		// Allow direct casting of Type.  Example vector3(Vector3)vector3d
+		public static implicit operator Vector3(Vector3d convert) {
+			return new Vector3( (float)convert.x, (float)convert.y, (float)convert.z );
+		}
+		
+		// Scales the Vector3d reference
+		public void ScaledRef(double factor) {
+			this.x *= factor;
+			this.y *= factor;
+			this.z *= factor;
+		}
+		
+		// Returns the scaled variable value of the Vector3d as a new Vector3d
+		public static Vector3d ScaledVal(double factor) {
+			Vector3d _vector3d = new Vector3d (factor, factor, factor);
+			return new Vector3d (_vector3d.x*factor, _vector3d.y*factor, _vector3d.z*factor);
+		}
+		
+		// Interpolate to..from over amount.  The parameter 'amount' is clamped to the range [0, 1].
+		// Ex: if amount is 0.5 then we get the Vector3d position that's half-way between first and second
+		public static Vector3d Lerp(Vector3d first, Vector3d second, double amount) {
+			return new Vector3d(first.x * (1.0 - amount) + second.x * amount,
+			                    first.y * (1.0 - amount) + second.y * amount,
+			                    first.z * (1.0 - amount) + second.z * amount);
+		}
+		
 	}
 	
 

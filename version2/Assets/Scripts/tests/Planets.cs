@@ -73,6 +73,8 @@ public class Planets : MonoBehaviour {
 			_star.Luminosity = new Element("Optical Magnitude", double.Parse(importedData ["star"] [iteratorA] ["opticalMagnitude"]), "lum", 0.0d, "SI", "StarTography 1.0", "2016-10-10");
 			_star.Temperature = new Element("Temperature", double.Parse(importedData ["star"] [iteratorA] ["temperature"]), "celcius", 0.0d, "SI", "StarTography 1.0", "2016-10-10");
 
+			Vector3d vector3d = new Vector3d(100d,100d,100d);
+
 
 
 
