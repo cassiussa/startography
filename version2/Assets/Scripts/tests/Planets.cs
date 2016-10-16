@@ -57,32 +57,28 @@ public class Planets : MonoBehaviour {
 			_star.RightAscension = importedData ["star"] [iteratorA] ["rightAscension"];
 			_star.Declination = importedData ["star"] [iteratorA] ["declination"];
 			_star.Distance = new Element("Distance", double.Parse(importedData ["star"] [iteratorA] ["distance"]), "meter", 0.0d, "SI", "StarTography 1.0", "2016-10-10");
-			_star.Distance.ToKM();
 			//Debug.Log(_star.Distance);
 			//Debug.Log (Maths.InKM(_star.Distance));
 			Element testTime = new Element("Seconds", 30d, "second", 0d, "SI", "StarTography", "2016-10-10");
 			//Debug.Log (Maths.InMinutes(testTime));
 
-			RightAscension rightAscension = new RightAscension("00 42 30");
-			//new Declination("+41 12 00");
-			Declination declination = new Declination("+41d12m00s");
-			//RightAscension rightAscension = new RightAscension(1d, 44d, 4.091d);
-			//Declination declination = new Declination(-15d, 56d, 14.89d);
-			Vector3 pos = Maths.SphericalToCartesianCoords(11.9d, rightAscension, declination);
 			//Debug.LogError (pos);
 			_star.Luminosity = new Element("Optical Magnitude", double.Parse(importedData ["star"] [iteratorA] ["opticalMagnitude"]), "lum", 0.0d, "SI", "StarTography 1.0", "2016-10-10");
 			_star.Temperature = new Element("Temperature", double.Parse(importedData ["star"] [iteratorA] ["temperature"]), "celcius", 0.0d, "SI", "StarTography 1.0", "2016-10-10");
 
-			Vector3d vector3d = new Vector3d(100d,100d,100d);
-
-
-
 
 
 			GameObject _starSystem = new GameObject("Star System: "+_star.Name);
+
+			_star.Distance.ToM();
+			RightAscension rightAscension = new RightAscension(_star.RightAscension);     // Get the string Right Ascension value of this star
+			Declination declination = new Declination(_star.Declination);                 // Get the string Declination value of this star
+			Vector3 pos = (Vector3)Maths.SphericalToCartesianCoords(_star.Distance.Value, rightAscension, declination);
+
 			_starSystem.transform.position = pos;
 			GameObject _starGameObject = new GameObject("Star: "+_star.Name);
 			_starGameObject.transform.parent = _starSystem.transform;
+			_starGameObject.transform.localPosition = new Vector3(0,0,0);   // TODO: Temporary
 			
 			MeshFilter meshFilter         = _starGameObject.AddComponent<MeshFilter>();
 			SphereCollider sphereCollider = _starGameObject.AddComponent<SphereCollider>();
@@ -104,8 +100,10 @@ public class Planets : MonoBehaviour {
 
 				GameObject _planetSystem = new GameObject("Planet System: "+_planet.Name);
 				_planetSystem.transform.parent = _starSystem.transform;
+				_planetSystem.transform.localPosition = new Vector3(0,0,0);   // TODO: Temporary
 				GameObject _planetGameObject = new GameObject("Planet: "+_planet.Name);
 				_planetGameObject.transform.parent = _planetSystem.transform;
+				_planetGameObject.transform.localPosition = new Vector3(0,0,0);   // TODO: Temporary
 				MeshFilter pmeshFilter         = _planetGameObject.AddComponent<MeshFilter>();
 				SphereCollider psphereCollider = _planetGameObject.AddComponent<SphereCollider>();
 				psphereCollider.isTrigger      = false;
@@ -135,8 +133,10 @@ public class Planets : MonoBehaviour {
 
 					GameObject _moonSystem = new GameObject("Moon System: "+_moon.Name);
 					_moonSystem.transform.parent = _planetSystem.transform;
+					_moonSystem.transform.localPosition = new Vector3(0,0,0);   // TODO: Temporary
 					GameObject _moonGameObject = new GameObject("Moon: "+_moon.Name);
 					_moonGameObject.transform.parent = _moonSystem.transform;
+					_moonGameObject.transform.localPosition = new Vector3(0,0,0);   // TODO: Temporary
 					MeshFilter mmeshFilter         = _moonGameObject.AddComponent<MeshFilter>();
 					SphereCollider msphereCollider = _moonGameObject.AddComponent<SphereCollider>();
 					msphereCollider.isTrigger      = false;

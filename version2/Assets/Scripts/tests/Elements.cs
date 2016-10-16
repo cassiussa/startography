@@ -434,25 +434,27 @@ namespace Elements
 			return System.Math.Sqrt(this.x*this.x + this.y*this.y + this.z*this.z);
 		}
 		
-		// Allow direct casting of Type.  Example vector3(Vector3)vector3d
+		// Allow direct casting of Type.
+		// vector3 = (Vector3)vector3d 
 		public static implicit operator Vector3(Vector3d convert) {
 			return new Vector3( (float)convert.x, (float)convert.y, (float)convert.z );
 		}
 		
 		// Scales the Vector3d reference
-		public void ScaledRef(double factor) {
+		// vector3d_a.ScaledRef(factor)
+		public virtual void ScaledRef(double factor) {
 			this.x *= factor;
 			this.y *= factor;
 			this.z *= factor;
 		}
 		
 		// Returns the scaled variable value of the Vector3d as a new Vector3d
-		public static Vector3d ScaledVal(double factor) {
-			Vector3d _vector3d = new Vector3d (factor, factor, factor);
-			return new Vector3d (_vector3d.x*factor, _vector3d.y*factor, _vector3d.z*factor);
+		// vector3d_B = vector3d_A.ScaledVal(factor)
+		public Vector3d ScaledVal(double factor) {
+			return new Vector3d (this.x*factor, this.y*factor, this.z*factor);
 		}
 		
-		// Interpolate to..from over amount.  The parameter 'amount' is clamped to the range [0, 1].
+		// Interpolate between two positions by amount. Parameter 'amount' is clamped to the range [0, 1].
 		// Ex: if amount is 0.5 then we get the Vector3d position that's half-way between first and second
 		public static Vector3d Lerp(Vector3d first, Vector3d second, double amount) {
 			return new Vector3d(first.x * (1.0 - amount) + second.x * amount,

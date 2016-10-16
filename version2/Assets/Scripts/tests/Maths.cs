@@ -251,7 +251,7 @@ namespace CustomMath
 		}
 
 		// Convert from Right Ascension & Declination to XYZ Cartesian coordinates
-		public static Vector3 SphericalToCartesianCoords(double distance, RightAscension rightAscension, Declination declination) {
+		public static Vector3d SphericalToCartesianCoords(double distance, RightAscension rightAscension, Declination declination) {
 			// Verification: http://keisan.casio.com/exec/system/1359534351
 			// Converting to degree (double) values
 			double _rightAscensionDegrees = RightAscensionToDegrees(rightAscension);
@@ -262,7 +262,7 @@ namespace CustomMath
 			double Y = distance * Math.Sin(Maths.Deg2Rad * _declinationDegrees) * Math.Sin(Maths.Deg2Rad * _rightAscensionDegrees);
 			double Z = distance * Math.Cos(Maths.Deg2Rad * _declinationDegrees);
 			Debug.Log ("In double: " + X + ", " + Y + ", " + Z);
-			return new Vector3 ( (float)X, (float)Y, (float)Z );
+			return new Vector3d (X, Y, Z );
 		}
 
 
