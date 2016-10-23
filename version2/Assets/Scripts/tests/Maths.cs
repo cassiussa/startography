@@ -19,9 +19,9 @@ namespace CustomMath
 		 * The following functions will take the current value in
 		 * Element.Value and convert it into the requested
 		 * Element.Measurement type.  For example, it would convert
-		 * 10000 kilometers into 10 megameters if ToMM() was used
+		 * 10000 kilometers into 10 megameters if InMM() was used
 		 * and the original value was in kilometers.  Another example
-		 * would be converting 86400 seconds into 1 day if ToDay()
+		 * would be converting 86400 seconds into 1 day if InDays()
 		 * was used and the original value was in seconds;
 		 * 
 		 * These functions: SET A VALUE
@@ -251,18 +251,16 @@ namespace CustomMath
 		}
 
 		// Convert from Right Ascension & Declination to XYZ Cartesian coordinates
+		// Verification: http://keisan.casio.com/exec/system/1359534351
 		public static Vector3d SphericalToCartesianCoords(double distance, RightAscension rightAscension, Declination declination) {
-			// Verification: http://keisan.casio.com/exec/system/1359534351
 			// Converting to degree (double) values
 			double _rightAscensionDegrees = RightAscensionToDegrees(rightAscension);
 			double _declinationDegrees = DeclinationToDegrees(declination);
-
 			// Convert to cartesian values
-			double X = distance * Math.Sin(Maths.Deg2Rad * _declinationDegrees) * Math.Cos(Maths.Deg2Rad * _rightAscensionDegrees);
-			double Y = distance * Math.Sin(Maths.Deg2Rad * _declinationDegrees) * Math.Sin(Maths.Deg2Rad * _rightAscensionDegrees);
-			double Z = distance * Math.Cos(Maths.Deg2Rad * _declinationDegrees);
-			Debug.Log ("In double: " + X + ", " + Y + ", " + Z);
-			return new Vector3d (X, Y, Z );
+			double _x = distance * Math.Sin(Maths.Deg2Rad * _declinationDegrees) * Math.Cos(Maths.Deg2Rad * _rightAscensionDegrees);
+			double _y = distance * Math.Sin(Maths.Deg2Rad * _declinationDegrees) * Math.Sin(Maths.Deg2Rad * _rightAscensionDegrees);
+			double _z = distance * Math.Cos(Maths.Deg2Rad * _declinationDegrees);
+			return new Vector3d (_x, _y, _z );
 		}
 
 
