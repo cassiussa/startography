@@ -75,11 +75,6 @@ public class CreateSolarSystems : MonoBehaviour {
 			_stars_.value                  = _starSystem;
 			stars.Add (_stars_); // Add to the List of type Star
 
-			// Create the star object
-			GameObject _starGameObject              = new GameObject("Star: "+_star.Name);
-			_starGameObject.transform.parent        = _starSystem.transform;
-			_starGameObject.transform.localPosition = new Vector3(0,0,0);   // TODO: Temporary
-
 			// Generate Planets
 			for (int iteratorB=0; iteratorB < importedData["star"][iteratorA]["planets"].Count; iteratorB++) {
 				Planet _planet          = new Planet();
@@ -88,8 +83,6 @@ public class CreateSolarSystems : MonoBehaviour {
 
 				GameObject _planetSystem           = new GameObject("Planetary System: "+_planet.Name);
 				_star.ChildPlanets.Add (_planetSystem);
-				GameObject _planetGameObject       = new GameObject("Planet: "+_planet.Name);
-				_planetGameObject.transform.parent = _planetSystem.transform; // TODO: Move this into the Start() loop for StarList
 				_planet.ParentStar                 = _starSystem;
 
 				PlanetList _planets_ = new PlanetList();
@@ -105,8 +98,8 @@ public class CreateSolarSystems : MonoBehaviour {
 
 					GameObject _moonSystem           = new GameObject("Moon System: "+_moon.Name);
 					_planet.ChildMoons.Add(_moonSystem);
-					GameObject _moonGameObject       = new GameObject("Moon: "+_moon.Name);
-					_moonGameObject.transform.parent = _moonSystem.transform;
+					/*GameObject _moonGameObject       = new GameObject("Moon: "+_moon.Name);
+					_moonGameObject.transform.parent = _moonSystem.transform;*/
 					_moon.ParentPlanet               = _planetSystem;
 
 					MoonList _moons_ = new MoonList();
@@ -121,37 +114,77 @@ public class CreateSolarSystems : MonoBehaviour {
 	}
 
 	void Start() {
+
+
 		foreach(StarList star in stars) {
-			//GameObject _system = new GameObject("System: "+star.Name);
-			//GameObject _star = new GameObject("Star: "+star.Name);
-			//_star.transform.parent = _system.transform;
-			//star.value.transform.parent    = star.value.
-			star.value.transform.position  = (Vector3)star.positionInSpace;
-			MeshFilter meshFilter          = star.value.AddComponent<MeshFilter>();
-			SphereCollider sphereCollider  = star.value.AddComponent<SphereCollider>();
-			sphereCollider.isTrigger       = false;
-			sphereCollider.radius          = 1f;
-			MeshRenderer meshRenderer      = star.value.AddComponent<MeshRenderer>();
+			// Prepare the solar system parent
+			star.value.transform.position      = (Vector3)star.positionInSpace;
+			// Create the Star object
+			GameObject _starGameObject         = new GameObject("Star: "+star.name);
+			_starGameObject.transform.parent   = star.value.transform;
+			_starGameObject.transform.position = star.value.transform.position;
+			MeshFilter meshFilter              = _starGameObject.AddComponent<MeshFilter>();
+			SphereCollider sphereCollider      = _starGameObject.AddComponent<SphereCollider>();
+			sphereCollider.isTrigger           = false;
+			sphereCollider.radius              = 1f;
+			MeshRenderer meshRenderer          = _starGameObject.AddComponent<MeshRenderer>();
+
+			GameObject _starDistanceColliders           = new GameObject("Star: "+star.name+": Distance Colliders");
+			_starDistanceColliders.transform.parent     = star.value.transform;
+			_starDistanceColliders.transform.position   = star.value.transform.position;
+
+			// Create the first few distance colliders linearly
+			for(int i=1;i<4;i++) {
+				GameObject _starDistanceCol         = new GameObject("Star: "+star.name+": Distance Collider "+(i*3f));
+				_starDistanceCol.transform.parent   = _starDistanceColliders.transform;
+				_starDistanceCol.transform.position = star.value.transform.position;
+				SphereCollider _sphereDistanceCol   = _starDistanceCol.AddComponent<SphereCollider>();
+				_sphereDistanceCol.isTrigger        = true;
+				_sphereDistanceCol.radius           = i*3f;
+			}
+			// Create the remaining distance colliders exponentially
+			float _distanceRadiusFactor = 1f;
+			for(int i=1;i<16;i++) {
+				GameObject _starDistanceCollider         = new GameObject("Star: "+star.name+": Distance Collider "+(10f * Mathf.Exp (i/2f)));
+				_starDistanceCollider.transform.parent   = _starDistanceColliders.transform;
+				_starDistanceCollider.transform.position = star.value.transform.position;
+				SphereCollider _sphereDistanceCollider   = _starDistanceCollider.AddComponent<SphereCollider>();
+				_sphereDistanceCollider.isTrigger        = true;
+				_distanceRadiusFactor                    = 10f * Mathf.Exp (i/2f);
+				_sphereDistanceCollider.radius           = _distanceRadiusFactor;
+			}
 		}
 
+
+
 		foreach (PlanetList planet in planets) {
-			planet.value.transform.parent   = planet.key.ParentStar.transform;
-			planet.value.transform.position = planet.key.ParentStar.transform.position;
-			MeshFilter meshFilter           = planet.value.AddComponent<MeshFilter>();
-			SphereCollider sphereCollider   = planet.value.AddComponent<SphereCollider>();
-			sphereCollider.isTrigger        = false;
-			sphereCollider.radius           = 1f;
-			MeshRenderer meshRenderer       = planet.value.AddComponent<MeshRenderer>();
+			// Prepare the planetary system parent
+			planet.value.transform.parent        = planet.key.ParentStar.transform;
+			planet.value.transform.position      = planet.key.ParentStar.transform.position;
+			// Create the Planet object
+			GameObject _planetGameObject         = new GameObject("Planet: "+planet.name);
+			_planetGameObject.transform.parent   = planet.value.transform;
+			_planetGameObject.transform.position = planet.value.transform.position;
+			MeshFilter meshFilter                = _planetGameObject.AddComponent<MeshFilter>();
+			SphereCollider sphereCollider        = _planetGameObject.AddComponent<SphereCollider>();
+			sphereCollider.isTrigger             = false;
+			sphereCollider.radius                = 1f;
+			MeshRenderer meshRenderer            = _planetGameObject.AddComponent<MeshRenderer>();
 		}
 
 		foreach (MoonList moon in moons) {
-			moon.value.transform.parent     = moon.key.ParentPlanet.transform;
-			moon.value.transform.position   = moon.key.ParentPlanet.transform.position;
-			MeshFilter meshFilter           = moon.value.AddComponent<MeshFilter>();
-			SphereCollider sphereCollider   = moon.value.AddComponent<SphereCollider>();
-			sphereCollider.isTrigger        = false;
-			sphereCollider.radius           = 1f;
-			MeshRenderer meshRenderer       = moon.value.AddComponent<MeshRenderer>();
+			// Prepare the moon system parent
+			moon.value.transform.parent        = moon.key.ParentPlanet.transform;
+			moon.value.transform.position      = moon.key.ParentPlanet.transform.position;
+			// Create the Moon object
+			GameObject _moonGameObject         = new GameObject("Moon: "+moon.name);
+			_moonGameObject.transform.parent   = moon.value.transform;
+			_moonGameObject.transform.position = moon.value.transform.position;
+			MeshFilter meshFilter              = _moonGameObject.AddComponent<MeshFilter>();
+			SphereCollider sphereCollider      = _moonGameObject.AddComponent<SphereCollider>();
+			sphereCollider.isTrigger           = false;
+			sphereCollider.radius              = 1f;
+			MeshRenderer meshRenderer          = _moonGameObject.AddComponent<MeshRenderer>();
 		}
 
 	}
