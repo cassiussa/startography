@@ -226,14 +226,20 @@ namespace Elements
 				else if (measurement == "yottameter")
 					value *= Maths.yottameter;
 
-			/* Size & Radius Conversion */
+			/* Size, Radius & Mass Conversion */
 			} else if(Maths.othersArray.Contains (measurement)) {
-				if (measurement == "radiusOfSun")
+				if (measurement == "stellarRadius")
 					value *= Maths.radiusOfSun;
-				else if (measurement == "radiusOfJupiter")
+				else if(measurement == "stellarMass")
+					value *= Maths.massOfSun;
+				else if (measurement == "jupiterRadius")
 					value *= Maths.radiusOfJupiter;
-				else if (measurement == "radiusOfEarth")
+				else if(measurement == "jupiterMass")
+					value *= Maths.massOfJupiter;
+				else if (measurement == "earthRadius")
 					value *= Maths.radiusOfEarth;
+				else if(measurement == "earthMass")
+					value *= Maths.massOfEarth;
 
 			/* Time Conversion */
 			} else if (Maths.timeArray.Contains (measurement)) {

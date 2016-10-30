@@ -100,25 +100,25 @@ namespace CustomMath
 					_measurement = "millennium";
 				}
 			} else if (othersArray.Contains (_element.Measurement)) {
-				if (_element.Measurement == "radiusOfSun") {
+				if (_element.Measurement == "stellarRadius") {
 					_element.Value *= radiusOfSun;
 					_measurement = "meter";
-				} else if (_element.Measurement == "massOfSun") {
+				} else if (_element.Measurement == "stellarMass") {
 					_element.Value *= massOfSun;
 					_measurement = "kilogram";
 				} else if (_element.Measurement == "luminosityOfSun") {
 					_element.Value *= luminosityOfSun;
 					_measurement = "luminosityOfSun";
-				} else if (_element.Measurement == "radiusOfJupiter") {
+				} else if (_element.Measurement == "jupiterRadius") {
 					_element.Value *= radiusOfJupiter;
 					_measurement = "meter";
-				} else if (_element.Measurement == "massOfJupiter") {
+				} else if (_element.Measurement == "jupiterMass") {
 					_element.Value *= massOfJupiter;
 					_measurement = "kilogram";
-				} else if (_element.Measurement == "radiusOfEarth") {
+				} else if (_element.Measurement == "earthRadius") {
 					_element.Value *= radiusOfEarth;
 					_measurement = "meter";
-				} else if (_element.Measurement == "massOfEarth") {
+				} else if (_element.Measurement == "earthMass") {
 					_element.Value *= massOfEarth;
 					_measurement = "kilogram";
 				}
@@ -255,7 +255,7 @@ namespace CustomMath
 		public const double Deg2Rad = pi/180d;              // Convert from Degrees to Radians, just like Mathf.Deg2Rad
 		public const double Rad2Deg = 180d/pi;              // Convert from Radians to Degrees, just like Mathf.Rad2Deg
 
-		public static string[] othersArray = new string[]{"radiusOfSun", "massOfSun", "luminosityOfSun", "radiusOfJupiter", "massOfJupiter", "radiusOfEarth", "massOfEarth"};
+		public static string[] othersArray = new string[]{"stellarRadius", "stellarMass", "luminosityOfSun", "jupiterRadius", "jupiterMass", "earthRadius", "earthMass"};
 		public const double luminosityOfSun = 3.846e26d;	// watts        Allen's Astrophysical Quantities 4th Ed.
 		public const double massOfSun       = 1.9891e30d;	// kilograms    Allen's Astrophysical Quantities 4th Ed.
 		public const double radiusOfSun     = 6.95508e8d;	// meters       Allen's Astrophysical Quantities 4th Ed.

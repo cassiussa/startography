@@ -131,7 +131,7 @@ public class CreateSolarSystems : MonoBehaviour {
 			_starDistanceColliders.transform.parent     = star.value.transform;
 			_starDistanceColliders.transform.position   = star.value.transform.position;
 
-			Element _starSize = new Element("Radius of the Star", star.key.Radius.Value, "radiusOfSun", 0.0d, "si", "Allen's Astrophysical Quantities 4th Edition", "2016-10-09");
+			Element _starSize = new Element("Radius of the Star", star.key.Radius.Value, "stellarRadius", 0.0d, "si", "Allen's Astrophysical Quantities 4th Edition", "2016-10-09");
 			Debug.Log ("Before: "+_starSize.Name+" "+_starSize.Value+" "+_starSize.Measurement);
 			_starSize.ToGM();
 			Debug.Log ("After: "+_starSize.Name+" "+_starSize.Value+" "+_starSize.Measurement);
