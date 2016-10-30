@@ -2,8 +2,7 @@
 using System.Collections;
 using Elements;
 
-public class CreateElements : MonoBehaviour
-{
+public class CreateElements : MonoBehaviour {
 
 
 
