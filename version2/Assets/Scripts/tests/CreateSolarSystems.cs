@@ -53,7 +53,7 @@ public class CreateSolarSystems : MonoBehaviour {
 			Star _star = new Star ();
 			_star.Mass             = new Element ("Stellar Mass", double.Parse(importedData ["star"] [iteratorA]["stellarMass"]), "Kg", 0.0d, "SI", "StarTography 1.0", "2016-10-10");
 			_star.Radius           = new Element ("Stellar Radius", double.Parse(importedData ["star"] [iteratorA] ["stellarRadius"]), "meter", 0.0d, "SI", "StarTography 1.0", "2016-10-10");
-			_star.Radius.Value    *= 100d; // An example of how to multiply by Stellar Radii
+			//_star.Radius.Value    *= 100d; // An example of how to multiply by Stellar Radii
 			_star.DateLastUpdated  = importedData ["star"] [iteratorA] ["dateLastUpdate"];
 			_star.Name             = importedData ["star"] [iteratorA] ["name"];
 			_star.RightAscension   = importedData ["star"] [iteratorA] ["rightAscension"];
@@ -130,10 +130,15 @@ public class CreateSolarSystems : MonoBehaviour {
 			GameObject _starDistanceColliders           = new GameObject("Star: "+star.name+": Distance Colliders");
 			_starDistanceColliders.transform.parent     = star.value.transform;
 			_starDistanceColliders.transform.position   = star.value.transform.position;
-			Element _starSize = new Element("Radius of the Star", star.key.Radius.Value, "stellarRadius", 0.00026e8d, "si", "Allen's Astrophysical Quantities 4th Edition", "2016-10-09");
-			star.key.Radius.ToM();
-			_starDistanceColliders.transform.localScale = new Vector3d(star.key.Radius.Value, star.key.Radius.Value, star.key.Radius.Value);
-			_starGameObject.transform.localScale = new Vector3d(star.key.Radius.Value, star.key.Radius.Value, star.key.Radius.Value);
+
+			Element _starSize = new Element("Radius of the Star", star.key.Radius.Value, "radiusOfSun", 0.0d, "si", "Allen's Astrophysical Quantities 4th Edition", "2016-10-09");
+			Debug.Log ("Before: "+_starSize.Name+" "+_starSize.Value+" "+_starSize.Measurement);
+			_starSize.ToGM();
+			Debug.Log ("After: "+_starSize.Name+" "+_starSize.Value+" "+_starSize.Measurement);
+
+			//star.key.Radius.ToM();
+			_starDistanceColliders.transform.localScale = new Vector3d(_starSize.Value, _starSize.Value, _starSize.Value);
+			_starGameObject.transform.localScale = new Vector3d(_starSize.Value, _starSize.Value, _starSize.Value);
 
 			// Create the first few distance colliders linearly
 			float colliderRadiusScale = 0f;

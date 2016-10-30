@@ -100,16 +100,34 @@ namespace CustomMath
 					_measurement = "millennium";
 				}
 			} else if (othersArray.Contains (_element.Measurement)) {
-				if (_element.Measurement == "stellarRadius") {
-					_element.Value *= stellarRadius;
-					_measurement = "stellarRadius";
+				if (_element.Measurement == "radiusOfSun") {
+					_element.Value *= radiusOfSun;
+					_measurement = "meter";
+				} else if (_element.Measurement == "massOfSun") {
+					_element.Value *= massOfSun;
+					_measurement = "kilogram";
+				} else if (_element.Measurement == "luminosityOfSun") {
+					_element.Value *= luminosityOfSun;
+					_measurement = "luminosityOfSun";
+				} else if (_element.Measurement == "radiusOfJupiter") {
+					_element.Value *= radiusOfJupiter;
+					_measurement = "meter";
+				} else if (_element.Measurement == "massOfJupiter") {
+					_element.Value *= massOfJupiter;
+					_measurement = "kilogram";
+				} else if (_element.Measurement == "radiusOfEarth") {
+					_element.Value *= radiusOfEarth;
+					_measurement = "meter";
+				} else if (_element.Measurement == "massOfEarth") {
+					_element.Value *= massOfEarth;
+					_measurement = "kilogram";
 				}
 			}
 			_element.Measurement = _measurement;
 			return _element;
 		}
 
-		/* Distance Measurement Conversions */
+		/* Distance, Size, & Radius Measurement Conversions */
 		public static double InM(Element element) {
 			return new Element(GetMeasurementIn(element)).Value / meter;
 		}
@@ -204,8 +222,6 @@ namespace CustomMath
 		public const double zetameter    = 1000000000000000000000d;
 		public const double yottameter   = 1000000000000000000000000d;
 
-		public static string[] othersArray = new string[]{"stellarRadius"};
-		public const double stellarRadius = 6.95508e8d;
 
 		/*
 		 * TODO: Come back and put in real values for these
@@ -238,7 +254,8 @@ namespace CustomMath
 		public const double pi = 3.14159265358979323846d;   // Pi to a high degree of accuracy
 		public const double Deg2Rad = pi/180d;              // Convert from Degrees to Radians, just like Mathf.Deg2Rad
 		public const double Rad2Deg = 180d/pi;              // Convert from Radians to Degrees, just like Mathf.Rad2Deg
-		
+
+		public static string[] othersArray = new string[]{"radiusOfSun", "massOfSun", "luminosityOfSun", "radiusOfJupiter", "massOfJupiter", "radiusOfEarth", "massOfEarth"};
 		public const double luminosityOfSun = 3.846e26d;	// watts        Allen's Astrophysical Quantities 4th Ed.
 		public const double massOfSun       = 1.9891e30d;	// kilograms    Allen's Astrophysical Quantities 4th Ed.
 		public const double radiusOfSun     = 6.95508e8d;	// meters       Allen's Astrophysical Quantities 4th Ed.

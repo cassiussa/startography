@@ -223,6 +223,18 @@ namespace Elements
 					value *= Maths.zetameter;
 				else if (measurement == "yottameter")
 					value *= Maths.yottameter;
+				else if (measurement == "yottameter")
+					value *= Maths.yottameter;
+
+			/* Size & Radius Conversion */
+			} else if(Maths.othersArray.Contains (measurement)) {
+				if (measurement == "radiusOfSun")
+					value *= Maths.radiusOfSun;
+				else if (measurement == "radiusOfJupiter")
+					value *= Maths.radiusOfJupiter;
+				else if (measurement == "radiusOfEarth")
+					value *= Maths.radiusOfEarth;
+
 			/* Time Conversion */
 			} else if (Maths.timeArray.Contains (measurement)) {
 				if (measurement == "millisecond")
