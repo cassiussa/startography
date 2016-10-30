@@ -148,13 +148,16 @@ public class CreateSolarSystems : MonoBehaviour {
 				else
 					colliderRadiusScale = 10f * Mathf.Exp ((i-3)/2f);
 
-				GameObject _starDistanceCollider         = new GameObject("Star: "+star.name+": Distance Collider "+colliderRadiusScale);
-				_starDistanceCollider.transform.parent   = _starDistanceColliders.transform;
-				_starDistanceCollider.transform.position = star.value.transform.position;
+				GameObject _starDistanceCollider           = new GameObject("Star: "+star.name+": Distance Collider "+i);
+				_starDistanceCollider.layer                = i+7;
+				_starDistanceCollider.transform.parent     = _starDistanceColliders.transform;
+				_starDistanceCollider.transform.position   = star.value.transform.position;
 				_starDistanceCollider.transform.localScale = new Vector3(1f,1f,1f);
-				SphereCollider _sphereDistanceCollider   = _starDistanceCollider.AddComponent<SphereCollider>();
-				_sphereDistanceCollider.isTrigger        = true;
-				_sphereDistanceCollider.radius           = colliderRadiusScale;
+				Rigidbody _sphereRigidbody                 = _starDistanceCollider.AddComponent<Rigidbody>();
+				_sphereRigidbody.useGravity                = false;
+				SphereCollider _sphereDistanceCollider     = _starDistanceCollider.AddComponent<SphereCollider>();
+				_sphereDistanceCollider.isTrigger          = true;
+				_sphereDistanceCollider.radius             = colliderRadiusScale;
 			}
 		}
 
