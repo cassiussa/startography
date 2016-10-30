@@ -14,7 +14,7 @@ public class CreateElements : MonoBehaviour
 	Element massOfSun = new Element("Mass of the Sun", 1.9891e30d, "kilograms", 0.00005e30d, "si", "Allen's Astrophysical Quantities 4th Edition", "2016-10-09");
 
 	// Equatorial radius of the Sun
-	Element radiusOfSun = new Element("Radius of the Sun", 6.95508e8d, "meters", 0.00026e8d, "si", "Allen's Astrophysical Quantities 4th Edition", "2016-10-09");
+	Element radiusOfSun = new Element("Radius of the Sun", 1d, "stellarRadius", 0.00026e8d, "si", "Allen's Astrophysical Quantities 4th Edition", "2016-10-09");
 
 	// Luminosity of the Sun
 	Element luminosityOfSun = new Element ("Luminosity of the Sun", 3.846e26d, "watts", 0.0005e26d, "si", "Allen's Astrophysical Quantities 4th Edition", "2016-10-09");

@@ -36,7 +36,7 @@ namespace CustomMath
 			string _measurement = "";
 
 			/* Distance Conversion */
-			if(distanceArray.Contains(_element.Measurement)) {
+			if (distanceArray.Contains (_element.Measurement)) {
 				if (_element.Measurement == "meter") {
 					_element.Value *= meter;
 					_measurement = "meter";
@@ -66,8 +66,8 @@ namespace CustomMath
 					_measurement = "yottameter";
 				}
 
-			/* Time Conversion */
-			} else if(timeArray.Contains(_element.Measurement)) {
+				/* Time Conversion */
+			} else if (timeArray.Contains (_element.Measurement)) {
 				if (_element.Measurement == "millisecond") {
 					_element.Value *= millisecond;
 					_measurement = "millisecond";
@@ -99,8 +99,12 @@ namespace CustomMath
 					_element.Value *= millennium;
 					_measurement = "millennium";
 				}
+			} else if (othersArray.Contains (_element.Measurement)) {
+				if (_element.Measurement == "stellarRadius") {
+					_element.Value *= stellarRadius;
+					_measurement = "stellarRadius";
+				}
 			}
-
 			_element.Measurement = _measurement;
 			return _element;
 		}
@@ -199,6 +203,9 @@ namespace CustomMath
 		public const double exameter     = 1000000000000000000d;
 		public const double zetameter    = 1000000000000000000000d;
 		public const double yottameter   = 1000000000000000000000000d;
+
+		public static string[] othersArray = new string[]{"stellarRadius"};
+		public const double stellarRadius = 6.95508e8d;
 
 		/*
 		 * TODO: Come back and put in real values for these
