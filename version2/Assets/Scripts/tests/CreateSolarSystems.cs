@@ -48,6 +48,7 @@ public class CreateSolarSystems : MonoBehaviour {
 		
 		importedData = JSON.Parse(JSONData); // Parse the data into a formatted string variable
 
+
 		// Generate Stars
 		for (int iteratorA=0; iteratorA < importedData["star"].Count; iteratorA++) {
 			Star _star = new Star ();
