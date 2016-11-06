@@ -10,9 +10,11 @@ using CustomMath;
 
 public class CreateCameras : MonoBehaviour {
 
+	int camDepth = 20;
 	void Awake () {
 		for (int i=1; i<19; i++) {
 			Camera cam = new GameObject().AddComponent<Camera>();
+			cam.depth = camDepth - i;
 			cam.transform.parent = transform;
 			cam.transform.position = new Vector3(0f,0f,0f);
 			cam.name = "Camera "+i;
@@ -30,6 +32,8 @@ public class CreateCameras : MonoBehaviour {
 			SphereCollider _cameraCollider = cam.gameObject.AddComponent<SphereCollider>();
 			_cameraCollider.isTrigger = true;
 			//_cameraCollider.radius = 0.0144f;
+
+			Debug.Log (cam.depth);
 		}
 	}
 

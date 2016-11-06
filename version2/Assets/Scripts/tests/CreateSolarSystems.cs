@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Elements;
@@ -76,6 +77,21 @@ public class CreateSolarSystems : MonoBehaviour {
 			_stars_.value                  = _starSystem;
 			stars.Add (_stars_); // Add to the List of type Star
 
+			/* TODO: Change this FMS later.
+			 * Check to see if this star is within the allowable
+			 * viewing area.  If not, move it up a Layer until
+			 * it is.
+			 */
+
+			/* We'll add the SystemScaleState file here and we can pass
+			 * in the data that it'll need directly
+			 */
+			SystemScaleState systemScaleState = _starSystem.AddComponent<SystemScaleState>();
+			systemScaleState.starList = _stars_;
+			systemScaleState.Begin();
+
+
+
 			// Generate Planets
 			for (int iteratorB=0; iteratorB < importedData["star"][iteratorA]["planets"].Count; iteratorB++) {
 				Planet _planet          = new Planet();
@@ -150,7 +166,6 @@ public class CreateSolarSystems : MonoBehaviour {
 					colliderRadiusScale = 10f * Mathf.Exp ((i-3)/2f);
 
 				GameObject _starDistanceCollider           = new GameObject("Star: "+star.name+": Distance Collider "+i);
-				_starDistanceCollider.layer                = i+7;
 				_starDistanceCollider.transform.parent     = _starDistanceColliders.transform;
 				_starDistanceCollider.transform.position   = star.value.transform.position;
 				_starDistanceCollider.transform.localScale = new Vector3(1f,1f,1f);
