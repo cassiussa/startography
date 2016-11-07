@@ -6,7 +6,7 @@
             "name" : "Sun",
             "rightAscension" : "12h20m43.03s",
             "declination" : "+17d47m34.3s",
-            "distance" : 110.62,
+            "distance" : 9999999000,
             "opticalMagnitude" : 4.740,
             "temperature" : 4742,
             "stellarMass" : 2.7,
