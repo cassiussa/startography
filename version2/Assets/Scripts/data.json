@@ -3,14 +3,14 @@
     "star" : [
         {
             "id" : 1,
-            "name" : "Sun",
+            "name" : "Earth",
             "rightAscension" : "12h20m43.03s",
             "declination" : "+17d47m34.3s",
             "distance" : 9999999000,
             "opticalMagnitude" : 4.740,
             "temperature" : 4742,
             "stellarMass" : 2.7,
-            "stellarRadius" : 1,
+            "stellarRadius" : 0.00917046053192,
             "dateLastUpdate" : "2014-05-14",
             "planets" : [
                 {
@@ -66,6 +66,20 @@
                     ]
                 }
             ]
+        },
+        
+        {
+            "id" : 1,
+            "name" : "UY Scuti",
+            "rightAscension" : "12h20m43.03s",
+            "declination" : "+17d47m34.3s",
+            "distance" : 9999999000,
+            "opticalMagnitude" : 4.740,
+            "temperature" : 4742,
+            "stellarMass" : 2.7,
+            "stellarRadius" : 2439.73463460419192,
+            "dateLastUpdate" : "2016-11-11",
+            "planets" : []
         },
         
         {

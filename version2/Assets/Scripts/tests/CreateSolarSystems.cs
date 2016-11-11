@@ -53,16 +53,16 @@ public class CreateSolarSystems : MonoBehaviour {
 		// Generate Stars
 		for (int iteratorA=0; iteratorA < importedData["star"].Count; iteratorA++) {
 			Star _star = new Star ();
-			_star.Mass             = new Element ("Stellar Mass", double.Parse(importedData ["star"] [iteratorA]["stellarMass"]), "Kg", 0.0d, "SI", "StarTography 1.0", "2016-10-10");
-			_star.Radius           = new Element ("Stellar Radius", double.Parse(importedData ["star"] [iteratorA] ["stellarRadius"]), "meter", 0.0d, "SI", "StarTography 1.0", "2016-10-10");
-			//_star.Radius.Value    *= 100d; // An example of how to multiply by Stellar Radii
 			_star.DateLastUpdated  = importedData ["star"] [iteratorA] ["dateLastUpdate"];
 			_star.Name             = importedData ["star"] [iteratorA] ["name"];
 			_star.RightAscension   = importedData ["star"] [iteratorA] ["rightAscension"];
 			_star.Declination      = importedData ["star"] [iteratorA] ["declination"];
-			_star.Distance         = new Element("Distance", double.Parse(importedData ["star"] [iteratorA] ["distance"]), "meter", 0.0d, "SI", "StarTography 1.0", "2016-10-10");
-			_star.Luminosity       = new Element("Optical Magnitude", double.Parse(importedData ["star"] [iteratorA] ["opticalMagnitude"]), "lum", 0.0d, "SI", "StarTography 1.0", "2016-10-10");
-			_star.Temperature      = new Element("Temperature", double.Parse(importedData ["star"] [iteratorA] ["temperature"]), "celcius", 0.0d, "SI", "StarTography 1.0", "2016-10-10");
+			_star.Mass             = new Element ("Stellar Mass", double.Parse(importedData ["star"] [iteratorA]["stellarMass"]), "Kg", 0.0d, "SI", "StarTography 1.0", _star.DateLastUpdated);
+			_star.Radius           = new Element ("Stellar Radius", double.Parse(importedData ["star"] [iteratorA] ["stellarRadius"]), "meter", 0.0d, "SI", "StarTography 1.0", _star.DateLastUpdated);
+			//_star.Radius.Value    *= 100d; // An example of how to multiply by Stellar Radii
+			_star.Distance         = new Element("Distance", double.Parse(importedData ["star"] [iteratorA] ["distance"]), "meter", 0.0d, "SI", "StarTography 1.0", _star.DateLastUpdated);
+			_star.Luminosity       = new Element("Optical Magnitude", double.Parse(importedData ["star"] [iteratorA] ["opticalMagnitude"]), "lum", 0.0d, "SI", "StarTography 1.0", _star.DateLastUpdated);
+			_star.Temperature      = new Element("Temperature", double.Parse(importedData ["star"] [iteratorA] ["temperature"]), "celcius", 0.0d, "SI", "StarTography 1.0", _star.DateLastUpdated);
 
 			_star.Distance.ToM();
 
@@ -148,9 +148,9 @@ public class CreateSolarSystems : MonoBehaviour {
 			_starDistanceColliders.transform.parent     = star.value.transform;
 			_starDistanceColliders.transform.position   = star.value.transform.position;
 
-			Element _starSize = new Element("Radius of the Star", star.key.Radius.Value, "stellarRadius", 0.0d, "si", "Allen's Astrophysical Quantities 4th Edition", "2016-10-09");
+			Element _starSize = new Element("Radius of the Star", star.key.Radius.Value, "stellarRadius", 0.0d, "si", "Allen's Astrophysical Quantities 4th Edition", star.key.DateLastUpdated);
 			Debug.Log ("Before: "+_starSize.Name+" "+_starSize.Value+" "+_starSize.Measurement);
-			_starSize.ToGM();
+			_starSize.ToMM();  // To go to actual size instead of Base Units, we would do ToGM()
 			Debug.Log ("After: "+_starSize.Name+" "+_starSize.Value+" "+_starSize.Measurement);
 
 			//star.key.Radius.ToM();

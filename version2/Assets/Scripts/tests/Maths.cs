@@ -213,6 +213,7 @@ namespace CustomMath
 		 */
 		public static string[] distanceArray = new string[]{"meter", "kilometer", "megameter", "gigameter", "terameter", "petameter", "exameter", "zetameter", "yottameter"};
 		public const double meter        = 1d;
+		public const double layer1       = 0.001d;
 		public const double kilometer    = 1000d;
 		public const double megameter    = 1000000d;
 		public const double gigameter    = 1000000000d;
@@ -263,6 +264,8 @@ namespace CustomMath
 		public const double radiusOfJupiter = 7.1492e7d;	// meters       Allen's Astrophysical Quantities 4th Ed.
 		public const double massOfEarth     = 5.9742e24d;	// kilograms    Allen's Astrophysical Quantities 4th Ed.
 		public const double radiusOfEarth   = 6.378136e6d;	// meters       Allen's Astrophysical Quantities 4th Ed.
+		//695508800
+		//6378136
 
 		public const double speedOfLight    = 299792458d;   // meters per second
 
@@ -280,10 +283,12 @@ namespace CustomMath
 			// Converting to degree (double) values
 			double _rightAscensionDegrees = RightAscensionToDegrees(rightAscension);
 			double _declinationDegrees = DeclinationToDegrees(declination);
+
 			// Convert to cartesian values
-			double _x = distance * Math.Sin(Maths.Deg2Rad * _declinationDegrees) * Math.Cos(Maths.Deg2Rad * _rightAscensionDegrees);
-			double _y = distance * Math.Sin(Maths.Deg2Rad * _declinationDegrees) * Math.Sin(Maths.Deg2Rad * _rightAscensionDegrees);
-			double _z = distance * Math.Cos(Maths.Deg2Rad * _declinationDegrees);
+			// We divide by megameter so we have the base conversion.  Ex: 13,000,000meter = 13u
+			double _x = (distance/megameter) * Math.Sin(Maths.Deg2Rad * _declinationDegrees) * Math.Cos(Maths.Deg2Rad * _rightAscensionDegrees);
+			double _y = (distance/megameter) * Math.Sin(Maths.Deg2Rad * _declinationDegrees) * Math.Sin(Maths.Deg2Rad * _rightAscensionDegrees);
+			double _z = (distance/megameter) * Math.Cos(Maths.Deg2Rad * _declinationDegrees);
 			return new Vector3d (_x, _y, _z );
 		}
 
