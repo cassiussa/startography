@@ -24,14 +24,14 @@ public static class MakeLayers {
 					it.stringValue = "Camera Layer "+(a-7);
 				}
 			}
+		}
 
-			for(int i=0;i<32;i++) {
-				for(int b=0;b<32;b++) {
-					if(b != i && b != 0)
-						Physics.IgnoreLayerCollision (b, i, true);//Physics.GetIgnoreLayerCollision (b,i));
-					else if (b == 0)
-						Physics.IgnoreLayerCollision (b, i, false);
-				}
+		for(int i=0;i<32;i++) {
+			for(int b=0;b<32;b++) {
+				if(b != i && b != 0)
+					Physics.IgnoreLayerCollision (b, i, true);//Physics.GetIgnoreLayerCollision (b,i));
+				else if (b == 0)
+					Physics.IgnoreLayerCollision (b, i, false);
 			}
 		}
 		tagManager.ApplyModifiedProperties();

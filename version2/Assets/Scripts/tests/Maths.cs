@@ -267,7 +267,7 @@ namespace CustomMath
 
 
 		public static double RightAscensionToDegrees(RightAscension rightAscension) {
-			return (rightAscension.Hours * 15d) + (rightAscension.Minutes * 0.25d) + (rightAscension.Seconds * 0.004166d);
+			return (rightAscension.Hours * 15d) + (rightAscension.Minutes * 0.25d) + (rightAscension.Seconds * (1d / 240d));
 		}
 		public static double DeclinationToDegrees(Declination declination) {
 			return (Math.Abs (declination.Degrees) + (declination.DegreeMinutes / 60d) + (declination.DegreeSeconds / 3600d)) * Math.Sign (declination.Degrees);
@@ -282,9 +282,9 @@ namespace CustomMath
 
 			// Convert to cartesian values
 			// We divide by megameter so we have the base conversion.  Ex: 13,000,000meter = 13u
-			double _x = (distance/megameter) * Math.Sin(Maths.Deg2Rad * _declinationDegrees) * Math.Cos(Maths.Deg2Rad * _rightAscensionDegrees);
-			double _y = (distance/megameter) * Math.Sin(Maths.Deg2Rad * _declinationDegrees) * Math.Sin(Maths.Deg2Rad * _rightAscensionDegrees);
-			double _z = (distance/megameter) * Math.Cos(Maths.Deg2Rad * _declinationDegrees);
+			double _x = (distance/megameter) * Math.Cos(Maths.Deg2Rad * _declinationDegrees) * Math.Cos(Maths.Deg2Rad * _rightAscensionDegrees);
+			double _y = (distance/megameter) * Math.Cos(Maths.Deg2Rad * _declinationDegrees) * Math.Sin(Maths.Deg2Rad * _rightAscensionDegrees);
+			double _z = (distance/megameter) * Math.Sin(Maths.Deg2Rad * _declinationDegrees);
 			return new Vector3d (_x, _y, _z );
 		}
 

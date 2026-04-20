@@ -37,29 +37,29 @@ namespace Elements
 			 * '00:42.5'
 			 * '00 42 30'
 		 	 */
-			string[] _words = new string[] { "" };
-			double[] _values = new double[4];
+			string cleaned = HourMinSec.Trim().ToLowerInvariant();
+			cleaned = cleaned.Replace("h", " ").Replace("m", " ").Replace("s", " ").Replace(":", " ");
+			string[] parts = cleaned.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
 
-			if (HourMinSec.Split (new char[] { 'h', 'm', 's' }).Length == 4) {
-				_words = HourMinSec.Split (new char[] { 'h', 'm', 's' });
-			} else if(HourMinSec.Split (new char[] { 'h', '.', 'm' }).Length == 4) {
-				_words = HourMinSec.Split (new char[] { 'h', '.', 'm' });
-				_words[2] = ((Convert.ToDouble(_words[2], CultureInfo.InvariantCulture)/10) * 60).ToString(CultureInfo.InvariantCulture);  // Convert fraction of minute to seconds
-			} else if(HourMinSec.Split (new char[] { ':', '.' }).Length == 3) {
-				_words = HourMinSec.Split (new char[] { ':', '.' });
-				_words[2] = ((Convert.ToDouble(_words[2], CultureInfo.InvariantCulture)/10) * 60).ToString(CultureInfo.InvariantCulture);  // Convert fraction of minute to seconds
-			} else if(HourMinSec.Split (new char[] { ' ' }).Length == 3) {
-				_words = HourMinSec.Split (new char[] { ' ' });
+			double hours = 0d;
+			double minutes = 0d;
+			double seconds = 0d;
+
+			if (parts.Length > 0)
+				hours = Convert.ToDouble(parts[0], CultureInfo.InvariantCulture);
+
+			if (parts.Length > 1) {
+				double minuteValue = Convert.ToDouble(parts[1], CultureInfo.InvariantCulture);
+				minutes = Math.Truncate(minuteValue);
+				seconds += Math.Abs(minuteValue - minutes) * 60d;
 			}
 
-			for (int i=0; i<_words.Length; i++) {
-				if(_words[i] != "")
-					_values [i] = Convert.ToDouble (_words [i], CultureInfo.InvariantCulture);
-			}
+			if (parts.Length > 2)
+				seconds += Convert.ToDouble(parts[2], CultureInfo.InvariantCulture);
 
-			this.Hours = _values[0];
-			this.Minutes = _values[1];
-			this.Seconds = _values[2];
+			this.Hours = hours;
+			this.Minutes = minutes;
+			this.Seconds = seconds;
 		}
 	}
 	
@@ -91,30 +91,31 @@ namespace Elements
 			 * '+41:12'
 			 * '+41 12 00'
 		 	 */
-			string[] _words = new string[] { "" };
-			double[] _values = new double[3];
-			
-			if (Deg_DegMin_DegSec.Split (new char[] {'+','d','m','s'} ).Length == 5) {
-				_words = Deg_DegMin_DegSec.Split (new char[] {'+','d','m','s'} );
-			} else if(Deg_DegMin_DegSec.Split (new char[] {'+','d','m'} ).Length == 4) {
-				_words = Deg_DegMin_DegSec.Split (new char[] {'+','d','m'} );
-			} else if(Deg_DegMin_DegSec.Split (new char[] {'+',':'} ).Length == 3) {
-				_words = Deg_DegMin_DegSec.Split (new char[] {'+',':'} );
-			} else if(Deg_DegMin_DegSec.Split (new char[] {'+',' '} ).Length == 4) {
-				_words = Deg_DegMin_DegSec.Split (new char[] {'+',' '} );
+			string cleaned = Deg_DegMin_DegSec.Trim().ToLowerInvariant();
+			int sign = cleaned.StartsWith("-") ? -1 : 1;
+			cleaned = cleaned.TrimStart('+', '-');
+			cleaned = cleaned.Replace("d", " ").Replace("m", " ").Replace("s", " ").Replace(":", " ");
+			string[] parts = cleaned.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+
+			double degrees = 0d;
+			double degreeMinutes = 0d;
+			double degreeSeconds = 0d;
+
+			if (parts.Length > 0)
+				degrees = Convert.ToDouble(parts[0], CultureInfo.InvariantCulture);
+
+			if (parts.Length > 1) {
+				double minuteValue = Convert.ToDouble(parts[1], CultureInfo.InvariantCulture);
+				degreeMinutes = Math.Truncate(minuteValue);
+				degreeSeconds += Math.Abs(minuteValue - degreeMinutes) * 60d;
 			}
 
-			int b = 0;
-			for (int i=0; i<_words.Length; i++) {
-				if(_words[i] != "" && _words[i] != " " && _words[i] != null) {  // Check that it's not an empty value
-					_values[b] = Convert.ToDouble (_words [i], CultureInfo.InvariantCulture);                 // Convert to a double and add to the array
-					b++;
-				}
-			}
+			if (parts.Length > 2)
+				degreeSeconds += Convert.ToDouble(parts[2], CultureInfo.InvariantCulture);
 			
-			this.Degrees = _values[0];
-			this.DegreeMinutes = _values[1];
-			this.DegreeSeconds = _values[2];
+			this.Degrees = sign * Math.Abs(degrees);
+			this.DegreeMinutes = degreeMinutes;
+			this.DegreeSeconds = degreeSeconds;
 		}
 	}
 
@@ -224,8 +225,6 @@ namespace Elements
 					value *= Maths.zetameter;
 				else if (measurement == "yottameter")
 					value *= Maths.yottameter;
-				else if (measurement == "yottameter")
-					value *= Maths.yottameter;
 
 			/* Size, Radius & Mass Conversion */
 			} else if(Maths.othersArray.Contains (measurement)) {
@@ -252,13 +251,13 @@ namespace Elements
 					value *= Maths.second;
 				else if (measurement == "minute")
 					value *= Maths.minute;
-				else if (measurement == "sidrealMinute")
+				else if (measurement == "sidrealMinute" || measurement == "siderealMinute")
 					value *= Maths.siderealMinute;
 				else if (measurement == "hour")
 					value *= Maths.hour;
 				else if (measurement == "day")
 					value *= Maths.day;
-				else if (measurement == "sidrealDay")
+				else if (measurement == "sidrealDay" || measurement == "siderealDay")
 					value *= Maths.siderealDay;
 				else if (measurement == "year")
 					value *= Maths.year;
@@ -440,12 +439,16 @@ namespace Elements
 
 		// Comparison of two Vector3d variables. Checks their values instead of checking if it's the same reference
 		public static bool operator == (Vector3d first, Vector3d second) {
+			if (ReferenceEquals(first, second))
+				return true;
+			if (ReferenceEquals(first, null) || ReferenceEquals(second, null))
+				return false;
 			return (first.x == second.x && first.y == second.y && first.z == second.z);
 		}
 		
 		// Comparison of two Vector3d variables.  Checks their values instead of checking if it's the same reference
 		public static bool operator !=(Vector3d first, Vector3d second) {
-			return (first.x != second.x || first.y != second.y || first.z != second.z);
+			return !(first == second);
 		}
 
 		// Calculate the length of the Vector3d variable (from 0,0,0)
@@ -455,7 +458,8 @@ namespace Elements
 		
 
 		public override bool Equals(object obj) {
-			if (obj is not Vector3d other)
+			Vector3d other = obj as Vector3d;
+			if (ReferenceEquals(other, null))
 				return false;
 
 			return this == other;
