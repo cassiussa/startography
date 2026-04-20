@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System;
 using System.Collections;
+using System.Globalization;
 using CustomMath;
 using System.Linq;
 
@@ -43,17 +44,17 @@ namespace Elements
 				_words = HourMinSec.Split (new char[] { 'h', 'm', 's' });
 			} else if(HourMinSec.Split (new char[] { 'h', '.', 'm' }).Length == 4) {
 				_words = HourMinSec.Split (new char[] { 'h', '.', 'm' });
-				_words[2] = ((Convert.ToDouble(_words[2])/10) * 60).ToString();  // Convert fraction of minute to seconds
+				_words[2] = ((Convert.ToDouble(_words[2], CultureInfo.InvariantCulture)/10) * 60).ToString(CultureInfo.InvariantCulture);  // Convert fraction of minute to seconds
 			} else if(HourMinSec.Split (new char[] { ':', '.' }).Length == 3) {
 				_words = HourMinSec.Split (new char[] { ':', '.' });
-				_words[2] = ((Convert.ToDouble(_words[2])/10) * 60).ToString();  // Convert fraction of minute to seconds
+				_words[2] = ((Convert.ToDouble(_words[2], CultureInfo.InvariantCulture)/10) * 60).ToString(CultureInfo.InvariantCulture);  // Convert fraction of minute to seconds
 			} else if(HourMinSec.Split (new char[] { ' ' }).Length == 3) {
 				_words = HourMinSec.Split (new char[] { ' ' });
 			}
 
 			for (int i=0; i<_words.Length; i++) {
 				if(_words[i] != "")
-					_values [i] = Convert.ToDouble (_words [i]);
+					_values [i] = Convert.ToDouble (_words [i], CultureInfo.InvariantCulture);
 			}
 
 			this.Hours = _values[0];
@@ -106,7 +107,7 @@ namespace Elements
 			int b = 0;
 			for (int i=0; i<_words.Length; i++) {
 				if(_words[i] != "" && _words[i] != " " && _words[i] != null) {  // Check that it's not an empty value
-					_values[b] = Convert.ToDouble (_words [i]);                 // Convert to a double and add to the array
+					_values[b] = Convert.ToDouble (_words [i], CultureInfo.InvariantCulture);                 // Convert to a double and add to the array
 					b++;
 				}
 			}
@@ -452,6 +453,18 @@ namespace Elements
 			return System.Math.Sqrt(this.x*this.x + this.y*this.y + this.z*this.z);
 		}
 		
+
+		public override bool Equals(object obj) {
+			if (obj is not Vector3d other)
+				return false;
+
+			return this == other;
+		}
+
+		public override int GetHashCode() {
+			return HashCode.Combine(x, y, z);
+		}
+
 		// Allow direct casting of Type.
 		// vector3 = (Vector3)vector3d 
 		public static implicit operator Vector3(Vector3d convert) {

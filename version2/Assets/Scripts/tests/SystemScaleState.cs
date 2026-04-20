@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using CustomMath;
 
+[DisallowMultipleComponent]
 public class SystemScaleState : MonoBehaviour {
 
 	public enum State { ScaleNull, ScaleLayer1, ScaleLayer2, ScaleLayer3, ScaleLayer4, ScaleLayer5, ScaleLayer6, ScaleLayer7, ScaleLayer8, ScaleLayer9, ScaleLayer10, ScaleLayer11, ScaleLayer12, ScaleLayer13, ScaleLayer14, ScaleLayer15, ScaleLayer16, ScaleLayer17, ScaleLayer18 }

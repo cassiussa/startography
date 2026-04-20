@@ -1,15 +1,11 @@
 ﻿using UnityEngine;
 using System;
-using System.Collections;
 using Elements;
-using BodyElements;
 using System.Linq;
 
 namespace CustomMath
 {
-	
-	[System.Serializable] // Show it in the Inspector
-	public class Maths
+	public static class Maths
 	{
 		
 		/************************************************************

@@ -1,13 +1,12 @@
 ﻿using UnityEngine;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using Elements;
-using SimpleJSON;
+using System.Globalization;
 using BodyElements;
-using ImportData;
-using System.IO;
 using CustomMath;
+using Elements;
+using ImportData;
+using SimpleJSON;
 
 
 [System.Serializable]
@@ -34,6 +33,7 @@ public class MoonList {
 	
 }
 
+[DisallowMultipleComponent]
 public class CreateSolarSystems : MonoBehaviour {
 	
 	public List<StarList> stars = new List<StarList>();
@@ -44,8 +44,7 @@ public class CreateSolarSystems : MonoBehaviour {
 	string JSONData;    // Holds the data.json file data
 
 	void Awake () {
-		JSONData = Data.data.ReadToEnd (); // Read from the data.json file
-		Data.data.Close ();
+		JSONData = Data.LoadJson(); // Read from the data.json file
 		
 		importedData = JSON.Parse(JSONData); // Parse the data into a formatted string variable
 
@@ -57,12 +56,12 @@ public class CreateSolarSystems : MonoBehaviour {
 			_star.Name             = importedData ["star"] [iteratorA] ["name"];
 			_star.RightAscension   = importedData ["star"] [iteratorA] ["rightAscension"];
 			_star.Declination      = importedData ["star"] [iteratorA] ["declination"];
-			_star.Mass             = new Element ("Stellar Mass", double.Parse(importedData ["star"] [iteratorA]["stellarMass"]), "Kg", 0.0d, "SI", "StarTography 1.0", _star.DateLastUpdated);
-			_star.Radius           = new Element ("Stellar Radius", double.Parse(importedData ["star"] [iteratorA] ["stellarRadius"]), "meter", 0.0d, "SI", "StarTography 1.0", _star.DateLastUpdated);
+			_star.Mass             = new Element ("Stellar Mass", ParseDouble(importedData ["star"] [iteratorA]["stellarMass"]), "Kg", 0.0d, "SI", "StarTography 1.0", _star.DateLastUpdated);
+			_star.Radius           = new Element ("Stellar Radius", ParseDouble(importedData ["star"] [iteratorA] ["stellarRadius"]), "meter", 0.0d, "SI", "StarTography 1.0", _star.DateLastUpdated);
 			//_star.Radius.Value    *= 100d; // An example of how to multiply by Stellar Radii
-			_star.Distance         = new Element("Distance", double.Parse(importedData ["star"] [iteratorA] ["distance"]), "meter", 0.0d, "SI", "StarTography 1.0", _star.DateLastUpdated);
-			_star.Luminosity       = new Element("Optical Magnitude", double.Parse(importedData ["star"] [iteratorA] ["opticalMagnitude"]), "lum", 0.0d, "SI", "StarTography 1.0", _star.DateLastUpdated);
-			_star.Temperature      = new Element("Temperature", double.Parse(importedData ["star"] [iteratorA] ["temperature"]), "celcius", 0.0d, "SI", "StarTography 1.0", _star.DateLastUpdated);
+			_star.Distance         = new Element("Distance", ParseDouble(importedData ["star"] [iteratorA] ["distance"]), "meter", 0.0d, "SI", "StarTography 1.0", _star.DateLastUpdated);
+			_star.Luminosity       = new Element("Optical Magnitude", ParseDouble(importedData ["star"] [iteratorA] ["opticalMagnitude"]), "lum", 0.0d, "SI", "StarTography 1.0", _star.DateLastUpdated);
+			_star.Temperature      = new Element("Temperature", ParseDouble(importedData ["star"] [iteratorA] ["temperature"]), "celcius", 0.0d, "SI", "StarTography 1.0", _star.DateLastUpdated);
 
 			_star.Distance.ToM();
 
@@ -130,6 +129,11 @@ public class CreateSolarSystems : MonoBehaviour {
 
 	}
 
+
+	private static double ParseDouble(JSONNode node) {
+		return double.Parse(node.Value, NumberStyles.Float | NumberStyles.AllowThousands, CultureInfo.InvariantCulture);
+	}
+
 	void Start() {
 
 
@@ -138,14 +142,14 @@ public class CreateSolarSystems : MonoBehaviour {
 			star.value.transform.position      = star.positionInSpace;
 			GameObject _starGameObject         = GameObject.CreatePrimitive(PrimitiveType.Sphere);  // Create the Star object
 			_starGameObject.name               = "Star: "+star.name;
-			_starGameObject.transform.parent   = star.value.transform;
+			_starGameObject.transform.SetParent(star.value.transform, true);
 			_starGameObject.transform.position = star.value.transform.position;
 			SphereCollider sphereCollider      = _starGameObject.GetComponent<SphereCollider>();
 			sphereCollider.isTrigger           = false;
 			sphereCollider.radius              = 1f;
 
 			GameObject _starDistanceColliders           = new GameObject("Star: "+star.name+": Distance Colliders");
-			_starDistanceColliders.transform.parent     = star.value.transform;
+			_starDistanceColliders.transform.SetParent(star.value.transform, true);
 			_starDistanceColliders.transform.position   = star.value.transform.position;
 
 			Element _starSize = new Element("Radius of the Star", star.key.Radius.Value, "stellarRadius", 0.0d, "si", "Allen's Astrophysical Quantities 4th Edition", star.key.DateLastUpdated);
@@ -166,7 +170,7 @@ public class CreateSolarSystems : MonoBehaviour {
 					colliderRadiusScale = 10f * Mathf.Exp ((i-3)/2f);
 
 				GameObject _starDistanceCollider           = new GameObject("Star: "+star.name+": Distance Collider "+i);
-				_starDistanceCollider.transform.parent     = _starDistanceColliders.transform;
+				_starDistanceCollider.transform.SetParent(_starDistanceColliders.transform, true);
 				_starDistanceCollider.transform.position   = star.value.transform.position;
 				_starDistanceCollider.transform.localScale = new Vector3(1f,1f,1f);
 				Rigidbody _sphereRigidbody                 = _starDistanceCollider.AddComponent<Rigidbody>();
@@ -180,11 +184,11 @@ public class CreateSolarSystems : MonoBehaviour {
 
 		// Prepare the planetary system parent
 		foreach (PlanetList planet in planets) {
-			planet.value.transform.parent        = planet.key.ParentStar.transform;
+			planet.value.transform.SetParent(planet.key.ParentStar.transform, true);
 			planet.value.transform.position      = planet.key.ParentStar.transform.position;
 			GameObject _planetGameObject         = GameObject.CreatePrimitive(PrimitiveType.Sphere);  // Create the Planet object
 			_planetGameObject.name               = "Planet: "+planet.name;
-			_planetGameObject.transform.parent   = planet.value.transform;
+			_planetGameObject.transform.SetParent(planet.value.transform, true);
 			_planetGameObject.transform.position = planet.value.transform.position;
 			SphereCollider sphereCollider        = _planetGameObject.GetComponent<SphereCollider>();
 			sphereCollider.isTrigger             = false;
@@ -194,11 +198,11 @@ public class CreateSolarSystems : MonoBehaviour {
 
 		// Prepare the moon system parent
 		foreach (MoonList moon in moons) {
-			moon.value.transform.parent        = moon.key.ParentPlanet.transform;
+			moon.value.transform.SetParent(moon.key.ParentPlanet.transform, true);
 			moon.value.transform.position      = moon.key.ParentPlanet.transform.position;
 			GameObject _moonGameObject         = GameObject.CreatePrimitive(PrimitiveType.Sphere);  // Create the Moon object
 			_moonGameObject.name               = "Moon: "+moon.name;
-			_moonGameObject.transform.parent   = moon.value.transform;
+			_moonGameObject.transform.SetParent(moon.value.transform, true);
 			_moonGameObject.transform.position = moon.value.transform.position;
 			SphereCollider sphereCollider      = _moonGameObject.GetComponent<SphereCollider>();
 			sphereCollider.isTrigger           = false;
