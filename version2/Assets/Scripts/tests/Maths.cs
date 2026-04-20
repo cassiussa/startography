@@ -1,15 +1,11 @@
 ﻿using UnityEngine;
 using System;
-using System.Collections;
 using Elements;
-using BodyElements;
 using System.Linq;
 
 namespace CustomMath
 {
-	
-	[System.Serializable] // Show it in the Inspector
-	public class Maths
+	public static class Maths
 	{
 		
 		/************************************************************
@@ -64,6 +60,9 @@ namespace CustomMath
 				} else if (_element.Measurement == "yottameter") {
 					_element.Value *= yottameter;
 					_measurement = "yottameter";
+				} else if (_element.Measurement == "au" || _element.Measurement == "astronomicalUnit") {
+					_element.Value *= au;
+					_measurement = "meter";
 				}
 
 				/* Time Conversion */
@@ -211,7 +210,7 @@ namespace CustomMath
 		 * We statically assign the size of each scale so that we can
 		 * quickly access the different scale sizes
 		 */
-		public static string[] distanceArray = new string[]{"meter", "kilometer", "megameter", "gigameter", "terameter", "petameter", "exameter", "zetameter", "yottameter"};
+		public static string[] distanceArray = new string[]{"meter", "kilometer", "megameter", "gigameter", "terameter", "petameter", "exameter", "zetameter", "yottameter", "au", "astronomicalUnit"};
 		public const double meter        = 1d;
 		public const double layer1       = 0.001d;
 		public const double kilometer    = 1000d;
@@ -271,7 +270,7 @@ namespace CustomMath
 
 
 		public static double RightAscensionToDegrees(RightAscension rightAscension) {
-			return (rightAscension.Hours * 15d) + (rightAscension.Minutes * 0.25d) + (rightAscension.Seconds * 0.004166d);
+			return (rightAscension.Hours * 15d) + (rightAscension.Minutes * 0.25d) + (rightAscension.Seconds * (1d / 240d));
 		}
 		public static double DeclinationToDegrees(Declination declination) {
 			return (Math.Abs (declination.Degrees) + (declination.DegreeMinutes / 60d) + (declination.DegreeSeconds / 3600d)) * Math.Sign (declination.Degrees);
@@ -286,9 +285,9 @@ namespace CustomMath
 
 			// Convert to cartesian values
 			// We divide by megameter so we have the base conversion.  Ex: 13,000,000meter = 13u
-			double _x = (distance/megameter) * Math.Sin(Maths.Deg2Rad * _declinationDegrees) * Math.Cos(Maths.Deg2Rad * _rightAscensionDegrees);
-			double _y = (distance/megameter) * Math.Sin(Maths.Deg2Rad * _declinationDegrees) * Math.Sin(Maths.Deg2Rad * _rightAscensionDegrees);
-			double _z = (distance/megameter) * Math.Cos(Maths.Deg2Rad * _declinationDegrees);
+			double _x = (distance/megameter) * Math.Cos(Maths.Deg2Rad * _declinationDegrees) * Math.Cos(Maths.Deg2Rad * _rightAscensionDegrees);
+			double _y = (distance/megameter) * Math.Cos(Maths.Deg2Rad * _declinationDegrees) * Math.Sin(Maths.Deg2Rad * _rightAscensionDegrees);
+			double _z = (distance/megameter) * Math.Sin(Maths.Deg2Rad * _declinationDegrees);
 			return new Vector3d (_x, _y, _z );
 		}
 

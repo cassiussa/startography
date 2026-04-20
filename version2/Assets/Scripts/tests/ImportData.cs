@@ -1,7 +1,6 @@
-﻿using UnityEngine;
-using System.Collections;
-using System.IO;
+﻿using System.IO;
 using SimpleJSON;
+using UnityEngine;
 
 
 namespace ImportData
@@ -9,13 +8,16 @@ namespace ImportData
 
 	public class Data {
 
-		static string fileName = "Assets/Scripts/data.json";
-		public static StreamReader data = File.OpenText(fileName);
+		private static readonly string FileName = Path.Combine(Application.dataPath, "Scripts/data.json");
 		public static JSONNode importedData;
 
 		[HideInInspector]
 		public string JSONData;    // Holds the data.json file data
 		public int numberOfStars;
+
+		public static string LoadJson() {
+			return File.ReadAllText(FileName);
+		}
 
 
 		/*void Awake () {
