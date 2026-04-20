@@ -225,6 +225,8 @@ namespace Elements
 					value *= Maths.zetameter;
 				else if (measurement == "yottameter")
 					value *= Maths.yottameter;
+				else if (measurement == "au" || measurement == "astronomicalUnit")
+					value *= Maths.au;
 
 			/* Size, Radius & Mass Conversion */
 			} else if(Maths.othersArray.Contains (measurement)) {
@@ -306,6 +308,10 @@ namespace Elements
 		public virtual void ToYM() {
 			this.Value = SetMeasurementTo (this.Value, this.Measurement) / Maths.yottameter;
 			this.Measurement = "yottameter";
+		}
+		public virtual void ToAU() {
+			this.Value = SetMeasurementTo (this.Value, this.Measurement) / Maths.au;
+			this.Measurement = "au";
 		}
 		/* Time Conversions */
 		public virtual void ToSecond() {

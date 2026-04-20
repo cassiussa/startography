@@ -60,6 +60,9 @@ namespace CustomMath
 				} else if (_element.Measurement == "yottameter") {
 					_element.Value *= yottameter;
 					_measurement = "yottameter";
+				} else if (_element.Measurement == "au" || _element.Measurement == "astronomicalUnit") {
+					_element.Value *= au;
+					_measurement = "meter";
 				}
 
 				/* Time Conversion */
@@ -207,7 +210,7 @@ namespace CustomMath
 		 * We statically assign the size of each scale so that we can
 		 * quickly access the different scale sizes
 		 */
-		public static string[] distanceArray = new string[]{"meter", "kilometer", "megameter", "gigameter", "terameter", "petameter", "exameter", "zetameter", "yottameter"};
+		public static string[] distanceArray = new string[]{"meter", "kilometer", "megameter", "gigameter", "terameter", "petameter", "exameter", "zetameter", "yottameter", "au", "astronomicalUnit"};
 		public const double meter        = 1d;
 		public const double layer1       = 0.001d;
 		public const double kilometer    = 1000d;
